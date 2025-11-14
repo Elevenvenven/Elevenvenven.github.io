@@ -222,7 +222,7 @@
         }
 /* --- 6b. 生活日常 (Moments Gallery) --- */
         #moments h2 {
-            text-align: center; /* 标题居中 */
+            text-align: center;
         }
         #moments .subtitle {
             text-align: center;
@@ -235,15 +235,15 @@
 
         .gallery-grid {
             display: grid;
-            /* 响应式网格：每张图最小250px，最大1fr (平分) */
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .gallery-item {
+            position: relative; /* 新增: 为日期定位 */
             border-radius: 10px;
-            overflow: hidden; /* 保证图片不会超出圆角 */
+            overflow: hidden;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -251,19 +251,44 @@
         .gallery-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 保证图片不变形地填满容器 */
-            display: block; /* 移除图片底部的微小空隙 */
+            object-fit: cover;
+            display: block;
             transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        /* */
+        .moment-date {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            transition: all 0.3s ease;
         }
 
         .gallery-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 188, 212, 0.2);
         }
-
         .gallery-item:hover img {
-            transform: scale(1.05); /* 悬停时图片轻微放大 */
+            transform: scale(1.05);
             opacity: 0.9;
+        }
+        .gallery-item:hover .moment-date {
+             /* 悬停时让日期更显眼 */
+            background-color: var(--primary-color);
+            color: #111;
+        }
+        
+        /* */
+        #load-more-btn {
+            display: block; /* 设为块级元素 */
+            margin: 2rem auto 0 auto; /* 顶部外边距 + 自动水平居中 */
         }
         /* --- 7. 联系我 (Contact) & 页脚 (Footer) --- */
         #contact {
@@ -446,33 +471,6 @@
             </div>
         </section>
 
-        <section id="moments">
-            <div class="container">
-                <h2>我的日常 (My Moments)</h2>
-                <p class="subtitle">一些生活的碎片，记录我不在电脑前的时光。</p>
-                
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="https://source.unsplash.com/random/400x400?coffee,morning" alt="生活瞬间1 - 咖啡">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://source.unsplash.com/random/400x400?travel,city" alt="生活瞬间2 - 旅行">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://source.unsplash.com/random/400x400?nature,hiking" alt="生活瞬间3 - 徒步">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://source.unsplash.com/random/400x400?food,cooking" alt="生活瞬间4 - 美食">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://source.unsplash.com/random/400x400?book,reading" alt="生活瞬间5 - 阅读">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://source.unsplash.com/random/400x400?pet,dog" alt="生活瞬间6 - 宠物">
-                    </div>
-                </div>
-            </div>
-        </section>
         
         <section id="contact">
             <div class="container">
@@ -541,6 +539,133 @@
                     navLi[0].classList.add('active');
                 }
             });
+// --- 3. (新增) Moments 画廊 "加载更多" 逻辑 ---
+
+            // **********************************************************
+            // *** 您未来上传照片, 只需要修改这里的 `allMoments` 列表! ***
+            // **********************************************************
+            // 规则: 
+            // 1. 在 `allMoments` 数组中添加新行。
+            // 2. 复制 { ... } 的格式。
+            // 3. 替换 "img" (图片链接), "alt" (图片描述), "date" (日期)。
+            // 4. 确保每行末尾都有一个逗号 , (最后一行可有可无)。
+            // 5. 最新的照片放在最上面！
+            const allMoments = [
+                { 
+                    img: "https://source.unsplash.com/random/400x400?cat,funny", 
+                    alt: "一只猫", 
+                    date: "2025-11-15" 
+                },
+                { 
+                    img: "https://source.unsplash.com/random/400x400?sunset,beach", 
+                    alt: "海边日落", 
+                    date: "2025-11-14" 
+                },
+                { 
+                    img: "https://source.unsplash.com/random/400x400?coffee,desk", 
+                    alt: "桌上的咖啡", 
+                    date: "2025-11-13" 
+                },
+                { 
+                    img: "https://source.unsplash.com/random/400x400?cyberpunk,city", 
+                    alt: "赛博朋克城市", 
+                    date: "2025-11-12" 
+                },
+                { 
+                    img: "https://source.unsplash.com/random/400x400?hiking,mountain", 
+                    alt: "登山", 
+                    date: "2025-11-10" 
+                },
+                { 
+                    img: "https://source.unsplash.com/random/400x400?food,pizza", 
+                    alt: "披萨", 
+                    date: "2025-11-09" 
+                },
+                // --- 默认加载到此 (共 6 张) ---
+                { 
+                    img: "https://source.unsplash.com/random/400x400?book,library", 
+                    alt: "图书馆", 
+                    date: "2025-11-05" 
+                },
+                { 
+                    img: "https://source.unsplash.com/random/400x400?concert,music", 
+                    alt: "音乐会", 
+                    date: "2025-11-02" 
+                },
+                { 
+                    img: "https://source.unsplash.com/random/400x400?rain,window", 
+                    alt: "雨天的窗户", 
+                    date: "2025-10-30" 
+                }
+                // --- 您可以在这里继续添加 ---
+                // { img: "...", alt: "...", date: "..." },
+            ];
+
+            const INITIAL_SHOW = 6;  // 初始显示 6 张
+            const LOAD_MORE_COUNT = 3; // 每次加载 3 张
+            let currentIndex = 0;      // 当前已显示的索引
+
+            const galleryGrid = document.getElementById('gallery-grid');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+
+            // 1. 创建单个 moment 卡片的函数
+            function createMomentElement(moment) {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                
+                // 使用 innerHTML 一次性创建内部结构
+                item.innerHTML = `
+                    <img src="${moment.img}" alt="${moment.alt}">
+                    <span class="moment-date">${moment.date}</span>
+                `;
+                return item;
+            }
+
+            // 2. 渲染照片到页面的函数
+            function renderMoments(moments) {
+                moments.forEach(moment => {
+                    galleryGrid.appendChild(createMomentElement(moment));
+                });
+            }
+
+            // 3. “加载更多”按钮的点击事件
+            function loadMore() {
+                // 获取下一批要加载的照片
+                const momentsToLoad = allMoments.slice(currentIndex, currentIndex + LOAD_MORE_COUNT);
+                
+                // 渲染它们
+                renderMoments(momentsToLoad);
+
+                // 更新索引
+                currentIndex += LOAD_MORE_COUNT;
+
+                // 如果已加载的照片数量 >= 总数, 隐藏按钮
+                if (currentIndex >= allMoments.length) {
+                    loadMoreBtn.style.display = 'none'; 
+                }
+            }
+
+            // 4. 页面初始加载
+            function initializeGallery() {
+                // 初始渲染
+                const initialMoments = allMoments.slice(0, INITIAL_SHOW);
+                renderMoments(initialMoments);
+                
+                // 更新索引
+                currentIndex = INITIAL_SHOW;
+
+                // 检查是否需要一开始就隐藏按钮 (如果总数 <= 初始数)
+                if (currentIndex >= allMoments.length) {
+                    loadMoreBtn.style.display = 'none';
+                }
+
+                // 绑定点击事件
+                loadMoreBtn.addEventListener('click', loadMore);
+            }
+
+            // 启动画廊
+            initializeGallery();
+            
         });
     </script>
 
