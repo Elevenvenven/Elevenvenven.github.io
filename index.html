@@ -220,7 +220,51 @@
         .project-link:hover {
             text-decoration: underline;
         }
+/* --- 6b. 生活日常 (Moments Gallery) --- */
+        #moments h2 {
+            text-align: center; /* 标题居中 */
+        }
+        #moments .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-secondary);
+        }
 
+        .gallery-grid {
+            display: grid;
+            /* 响应式网格：每张图最小250px，最大1fr (平分) */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden; /* 保证图片不会超出圆角 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 保证图片不变形地填满容器 */
+            display: block; /* 移除图片底部的微小空隙 */
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 188, 212, 0.2);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05); /* 悬停时图片轻微放大 */
+            opacity: 0.9;
+        }
         /* --- 7. 联系我 (Contact) & 页脚 (Footer) --- */
         #contact {
             text-align: center;
@@ -402,6 +446,34 @@
             </div>
         </section>
 
+        <section id="moments">
+            <div class="container">
+                <h2>我的日常 (My Moments)</h2>
+                <p class="subtitle">一些生活的碎片，记录我不在电脑前的时光。</p>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://source.unsplash.com/random/400x400?coffee,morning" alt="生活瞬间1 - 咖啡">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://source.unsplash.com/random/400x400?travel,city" alt="生活瞬间2 - 旅行">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://source.unsplash.com/random/400x400?nature,hiking" alt="生活瞬间3 - 徒步">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://source.unsplash.com/random/400x400?food,cooking" alt="生活瞬间4 - 美食">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://source.unsplash.com/random/400x400?book,reading" alt="生活瞬间5 - 阅读">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://source.unsplash.com/random/400x400?pet,dog" alt="生活瞬间6 - 宠物">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section id="contact">
             <div class="container">
                 <h2>联系我</h2>
