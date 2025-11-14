@@ -257,39 +257,65 @@
         }
         
         /* */
-        .moment-date {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 2;
-            transition: all 0.3s ease;
+        #moments h2 { text-align: center; }
+        #moments .subtitle {
+            text-align: center; font-size: 1.1rem;
+            max-width: 600px; margin-left: auto; margin-right: auto;
+            color: var(--text-secondary);
         }
 
+        /* */
+        .gallery-grid {
+            /* 移除了 display: grid 和 grid-template-columns */
+            column-count: 3; /* 桌面端 3 列 */
+            column-gap: var(--item-gap); /* 列之间的间距 */
+            margin-top: 2rem;
+        }
+
+        /* */
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            
+            /* 关键: 防止一个 item 在两列中断开 */
+            break-inside: avoid; 
+            
+            /* 关键: 添加 item 之间的垂直间距 */
+            margin-bottom: var(--item-gap); 
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto; /* */
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .moment-date {
+            position: absolute; bottom: 10px; left: 10px;
+            background-color: rgba(0, 0, 0, 0.7); color: #fff;
+            padding: 4px 8px; border-radius: 5px;
+            font-size: 0.8rem; font-weight: 600;
+            z-index: 2; transition: all 0.3s ease;
+        }
         .gallery-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 188, 212, 0.2);
         }
-        .gallery-item:hover img {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
+        .gallery-item:hover img { transform: scale(1.05); opacity: 0.9; }
         .gallery-item:hover .moment-date {
-             /* 悬停时让日期更显眼 */
-            background-color: var(--primary-color);
-            color: #111;
+            background-color: var(--primary-color); color: #111;
         }
         
-        /* */
         #load-more-btn {
-            display: block; /* 设为块级元素 */
-            margin: 2rem auto 0 auto; /* 顶部外边距 + 自动水平居中 */
+            display: block;
+            margin: 1rem auto 0 auto; /* 减小了顶部边距 */
         }
+
         /* --- 7. 联系我 (Contact) & 页脚 (Footer) --- */
         #contact {
             text-align: center;
@@ -564,49 +590,49 @@
             const allMoments = [
                 { 
                     img: "WechatIMG698 1.jpg", 
-                    alt: "一只猫", 
+                    alt: "", 
                     date: "2025-11-14" 
                 },
                 { 
                     img: "WechatIMG380.jpg", 
-                    alt: "海边日落", 
+                    alt: "", 
                     date: "2025-11-14" 
                 },
                 { 
                     img: "WechatIMG250.jpg", 
-                    alt: "桌上的咖啡", 
+                    alt: "", 
                     date: "2025-11-14" 
                 },
                 { 
                     img: "IMG_0007.JPG", 
-                    alt: "赛博朋克城市", 
+                    alt: "", 
                     date: "2025-11-14" 
                 },
                 { 
                     img: "IMG_0465.JPG", 
-                    alt: "登山", 
-                    date: "2025-11-10" 
+                    alt: "", 
+                    date: "2025-11-14" 
                 },
                 { 
                     img: "3583eaeea1195c86fbc325a03b68d3dc.jpg", 
-                    alt: "披萨", 
-                    date: "2025-11-09" 
+                    alt: "", 
+                    date: "2025-11-14" 
                 },
                 // --- 默认加载到此 (共 6 张) ---
                 { 
                     img: "WechatIMG693.jpg", 
-                    alt: "图书馆", 
-                    date: "2025-11-05" 
+                    alt: "", 
+                    date: "2025-11-14" 
                 },
                 { 
                     img: "https://source.unsplash.com/random/400x400?concert,music", 
-                    alt: "音乐会", 
-                    date: "2025-11-02" 
+                    alt: "", 
+                    date: "2025-11-14" 
                 },
                 { 
                     img: "https://source.unsplash.com/random/400x400?rain,window", 
-                    alt: "雨天的窗户", 
-                    date: "2025-10-30" 
+                    alt: "", 
+                    date: "2025-11-14" 
                 }
                 // --- 您可以在这里继续添加 ---
                 // { img: "...", alt: "...", date: "..." },
