@@ -42,10 +42,15 @@
         }
 
         /* --- 2. 全局重置与基础样式 (无修改) --- */
-        /* ... (折叠) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', 'Noto Sans SC', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.7; transition: background-color 0.3s ease, color 0.3s ease; }
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
         h1, h2, h3 { color: var(--text-color); margin-bottom: 1rem; font-weight: 700; }
         h1 { font-size: 3rem; }
@@ -54,8 +59,14 @@
         section { padding: 80px 0; border-bottom: none; }
 
         /* --- 3. 导航栏 (Header) (无修改) --- */
-        /* ... (折叠) ... */
-        .navbar { position: sticky; top: 0; width: 100%; background-color: var(--nav-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border-color); transition: background-color 0.3s ease, border-color 0.3s ease; }
+        .navbar {
+            position: sticky; top: 0; width: 100%;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 1000; border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        /* ... (折叠导航栏样式) ... */
         .navbar .container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
         .navbar .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
         .navbar ul { display: flex; list-style: none; align-items: center; }
@@ -66,40 +77,13 @@
         #theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
 
 
-        /* * --- 4. (重大修改) 英雄/主页 (Hero) --- */
+        /* --- 4. 英雄/主页 (Hero) (无修改) --- */
         #hero {
             height: 90vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
         }
         #hero h1 { font-size: 4rem; margin-bottom: 1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* (修改) 恢复 V11 的 P 标签样式 */
-        #hero p {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            min-height: 2.2rem; /* 为打字机留出空间, 防止跳动 */
-        }
-        
-        /* (新增) 打字机光标样式 */
-        .typed-cursor {
-            opacity: 1;
-            font-weight: 400;
-            color: var(--primary-color);
-            animation: typed-blink 0.7s infinite;
-        }
-        @keyframes typed-blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        
-        /* (新增) 打字机打出的文字样式 */
-        #typed-words {
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        /* (CTA 按钮无修改) */
+        #hero p { font-size: 1.5rem; color: var(--text-secondary); min-height: 2.2rem; }
         .cta-button {
             display: inline-block; margin-top: 1.5rem; padding: 12px 25px;
             background-color: var(--primary-color); color: #ffffff;
@@ -118,31 +102,120 @@
             margin-bottom: 1.5rem; box-shadow: 0 4px 15px var(--shadow-color);
         }
         
-        /* --- 6. 项目 (Projects) (无修改) --- */
-        .filter-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 2rem; }
-        .filter-nav button { background-color: var(--secondary-color); color: var(--text-secondary); border: 1px solid var(--border-color); padding: 8px 18px; border-radius: 30px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s ease; }
-        .filter-nav button:hover { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
-        .filter-nav button.active { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3); }
-        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; perspective: 1000px; }
-        .project-card { background-color: var(--secondary-color); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px var(--shadow-color); transition: box-shadow 0.3s ease, transform 0.1s ease; transform-style: preserve-3d; }
-        .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 15px; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%); opacity: 0; transition: opacity 0.3s ease; z-index: 2; }
-        .project-card.is-hovering { box-shadow: 0 20px 40px var(--shadow-color); }
-        .project-card.is-hovering::before { opacity: 1; }
-        .project-card img { width: 100%; height: 200px; object-fit: cover; background-color: #eee; transform: translateZ(20px); }
-        .project-content { padding: 1.5rem; transform: translateZ(10px); }
+        /* * --- 6. (重大修改) 项目 (Projects) --- */
+        
+        /* (新增) 筛选按钮导航栏 */
+        .filter-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 2rem; /* 和下面的网格拉开距离 */
+        }
+        .filter-nav button {
+            background-color: var(--secondary-color);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: 30px; /* 胶囊按钮 */
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .filter-nav button:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+        .filter-nav button.active {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            /* 关键: 3D 效果的透视 */
+            perspective: 1000px;
+        }
+
+        .project-card {
+            background-color: var(--secondary-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            
+            /* 关键: 3D 倾斜动画 */
+            transition: box-shadow 0.3s ease, transform 0.1s ease; /* 倾斜变换要快 */
+            transform-style: preserve-3d;
+        }
+        
+        /* (新增) 3D 倾斜的反光层 */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+        
+        .project-card.is-hovering {
+             box-shadow: 0 20px 40px var(--shadow-color);
+        }
+        .project-card.is-hovering::before {
+            opacity: 1; /* 鼠标悬停时显示反光 */
+        }
+        
+
+        .project-card img {
+            width: 100%; height: 200px; object-fit: cover;
+            background-color: #eee;
+            /* 关键: 3D 效果的一部分 */
+            transform: translateZ(20px); /* 让图片在卡片中“凸”出来一点 */
+        }
+        .project-content {
+            padding: 1.5rem;
+            transform: translateZ(10px); /* 文字也凸出来一点 */
+        }
         .project-content h3 { margin-top: 0; color: var(--text-color); }
         .project-content p { font-size: 0.9rem; }
         .project-link { display: inline-block; margin-top: 1rem; color: var(--primary-color); text-decoration: none; font-weight: 700; }
         .project-link:hover { text-decoration: underline; }
-        .project-card { transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.3s ease; }
-        .project-card.hide { transform: scale(0.8); opacity: 0; pointer-events: none; }
-        .project-card.show { transform: scale(1); opacity: 1; }
+
+        /* (新增) 项目卡片隐藏/显示的动画 */
+        .project-card {
+            transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.3s ease;
+        }
+        .project-card.hide {
+            transform: scale(0.8);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .project-card.show {
+            transform: scale(1);
+            opacity: 1;
+        }
 
 
         /* --- 6b. 生活日常 (Moments Gallery) (无修改) --- */
         #moments h2 { text-align: center; }
-        #moments .subtitle { text-align: center; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; color: var(--text-secondary); }
-        .gallery-grid { display: flex; flex-wrap: wrap; gap: var(--gallery-gap); margin-top: 2rem; }
+        #moments .subtitle {
+            text-align: center; font-size: 1.1rem;
+            max-width: 600px; margin-left: auto; margin-right: auto;
+            color: var(--text-secondary);
+        }
+        .gallery-grid {
+            display: flex; flex-wrap: wrap;
+            gap: var(--gallery-gap); margin-top: 2rem;
+        }
         /* ... (折叠 Moments CSS) ... */
         .gallery-item { position: relative; flex-grow: 1; flex-basis: var(--gallery-item-basis); height: var(--gallery-item-height); border-radius: 5px; overflow: hidden; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; background-color: var(--secondary-color); transition: opacity 0.3s ease, transform 0.3s ease; }
@@ -155,7 +228,14 @@
         #load-more-btn { display: block; margin: 1.5rem auto 0 auto; }
 
         /* --- 模态框 (Modal) 样式 (无修改) --- */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        .modal {
+            display: none; position: fixed;
+            z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center; align-items: center;
+            backdrop-filter: blur(10px);
+        }
         /* ... (折叠模态框样式) ... */
         .modal-content { position: relative; background-color: var(--secondary-color); padding: 20px; border-radius: 15px; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
@@ -176,7 +256,6 @@
 
         /* --- 7. 联系我 (Contact) & 页脚 (Footer) (无修改) --- */
         #contact { text-align: center; }
-        /* ... (折叠) ... */
         .social-links { list-style: none; display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
         .social-links a { color: var(--text-secondary); font-size: 1.5rem; transition: color 0.3s ease, transform 0.3s ease; }
         .social-links a:hover { color: var(--primary-color); transform: scale(1.1); }
@@ -184,7 +263,6 @@
 
         /* --- 8. 响应式设计 (Mobile) (无修改) --- */
         .menu-toggle { display: none; cursor: pointer; font-size: 1.8rem; color: var(--text-color); }
-        /* ... (折叠) ... */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             #hero h1 { font-size: 3rem; }
@@ -201,11 +279,18 @@
         }
         
         /* --- 9. 滚动淡入动画 (无修改) --- */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
         .fade-in-delay-1 { transition-delay: 0.1s; }
         .fade-in-delay-2 { transition-delay: 0.2s; }
         .fade-in-delay-3 { transition-delay: 0.3s; }
-        .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
     </style>
 </head>
@@ -233,11 +318,7 @@
     <main>
         <section id="hero">
             <h1>你好，我是11_sum</h1>
-            
-            <p>
-                我是一名 <span id="typed-words"></span>
-            </p>
-            
+            <p id="typed-subtitle">一名学生，AI&EE领域学习者，日常学习&玩耍&研究&睡觉😴。</p>
             <p>“The more you experience, the more open-mind you will be.🥸”</p>
             <p>Much more content coming soon……</p>
             <a href="#projects" class="cta-button">查看我的项目&学习😼</a>
@@ -260,6 +341,7 @@
                 <h2 class="fade-in">项目&学习</h2>
                 <div id="project-filter-nav" class="filter-nav fade-in">
                     </div>
+                
                 <div class="project-grid" id="project-grid">
                     </div>
             </div>
@@ -311,46 +393,75 @@
             const navLi = document.querySelectorAll('.navbar nav ul li a');
             window.addEventListener('scroll', () => { let current = ''; sections.forEach(section => { if (pageYOffset >= (section.offsetTop - 75)) { current = section.getAttribute('id'); } }); navLi.forEach(a => { a.classList.remove('active'); if (a.getAttribute('href') === '#' + current) { a.classList.add('active'); } }); if (current === 'hero' || pageYOffset < sections[0].offsetTop - 75) { navLi[0].classList.add('active'); } });
 
-            // --- 3. 动态内容加载 JS (无修改) ---
-            // (折叠 Projects JS 逻辑) ...
-            let allProjects = []; 
+            // --- 3. (重大修改) 动态内容加载 JS ---
+            
+            let allProjects = []; // 全局存储所有项目
             const projectGrid = document.getElementById('project-grid');
             const filterNav = document.getElementById('project-filter-nav');
-            fetch('projects.json').then(response => response.json()).then(projects => {
-                allProjects = projects; 
-                const tags = new Set(['All']);
-                projects.forEach(p => p.tags.forEach(tag => tags.add(tag)));
-                tags.forEach(tag => {
-                    const btn = document.createElement('button');
-                    btn.textContent = tag;
-                    btn.dataset.tag = tag;
-                    if (tag === 'All') { btn.classList.add('active'); }
-                    btn.addEventListener('click', () => {
-                        filterNav.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        renderProjects(tag);
+
+            // (A) 加载项目 (Projects)
+            fetch('projects.json')
+                .then(response => response.json())
+                .then(projects => {
+                    allProjects = projects; // 存入全局变量
+                    
+                    // (新增) 智能生成筛选按钮
+                    const tags = new Set(['All']); // 使用 Set 自动去重, "All" 是必须的
+                    projects.forEach(p => p.tags.forEach(tag => tags.add(tag)));
+                    
+                    tags.forEach(tag => {
+                        const btn = document.createElement('button');
+                        btn.textContent = tag;
+                        btn.dataset.tag = tag;
+                        if (tag === 'All') {
+                            btn.classList.add('active'); // 默认激活 "All"
+                        }
+                        
+                        // (新增) 为按钮添加点击筛选事件
+                        btn.addEventListener('click', () => {
+                            // 移除所有按钮的 active 状态
+                            filterNav.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                            // 给当前按钮添加 active
+                            btn.classList.add('active');
+                            // 渲染项目
+                            renderProjects(tag);
+                        });
+                        filterNav.appendChild(btn);
                     });
-                    filterNav.appendChild(btn);
-                });
-                renderProjects('All');
-            }).catch(error => console.error('Error loading projects:', error));
+
+                    // 初始渲染所有项目
+                    renderProjects('All');
+                })
+                .catch(error => console.error('Error loading projects:', error));
+
+            // (新增) 渲染项目的函数
             function renderProjects(filterTag) {
-                const filteredProjects = (filterTag === 'All') ? allProjects : allProjects.filter(p => p.tags.includes(filterTag));
+                // 1. 过滤
+                const filteredProjects = (filterTag === 'All')
+                    ? allProjects
+                    : allProjects.filter(p => p.tags.includes(filterTag));
+                
+                // 2. 标记需要隐藏的卡片
+                // (更优化的动画逻辑: 不清空, 而是隐藏/显示)
                 const existingCards = projectGrid.querySelectorAll('.project-card');
-                let cardMap = {};
+                let cardMap = {}; // 用 Map 存储已存在的卡片
                 existingCards.forEach(card => {
-                    card.classList.add('hide'); 
-                    card.classList.remove('show');
+                    card.classList.add('hide'); // 先全部标记为隐藏
                     cardMap[card.dataset.title] = card;
                 });
+
+                // 3. 渲染
                 filteredProjects.forEach((project, index) => {
                     if (cardMap[project.title]) {
+                        // 如果卡片已存在, 仅显示它
                         cardMap[project.title].classList.remove('hide');
-                        setTimeout(() => cardMap[project.title].classList.add('show'), 10); 
+                        cardMap[project.title].classList.add('show');
                     } else {
+                        // 如果是新卡片 (或初始加载)
                         const card = document.createElement('div');
-                        card.className = `project-card fade-in`;
-                        card.dataset.title = project.title; 
+                        card.className = `project-card fade-in show`;
+                        card.dataset.title = project.title; // 存储 title 用于查找
+                        
                         card.innerHTML = `
                             <img src="${project.image}" alt="${project.title}">
                             <div class="project-content">
@@ -360,13 +471,17 @@
                             </div>
                         `;
                         projectGrid.appendChild(card);
+                        
+                        // (新增) 为新卡片注册3D倾斜和滚动动画
                         initTiltEffect(card);
                         registerFadeInElement(card);
-                        setTimeout(() => card.classList.add('show'), 10);
                     }
                 });
             }
-            // (折叠 Moments JS 逻辑) ...
+
+
+            // (B) 加载日常 (Moments) (无修改)
+            // ... (折叠 Moments JS 逻辑) ...
             let allMoments = [];
             const INITIAL_SHOW = 4;
             const LOAD_MORE_COUNT = 10;
@@ -405,35 +520,79 @@
             function toggleTheme() { if (htmlEl.classList.contains('dark-mode')) { htmlEl.classList.remove('dark-mode'); localStorage.setItem('theme', 'light-mode'); themeToggleBtns.forEach(btn => btn.textContent = '🌙'); } else { htmlEl.classList.add('dark-mode'); localStorage.setItem('theme', 'dark-mode'); themeToggleBtns.forEach(btn => btn.textContent = '☀️'); } }
             themeToggleBtns.forEach(btn => { btn.addEventListener('click', () => { toggleTheme(); if (navMenu.classList.contains('active')) { navMenu.classList.remove('active'); } }); });
 
-            
-            // * --- 5. (重大修改) Hero “智能”打字机 JS ---
-            new Typed('#typed-words', {
-                strings: [
-                    "学生。",
-                    "AI&EE领域学习者。",
-                    "开发者。",
-                    "终身学习者。",
-                    "日常玩耍&研究&睡觉😴。"
-                ],
-                typeSpeed: 60, // 打字速度
-                backSpeed: 30, // 退格速度
-                backDelay: 2000, // 打完后停留时间
-                startDelay: 500, // 开始前延迟
-                loop: true,
-                smartBackspace: false, // 保证每次都删除完整的词
-                cursorChar: '|', // 使用 `|` 作为光标
-            });
+            // --- 5. Hero 打字机特效 JS (无修改) ---
+            // ... (折叠代码) ...
+            new Typed('#typed-subtitle', { strings: ["一名学生，AI&EE领域学习者。", "日常学习&玩耍&研究&睡觉😴。", "A student, AI & EE learner.", "Coding, Gaming, Researching, Sleeping... 😴"], typeSpeed: 50, backSpeed: 30, backDelay: 2000, startDelay: 500, loop: true, smartBackspace: true });
 
-            // --- 6. 滚动淡入动画 JS (无修改) ---
-            // ... (折叠代码) ...
+            // --- 6. (重大修改) 滚动淡入动画 JS ---
             let fadeInObserver;
-            function registerFadeInElement(el) { if (fadeInObserver) { fadeInObserver.observe(el); } }
-            function initializeFadeInObserver() { const fadeInElements = document.querySelectorAll('.fade-in'); fadeInObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); fadeInObserver.unobserve(entry.target); } }); }, { threshold: 0.1 }); fadeInElements.forEach(el => { fadeInObserver.observe(el); }); }
-            initializeFadeInObserver();
+
+            function registerFadeInElement(el) {
+                if (fadeInObserver) {
+                    fadeInObserver.observe(el);
+                }
+            }
+
+            function initializeFadeInObserver() {
+                const fadeInElements = document.querySelectorAll('.fade-in');
+                
+                fadeInObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            // 动画只播放一次, 播放后停止观察
+                            fadeInObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                fadeInElements.forEach(el => {
+                    fadeInObserver.observe(el);
+                });
+            }
+            initializeFadeInObserver(); // 初始注册
             
-            // --- 7. 3D 倾斜特效 JS (无修改) ---
-            // ... (折叠代码) ...
-            function initTiltEffect(card) { const MAX_ROTATION = 10; card.addEventListener('mousemove', (e) => { const rect = card.getBoundingClientRect(); const cardWidth = rect.width; const cardHeight = rect.height; const x = (e.clientX - rect.left - cardWidth / 2) / (cardWidth / 2); const y = (e.clientY - rect.top - cardHeight / 2) / (cardHeight / 2); const rotateX = y * MAX_ROTATION; const rotateY = -x * MAX_ROTATION; card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`; }); card.addEventListener('mouseenter', () => { card.classList.add('is-hovering'); }); card.addEventListener('mouseleave', () => { card.classList.remove('is-hovering'); card.style.transform = 'rotateX(0) rotateY(0) scale(1)'; }); }
+            // --- 7. (新增) 3D 倾斜特效 JS ---
+            function initTiltEffect(card) {
+                const MAX_ROTATION = 10; // 最大倾斜角度 (度)
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const cardWidth = rect.width;
+                    const cardHeight = rect.height;
+                    
+                    // 计算鼠标在卡片内的相对位置 (-0.5 到 0.5)
+                    const x = (e.clientX - rect.left - cardWidth / 2) / (cardWidth / 2);
+                    const y = (e.clientY - rect.top - cardHeight / 2) / (cardHeight / 2);
+
+                    // 计算 Y 轴旋转 (左右倾斜) 和 X 轴旋转 (上下倾斜)
+                    // (y * MAX) 让鼠标上下移动时, 卡片上下倾斜
+                    // -(x * MAX) 让鼠标左右移动时, 卡片左右倾斜 (加负号反转方向)
+                    const rotateX = y * MAX_ROTATION;
+                    const rotateY = -x * MAX_ROTATION;
+                    
+                    // 计算反光层的位置
+                    // (x * 100) 和 (y * 100) 移动渐变, 幅度更大
+                    const gradientX = x * 100;
+                    const gradientY = y * 100;
+                    
+                    // 应用变换
+                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                    
+                    // (可选: 移动反光层, 但我们CSS里是固定渐变, 悬停显示)
+                    // const glare = card.querySelector('::before'); // 伪元素不能用 JS 直接选
+                });
+
+                card.addEventListener('mouseenter', () => {
+                    card.classList.add('is-hovering');
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.classList.remove('is-hovering');
+                    // 恢复原状
+                    card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+                });
+            }
             
         });
     </script>
