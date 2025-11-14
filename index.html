@@ -54,7 +54,7 @@
             font-family: 'Inter', 'Noto Sans SC', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.7; /* 优化: 增加行高 */
+            line-height: 1.7; 
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -73,8 +73,8 @@
         h1 { font-size: 3rem; }
         h2 { 
             font-size: 2.2rem; 
-            font-weight: 800; /* 优化: 标题加粗 */
-            letter-spacing: -0.5px; /* 优化: 字母间距 */
+            font-weight: 800; 
+            letter-spacing: -0.5px;
         }
 
         p {
@@ -83,8 +83,8 @@
         }
 
         section {
-            padding: 80px 0; /* 优化: 增加上下间距 */
-            border-bottom: none; /* 优化: 移除边框, 靠留白分割 */
+            padding: 90px 0; /* 优化: 增加上下间距 (80px -> 90px) */
+            border-bottom: none; 
         }
 
         /* --- 3. 导航栏 (Header) (无修改) --- */
@@ -109,9 +109,9 @@
         #theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
 
 
-        /* --- 4. 英雄/主页 (Hero) (修改) --- */
+        /* --- 4. 英雄/主页 (Hero) (重大修改) --- */
         #hero {
-            height: 90vh;
+            height: 100vh; /* 优化: 改为 100vh, 占满全屏 */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -130,10 +130,36 @@
         #hero p {
             font-size: 1.5rem;
             color: var(--text-secondary);
-            min-height: 2.2rem; /* 优化: 为打字机留出空间, 防止跳动 */
         }
 
-        /* CTA 按钮 (无修改) */
+        /* (新增) CSS 打字机动画 */
+        #hero p:nth-of-type(1) {
+            font-family: monospace; /* 使用等宽字体模拟打字机 */
+            display: inline-block;
+            overflow: hidden; /* 隐藏超出部分 */
+            white-space: nowrap; /* 强制不换行 */
+            border-right: .15em solid var(--primary-color); /* 模拟光标 */
+            width: 0; /* 初始宽度为0 */
+            animation: 
+                typing 3.5s steps(40, end) forwards,
+                blink-caret .75s step-end infinite;
+            animation-delay: 0.5s; /* 延迟 0.5s 开始 */
+            max-width: 600px; /* 限制最大宽度 */
+        }
+        
+        /* (新增) 打字动画 Keyframes */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* (新增) 光标闪烁 Keyframes */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color); }
+        }
+
+        /* --- 5. CTA 按钮 (优化) --- */
         .cta-button {
             display: inline-block;
             margin-top: 1.5rem;
@@ -147,15 +173,17 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
-            transition: all 0.3s ease;
+            /* 优化: 指定过渡属性, 增加 background, 调整缓动 */
+            transition: transform 0.35s ease-in-out, box-shadow 0.35s ease-in-out, background 0.35s ease-in-out;
         }
         .cta-button:hover {
             transform: translateY(-3px);
-            filter: brightness(1.1);
-            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
+            background: var(--gradient); /* 优化: 悬停时使用渐变背景 */
+            filter: none; /* 移除旧的 brightness */
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.35); /* 优化: 阴影更柔和扩散 */
         }
 
-        /* --- 5. 关于我 (About) (无修改) --- */
+        /* --- 6. 关于我 (About) (无修改) --- */
         #about .container {
             max-width: 800px;
             text-align: center;
@@ -170,7 +198,7 @@
             box-shadow: 0 4px 15px var(--shadow-color);
         }
         
-        /* --- 6. 项目 (Projects) (无修改) --- */
+        /* --- 7. 项目 (Projects) (优化) --- */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -181,13 +209,23 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 4px 15px var(--shadow-color);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            /* 优化: 调整过渡时间和缓动 */
+            transition: box-shadow 0.35s ease-in-out, transform 0.35s ease-in-out;
         }
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px var(--shadow-color);
+            transform: translateY(-8px); /* 优化: 上浮更多 */
+            box-shadow: 0 12px 30px var(--shadow-color); /* 优化: 阴影更柔和 */
         }
-        .project-card img { width: 100%; height: 200px; object-fit: cover; background-color: #eee; }
+        .project-card img { 
+            width: 100%; height: 200px; 
+            object-fit: cover; 
+            background-color: #eee;
+            transition: transform 0.35s ease-in-out; /* 优化: 为图片增加过渡 */
+        }
+        /* (新增) 卡片悬停时图片放大 */
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
         .project-content { padding: 1.5rem; }
         .project-content h3 { margin-top: 0; color: var(--text-color); }
         .project-content p { font-size: 0.9rem; }
@@ -195,6 +233,7 @@
         .project-link:hover { text-decoration: underline; }
 
         /* --- 6b. 生活日常 (Moments Gallery) (无修改) --- */
+        /* (这部分已很出色, 无需修改) */
         #moments h2 { text-align: center; }
         #moments .subtitle {
             text-align: center; font-size: 1.1rem;
@@ -293,6 +332,11 @@
             h1 { font-size: 2.5rem; }
             #hero h1 { font-size: 3rem; }
             #hero p { font-size: 1.2rem; }
+            /* (新增) 适配移动端的打字机动画 */
+            #hero p:nth-of-type(1) {
+                max-width: 90vw; /* 确保在移动端不会溢出 */
+                font-size: 1.1rem; /* 调整字体大小 */
+            }
             .navbar .container { position: relative; }
             .navbar ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 70px; left: 0; background-color: var(--secondary-color); }
             .navbar ul.active { display: flex; }
@@ -304,8 +348,7 @@
             :root { --gallery-item-height: 250px; --gallery-item-basis: 150px; }
         }
         
-        /* * --- 9. (新增) 滚动淡入动画 ---
-         */
+        /* --- 9. 滚动淡入动画 (无修改) --- */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -321,7 +364,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
     </style>
 </head>
 <body>
