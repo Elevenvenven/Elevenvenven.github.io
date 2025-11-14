@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
+<html lang="zh-CN"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elevensumm - 个人网站</title>
@@ -10,17 +9,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- 1. CSS 变量 (自定义您的颜色) --- */
+        /* --- 1. (重大修改) CSS 变量 --- */
+        
+        /* 默认: 明亮 iOS 风格 */
         :root {
-            --bg-color: #121212;         /* 背景 - 深灰 */
-            --primary-color: #00bcd4;   /* 主色调 - 青色 */
-            --secondary-color: #212121; /* 卡片背景 - 次深灰 */
-            --text-color: #e0e0e0;      /* 主要文本 - 浅灰 */
-            --text-secondary: #aaaaaa;  /* 次要文本 - 灰色 */
-            --border-color: #333333;   /* 边框色 */
+            --bg-color: #f0f2f5; /* iOS 背景灰 */
+            --primary-color: #007aff; /* 苹果蓝 */
+            --secondary-color: #ffffff; /* 卡片白 */
+            --text-color: #000000; /* 主要文本-黑 */
+            --text-secondary: #555555;  /* 次要文本-灰 */
+            --border-color: #e0e0e0;   /* 边框色 */
+            --shadow-color: rgba(0, 0, 0, 0.08); /* 柔和阴影 */
+            --gradient: linear-gradient(45deg, var(--primary-color), #00aaff);
+            --nav-bg: rgba(255, 255, 255, 0.7); /* 导航栏背景 */
+            
+            /* 画廊参数 (无修改) */
+            --gallery-gap: 3px; 
+            --gallery-item-height: 300px;
+            --gallery-item-basis: 250px;
         }
 
-        /* --- 2. 全局重置与基础样式 --- */
+        /* 新增: 黑暗 iOS 风格 */
+        html.dark-mode {
+            --bg-color: #000000; /* iOS 纯黑 */
+            --primary-color: #007aff; /* 苹果蓝在暗色下依然明亮 */
+            --secondary-color: #1c1c1e; /* iOS 暗色卡片灰 */
+            --text-color: #ffffff;
+            --text-secondary: #8e8e93; /* iOS 暗色次要文本 */
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --gradient: linear-gradient(45deg, var(--primary-color), #00c6ff);
+            --nav-bg: rgba(20, 20, 20, 0.7);
+        }
+
+        /* --- 2. 全局重置与基础样式 (修改) --- */
         * {
             margin: 0;
             padding: 0;
@@ -28,14 +50,15 @@
         }
 
         html {
-            scroll-behavior: smooth; /* 页面锚点平滑滚动 */
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter', 'Noto Sans SC', sans-serif; /* 优先使用 Inter, 中文回退到 Noto Sans SC */
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑切换 */
         }
 
         .container {
@@ -45,7 +68,7 @@
         }
 
         h1, h2, h3 {
-            color: var(--primary-color);
+            color: var(--text-color); /* 标题默认黑色/白色 */
             margin-bottom: 1rem;
             font-weight: 700;
         }
@@ -67,15 +90,17 @@
             border-bottom: none;
         }
 
-        /* --- 3. 导航栏 (Header) --- */
+        /* --- 3. 导航栏 (Header) (修改) --- */
         .navbar {
             position: sticky;
             top: 0;
             width: 100%;
-            background-color: rgba(18, 18, 18, 0.85); /* 半透明背景 */
-            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            background-color: var(--nav-bg); /* 使用变量 */
+            backdrop-filter: blur(15px); /* 关键: iOS 模糊效果 */
+            -webkit-backdrop-filter: blur(15px); /* 兼容 Safari */
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .navbar .container {
@@ -95,6 +120,7 @@
         .navbar ul {
             display: flex;
             list-style: none;
+            align-items: center; /* 垂直居中 */
         }
 
         .navbar ul li {
@@ -105,6 +131,7 @@
             color: var(--text-color);
             text-decoration: none;
             font-size: 1rem;
+            font-weight: 400; /* 字体稍细 */
             transition: color 0.3s ease;
         }
 
@@ -113,7 +140,22 @@
             color: var(--primary-color);
         }
 
-        /* --- 4. 英雄/主页 (Hero) --- */
+        /* 新增: 主题切换按钮 */
+        #theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem; /* 图标大一点 */
+            cursor: pointer;
+            padding: 0 5px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        #theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+
+        /* --- 4. 英雄/主页 (Hero) (修改) --- */
         #hero {
             height: 90vh;
             display: flex;
@@ -126,8 +168,7 @@
         #hero h1 {
             font-size: 4rem;
             margin-bottom: 1rem;
-            /* 渐变文字效果 */
-            background: linear-gradient(45deg, #ffffff, var(--primary-color));
+            background: var(--gradient); /* 使用变量 */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -137,39 +178,45 @@
             color: var(--text-secondary);
         }
 
-        .cta-button { /* CTA = Call to Action */
+        /* CTA 按钮 (修改) */
+        .cta-button {
             display: inline-block;
             margin-top: 1.5rem;
             padding: 12px 25px;
             background-color: var(--primary-color);
-            color: #111;
+            color: #ffffff; /* 按钮文字改为白色 */
             font-size: 1rem;
             font-weight: 700;
             text-decoration: none;
-            border-radius: 50px; /* 圆角按钮 */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3); /* 蓝色阴影 */
+            transition: all 0.3s ease;
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+            filter: brightness(1.1); /* 悬停时变亮 */
+            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
         }
 
-        /* --- 5. 关于我 (About) --- */
+        /* --- 5. 关于我 (About) (修改) --- */
         #about .container {
-            max-width: 800px; /* "关于我"部分窄一点更易读 */
+            max-width: 800px;
             text-align: center;
         }
         .profile-pic {
-                    width: 200px;
-                    height: 200px;
-                    border-radius: 50%;    /* 关键：使其变为圆形 */
-                    object-fit: cover;     /* 确保图片不变形地填充圆形 */
-                    border: 3px solid var(--primary-color); /* 增加一个主题色边框 */
-                    margin-bottom: 1.5rem; /* 和下方的 H2 标题拉开距离 */
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 增加一点阴影 */
-                }
-        /* --- 6. 项目 (Projects) --- */
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary-color); /* 边框改为卡片色 */
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px var(--shadow-color); /* 柔和阴影 */
+        }
+        
+        /* --- 6. 项目 (Projects) (修改) --- */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -178,22 +225,22 @@
 
         .project-card {
             background-color: var(--secondary-color);
-            border-radius: 10px;
+            border-radius: 15px; /* iOS 圆角 */
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-color); /* 柔和阴影 */
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 188, 212, 0.2);
+            transform: translateY(-5px); /* 保留这个效果 */
+            box-shadow: 0 8px 25px var(--shadow-color); /* 阴影变强 */
         }
 
         .project-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            background-color: #333; /* 图像加载前的占位符颜色 */
+            background-color: #eee;
         }
 
         .project-content {
@@ -216,11 +263,9 @@
             text-decoration: none;
             font-weight: 700;
         }
+        .project-link:hover { text-decoration: underline; }
 
-        .project-link:hover {
-            text-decoration: underline;
-        }
-/* --- 6b. 生活日常 (Moments Gallery) --- */
+        /* --- 6b. 生活日常 (Moments Gallery) (修改) --- */
         #moments h2 { text-align: center; }
         #moments .subtitle {
             text-align: center; font-size: 1.1rem;
@@ -228,27 +273,18 @@
             color: var(--text-secondary);
         }
 
-        /* */
         .gallery-grid {
             display: flex;
-            flex-wrap: wrap; /* 允许换行 */
-            gap: var(--gallery-gap); /* "拼接缝隙" */
+            flex-wrap: wrap;
+            gap: var(--gallery-gap); /* 缝隙将是背景色 */
             margin-top: 2rem;
         }
 
-        /* */
         .gallery-item {
             position: relative;
-            
-            /* 关键: 智能拉伸 */
             flex-grow: 1; 
-            
-            /* 关键: 基础宽度 */
             flex-basis: var(--gallery-item-basis); 
-
-            /* 关键: 固定高度 */
             height: var(--gallery-item-height); 
-            
             border-radius: 5px; /* 轻微圆角 */
             overflow: hidden;
             cursor: pointer;
@@ -256,21 +292,15 @@
         }
 
         .gallery-item img {
-            width: 100%;
-            height: 100%;
-            
-            /* 关键: 裁剪以适应, 防止变形 */
+            width: 100%; height: 100%;
             object-fit: cover; 
-            
             display: block;
             background-color: var(--secondary-color);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
         
-        /* 覆盖层, 悬停时变暗 */
         .gallery-item::after {
-            content: '';
-            position: absolute;
+            content: ''; position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.5);
@@ -278,59 +308,44 @@
             transition: opacity 0.3s ease;
         }
 
-        /* 日期标签 (悬停时显示) */
         .moment-date {
-            position: absolute;
-            bottom: 15px; left: 15px;
+            position: absolute; bottom: 15px; left: 15px;
             background-color: rgba(0, 0, 0, 0.7);
             color: #fff;
-            padding: 4px 8px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 2;
-            
-            /* 默认隐藏, 悬停时显示 */
-            opacity: 0;
+            padding: 4px 8px; border-radius: 5px;
+            font-size: 0.8rem; font-weight: 600;
+            z-index: 2; opacity: 0;
             transform: translateY(10px);
             transition: all 0.3s ease;
         }
 
-        /* 悬停效果 */
         .gallery-item:hover {
-            box-shadow: 0 8px 20px rgba(0, 188, 212, 0.2);
-            transform: scale(1.02); /* 轻微放大 */
+            box-shadow: 0 8px 20px var(--shadow-color);
+            transform: scale(1.02);
         }
-        .gallery-item:hover::after {
-            opacity: 1; /* 显示遮罩 */
-        }
-        .gallery-item:hover .moment-date {
-            opacity: 1; /* 显示日期 */
-            transform: translateY(0);
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1); /* 图片放大 (在遮罩下) */
-        }
+        .gallery-item:hover::after { opacity: 1; }
+        .gallery-item:hover .moment-date { opacity: 1; transform: translateY(0); }
+        .gallery-item:hover img { transform: scale(1.1); }
         
-        /* (加载按钮无修改) */
         #load-more-btn {
             display: block;
             margin: 1.5rem auto 0 auto;
         }
 
-        /* * --- 模态框 (Modal) 样式 (来自 V6, 无修改) ---
-         */
+        /* --- 模态框 (Modal) 样式 (修改) --- */
         .modal {
             display: none; position: fixed;
             z-index: 2000; left: 0; top: 0;
             width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.8); /* 背景更暗 */
             justify-content: center; align-items: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px); /* 模态框背景也模糊 */
         }
         .modal-content {
-            position: relative; background-color: var(--secondary-color);
-            padding: 20px; border-radius: 10px;
+            position: relative; 
+            background-color: var(--secondary-color);
+            padding: 20px; 
+            border-radius: 15px; /* iOS 圆角 */
             max-width: 90vw; max-height: 90vh;
             display: flex; flex-direction: column;
             overflow: hidden;
@@ -357,7 +372,8 @@
         .modal-info .modal-date { font-size: 0.9rem; color: var(--text-secondary); font-weight: 300; }
         .modal-info .modal-description { font-size: 1rem; color: var(--text-color); max-width: 400px; margin: 0.5rem auto 0 auto; }
         .modal-close, .modal-nav-btn {
-            position: absolute; background-color: rgba(0, 0, 0, 0.5);
+            position: absolute; 
+            background-color: rgba(0, 0, 0, 0.3); /* 按钮更透明 */
             color: #fff; border: none; padding: 8px 15px;
             font-size: 1.5rem; cursor: pointer; border-radius: 50%;
             line-height: 1; transition: background-color 0.3s ease;
@@ -375,7 +391,7 @@
         }
         .modal-prev { left: 15px; }
         .modal-next { right: 15px; }
-        .modal-nav-btn:hover { background-color: rgba(0, 0, 0, 0.8); }
+        .modal-nav-btn:hover { background-color: rgba(0, 0, 0, 0.6); }
 
         @media (min-width: 768px) {
             .modal-body { flex-direction: row; text-align: left; align-items: flex-start; }
@@ -384,7 +400,7 @@
             .modal-body img { max-width: 60%; max-height: 70vh; }
         }
 
-        /* --- 7. 联系我 (Contact) & 页脚 (Footer) --- */
+        /* --- 7. 联系我 (Contact) & 页脚 (Footer) (修改) --- */
         #contact {
             text-align: center;
         }
@@ -417,9 +433,7 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* --- 8. 响应式设计 (Mobile) --- */
-        
-        /* 汉堡菜单按钮 (默认隐藏) */
+        /* --- 8. 响应式设计 (Mobile) (修改) --- */
         .menu-toggle {
             display: none;
             cursor: pointer;
@@ -437,17 +451,17 @@
             }
 
             .navbar ul {
-                display: none; /* 默认隐藏导航链接 */
+                display: none; 
                 flex-direction: column;
                 width: 100%;
                 position: absolute;
-                top: 70px; /* 导航栏高度 */
+                top: 70px;
                 left: 0;
-                background-color: var(--secondary-color);
+                background-color: var(--secondary-color); /* 菜单背景 */
             }
             
             .navbar ul.active {
-                display: flex; /* JS控制显示 */
+                display: flex;
             }
 
             .navbar ul li {
@@ -462,12 +476,26 @@
                 border-bottom: 1px solid var(--border-color);
             }
             
-            .navbar ul li:last-child a {
+            /* (新增) 移动端菜单里的切换按钮 */
+            .navbar ul li #theme-toggle {
+                padding: 15px;
+                width: 100%;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .navbar ul li:last-child a,
+            .navbar ul li:last-child #theme-toggle {
                 border-bottom: none;
             }
             
             .menu-toggle {
-                display: block; /* 在小屏幕上显示汉堡按钮 */
+                display: block;
+            }
+
+            /* (平铺画廊响应式) */
+            :root {
+                --gallery-item-height: 250px;
+                --gallery-item-basis: 150px;
             }
         }
 
@@ -487,6 +515,7 @@
                     <li><a href="#projects">项目&学习</a></li>
                     <li><a href="#moments">我的日常</a></li>
                     <li><a href="#contact">联系我</a></li>
+                    <li><button id="theme-toggle">🌙</button></li>
                 </ul>
             </nav>
         </div>
@@ -499,37 +528,20 @@
             <p>“The more you experience, the more open-mind you will be.🥸”</p>
             <p>Much more content coming soon……</p>
             <a href="#projects" class="cta-button">查看我的项目&学习😼</a>
-            
-            
         </section>
                 
         <section id="about">
             <div class="container">
-        
                 <img src="11sum.jpg" alt="我的头像" class="profile-pic">
-        
                 <h2>关于我</h2>
-                <p>
-                    SCU（四川大学）， EE Bachelor，2025😎
-                </p>
-                
-                <p>
-                    Currently, Study in HUST(华中科技大学)😋
-                </p>
-                
-                <p>
-                     Live&Study in Tokyo, Japan 2026-？🤔
-                </p>
-                <p>
-                     Main research Interest in HCI&IoT&AI……🧐
-                </p>
-                <p>
-                     When there is some free time, I will play the go/guitar，hike with classmates，read novels……☺️
-                </p>
-                </div>
+                <p> SCU（四川大学）， EE Bachelor，2025😎 </p>
+                <p> Currently, Study in HUST(华中科技大学)😋 </p>
+                <p> Live&Study in Tokyo, Japan 2026-？🤔 </p>
+                <p> Main research Interest in HCI&IoT&AI……🧐 </p>
+                <p> When there is some free time, I will play the go/guitar，hike with classmates，read novels……☺️ </p>
+            </div>
         </section>
         
-
         <section id="projects">
             <div class="container">
                 <h2>项目&学习</h2>
@@ -538,31 +550,23 @@
                         <img src="Evolution-of-Coding-scaled.jpg" alt="项目1的截图">
                         <div class="project-content">
                             <h3>Algorithm</h3>
-                            <p>
-                                我在记录我学习Algorithm过程中所遇到的问题和心得
-                            </p>
+                            <p> 我在记录我学习Algorithm过程中所遇到的问题和心得 </p>
                             <a href="https://github.com/Elevenvenven/Utokyo-test" class="project-link" target="_blank">查看详情 &rarr;</a>
                         </div>
                     </div>
-
                     <div class="project-card">
                         <img src="Screenshot 2025-11-15 at 02.49.45.png" alt="项目2的截图">
                         <div class="project-content">
                             <h3>Computer Architecture</h3>
-                            <p>
-                                我在记录我学习Computer Architecture过程中的问题和心得
-                            </p>
+                            <p> 我在记录我学习Computer Architecture过程中的问题和心得 </p>
                             <a href="https://github.com/Elevenvenven/Utokyo-test" class="project-link" target="_blank">查看详情 &rarr;</a>
                         </div>
                     </div>
-
                     <div class="project-card">
                         <img src="Graph-Neural-Networks.jpg.webp" alt="项目3的截图">
                         <div class="project-content">
                             <h3>Machine Learning</h3>
-                            <p>
-                                我在记录我学习Machine Learning过程中的问题和心得
-                            </p>
+                            <p> 我在记录我学习Machine Learning过程中的问题和心得 </p>
                             <a href="https://zh.d2l.ai" class="project-link" target="_blank">查看详情 &rarr;</a>
                         </div>
                     </div>
@@ -574,10 +578,8 @@
             <div class="container">
                 <h2>我的日常 (My Moments)</h2>
                 <p class="subtitle">一些生活的碎片，记录我不在电脑前的时光。</p>
-                
                 <div class="gallery-grid" id="gallery-grid">
                     </div>
-
                 <button id="load-more-btn" class="cta-button">加载更多</button>
             </div>
         </section>
@@ -586,7 +588,6 @@
             <div class="container">
                 <h2>联系我</h2>
                 <p>您可以通过以下方式找到我，期待与您交流！</p>
-                
                 <ul class="social-links">
                     <li><a href="mailto:elevensumm@gmail.com" title="Email">📧</a></li>
                     <li><a href="https://github.com/Elevenvenven?tab=repositories" title="GitHub" target="_blank">GitHub</a></li>
@@ -600,20 +601,30 @@
         <p>&copy; 2025 11_sum. 保留所有权利。</p>
     </footer>
 
+    <div id="moment-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <img src="" alt="" id="modal-image">
+                <div class="modal-info">
+                    <p class="modal-date" id="modal-date"></p>
+                    <p class="modal-description" id="modal-description"></p>
+                </div>
+            </div>
+            <button class="modal-nav-btn modal-prev" id="modal-prev">&#10094;</button> 
+            <button class="modal-nav-btn modal-next" id="modal-next">&#10095;</button> 
+        </div>
+    </div>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- 1. 移动端菜单切换 ---
+            // --- 1. 移动端菜单切换 (无修改) ---
             const menuToggle = document.getElementById('mobile-menu');
             const navMenu = document.getElementById('nav-menu');
-
-            menuToggle.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
-            });
-
-            // 点击菜单链接后自动关闭菜单
-            const navLinks = document.querySelectorAll('#nav-menu li a');
-            navLinks.forEach(link => {
+            menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+            document.querySelectorAll('#nav-menu li a').forEach(link => {
                 link.addEventListener('click', () => {
                     if (navMenu.classList.contains('active')) {
                         navMenu.classList.remove('active');
@@ -621,160 +632,220 @@
                 });
             });
 
-            // --- 2. 导航栏高亮 ---
+            // --- 2. 导航栏高亮 (无修改) ---
             const sections = document.querySelectorAll('section');
             const navLi = document.querySelectorAll('.navbar nav ul li a');
-
             window.addEventListener('scroll', () => {
                 let current = '';
-
                 sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    // 提前 75px 激活，因为导航栏有 70px 高度
-                    if (pageYOffset >= (sectionTop - 75)) { 
+                    if (pageYOffset >= (section.offsetTop - 75)) { 
                         current = section.getAttribute('id');
                     }
                 });
-
                 navLi.forEach(a => {
                     a.classList.remove('active');
                     if (a.getAttribute('href') === '#' + current) {
                         a.classList.add('active');
                     }
                 });
-                
-                // 单独处理首页，因为 hero 区域可能不满足
                 if (current === 'hero' || pageYOffset < sections[0].offsetTop - 75) {
                     navLi[0].classList.add('active');
                 }
             });
-// --- 3. (新增) Moments 画廊 "加载更多" 逻辑 ---
 
-            // **********************************************************
-            // *** 您未来上传照片, 只需要修改这里的 `allMoments` 列表! ***
-            // **********************************************************
-            // 规则: 
-            // 1. 在 `allMoments` 数组中添加新行。
-            // 2. 复制 { ... } 的格式。
-            // 3. 替换 "img" (图片链接), "alt" (图片描述), "date" (日期)。
-            // 4. 确保每行末尾都有一个逗号 , (最后一行可有可无)。
-            // 5. 最新的照片放在最上面！
+            // --- 3. (修复/新增) Moments 画廊 + 模态框 JS ---
             const allMoments = [
-                { 
-                    img: "WechatIMG698 1.jpg", 
-                    alt: "", 
-                    date: "2025-11-14" 
+                 { 
+                    img: "WechatIMG698 1.jpg", alt: "", date: "2025-11-14",
+                    description: "日常随拍" // 您可以为每张图添加描述
                 },
                 { 
-                    img: "WechatIMG380.jpg", 
-                    alt: "", 
-                    date: "2025-11-14" 
+                    img: "WechatIMG380.jpg", alt: "", date: "2025-11-14",
+                    description: "风景"
                 },
                 { 
-                    img: "WechatIMG250.jpg", 
-                    alt: "", 
-                    date: "2025-11-14" 
+                    img: "WechatIMG250.jpg", alt: "", date: "2025-11-14",
+                    description: "美食"
                 },
                 { 
-                    img: "IMG_0007.JPG", 
-                    alt: "", 
-                    date: "2025-11-14" 
+                    img: "IMG_0007.JPG", alt: "", date: "2025-11-14",
+                    description: "生活记录"
                 },
                 { 
-                    img: "IMG_0465.JPG", 
-                    alt: "", 
-                    date: "2025-11-14" 
+                    img: "IMG_0465.JPG", alt: "", date: "2025-11-14",
+                    description: "校园"
                 },
                 { 
-                    img: "3583eaeea1195c86fbc325a03b68d3dc.jpg", 
-                    alt: "", 
-                    date: "2025-11-14" 
-                },
-                // --- 默认加载到此 (共 6 张) ---
-                { 
-                    img: "WechatIMG693.jpg", 
-                    alt: "", 
-                    date: "2025-11-14" 
+                    img: "3583eaeea1195c86fbc325a03b68d3dc.jpg", alt: "", date: "2025-11-14",
+                    description: "宠物"
                 },
                 { 
-                    img: "1000030599.jpg", 
-                    alt: "", 
-                    date: "2025-11-14" 
+                    img: "WechatIMG693.jpg", alt: "", date: "2025-11-14",
+                    description: "另一张图"
                 },
                 { 
-                    img: "1000030951.jpg", 
-                    alt: "", 
-                    date: "2025-11-14" 
+                    img: "1000030599.jpg", alt: "", date: "2025-11-14",
+                    description: "更多..."
+                },
+                { 
+                    img: "1000030951.jpg", alt: "", date: "2025-11-14",
+                    description: "最后一张"
                 }
-                // --- 您可以在这里继续添加 ---
-                // { img: "...", alt: "...", date: "..." },
             ];
 
-            const INITIAL_SHOW = 4;  // 初始显示 6 张
-            const LOAD_MORE_COUNT = 10; // 每次加载 3 张
-            let currentIndex = 0;      // 当前已显示的索引
+            const INITIAL_SHOW = 4;
+            const LOAD_MORE_COUNT = 10;
+            let currentIndex = 0; 
+            let currentModalMomentIndex = 0; 
 
             const galleryGrid = document.getElementById('gallery-grid');
             const loadMoreBtn = document.getElementById('load-more-btn');
 
-            // 1. 创建单个 moment 卡片的函数
-            function createMomentElement(moment) {
+            // 模态框元素
+            const momentModal = document.getElementById('moment-modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalDate = document.getElementById('modal-date');
+            const modalDescription = document.getElementById('modal-description');
+            const modalCloseBtn = document.querySelector('.modal-close');
+            const modalPrevBtn = document.getElementById('modal-prev');
+            const modalNextBtn = document.getElementById('modal-next');
+
+            // 修复: 您的版本丢失了点击功能, 这里使用 createMomentThumbnail
+            function createMomentThumbnail(moment, index) {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
+                item.dataset.index = index; // 关键: 存储索引
                 
-                // 使用 innerHTML 一次性创建内部结构
                 item.innerHTML = `
                     <img src="${moment.img}" alt="${moment.alt}">
                     <span class="moment-date">${moment.date}</span>
                 `;
+                
+                // 关键: 添加点击事件
+                item.addEventListener('click', () => openModal(index));
                 return item;
             }
 
-            // 2. 渲染照片到页面的函数
-            function renderMoments(moments) {
-                moments.forEach(moment => {
-                    galleryGrid.appendChild(createMomentElement(moment));
+            // 修复: renderMoments 现在使用 createMomentThumbnail
+            function renderMoments(momentsToRender) {
+                momentsToRender.forEach((moment, relativeIndex) => {
+                    const globalIndex = currentIndex + relativeIndex;
+                    galleryGrid.appendChild(createMomentThumbnail(moment, globalIndex));
                 });
             }
 
-            // 3. “加载更多”按钮的点击事件
             function loadMore() {
-                // 获取下一批要加载的照片
                 const momentsToLoad = allMoments.slice(currentIndex, currentIndex + LOAD_MORE_COUNT);
-                
-                // 渲染它们
                 renderMoments(momentsToLoad);
-
-                // 更新索引
                 currentIndex += LOAD_MORE_COUNT;
-
-                // 如果已加载的照片数量 >= 总数, 隐藏按钮
-                if (currentIndex >= allMoments.length) {
-                    loadMoreBtn.style.display = 'none'; 
-                }
-            }
-
-            // 4. 页面初始加载
-            function initializeGallery() {
-                // 初始渲染
-                const initialMoments = allMoments.slice(0, INITIAL_SHOW);
-                renderMoments(initialMoments);
-                
-                // 更新索引
-                currentIndex = INITIAL_SHOW;
-
-                // 检查是否需要一开始就隐藏按钮 (如果总数 <= 初始数)
                 if (currentIndex >= allMoments.length) {
                     loadMoreBtn.style.display = 'none';
                 }
-
-                // 绑定点击事件
-                loadMoreBtn.addEventListener('click', loadMore);
             }
 
-            // 启动画廊
+            // 新增: 打开模态框
+            function openModal(index) {
+                currentModalMomentIndex = index;
+                updateModalContent();
+                momentModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+
+            // 新增: 更新模态框内容
+            function updateModalContent() {
+                const moment = allMoments[currentModalMomentIndex];
+                modalImage.src = moment.img;
+                modalImage.alt = moment.alt;
+                modalDate.textContent = `日期: ${moment.date}`;
+                modalDescription.textContent = moment.description || ""; // 显示描述
+                modalPrevBtn.style.display = currentModalMomentIndex === 0 ? 'none' : 'flex';
+                modalNextBtn.style.display = currentModalMomentIndex === allMoments.length - 1 ? 'none' : 'flex';
+            }
+
+            // 新增: 关闭模态框
+            function closeModal() {
+                momentModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            modalCloseBtn.addEventListener('click', closeModal);
+            momentModal.addEventListener('click', (e) => {
+                if (e.target === momentModal) closeModal();
+            });
+
+            // 新增: 模态框导航
+            modalPrevBtn.addEventListener('click', () => {
+                if (currentModalMomentIndex > 0) {
+                    currentModalMomentIndex--;
+                    updateModalContent();
+                }
+            });
+            modalNextBtn.addEventListener('click', () => {
+                if (currentModalMomentIndex < allMoments.length - 1) {
+                    currentModalMomentIndex++;
+                    updateModalContent();
+                }
+            });
+            
+            // 新增: 键盘导航
+            document.addEventListener('keydown', (e) => {
+                if (momentModal.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') modalPrevBtn.click();
+                    else if (e.key === 'ArrowRight') modalNextBtn.click();
+                    else if (e.key === 'Escape') closeModal();
+                }
+            });
+
+            // 页面初始加载 (与您版本相同)
+            function initializeGallery() {
+                const initialMoments = allMoments.slice(0, INITIAL_SHOW);
+                renderMoments(initialMoments);
+                currentIndex = INITIAL_SHOW;
+                if (currentIndex >= allMoments.length) {
+                    loadMoreBtn.style.display = 'none';
+                }
+                loadMoreBtn.addEventListener('click', loadMore);
+            }
             initializeGallery();
+            
+
+            // --- 4. (新增) 主题切换 JS ---
+            const themeToggleBtns = document.querySelectorAll('#theme-toggle');
+            const htmlEl = document.documentElement;
+
+            // 检查本地存储中是否有主题偏好
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                htmlEl.classList.add(currentTheme);
+                if (currentTheme === 'dark-mode') {
+                    themeToggleBtns.forEach(btn => btn.textContent = '☀️');
+                } else {
+                    themeToggleBtns.forEach(btn => btn.textContent = '🌙');
+                }
+            }
+
+            // 切换函数
+            function toggleTheme() {
+                if (htmlEl.classList.contains('dark-mode')) {
+                    htmlEl.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                    themeToggleBtns.forEach(btn => btn.textContent = '🌙');
+                } else {
+                    htmlEl.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                    themeToggleBtns.forEach(btn => btn.textContent = '☀️');
+                }
+            }
+
+            // 为所有切换按钮（包括汉堡菜单里的）添加事件
+            themeToggleBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    toggleTheme();
+                    // 如果在移动端, 点击后关闭汉堡菜单
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
             
         });
     </script>
