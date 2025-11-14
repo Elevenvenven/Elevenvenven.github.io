@@ -1,0 +1,20 @@
+[
+    {
+        "image": "Evolution-of-Coding-scaled.jpg",
+        "title": "Algorithm",
+        "description": "我在记录我学习Algorithm过程中所遇到的问题和心得",
+        "link": "https://github.com/Elevenvenven/Utokyo-test"
+    },
+    {
+        "image": "Screenshot 2025-11-15 at 02.49.45.png",
+        "title": "Computer Architecture",
+        "description": "我在记录我学习Computer Architecture过程中的问题和心得",
+        "link": "https://github.com/Elevenvenven/Utokyo-test"
+    },
+    {
+        "image": "Graph-Neural-Networks.jpg.webp",
+        "title": "Machine Learning",
+        "description": "我在记录我学习Machine Learning过程中的问题和心得",
+        "link": "https://zh.d2l.ai"
+    }
+]
