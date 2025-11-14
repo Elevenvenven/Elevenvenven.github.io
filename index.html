@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=Noto+Sans+SC:wght@300;400;700;800&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
     <style>
         /* --- 1. CSS 变量 --- */
@@ -349,7 +348,7 @@
     <main>
         <section id="hero">
             <h1>你好，我是11_sum</h1>
-            <p id="typed-subtitle">一名学生，AI&EE领域学习者，日常学习&玩耍&研究&睡觉😴。</p>
+            <p>一名学生，AI&EE领域学习者，日常学习&玩耍&研究&睡觉😴。</p>
             <p>“The more you experience, the more open-mind you will be.🥸”</p>
             <p>Much more content coming soon……</p>
             <a href="#projects" class="cta-button">查看我的项目&学习😼</a>
@@ -639,21 +638,7 @@
                 });
             });
 
-            // --- 5. (新增) Hero 打字机特效 JS ---
-            new Typed('#typed-subtitle', {
-                strings: [
-                    "一名学生，AI&EE领域学习者。",
-                    "日常学习&玩耍&研究&睡觉😴。",
-                    "A student, AI & EE learner.",
-                    "Coding, Gaming, Researching, Sleeping... 😴"
-                ],
-                typeSpeed: 50, // 打字速度
-                backSpeed: 30, // 退格速度
-                backDelay: 2000, // 打完后停留时间
-                startDelay: 500, // 开始前延迟
-                loop: true, // 循环
-                smartBackspace: true // 智能退格
-            });
+    
 
             // --- 6. (新增) 滚动淡入动画 JS ---
             let fadeInObserver;
