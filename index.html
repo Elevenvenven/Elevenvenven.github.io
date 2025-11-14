@@ -160,7 +160,15 @@
             max-width: 800px; /* "关于我"部分窄一点更易读 */
             text-align: center;
         }
-
+        .profile-pic {
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 50%;    /* 关键：使其变为圆形 */
+                    object-fit: cover;     /* 确保图片不变形地填充圆形 */
+                    border: 3px solid var(--primary-color); /* 增加一个主题色边框 */
+                    margin-bottom: 1.5rem; /* 和下方的 H2 标题拉开距离 */
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 增加一点阴影 */
+                }
         /* --- 6. 项目 (Projects) --- */
         .project-grid {
             display: grid;
@@ -338,15 +346,8 @@
                     例如：我热衷于使用代码构建美观且实用的应用程序...
                 </p>
                 </div>
-        </section>.profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;    /* 关键：使其变为圆形 */
-            object-fit: cover;     /* 确保图片不变形地填充圆形 */
-            border: 3px solid var(--primary-color); /* 增加一个主题色边框 */
-            margin-bottom: 1.5rem; /* 和下方的 H2 标题拉开距离 */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 增加一点阴影 */
-        }
+        </section>
+        
 
         <section id="projects">
             <div class="container">
