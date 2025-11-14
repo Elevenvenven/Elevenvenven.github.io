@@ -127,12 +127,14 @@
             -webkit-text-fill-color: transparent;
         }
 
-        #hero p {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            min-height: 2.2rem; /* 优化: 为打字机留出空间, 防止跳动 */
-        }
-
+       #hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            min-height: 2.2rem; 
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.6; /* 新增: 优化副标题的行高 */
+        }
         /* CTA 按钮 (无修改) */
         .cta-button {
             display: inline-block;
@@ -292,7 +294,10 @@
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             #hero h1 { font-size: 3rem; }
-            #hero p { font-size: 1.2rem; }
+            #hero p { 
+                font-size: 1.2rem; 
+                margin-bottom: 0.75rem; /* 新增: 减少手机上的段落间距 */
+            }
             .navbar .container { position: relative; }
             .navbar ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 70px; left: 0; background-color: var(--secondary-color); }
             .navbar ul.active { display: flex; }
