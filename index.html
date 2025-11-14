@@ -1,8 +1,455 @@
-<p>Hello 大家好</p>
-<p>我是Elevensum，这是我的个人网站。 </p>
-<p>很高兴你来到这里, 你可以在以下的网站找到我</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevensumm - 个人网站</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
 
-<ul>
-  <li> <a href="https://www.zhihu.com/people/AJLoveChina">知乎</a> </li>
-  <li> <a href="http://hejie.nigeerhuo.com">我的博客(已经不更细了,现在在知乎写文章)</a> </li>
-</ul>
+    <style>
+        /* --- 1. CSS 变量 (自定义您的颜色) --- */
+        :root {
+            --bg-color: #121212;         /* 背景 - 深灰 */
+            --primary-color: #00bcd4;   /* 主色调 - 青色 */
+            --secondary-color: #212121; /* 卡片背景 - 次深灰 */
+            --text-color: #e0e0e0;      /* 主要文本 - 浅灰 */
+            --text-secondary: #aaaaaa;  /* 次要文本 - 灰色 */
+            --border-color: #333333;   /* 边框色 */
+        }
+
+        /* --- 2. 全局重置与基础样式 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth; /* 页面锚点平滑滚动 */
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif; /* 优先使用 Inter, 中文回退到 Noto Sans SC */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.2rem; }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* --- 3. 导航栏 (Header) --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.85); /* 半透明背景 */
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .navbar ul li {
+            margin-left: 25px;
+        }
+
+        .navbar ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .navbar ul li a:hover,
+        .navbar ul li a.active {
+            color: var(--primary-color);
+        }
+
+        /* --- 4. 英雄/主页 (Hero) --- */
+        #hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            /* 渐变文字效果 */
+            background: linear-gradient(45deg, #ffffff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-button { /* CTA = Call to Action */
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: #111;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px; /* 圆角按钮 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+        }
+
+        /* --- 5. 关于我 (About) --- */
+        #about .container {
+            max-width: 800px; /* "关于我"部分窄一点更易读 */
+            text-align: center;
+        }
+
+        /* --- 6. 项目 (Projects) --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 188, 212, 0.2);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #333; /* 图像加载前的占位符颜色 */
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            margin-top: 0;
+            color: var(--text-color);
+        }
+        
+        .project-content p {
+            font-size: 0.9rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* --- 7. 联系我 (Contact) & 页脚 (Footer) --- */
+        #contact {
+            text-align: center;
+        }
+
+        .social-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- 8. 响应式设计 (Mobile) --- */
+        
+        /* 汉堡菜单按钮 (默认隐藏) */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            #hero h1 { font-size: 3rem; }
+            #hero p { font-size: 1.2rem; }
+
+            .navbar .container {
+                position: relative;
+            }
+
+            .navbar ul {
+                display: none; /* 默认隐藏导航链接 */
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 70px; /* 导航栏高度 */
+                left: 0;
+                background-color: var(--secondary-color);
+            }
+            
+            .navbar ul.active {
+                display: flex; /* JS控制显示 */
+            }
+
+            .navbar ul li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .navbar ul li a {
+                display: block;
+                padding: 15px;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .navbar ul li:last-child a {
+                border-bottom: none;
+            }
+            
+            .menu-toggle {
+                display: block; /* 在小屏幕上显示汉堡按钮 */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="#hero" class="logo">[您的名字]</a>
+            <nav>
+                <div class="menu-toggle" id="mobile-menu">
+                    &#9776; </div>
+                <ul id="nav-menu">
+                    <li><a href="#hero" class="active">首页</a></li>
+                    <li><a href="#about">关于我</a></li>
+                    <li><a href="#projects">项目</a></li>
+                    <li><a href="#contact">联系我</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>你好，我是 [您的名字]</h1>
+            <p>一名 [您的职业，例如：Web开发者 / 设计师 / 学生]</p>
+            <a href="#projects" class="cta-button">查看我的项目</a>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2>关于我</h2>
+                <p>
+                    在这里写一段关于您自己的介绍。
+                    例如：我热衷于使用代码构建美观且实用的应用程序。我对 [您的技术栈，例如：React, Vue, Python] 有深入的了解，并且总是渴望学习新技术。
+                </p>
+                <p>
+                    当我不在电脑前时，我喜欢 [您的爱好，例如：阅读、远足或摄影]。
+                </p>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <h2>我的项目</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <img src="https://source.unsplash.com/random/800x450?technology,abstract" alt="项目1的截图">
+                        <div class="project-content">
+                            <h3>项目一名称</h3>
+                            <p>
+                                对这个项目的简短描述。它解决了什么问题？您使用了什么技术？
+                                (例如: 一个使用 React 和 Firebase 构建的实时聊天应用。)
+                            </p>
+                            <a href="#" class="project-link" target="_blank">查看详情 &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <img src="https://source.unsplash.com/random/800x450?code,laptop" alt="项目2的截图">
+                        <div class="project-content">
+                            <h3>项目二名称</h3>
+                            <p>
+                                (例如: 一个使用 Python (Django) 和 PostgreSQL 构建的电子商务网站后端。)
+                            </p>
+                            <a href="#" class="project-link" target="_blank">查看详情 &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <img src="https://source.unsplash.com/random/800x450?design,ui" alt="项目3的截图">
+                        <div class="project-content">
+                            <h3>项目三名称</h3>
+                            <p>
+                                (例如: 为本地一家咖啡店设计的 UI/UX 概念，使用了 Figma。)
+                            </p>
+                            <a href="#" class="project-link" target="_blank">查看详情 &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>联系我</h2>
+                <p>您可以通过以下方式找到我，期待与您交流！</p>
+                
+                <ul class="social-links">
+                    <li><a href="mailto:[您的邮箱@example.com]" title="Email">📧</a></li>
+                    <li><a href="#" title="GitHub" target="_blank">[GitHub]</a></li>
+                    <li><a href="#" title="LinkedIn" target="_blank">[LinkedIn]</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 [您的名字]. 保留所有权利。</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- 1. 移动端菜单切换 ---
+            const menuToggle = document.getElementById('mobile-menu');
+            const navMenu = document.getElementById('nav-menu');
+
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+
+            // 点击菜单链接后自动关闭菜单
+            const navLinks = document.querySelectorAll('#nav-menu li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- 2. 导航栏高亮 ---
+            const sections = document.querySelectorAll('section');
+            const navLi = document.querySelectorAll('.navbar nav ul li a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    // 提前 75px 激活，因为导航栏有 70px 高度
+                    if (pageYOffset >= (sectionTop - 75)) { 
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLi.forEach(a => {
+                    a.classList.remove('active');
+                    if (a.getAttribute('href') === '#' + current) {
+                        a.classList.add('active');
+                    }
+                });
+                
+                // 单独处理首页，因为 hero 区域可能不满足
+                if (current === 'hero' || pageYOffset < sections[0].offsetTop - 75) {
+                    navLi[0].classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
