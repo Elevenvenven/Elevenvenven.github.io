@@ -326,19 +326,27 @@
             <p>一名 [您的职业，例如：Web开发者 / 设计师 / 学生]</p>
             <a href="#projects" class="cta-button">查看我的项目</a>
         </section>
-
+                
         <section id="about">
             <div class="container">
+        
+                <img src="https://source.unsplash.com/random/400x400?portrait,person" alt="我的头像" class="profile-pic">
+        
                 <h2>关于我</h2>
                 <p>
                     在这里写一段关于您自己的介绍。
-                    例如：我热衷于使用代码构建美观且实用的应用程序。我对 [您的技术栈，例如：React, Vue, Python] 有深入的了解，并且总是渴望学习新技术。
+                    例如：我热衷于使用代码构建美观且实用的应用程序...
                 </p>
-                <p>
-                    当我不在电脑前时，我喜欢 [您的爱好，例如：阅读、远足或摄影]。
-                </p>
-            </div>
-        </section>
+                </div>
+        </section>.profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;    /* 关键：使其变为圆形 */
+            object-fit: cover;     /* 确保图片不变形地填充圆形 */
+            border: 3px solid var(--primary-color); /* 增加一个主题色边框 */
+            margin-bottom: 1.5rem; /* 和下方的 H2 标题拉开距离 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 增加一点阴影 */
+        }
 
         <section id="projects">
             <div class="container">
