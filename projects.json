@@ -17,4 +17,11 @@
         "description": "我在记录我学习Machine Learning过程中的问题和心得",
         "link": "https://zh.d2l.ai"
     }
+
+    {
+        "image": "lego.jpeg",
+        "title": "Teacher_everywhere",
+        "description": "一款OCR+大模型MacOS应用，帮助消化新知识，施工中",
+        "link": "https://github.com/Elevenvenven/Teacher_Everywhere"
+    }
 ]
