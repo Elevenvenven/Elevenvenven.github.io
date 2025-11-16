@@ -23,5 +23,12 @@
         "title": "Teacher_everywhere",
         "description": "一款OCR+大模型MacOS应用，帮助消化新知识，施工中",
         "link": "https://github.com/Elevenvenven/Teacher_Everywhere"
+    },
+
+    {
+        "image": "llm.webp",
+        "title": "Large Language Model",
+        "description": "我在记录我学习Large Language Model过程中的问题和心得",
+        "link": "https://arxiv.org/abs/2501.09223"
     }
 ]
