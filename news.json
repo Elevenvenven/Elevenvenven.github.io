@@ -1,21 +1,21 @@
 [
     {
-        "date": "2025-11-16",
-        "title": "部署个人网站多语言版本",
+        "date": "2025-11-15",
+        "title": "成功部署个人网站多语言版本",
         "description": "完成了网站的中文、英文、日语三语切换功能，并新增了新闻事件板块。",
         "type": "website"
     },
     {
-        "date": "2025-11-13",
-        "title": "成功部署个人网站",
-        "description": "个人网站部署成功",
-        "type": "website"
+        "date": "2025-10-28",
+        "title": "IEEE TNNLS 论文初稿完成",
+        "description": "关于新型神经模糊推理系统在物联网应用中的研究论文初稿已完成，正在进行内部审核。",
+        "type": "research"
     },
     {
-        "date": "2025-09-23",
-        "title": "HUST加入",
-        "description": "开始在华中科技大学（HUST）进行研究与学习。",
+        "date": "2025-09-01",
+        "title": "HUST 交流项目开始",
+        "description": "开始在华中科技大学（HUST）进行为期一年的交流学习。",
         "type": "study"
     }
-    
+
 ]
