@@ -19,6 +19,13 @@
     },
 
     {
+        "image": "nanochat.png",
+        "title": "NanoChat",
+        "description": "我在参与NanoChat项目，“The best ChatGPT that $100 can buy”.",
+        "link": "https://github.com/karpathy/nanochat"
+    },
+    
+    {
         "image": "lego.jpeg",
         "title": "Teacher_everywhere",
         "description": "一款OCR+大模型MacOS应用，帮助消化新知识，施工中",
