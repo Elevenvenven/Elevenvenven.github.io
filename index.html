@@ -1,1028 +1,1074 @@
 <!DOCTYPE html>
 <html lang="zh-CN"> <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elevensumm - 个人网站</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=Noto+Sans+SC:wght@300;400;700;800&display=swap" rel="stylesheet">
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevensumm - 个人网站</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=Noto+Sans+SC:wght@300;400;700;800&display=swap" rel="stylesheet">
+    
 
-    <style>
-        /* --- 1. CSS Variables --- */
-        :root {
-            --bg-color: #f0f2f5;
-            --primary-color: #007aff;
-            --secondary-color: #ffffff;
-            --text-color: #000000;
-            --text-secondary: #555555;
-            --border-color: #e0e0e0;
-            --shadow-color: rgba(0, 0, 0, 0.08);
-            --gradient: linear-gradient(45deg, var(--primary-color), #00aaff);
-            --nav-bg: rgba(255, 255, 255, 0.7);
-            
-            --gallery-gap: 3px; 
-            --gallery-item-height: 300px;
-            --gallery-item-basis: 250px;
-        }
+    <style>
+        /* --- 1. CSS Variables --- */
+        :root {
+            --bg-color: #f0f2f5;
+            --primary-color: #007aff;
+            --secondary-color: #ffffff;
+            --text-color: #000000;
+            --text-secondary: #555555;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --gradient: linear-gradient(45deg, var(--primary-color), #00aaff);
+            --nav-bg: rgba(255, 255, 255, 0.7);
+            
+            --gallery-gap: 3px; 
+            --gallery-item-height: 300px;
+            --gallery-item-basis: 250px;
+        }
 
-        html.dark-mode {
-            --bg-color: #000000;
-            --primary-color: #007aff;
-            --secondary-color: #1c1c1e;
-            --text-color: #ffffff;
-            --text-secondary: #8e8e93;
-            --border-color: #333333;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --gradient: linear-gradient(45deg, var(--primary-color), #00c6ff);
-            --nav-bg: rgba(20, 20, 20, 0.7);
-        }
+        html.dark-mode {
+            --bg-color: #000000;
+            --primary-color: #007aff;
+            --secondary-color: #1c1c1e;
+            --text-color: #ffffff;
+            --text-secondary: #8e8e93;
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --gradient: linear-gradient(45deg, var(--primary-color), #00c6ff);
+            --nav-bg: rgba(20, 20, 20, 0.7);
+        }
 
-        /* --- 2. 全局重置与基础样式 --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* --- 2. 全局重置与基础样式 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html {
+            scroll-behavior: smooth;
+        }
 
-        body {
-            font-family: 'Inter', 'Noto Sans SC', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.7; /* 优化: 增加行高 */
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7; /* 优化: 增加行高 */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-        h1, h2, h3 {
-            color: var(--text-color);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-        
-        h1 { font-size: 3rem; }
-        h2 { 
-            font-size: 2.2rem; 
-            font-weight: 800; /* 优化: 标题加粗 */
-            letter-spacing: -0.5px; /* 优化: 字母间距 */
-        }
+        h1, h2, h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        h1 { font-size: 3rem; }
+        h2 { 
+            font-size: 2.2rem; 
+            font-weight: 800; /* 优化: 标题加粗 */
+            letter-spacing: -0.5px; /* 优化: 字母间距 */
+        }
 
-        p {
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
 
-        section {
-            padding: 80px 0; /* 优化: 增加上下间距 */
-            border-bottom: none; /* 优化: 移除边框, 靠留白分割 */
-        }
+        section {
+            padding: 80px 0; /* 优化: 增加上下间距 */
+            border-bottom: none; /* 优化: 移除边框, 靠留白分割 */
+        }
 
-        /* --- 3. 导航栏 (Header) (修改: 增加语言选择器样式) --- */
-        .navbar {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            background-color: var(--nav-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        .navbar .container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
-        .navbar .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
-        .navbar ul { display: flex; list-style: none; align-items: center; }
-        .navbar ul li { margin-left: 25px; }
-        .navbar ul li a { color: var(--text-color); text-decoration: none; font-size: 1rem; font-weight: 400; transition: color 0.3s ease; }
-        .navbar ul li a:hover, .navbar ul li a.active { color: var(--primary-color); }
-        #theme-toggle { background: none; border: none; color: var(--text-color); font-size: 1.5rem; cursor: pointer; padding: 0 5px; transition: color 0.3s ease, transform 0.3s ease; }
-        #theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
+        /* --- 3. 导航栏 (Header) (修改: 增加语言选择器样式) --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .navbar .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+        .navbar ul { display: flex; list-style: none; align-items: center; }
+        .navbar ul li { margin-left: 25px; }
+        .navbar ul li a { color: var(--text-color); text-decoration: none; font-size: 1rem; font-weight: 400; transition: color 0.3s ease; }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--primary-color); }
+        #theme-toggle { background: none; border: none; color: var(--text-color); font-size: 1.5rem; cursor: pointer; padding: 0 5px; transition: color 0.3s ease, transform 0.3s ease; }
+        #theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
 
-        /* 语言选择器样式 */
-        #language-select {
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: 1px solid var(--border-color);
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-            margin-left: 15px; /* 调整与主题切换按钮的间距 */
-            transition: all 0.3s ease;
-        }
-        #language-select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
-        }
-        .nav-item-lang {
-            display: flex;
-            align-items: center;
-        }
+        /* 语言选择器样式 */
+        #language-select {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-left: 15px; /* 调整与主题切换按钮的间距 */
+            transition: all 0.3s ease;
+        }
+        #language-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+        }
+        .nav-item-lang {
+            display: flex;
+            align-items: center;
+        }
 
 
-        /* --- 4. 英雄/主页 (Hero) (修改: 添加 data-key) --- */
-        #hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+        /* --- 4. 英雄/主页 (Hero) (修改: 添加 data-key) --- */
+        #hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-        #hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        #hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-       #hero p {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            min-height: 2.2rem; 
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            line-height: 1.6; /* 新增: 优化副标题的行高 */
-        }
-        /* CTA 按钮 (无修改) */
-        .cta-button {
-            display: inline-block;
-            margin-top: 1.5rem;
-            padding: 12px 25px;
-            background-color: var(--primary-color);
-            color: #ffffff;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            filter: brightness(1.1);
-            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
-        }
-        
-        /* --- 9b. (新增) 新闻列表样式 --- */
-        .news-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .news-item {
-            background-color: var(--secondary-color);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px var(--shadow-color);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .news-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-        .news-item h3 {
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-            color: var(--primary-color);
-        }
-        .news-item p.date {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.75rem;
-            font-weight: 300;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 5px;
-        }
-        .news-item p.description {
-            font-size: 1rem;
-            margin-bottom: 0;
-            color: var(--text-color);
-        }
-        /* --- 5. 关于我 (About) (无修改) --- */
-        #about .container {
-            max-width: 800px;
-            text-align: center;
-        }
-        .profile-pic {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--secondary-color);
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-        
-        /* --- 6. 项目 (Projects) (无修改) --- */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .project-card {
-            background-color: var(--secondary-color);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px var(--shadow-color);
-        }
-        .project-card img { width: 100%; height: 200px; object-fit: cover; background-color: #eee; }
-        .project-content { padding: 1.5rem; }
-        .project-content h3 { margin-top: 0; color: var(--text-color); }
-        .project-content p { font-size: 0.9rem; }
-        .project-link { display: inline-block; margin-top: 1rem; color: var(--primary-color); text-decoration: none; font-weight: 700; }
-        .project-link:hover { text-decoration: underline; }
+       #hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            min-height: 2.2rem; 
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.6; /* 新增: 优化副标题的行高 */
+        }
+        /* CTA 按钮 (无修改) */
+        .cta-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
+        }
+        
+        /* --- 9b. (新增) 新闻列表样式 --- */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .news-item {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .news-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        .news-item h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        .news-item p.date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            font-weight: 300;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+        .news-item p.description {
+            font-size: 1rem;
+            margin-bottom: 0;
+            color: var(--text-color);
+        }
+        /* --- 5. 关于我 (About) (无修改) --- */
+        #about .container {
+            max-width: 800px;
+            text-align: center;
+        }
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary-color);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        /* --- 6. 项目 (Projects) (无修改) --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background-color: var(--secondary-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+        .project-card img { width: 100%; height: 200px; object-fit: cover; background-color: #eee; }
+        .project-content { padding: 1.5rem; }
+        .project-content h3 { margin-top: 0; color: var(--text-color); }
+        .project-content p { font-size: 0.9rem; }
+        .project-link { display: inline-block; margin-top: 1rem; color: var(--primary-color); text-decoration: none; font-weight: 700; }
+        .project-link:hover { text-decoration: underline; }
 
-        /* --- 6b. 生活日常 (Moments Gallery) (无修改) --- */
-        #moments h2 { text-align: center; }
-        #moments .subtitle {
-            text-align: center; font-size: 1.1rem;
-            max-width: 600px; margin-left: auto; margin-right: auto;
-            color: var(--text-secondary);
-        }
-        .gallery-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--gallery-gap);
-            margin-top: 2rem;
-        }
-        .gallery-item {
-            position: relative; flex-grow: 1; 
-            flex-basis: var(--gallery-item-basis); 
-            height: var(--gallery-item-height); 
-            border-radius: 5px; overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .gallery-item img {
-            width: 100%; height: 100%;
-            object-fit: cover; 
-            display: block;
-            background-color: var(--secondary-color);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .gallery-item::after {
-            content: ''; position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .moment-date {
-            position: absolute; bottom: 15px; left: 15px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            padding: 4px 8px; border-radius: 5px;
-            font-size: 0.8rem; font-weight: 600;
-            z-index: 2; opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-        }
-        .gallery-item:hover {
-            box-shadow: 0 8px 20px var(--shadow-color);
-            transform: scale(1.02);
-        }
-        .gallery-item:hover::after { opacity: 1; }
-        .gallery-item:hover .moment-date { opacity: 1; transform: translateY(0); }
-        .gallery-item:hover img { transform: scale(1.1); }
-        
-        #load-more-btn {
-            display: block;
-            margin: 1.5rem auto 0 auto;
-        }
+        /* --- 6b. 生活日常 (Moments Gallery) (无修改) --- */
+        #moments h2 { text-align: center; }
+        #moments .subtitle {
+            text-align: center; font-size: 1.1rem;
+            max-width: 600px; margin-left: auto; margin-right: auto;
+            color: var(--text-secondary);
+        }
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--gallery-gap);
+            margin-top: 2rem;
+        }
+        .gallery-item {
+            position: relative; flex-grow: 1; 
+            flex-basis: var(--gallery-item-basis); 
+            height: var(--gallery-item-height); 
+            border-radius: 5px; overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover; 
+            display: block;
+            background-color: var(--secondary-color);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .gallery-item::after {
+            content: ''; position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .moment-date {
+            position: absolute; bottom: 15px; left: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 4px 8px; border-radius: 5px;
+            font-size: 0.8rem; font-weight: 600;
+            z-index: 2; opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            box-shadow: 0 8px 20px var(--shadow-color);
+            transform: scale(1.02);
+        }
+        .gallery-item:hover::after { opacity: 1; }
+        .gallery-item:hover .moment-date { opacity: 1; transform: translateY(0); }
+        .gallery-item:hover img { transform: scale(1.1); }
+        
+        #load-more-btn {
+            display: block;
+            margin: 1.5rem auto 0 auto;
+        }
 
-        /* --- 模态框 (Modal) 样式 (无修改) --- */
-        .modal {
-            display: none; position: fixed;
-            z-index: 2000; left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center; align-items: center;
-            backdrop-filter: blur(10px);
-        }
-        /* ... (折叠模态框样式) ... */
-        .modal-content { position: relative; background-color: var(--secondary-color); padding: 20px; border-radius: 15px; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        .modal-body { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; flex-grow: 1; overflow-y: auto; }
-        .modal-body img { max-width: 100%; max-height: 60vh; object-fit: contain; border-radius: 8px; flex-shrink: 0; }
-        .modal-info { text-align: center; }
-        .modal-info p { margin-bottom: 0.5rem; color: var(--text-color); }
-        .modal-info .modal-date { font-size: 0.9rem; color: var(--text-secondary); font-weight: 300; }
-        .modal-info .modal-description { font-size: 1rem; color: var(--text-color); max-width: 400px; margin: 0.5rem auto 0 auto; }
-        .modal-close, .modal-nav-btn { position: absolute; background-color: rgba(0, 0, 0, 0.3); color: #fff; border: none; padding: 8px 15px; font-size: 1.5rem; cursor: pointer; border-radius: 50%; line-height: 1; transition: background-color 0.3s ease; }
-        .modal-close { top: 15px; right: 15px; font-size: 2rem; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; }
-        .modal-close:hover { background-color: var(--primary-color); }
-        .modal-prev, .modal-next { top: 50%; transform: translateY(-50%); width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; }
-        .modal-prev { left: 15px; }
-        .modal-next { right: 15px; }
-        .modal-nav-btn:hover { background-color: rgba(0, 0, 0, 0.6); }
-        @media (min-width: 768px) { .modal-body { flex-direction: row; text-align: left; align-items: flex-start; } .modal-info { text-align: left; } .modal-info .modal-description { margin-left: 0; } .modal-body img { max-width: 60%; max-height: 70vh; } }
+        /* --- 模态框 (Modal) 样式 (无修改) --- */
+        .modal {
+            display: none; position: fixed;
+            z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center; align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        /* ... (折叠模态框样式) ... */
+        .modal-content { position: relative; background-color: var(--secondary-color); padding: 20px; border-radius: 15px; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .modal-body { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; flex-grow: 1; overflow-y: auto; }
+        .modal-body img { max-width: 100%; max-height: 60vh; object-fit: contain; border-radius: 8px; flex-shrink: 0; }
+        .modal-info { text-align: center; }
+        .modal-info p { margin-bottom: 0.5rem; color: var(--text-color); }
+        .modal-info .modal-date { font-size: 0.9rem; color: var(--text-secondary); font-weight: 300; }
+        .modal-info .modal-description { font-size: 1rem; color: var(--text-color); max-width: 400px; margin: 0.5rem auto 0 auto; }
+        .modal-close, .modal-nav-btn { position: absolute; background-color: rgba(0, 0, 0, 0.3); color: #fff; border: none; padding: 8px 15px; font-size: 1.5rem; cursor: pointer; border-radius: 50%; line-height: 1; transition: background-color 0.3s ease; }
+        .modal-close { top: 15px; right: 15px; font-size: 2rem; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; }
+        .modal-close:hover { background-color: var(--primary-color); }
+        .modal-prev, .modal-next { top: 50%; transform: translateY(-50%); width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; }
+        .modal-prev { left: 15px; }
+        .modal-next { right: 15px; }
+        .modal-nav-btn:hover { background-color: rgba(0, 0, 0, 0.6); }
+        @media (min-width: 768px) { .modal-body { flex-direction: row; text-align: left; align-items: flex-start; } .modal-info { text-align: left; } .modal-info .modal-description { margin-left: 0; } .modal-body img { max-width: 60%; max-height: 70vh; } }
 
-        /* --- 7. 联系我 (Contact) & 页脚 (Footer) (无修改) --- */
-        #contact { text-align: center; }
-        .social-links { list-style: none; display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
-        .social-links a { color: var(--text-secondary); font-size: 1.5rem; transition: color 0.3s ease, transform 0.3s ease; }
-        .social-links a:hover { color: var(--primary-color); transform: scale(1.1); }
-        footer { text-align: center; padding: 20px; margin-top: 40px; color: var(--text-secondary); font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+        /* --- 7. 联系我 (Contact) & 页脚 (Footer) (无修改) --- */
+        #contact { text-align: center; }
+        .social-links { list-style: none; display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
+        .social-links a { color: var(--text-secondary); font-size: 1.5rem; transition: color 0.3s ease, transform 0.3s ease; }
+        .social-links a:hover { color: var(--primary-color); transform: scale(1.1); }
+        footer { text-align: center; padding: 20px; margin-top: 40px; color: var(--text-secondary); font-size: 0.9rem; border-top: 1px solid var(--border-color); }
 
-        /* --- 8. 响应式设计 (Mobile) (修改: 适配语言选择器) --- */
-        .menu-toggle { display: none; cursor: pointer; font-size: 1.8rem; color: var(--text-color); }
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            #hero h1 { font-size: 3rem; }
-            #hero p { 
-                font-size: 1.2rem; 
-                margin-bottom: 0.75rem; /* 新增: 减少手机上的段落间距 */
-            }
-            .navbar .container { position: relative; }
-            .navbar ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 70px; left: 0; background-color: var(--secondary-color); }
-            .navbar ul.active { display: flex; }
-            .navbar ul li { margin: 0; width: 100%; text-align: center; }
-            .navbar ul li a { display: block; padding: 15px; border-bottom: 1px solid var(--border-color); }
-            .navbar ul li #theme-toggle { padding: 15px; width: 100%; }
-            /* 手机端语言选择器样式调整 */
-            .nav-item-lang { 
-                width: 100%; 
-                border-bottom: 1px solid var(--border-color);
-                padding: 15px;
-                justify-content: center;
-            }
-            #language-select {
-                margin: 0 0 0 10px;
-            }
-            .navbar ul li:last-child a, .navbar ul li:last-child #theme-toggle { border-bottom: none; }
-            .menu-toggle { display: block; }
-            :root { --gallery-item-height: 250px; --gallery-item-basis: 150px; }
-        }
-        
-        /* * --- 9. (新增) 滚动淡入动画 ---
-         */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        
-        /* 动画延迟 (可选, 增加层次感) */
-        .fade-in-delay-1 { transition-delay: 0.1s; }
-        .fade-in-delay-2 { transition-delay: 0.2s; }
-        .fade-in-delay-3 { transition-delay: 0.3s; }
+        /* --- 8. 响应式设计 (Mobile) (修改: 适配语言选择器) --- */
+        .menu-toggle { display: none; cursor: pointer; font-size: 1.8rem; color: var(--text-color); }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            #hero h1 { font-size: 3rem; }
+            #hero p { 
+                font-size: 1.2rem; 
+                margin-bottom: 0.75rem; /* 新增: 减少手机上的段落间距 */
+            }
+            .navbar .container { position: relative; }
+            .navbar ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 70px; left: 0; background-color: var(--secondary-color); }
+            .navbar ul.active { display: flex; }
+            .navbar ul li { margin: 0; width: 100%; text-align: center; }
+            .navbar ul li a { display: block; padding: 15px; border-bottom: 1px solid var(--border-color); }
+            .navbar ul li #theme-toggle { padding: 15px; width: 100%; }
+            /* 手机端语言选择器样式调整 */
+            .nav-item-lang { 
+                width: 100%; 
+                border-bottom: 1px solid var(--border-color);
+                padding: 15px;
+                justify-content: center;
+            }
+            #language-select {
+                margin: 0 0 0 10px;
+            }
+            .navbar ul li:last-child a, .navbar ul li:last-child #theme-toggle { border-bottom: none; }
+            .menu-toggle { display: block; }
+            :root { --gallery-item-height: 250px; --gallery-item-basis: 150px; }
+        }
+        
+        /* * --- 9. (新增) 滚动淡入动画 ---
+         */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        /* 动画延迟 (可选, 增加层次感) */
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
 
-        .fade-in.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    </style>
+    </style>
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="container">
-            <a href="#hero" class="logo">11_sum的网站</a>
-            <nav>
-                <div class="menu-toggle" id="mobile-menu">
-                    &#9776;
-                </div>
-                <ul id="nav-menu">
-                    <li><a href="#hero" class="nav-link active" data-key="nav_home">首页</a></li>
-                    <li><a href="#about" class="nav-link" data-key="nav_about">关于我</a></li>
-                    <li><a href="#news" class="nav-link" data-key="nav_news">新闻/事件</a></li>
-                    <li><a href="#projects" class="nav-link" data-key="nav_projects">项目&学习</a></li>
-                    <li><a href="#moments" class="nav-link" data-key="nav_moments">我的日常</a></li>
-                    <li><a href="#contact" class="nav-link" data-key="nav_contact">联系我</a></li>
-                    <li><button id="theme-toggle">🌙</button></li>
-                    <li class="nav-item-lang">
-                        <span>🌎</span>
-                        <select id="language-select">
-                            <option value="zh-CN">简体中文</option>
-                            <option value="en">English</option>
-                            <option value="ja">日本語</option>
-                        </select>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <header class="navbar">
+        <div class="container">
+            <a href="#hero" class="logo">11_sum的网站</a>
+            <nav>
+                <div class="menu-toggle" id="mobile-menu">
+                    &#9776;
+                </div>
+                <ul id="nav-menu">
+                    <li><a href="#hero" class="nav-link active" data-key="nav_home">首页</a></li>
+                    <li><a href="#about" class="nav-link" data-key="nav_about">关于我</a></li>
+                    <li><a href="#news" class="nav-link" data-key="nav_news">新闻/事件</a></li>
+                    <li><a href="#projects" class="nav-link" data-key="nav_projects">项目&学习</a></li>
+                    <li><a href="#moments" class="nav-link" data-key="nav_moments">我的日常</a></li>
+                    <li><a href="#contact" class="nav-link" data-key="nav_contact">联系我</a></li>
+                    <li><button id="theme-toggle">🌙</button></li>
+                    <li class="nav-item-lang">
+                        <span>🌎</span>
+                        <select id="language-select">
+                            <option value="zh-CN">简体中文</option>
+                            <option value="en">English</option>
+                            <option value="ja">日本語</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <main>
-        <section id="hero">
-            <h1 data-key="hero_title">你好，我是11_sum</h1>
-            <p data-key="hero_subtitle_1">一名学生，AI&EE领域学习者，日常学习&玩耍&研究&睡觉😴。</p>
-            <p data-key="hero_subtitle_2">“The more you experience, the more open-mind you will be.🥸”</p>
-            <p data-key="hero_subtitle_3">Much more content coming soon……</p>
-            <a href="#projects" class="cta-button" data-key="hero_cta">查看我的项目&学习😼</a>
-        </section>
-                
-        <section id="about">
-            <div class="container">
-                <img src="11sum.jpg" alt="我的头像" class="profile-pic fade-in">
-                <h2 data-key="about_title" class="fade-in">关于我</h2>
-                <p data-key="about_p1" class="fade-in fade-in-delay-1"> SCU（四川大学）， EE Bachelor，2025😎 </p>
-                <p data-key="about_p2" class="fade-in fade-in-delay-2"> Currently, Study in HUST(华中科技大学)😋 </p>
-                <p data-key="about_p3" class="fade-in fade-in-delay-3"> Live&Study in Tokyo, Japan 2026-？🤔 </p>
-                <p data-key="about_p4" class="fade-in fade-in-delay-3"> Main research Interest in HCI&IoT&AI……🧐 </p>
-                <p data-key="about_p5" class="fade-in fade-in-delay-3"> When there is some free time, I will play the go/guitar，hike with classmates，read novels……☺️ </p>
-            </div>
-        </section>
+    <main>
+        <section id="hero">
+            <h1 data-key="hero_title">你好，我是11_sum</h1>
+            <p data-key="hero_subtitle_1">一名学生，AI&EE领域学习者，日常学习&玩耍&研究&睡觉😴。</p>
+            <p data-key="hero_subtitle_2">“The more you experience, the more open-mind you will be.🥸”</p>
+            <p data-key="hero_subtitle_3">Much more content coming soon……</p>
+            <a href="#projects" class="cta-button" data-key="hero_cta">查看我的项目&学习😼</a>
+        </section>
+                
+        <section id="about">
+            <div class="container">
+                <img src="11sum.jpg" alt="我的头像" class="profile-pic fade-in">
+                <h2 data-key="about_title" class="fade-in">关于我</h2>
+                <p data-key="about_p1" class="fade-in fade-in-delay-1"> SCU（四川大学）， EE Bachelor，2025😎 </p>
+                <p data-key="about_p2" class="fade-in fade-in-delay-2"> Currently, Study in HUST(华中科技大学)😋 </p>
+                <p data-key="about_p3" class="fade-in fade-in-delay-3"> Live&Study in Tokyo, Japan 2026-？🤔 </p>
+                <p data-key="about_p4" class="fade-in fade-in-delay-3"> Main research Interest in HCI&IoT&AI……🧐 </p>
+                <p data-key="about_p5" class="fade-in fade-in-delay-3"> When there is some free time, I will play the go/guitar，hike with classmates，read novels……☺️ </p>
+            </div>
+        </section>
 
-        <section id="news">
-            <div class="container">
-                <h2 data-key="news_title" class="fade-in">新闻/事件</h2>
-                <p data-key="news_subtitle" class="subtitle fade-in fade-in-delay-1">记录最近发生的一些重要事件和学习进展。</p>
-                <div class="news-list" id="news-list">
-                    </div>
-                <button id="load-more-news-btn" class="cta-button" data-key="news_load_more_cta" style="display:none; margin-top: 2rem;">加载更多新闻</button>
-            </div>
-        </section>
-        
-        <section id="projects">
-            <div class="container">
-                <h2 data-key="projects_title" class="fade-in">项目&学习</h2>
-                <div class="project-grid" id="project-grid">
-                    </div>
-            </div>
-        </section>
+        <section id="news">
+            <div class="container">
+                <h2 data-key="news_title" class="fade-in">新闻/事件</h2>
+                <p data-key="news_subtitle" class="subtitle fade-in fade-in-delay-1">记录最近发生的一些重要事件和学习进展。</p>
+                <div class="news-list" id="news-list">
+                    </div>
+                <button id="load-more-news-btn" class="cta-button" data-key="news_load_more_cta" style="display:none; margin-top: 2rem;">加载更多新闻</button>
+            </div>
+        </section>
+        
+        <section id="projects">
+            <div class="container">
+                <h2 data-key="projects_title" class="fade-in">项目&学习</h2>
+                <div class="project-grid" id="project-grid">
+                    </div>
+            </div>
+        </section>
 
-        <section id="moments">
-            <div class="container">
-                <h2 data-key="moments_title" class="fade-in">我的日常 (My Moments)</h2>
-                <p data-key="moments_subtitle" class="subtitle fade-in fade-in-delay-1">一些生活的碎片，记录我不在电脑前的时光。</p>
-                <div class="gallery-grid" id="gallery-grid">
-                    </div>
-                <button id="load-more-btn" class="cta-button" data-key="moments_load_more">加载更多</button>
-            </div>
-        </section>
-        
-        <section id="contact">
-            <div class="container fade-in">
-                <h2 data-key="contact_title">联系我</h2>
-                <p data-key="contact_subtitle">您可以通过以下方式找到我，期待与您交流！</p>
-                <ul class="social-links">
-                    <li><a href="mailto:elevensumm@gmail.com" title="Email">📧</a></li>
-                    <li><a href="https://github.com/Elevenvenven?tab=repositories" title="GitHub" target="_blank">GitHub</a></li>
-                    <li><a href="#" title="LinkedIn" target="_blank">LinkedIn</a></li>
-                </ul>
-            </div>
-        </section>
-    </main>
+        <section id="moments">
+            <div class="container">
+                <h2 data-key="moments_title" class="fade-in">我的日常 (My Moments)</h2>
+                <p data-key="moments_subtitle" class="subtitle fade-in fade-in-delay-1">一些生活的碎片，记录我不在电脑前的时光。</p>
+                <div class="gallery-grid" id="gallery-grid">
+                    </div>
+                <button id="load-more-btn" class="cta-button" data-key="moments_load_more">加载更多</button>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <div class="container fade-in">
+                <h2 data-key="contact_title">联系我</h2>
+                <p data-key="contact_subtitle">您可以通过以下方式找到我，期待与您交流！</p>
+                <ul class="social-links">
+                    <li><a href="mailto:elevensumm@gmail.com" title="Email">📧</a></li>
+                    <li><a href="https://github.com/Elevenvenven?tab=repositories" title="GitHub" target="_blank">GitHub</a></li>
+                    <li><a href="#" title="LinkedIn" target="_blank">LinkedIn</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
 
-    <footer>
-        <p data-key="footer_text">&copy; 2025 11_sum. 保留所有权利。</p>
-    </footer>
+    <footer>
+        <p data-key="footer_text">&copy; 2025 11_sum. 保留所有权利。</p>
+    </footer>
 
-    <div id="moment-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div class="modal-body">
-                <img src="" alt="" id="modal-image">
-                <div class="modal-info">
-                    <p class="modal-date" id="modal-date"></p>
-                    <p class="modal-description" id="modal-description"></p>
-                </div>
-            </div>
-            <button class="modal-nav-btn modal-prev" id="modal-prev">&#10094;</button> 
-            <button class="modal-nav-btn modal-next" id="modal-next">&#10095;</button> 
-        </div>
-    </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // --- 新增: 语言包定义 (i18n Translation Dictionary) ---
-            const translations = {
-                'zh-CN': {
-                    nav_home: '首页',
-                    nav_about: '关于我',
-                    nav_news: '新闻', // 新增
-                    nav_projects: '项目&学习',
-                    nav_moments: '我的日常',
-                    nav_contact: '联系我',
-                    
-                    hero_title: '你好，我是11_sum',
-                    hero_subtitle_1: '一名学生，AI&EE领域学习者，日常学习&玩耍&研究&睡觉😴。',
-                    hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
-                    hero_subtitle_3: 'Much more content coming soon……',
-                    hero_cta: '查看我的项目&学习😼',
-                    
-                    about_title: '关于我',
-                    about_p1: 'SCU（四川大学）， EE Bachelor，2025😎',
-                    about_p2: 'Currently, Study in HUST(华中科技大学)😋',
-                    about_p3: 'Live&Study in Tokyo, Japan 2026-？🤔',
-                    about_p4: 'Main research Interest in HCI&IoT&AI……🧐',
-                    about_p5: 'When there is some free time, I will play the go/guitar，hike with classmates，read novels……☺️',
-                    
-                    news_title: '新闻', // 新增
-                    news_subtitle: '记录最近发生的一些重要事件和学习进展。', // 新增
-                    news_load_more_cta: '加载更多新闻', // 新增
-                    
-                    projects_title: '项目&学习',
-                    project_link: '查看详情 &rarr;', // 用于项目卡片，会动态更新
-                    
-                    moments_title: '我的日常 (My Moments)',
-                    moments_subtitle: '一些生活的碎片，记录我不在电脑前的时光。',
-                    moments_load_more: '加载更多',
-                    
-                    contact_title: '联系我',
-                    contact_subtitle: '您可以通过以下方式找到我，期待与您交流！',
-
-                    modal_date_prefix: '日期: ', // 模态框日期前缀
-                    footer_text: '&copy; 2025 11_sum. 保留所有权利。',
-                    logo_text: '11_sum的网站'
-                },
-                'en': {
-                    nav_home: 'Home',
-                    nav_about: 'About Me',
-                    nav_news: 'News', // 新增
-                    nav_projects: 'Projects & Study',
-                    nav_moments: 'My Moments',
-                    nav_contact: 'Contact',
-                    
-                    hero_title: 'Hello, I’m 11_sum',
-                    hero_subtitle_1: 'A student, learner in AI & EE fields, who studies, plays, researches, and sleeps 😴.',
-                    hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
-                    hero_subtitle_3: 'Much more content coming soon……',
-                    hero_cta: 'View My Projects & Study 😼',
-                    
-                    about_title: 'About Me',
-                    about_p1: 'SCU (Sichuan University), EE Bachelor, 2025😎',
-                    about_p2: 'Currently studying at HUST (Huazhong University of Science and Technology)😋',
-                    about_p3: 'Will live & study in Tokyo, Japan 2026-?🤔',
-                    about_p4: 'Main research interests in HCI & IoT & AI……🧐',
-                    about_p5: 'When I have free time, I play Go/guitar, hike with classmates, and read novels……☺️',
-                    
-                    news_title: 'News', // 新增
-                    news_subtitle: 'Recording recent important events and study progress.', // 新增
-                    news_load_more_cta: 'Load More News', // 新增
-                    
-                    projects_title: 'Projects & Study',
-                    project_link: 'View Details &rarr;',
-                    
-                    moments_title: 'My Moments',
-                    moments_subtitle: 'A few fragments of life, recording time away from the computer.',
-                    moments_load_more: 'Load More',
-                    
-                    contact_title: 'Contact Me',
-                    contact_subtitle: 'You can find me through the methods below. Looking forward to communicating with you!',
-
-                    modal_date_prefix: 'Date: ',
-                    footer_text: '&copy; 2025 11_sum. All Rights Reserved.',
-                    logo_text: '11_sum\'s Website'
-                },
-                'ja': {
-                    nav_home: 'ホーム',
-                    nav_about: '私について',
-                    nav_news: 'ニュース', // 新增
-                    nav_projects: 'プロジェクト・学習',
-                    nav_moments: '日常',
-                    nav_contact: 'お問い合わせ',
-                    
-                    hero_title: 'こんにちは、11_sumです',
-                    hero_subtitle_1: 'AIとEE分野を学ぶ学生で、日々勉強、遊び、研究、そして睡眠😴をしています。',
-                    hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
-                    hero_subtitle_3: '更なるコンテンツを近々公開します……',
-                    hero_cta: '私のプロジェクト・学習を見る😼',
-                    
-                    about_title: '私について',
-                    about_p1: 'SCU（四川大学）、電気工学（EE）学士、2025年卒業😎',
-                    about_p2: '現在、HUST（華中科技大学）で学んでいます😋',
-                    about_p3: '2026年からは日本の東京で生活・勉強する予定です🤔',
-                    about_p4: '主な研究関心はHCI、IoT、AIなどです……🧐',
-                    about_p5: '自由時間には、囲碁やギターを弾いたり、クラスメートとハイキングに行ったり、小説を読んだりします……☺️',
-                    
-                    news_title: 'ニュース', // 新增
-                    news_subtitle: '最近の重要なイベントや学習の進捗を記録しています。', // 新增
-                    news_load_more_cta: 'さらにニュースを読み込む', // 新增
-
-                    projects_title: 'プロジェクト・学習',
-                    project_link: '詳細を見る &rarr;',
-
-                    moments_title: '私の日常 (My Moments)',
-                    moments_subtitle: 'コンピューターから離れている時の生活の断片を記録しています。',
-                    moments_load_more: 'さらに読み込む',
-                    
-                    contact_title: 'お問い合わせ',
-                    contact_subtitle: '以下の方法で私を見つけることができます。交流を楽しみにしています！',
-
-                    modal_date_prefix: '日付: ',
-                    footer_text: '&copy; 2025 11_sum. 全著作権所有。',
-                    logo_text: '11_sumのサイト'
-                }
-            };
-
-            // --- 新增: 语言切换逻辑 ---
-            const langSelect = document.getElementById('language-select');
-            const logo = document.querySelector('.navbar .logo');
-            
-            // 1. 获取或设置默认语言
-            let currentLanguage = localStorage.getItem('language') || 'zh-CN';
-            langSelect.value = currentLanguage;
-
-            function setLanguage(lang) {
-                currentLanguage = lang;
-                localStorage.setItem('language', lang);
-                const t = translations[lang];
-
-                // a. 根元素 lang 属性
-                document.documentElement.lang = lang;
-                
-                // b. 静态文本更新 (使用 data-key)
-                document.querySelectorAll('[data-key]').forEach(el => {
-                    const key = el.getAttribute('data-key');
-                    if (t[key]) {
-                        // 特殊处理 <p> 标签，如果内容一样则不更新，以保留嵌入的 HTML 或表情符号
-                        if (el.tagName === 'P' || el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'A') {
-                            el.textContent = t[key];
-                        } else {
-                            el.innerHTML = t[key];
-                        }
-                    }
-                });
-
-                // c. 徽标/Logo文本更新
-                if (t.logo_text) {
-                    logo.textContent = t.logo_text;
-                }
-
-                // d. 动态内容更新: 项目卡片链接 (因为它们可能是异步加载的)
-                document.querySelectorAll('.project-link').forEach(link => {
-                    link.innerHTML = t.project_link;
-                });
-                
-                // e. 动态内容更新: 模态框日期前缀
-                const modalDateEl = document.getElementById('modal-date');
-                if (modalDateEl.textContent) {
-                    const dateContent = modalDateEl.textContent.replace(/^[^:]*: /, ''); // 移除旧前缀和冒号
-                    modalDateEl.textContent = `${t.modal_date_prefix}${dateContent}`;
-                }
-                
-                // f. 动态内容更新: 新闻列表（如果已经加载）
-                document.querySelectorAll('.news-item .news-title').forEach(el => {
-                    // 假设新闻标题存储在 news.json 中，这里只处理默认加载文本
-                    // 如果 news.json 中的数据也支持多语言，则需要更复杂的逻辑
-                });
-            }
-
-            // 2. 语言切换事件监听
-            langSelect.addEventListener('change', (event) => {
-                setLanguage(event.target.value);
-            });
-
-            // 3. 页面加载时立即设置语言
-            setLanguage(currentLanguage);
-
-            
-            // --- 1. 移动端菜单切换 (无修改) ---
-            const menuToggle = document.getElementById('mobile-menu');
-            const navMenu = document.getElementById('nav-menu');
-            menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
-            document.querySelectorAll('#nav-menu li a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                    }
-                });
-            });
-
-            // --- 2. 导航栏高亮 (更新: 包含 news 栏目) ---
-            const sections = document.querySelectorAll('section');
-            const navLi = document.querySelectorAll('.navbar nav ul li a');
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    // 修正：确保 section.offsetTop - 75 存在
-                    if (section.offsetTop && pageYOffset >= (section.offsetTop - 75)) { 
-                        current = section.getAttribute('id');
-                    }
-                });
-                navLi.forEach(a => {
-                    // 只处理带有 data-key 的导航链接
-                    if (a.classList.contains('nav-link')) {
-                        a.classList.remove('active');
-                        if (a.getAttribute('href') === '#' + current) {
-                            a.classList.add('active');
-                        }
-                    }
-                });
-                // 确保 Home/首页 激活
-                if (current === 'hero' || (sections.length > 0 && pageYOffset < sections[0].offsetTop - 75)) {
-                    document.querySelector('.nav-link[href="#hero"]').classList.add('active');
-                }
-            });
-            
-            // --- 3. (C) 新增: 加载新闻 (News) ---
-            const newsList = document.getElementById('news-list');
-            const loadMoreNewsBtn = document.getElementById('load-more-news-btn');
-            
-            let allNews = [];
-            const INITIAL_NEWS_SHOW = 5;
-            const NEWS_LOAD_MORE_COUNT = 5;
-            let currentNewsIndex = 0;
-
-            function createNewsItem(news, index) {
-                const item = document.createElement('div');
-                item.className = `news-item fade-in fade-in-delay-${(index % 3) + 1}`;
-                item.innerHTML = `
-                    <h3 class="news-title">${news.title}</h3>
-                    <p class="date">${news.date}</p>
-                    <p class="description">${news.description}</p>
-                `;
-                return item;
-            }
-
-            function renderNews(newsToRender) {
-                newsToRender.forEach((news, relativeIndex) => {
-                    const globalIndex = currentNewsIndex + relativeIndex;
-                    const item = createNewsItem(news, globalIndex);
-                    newsList.appendChild(item);
-                    if (fadeInObserver) {
-                        fadeInObserver.observe(item);
-                    }
-                });
-            }
-
-            function loadMoreNews() {
-                const newsToLoad = allNews.slice(currentNewsIndex, currentNewsIndex + NEWS_LOAD_MORE_COUNT);
-                renderNews(newsToLoad);
-                currentNewsIndex += NEWS_LOAD_MORE_COUNT;
-                if (currentNewsIndex >= allNews.length) {
-                    loadMoreNewsBtn.style.display = 'none';
-                }
-            }
-
-            // 使用 fetch API 异步加载 news.json
-            fetch('news.json')
-                .then(response => response.json())
-                .then(newsData => {
-                    allNews = newsData.sort((a, b) => new Date(b.date) - new Date(a.date)); // 按日期降序排序
-                    
-                    const initialNews = allNews.slice(0, INITIAL_NEWS_SHOW);
-                    renderNews(initialNews);
-                    currentNewsIndex = INITIAL_NEWS_SHOW;
-                    
-                    if (currentNewsIndex < allNews.length) {
-                        loadMoreNewsBtn.style.display = 'block';
-                        loadMoreNewsBtn.addEventListener('click', loadMoreNews);
-                    }
-                    
-                    registerFadeInElements(); // 重新注册动画
-                })
-                .catch(error => console.error('Error loading news:', error));
-            
-            // (A) 加载项目 (Projects) - 保持不变，但重新调用 registerFadeInElements
-            const projectGrid = document.getElementById('project-grid');
-            
-            // 使用 fetch API 异步加载 projects.json
-            fetch('projects.json')
-                .then(response => response.json())
-                .then(projects => {
-                    const projectLinkKey = translations[currentLanguage].project_link;
-                    projects.forEach((project, index) => {
-                        const card = document.createElement('div');
-                        card.className = `project-card fade-in fade-in-delay-${(index % 3) + 1}`; // 添加动画
-                        
-                        card.innerHTML = `
-                            <img src="${project.image}" alt="${project.title}">
-                            <div class="project-content">
-                                <h3>${project.title}</h3>
-                                <p>${project.description}</p>
-                                <a href="${project.link}" class="project-link" target="_blank">${projectLinkKey}</a>
-                            </div>
-                        `;
-                        projectGrid.appendChild(card);
-                    });
-                    
-                    // (重要) 在内容加载后, 重新注册滚动动画观察器
-                    registerFadeInElements();
-                })
-                .catch(error => console.error('Error loading projects:', error));
+    <div id="moment-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <img src="" alt="" id="modal-image">
+                <div class="modal-info">
+                    <p class="modal-date" id="modal-date"></p>
+                    <p class="modal-description" id="modal-description"></p>
+                </div>
+            </div>
+            <button class="modal-nav-btn modal-prev" id="modal-prev">&#10094;</button> 
+            <button class="modal-nav-btn modal-next" id="modal-next">&#10095;</button> 
+        </div>
+    </div>
 
 
-            // (B) 加载日常 (Moments) - 逻辑保持不变
-            let allMoments = []; // 现在是一个空数组, 等待 fetch 填充
-            const INITIAL_SHOW = 4;
-            const LOAD_MORE_COUNT = 10;
-            let currentMomentIndex = 0; 
-            let currentModalMomentIndex = 0; 
-            const galleryGrid = document.getElementById('gallery-grid');
-            const loadMoreBtn = document.getElementById('load-more-btn');
-            
-            // (模态框元素 - 无修改)
-            const momentModal = document.getElementById('moment-modal');
-            const modalImage = document.getElementById('modal-image');
-            const modalDate = document.getElementById('modal-date');
-            const modalDescription = document.getElementById('modal-description');
-            const modalCloseBtn = document.querySelector('.modal-close');
-            const modalPrevBtn = document.getElementById('modal-prev');
-            const modalNextBtn = document.getElementById('modal-next');
-            
-            // 使用 fetch API 异步加载 moments.json
-            fetch('moments.json')
-                .then(response => response.json())
-                .then(momentsData => {
-                    allMoments = momentsData; // 将加载的数据存入 allMoments
-                    initializeGallery(); // 加载成功后, 初始化画廊
-                })
-                .catch(error => console.error('Error loading moments:', error));
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- 新增: 语言包定义 (i18n Translation Dictionary) ---
+            const translations = {
+                'zh-CN': {
+                    nav_home: '首页',
+                    nav_about: '关于我',
+                    nav_news: '新闻', // 新增
+                    nav_projects: '项目&学习',
+                    nav_moments: '我的日常',
+                    nav_contact: '联系我',
+                    
+                    hero_title: '你好，我是11_sum',
+                    hero_subtitle_1: '一名学生，AI&EE领域学习者，日常学习&玩耍&研究&睡觉😴。',
+                    hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
+                    hero_subtitle_3: 'Much more content coming soon……',
+                    hero_cta: '查看我的项目&学习😼',
+                    
+                    about_title: '关于我',
+                    about_p1: 'SCU（四川大学）， EE Bachelor，2025😎',
+                    about_p2: 'Currently, Study in HUST(华中科技大学)😋',
+                    about_p3: 'Live&Study in Tokyo, Japan 2026-？🤔',
+                    about_p4: 'Main research Interest in HCI&IoT&AI……🧐',
+                    about_p5: 'When there is some free time, I will play the go/guitar，hike with classmates，read novels……☺️',
+                    
+                    news_title: '新闻', // 新增
+                    news_subtitle: '记录最近发生的一些重要事件和学习进展。', // 新增
+                    news_load_more_cta: '加载更多新闻', // 新增
+                    
+                    projects_title: '项目&学习',
+                    project_link: '查看详情 &rarr;', // 用于项目卡片，会动态更新
+                    
+                    moments_title: '我的日常 (My Moments)',
+                    moments_subtitle: '一些生活的碎片，记录我不在电脑前的时光。',
+                    moments_load_more: '加载更多',
+                    
+                    contact_title: '联系我',
+                    contact_subtitle: '您可以通过以下方式找到我，期待与您交流！',
+
+                    modal_date_prefix: '日期: ', // 模态框日期前缀
+                    footer_text: '&copy; 2025 11_sum. 保留所有权利。',
+                    logo_text: '11_sum的网站'
+                },
+                'en': {
+                    nav_home: 'Home',
+                    nav_about: 'About Me',
+                    nav_news: 'News', // 新增
+                    nav_projects: 'Projects & Study',
+                    nav_moments: 'My Moments',
+                    nav_contact: 'Contact',
+                    
+                    hero_title: 'Hello, I’m 11_sum',
+                    hero_subtitle_1: 'A student, learner in AI & EE fields, who studies, plays, researches, and sleeps 😴.',
+                    hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
+                    hero_subtitle_3: 'Much more content coming soon……',
+                    hero_cta: 'View My Projects & Study 😼',
+                    
+                    about_title: 'About Me',
+                    about_p1: 'SCU (Sichuan University), EE Bachelor, 2025😎',
+                    about_p2: 'Currently studying at HUST (Huazhong University of Science and Technology)😋',
+                    about_p3: 'Will live & study in Tokyo, Japan 2026-?🤔',
+                    about_p4: 'Main research interests in HCI & IoT & AI……🧐',
+                    about_p5: 'When I have free time, I play Go/guitar, hike with classmates, and read novels……☺️',
+                    
+                    news_title: 'News', // 新增
+                    news_subtitle: 'Recording recent important events and study progress.', // 新增
+                    news_load_more_cta: 'Load More News', // 新增
+                    
+                    projects_title: 'Projects & Study',
+                    project_link: 'View Details &rarr;',
+                    
+                    moments_title: 'My Moments',
+                    moments_subtitle: 'A few fragments of life, recording time away from the computer.',
+                    moments_load_more: 'Load More',
+                    
+                    contact_title: 'Contact Me',
+                    contact_subtitle: 'You can find me through the methods below. Looking forward to communicating with you!',
+
+                    modal_date_prefix: 'Date: ',
+                    footer_text: '&copy; 2025 11_sum. All Rights Reserved.',
+                    logo_text: '11_sum\'s Website'
+                },
+                'ja': {
+                    nav_home: 'ホーム',
+                    nav_about: '私について',
+                    nav_news: 'ニュース', // 新增
+                    nav_projects: 'プロジェクト・学習',
+                    nav_moments: '日常',
+                    nav_contact: 'お問い合わせ',
+                    
+                    hero_title: 'こんにちは、11_sumです',
+                    hero_subtitle_1: 'AIとEE分野を学ぶ学生で、日々勉強、遊び、研究、そして睡眠😴をしています。',
+                    hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
+                    hero_subtitle_3: '更なるコンテンツを近々公開します……',
+                    hero_cta: '私のプロジェクト・学習を見る😼',
+                    
+                    about_title: '私について',
+                    about_p1: 'SCU（四川大学）、電気工学（EE）学士、2025年卒業😎',
+                    about_p2: '現在、HUST（華中科技大学）で学んでいます😋',
+                    about_p3: '2026年からは日本の東京で生活・勉強する予定です🤔',
+                    about_p4: '主な研究関心はHCI、IoT、AIなどです……🧐',
+                    about_p5: '自由時間には、囲碁やギターを弾いたり、クラスメートとハイキングに行ったり、小説を読んだりします……☺️',
+                    
+                    news_title: 'ニュース', // 新增
+                    news_subtitle: '最近の重要なイベントや学習の進捗を記録しています。', // 新增
+                    news_load_more_cta: 'さらにニュースを読み込む', // 新增
+
+                    projects_title: 'プロジェクト・学習',
+                    project_link: '詳細を見る &rarr;',
+
+                    moments_title: '私の日常 (My Moments)',
+                    moments_subtitle: 'コンピューターから離れている時の生活の断片を記録しています。',
+                    moments_load_more: 'さらに読み込む',
+                    
+                    contact_title: 'お問い合わせ',
+                    contact_subtitle: '以下の方法で私を見つけることができます。交流を楽しみにしています！',
+
+                    modal_date_prefix: '日付: ',
+                    footer_text: '&copy; 2025 11_sum. 全著作権所有。',
+                    logo_text: '11_sumのサイト'
+                }
+            };
+
+            // --- 新增: 语言切换逻辑 ---
+            const langSelect = document.getElementById('language-select');
+            const logo = document.querySelector('.navbar .logo');
+            
+            // 1. 获取或设置默认语言
+            let currentLanguage = localStorage.getItem('language') || 'zh-CN';
+            langSelect.value = currentLanguage;
+
+            function setLanguage(lang) {
+                currentLanguage = lang;
+                localStorage.setItem('language', lang);
+                const t = translations[lang];
+
+                // a. 根元素 lang 属性
+                document.documentElement.lang = lang;
+                
+                // b. 静态文本更新 (使用 data-key)
+                document.querySelectorAll('[data-key]').forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (t[key]) {
+                        // 特殊处理 <p> 标签，如果内容一样则不更新，以保留嵌入的 HTML 或表情符号
+                        if (el.tagName === 'P' || el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'A') {
+                            el.textContent = t[key];
+                        } else {
+                            el.innerHTML = t[key];
+                        }
+                    }
+                });
+
+                // c. 徽标/Logo文本更新
+                if (t.logo_text) {
+                    logo.textContent = t.logo_text;
+                }
+
+                // d. 动态内容更新: 项目卡片链接 (因为它们可能是异步加载的)
+                document.querySelectorAll('.project-link').forEach(link => {
+                    link.innerHTML = t.project_link;
+                });
+                
+                // e. 动态内容更新: 模态框日期前缀
+                const modalDateEl = document.getElementById('modal-date');
+                if (modalDateEl.textContent) {
+                    const dateContent = modalDateEl.textContent.replace(/^[^:]*: /, ''); // 移除旧前缀和冒号
+                    modalDateEl.textContent = `${t.modal_date_prefix}${dateContent}`;
+                }
+                
+                // f. 动态内容更新: 新闻列表（如果已经加载）
+                document.querySelectorAll('.news-item .news-title').forEach(el => {
+                    // 假设新闻标题存储在 news.json 中，这里只处理默认加载文本
+                    // 如果 news.json 中的数据也支持多语言，则需要更复杂的逻辑
+                });
+            }
+
+            // 2. 语言切换事件监听
+            langSelect.addEventListener('change', (event) => {
+                setLanguage(event.target.value);
+            });
+
+            // 3. 页面加载时立即设置语言
+            setLanguage(currentLanguage);
+
+            
+            // --- 1. 移动端菜单切换 (无修改) ---
+            const menuToggle = document.getElementById('mobile-menu');
+            const navMenu = document.getElementById('nav-menu');
+            menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+            document.querySelectorAll('#nav-menu li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- 2. 导航栏高亮 (更新: 包含 news 栏目) ---
+            const sections = document.querySelectorAll('section');
+            const navLi = document.querySelectorAll('.navbar nav ul li a');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    // 修正：确保 section.offsetTop - 75 存在
+                    if (section.offsetTop && pageYOffset >= (section.offsetTop - 75)) { 
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLi.forEach(a => {
+                    // 只处理带有 data-key 的导航链接
+                    if (a.classList.contains('nav-link')) {
+                        a.classList.remove('active');
+                        if (a.getAttribute('href') === '#' + current) {
+                            a.classList.add('active');
+                        }
+                    }
+                });
+                // 确保 Home/首页 激活
+                if (current === 'hero' || (sections.length > 0 && pageYOffset < sections[0].offsetTop - 75)) {
+                    document.querySelector('.nav-link[href="#hero"]').classList.add('active');
+                }
+            });
+            
+            // --- 3. (C) 新增: 加载新闻 (News) ---
+            const newsList = document.getElementById('news-list');
+            const loadMoreNewsBtn = document.getElementById('load-more-news-btn');
+            
+            let allNews = [];
+            const INITIAL_NEWS_SHOW = 5;
+            const NEWS_LOAD_MORE_COUNT = 5;
+            let currentNewsIndex = 0;
+
+            function createNewsItem(news, index) {
+                const item = document.createElement('div');
+                item.className = `news-item fade-in fade-in-delay-${(index % 3) + 1}`;
+                item.innerHTML = `
+                    <h3 class="news-title">${news.title}</h3>
+                    <p class="date">${news.date}</p>
+                    <p class="description">${news.description}</p>
+                `;
+                return item;
+            }
+
+            function renderNews(newsToRender) {
+                newsToRender.forEach((news, relativeIndex) => {
+                    const globalIndex = currentNewsIndex + relativeIndex;
+                    const item = createNewsItem(news, globalIndex);
+                    newsList.appendChild(item);
+                    if (fadeInObserver) {
+                        fadeInObserver.observe(item);
+                    }
+                });
+            }
+
+            function loadMoreNews() {
+                const newsToLoad = allNews.slice(currentNewsIndex, currentNewsIndex + NEWS_LOAD_MORE_COUNT);
+                renderNews(newsToLoad);
+                currentNewsIndex += NEWS_LOAD_MORE_COUNT;
+                if (currentNewsIndex >= allNews.length) {
+                    loadMoreNewsBtn.style.display = 'none';
+                }
+            }
+
+            // 使用 fetch API 异步加载 news.json
+            fetch('news.json')
+                .then(response => response.json())
+                .then(newsData => {
+                    allNews = newsData.sort((a, b) => new Date(b.date) - new Date(a.date)); // 按日期降序排序
+                    
+                    const initialNews = allNews.slice(0, INITIAL_NEWS_SHOW);
+                    renderNews(initialNews);
+                    currentNewsIndex = INITIAL_NEWS_SHOW;
+                    
+                    if (currentNewsIndex < allNews.length) {
+                        loadMoreNewsBtn.style.display = 'block';
+                        loadMoreNewsBtn.addEventListener('click', loadMoreNews);
+                    }
+                    
+                    registerFadeInElements(); // 重新注册动画
+                })
+                .catch(error => console.error('Error loading news:', error));
+            
+            // (A) 加载项目 (Projects) - 保持不变，但重新调用 registerFadeInElements
+            const projectGrid = document.getElementById('project-grid');
+            
+            // 使用 fetch API 异步加载 projects.json
+            fetch('projects.json')
+                .then(response => response.json())
+                .then(projects => {
+                    const projectLinkKey = translations[currentLanguage].project_link;
+                    projects.forEach((project, index) => {
+                        const card = document.createElement('div');
+                        card.className = `project-card fade-in fade-in-delay-${(index % 3) + 1}`; // 添加动画
+                        
+                        card.innerHTML = `
+                            <img src="${project.image}" alt="${project.title}">
+                            <div class="project-content">
+                                <h3>${project.title}</h3>
+                                <p>${project.description}</p>
+                                <a href="${project.link}" class="project-link" target="_blank">${projectLinkKey}</a>
+                            </div>
+                        `;
+                        projectGrid.appendChild(card);
+                    });
+                    
+                    // (重要) 在内容加载后, 重新注册滚动动画观察器
+                    registerFadeInElements();
+                })
+                .catch(error => console.error('Error loading projects:', error));
 
 
-            // (Moments JS 逻辑 - 基本无修改, 只是现在依赖 allMoments 被填充)
-            function createMomentThumbnail(moment, index) {
-                const item = document.createElement('div');
-                item.className = 'gallery-item fade-in'; // 添加 fade-in
-                item.dataset.index = index;
-                item.innerHTML = `
-                    <img src="${moment.img}" alt="${moment.alt}">
-                    <span class="moment-date">${moment.date}</span>
-                `;
-                item.addEventListener('click', () => openModal(index));
-                return item;
-            }
+            // (B) 加载日常 (Moments) - 逻辑保持不变
+            let allMoments = []; // 现在是一个空数组, 等待 fetch 填充
+            const INITIAL_SHOW = 4;
+            const LOAD_MORE_COUNT = 10;
+            let currentMomentIndex = 0; 
+            let currentModalMomentIndex = 0; 
+            const galleryGrid = document.getElementById('gallery-grid');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            
+            // (模态框元素 - 无修改)
+            const momentModal = document.getElementById('moment-modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalDate = document.getElementById('modal-date');
+            const modalDescription = document.getElementById('modal-description');
+            const modalCloseBtn = document.querySelector('.modal-close');
+            const modalPrevBtn = document.getElementById('modal-prev');
+            const modalNextBtn = document.getElementById('modal-next');
+            
+            // 使用 fetch API 异步加载 moments.json
+            fetch('moments.json')
+                .then(response => response.json())
+                .then(momentsData => {
+                    allMoments = momentsData; // 将加载的数据存入 allMoments
+                    initializeGallery(); // 加载成功后, 初始化画廊
+                })
+                .catch(error => console.error('Error loading moments:', error));
 
-            function renderMoments(momentsToRender) {
-                momentsToRender.forEach((moment, relativeIndex) => {
-                    const globalIndex = currentMomentIndex + relativeIndex;
-                    const thumb = createMomentThumbnail(moment, globalIndex);
-                    galleryGrid.appendChild(thumb);
-                    
-                    // (重要) 为新加载的元素注册滚动动画
-                    if (fadeInObserver) {
-                        fadeInObserver.observe(thumb);
-                    }
-                });
-            }
 
-            function loadMore() {
-                const momentsToLoad = allMoments.slice(currentMomentIndex, currentMomentIndex + LOAD_MORE_COUNT);
-                renderMoments(momentsToLoad);
-                currentMomentIndex += LOAD_MORE_COUNT;
-                if (currentMomentIndex >= allMoments.length) {
-                    loadMoreBtn.style.display = 'none';
-                }
-            }
+            // (Moments JS 逻辑 - 基本无修改, 只是现在依赖 allMoments 被填充)
+            function createMomentThumbnail(moment, index) {
+                const item = document.createElement('div');
+                item.className = 'gallery-item fade-in'; // 添加 fade-in
+                item.dataset.index = index;
+                item.innerHTML = `
+                    <img src="${moment.img}" alt="${moment.alt}">
+                    <span class="moment-date">${moment.date}</span>
+                `;
+                item.addEventListener('click', () => openModal(index));
+                return item;
+            }
 
-            function openModal(index) {
-                currentModalMomentIndex = index;
-                updateModalContent();
-                momentModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
+            function renderMoments(momentsToRender) {
+                momentsToRender.forEach((moment, relativeIndex) => {
+                    const globalIndex = currentMomentIndex + relativeIndex;
+                    const thumb = createMomentThumbnail(moment, globalIndex);
+                    galleryGrid.appendChild(thumb);
+                    
+                    // (重要) 为新加载的元素注册滚动动画
+                    if (fadeInObserver) {
+                        fadeInObserver.observe(thumb);
+                    }
+                });
+            }
 
-        
-            function updateModalContent() {
-                const moment = allMoments[currentModalMomentIndex];
-                const datePrefix = translations[currentLanguage].modal_date_prefix; // 使用当前语言前缀
-                
-                modalImage.src = moment.img;
-                modalImage.alt = moment.alt;
-                modalDate.textContent = `${datePrefix}${moment.date}`;
-                modalDescription.textContent = moment.description || "";
-                modalPrevBtn.style.display = currentModalMomentIndex === 0 ? 'none' : 'flex';
-                modalNextBtn.style.display = currentModalMomentIndex === allMoments.length - 1 ? 'none' : 'flex';
-            }
+            function loadMore() {
+                const momentsToLoad = allMoments.slice(currentMomentIndex, currentMomentIndex + LOAD_MORE_COUNT);
+                renderMoments(momentsToLoad);
+                currentMomentIndex += LOAD_MORE_COUNT;
+                if (currentMomentIndex >= allMoments.length) {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
 
-            function closeModal() {
-                momentModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-            modalCloseBtn.addEventListener('click', closeModal);
-            momentModal.addEventListener('click', (e) => {
-                if (e.target === momentModal) closeModal();
-            });
+            function openModal(index) {
+                currentModalMomentIndex = index;
+                updateModalContent();
+                momentModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
 
-            modalPrevBtn.addEventListener('click', () => {
-                if (currentModalMomentIndex > 0) {
-                    currentModalMomentIndex--;
-                    updateModalContent();
-                }
-            });
-            modalNextBtn.addEventListener('click', () => {
-                if (currentModalMomentIndex < allMoments.length - 1) {
-                    currentModalMomentIndex++;
-                    updateModalContent();
-                }
-            });
-            
-            document.addEventListener('keydown', (e) => {
-                if (momentModal.style.display === 'flex') {
-                    if (e.key === 'ArrowLeft') modalPrevBtn.click();
-                    else if (e.key === 'ArrowRight') modalNextBtn.click();
-                    else if (e.key === 'Escape') closeModal();
-                }
-            });
+        
+            function updateModalContent() {
+                const moment = allMoments[currentModalMomentIndex];
+                const datePrefix = translations[currentLanguage].modal_date_prefix; // 使用当前语言前缀
+                
+                modalImage.src = moment.img;
+                modalImage.alt = moment.alt;
+                modalDate.textContent = `${datePrefix}${moment.date}`;
+                modalDescription.textContent = moment.description || "";
+                modalPrevBtn.style.display = currentModalMomentIndex === 0 ? 'none' : 'flex';
+                modalNextBtn.style.display = currentModalMomentIndex === allMoments.length - 1 ? 'none' : 'flex';
+            }
 
-            function initializeGallery() {
-                const initialMoments = allMoments.slice(0, INITIAL_SHOW);
-                renderMoments(initialMoments);
-                currentMomentIndex = INITIAL_SHOW;
-                if (currentMomentIndex >= allMoments.length) {
-                    loadMoreBtn.style.display = 'none';
-                }
-                loadMoreBtn.addEventListener('click', loadMore);
-            }
-            // (注意: initializeGallery() 现在由 fetch 成功后调用)
-            
+            function closeModal() {
+                momentModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            modalCloseBtn.addEventListener('click', closeModal);
+            momentModal.addEventListener('click', (e) => {
+                if (e.target === momentModal) closeModal();
+            });
 
-            // --- 4. 主题切换 JS (无修改) ---
-            const themeToggleBtns = document.querySelectorAll('#theme-toggle');
-            const htmlEl = document.documentElement;
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme) {
-                htmlEl.classList.add(currentTheme);
-                if (currentTheme === 'dark-mode') {
-                    themeToggleBtns.forEach(btn => btn.textContent = '☀️');
-                } else {
-                    themeToggleBtns.forEach(btn => btn.textContent = '🌙');
-                }
-            }
-            function toggleTheme() {
-                if (htmlEl.classList.contains('dark-mode')) {
-                    htmlEl.classList.remove('dark-mode');
-                    localStorage.setItem('theme', 'light-mode');
-                    themeToggleBtns.forEach(btn => btn.textContent = '🌙');
-                } else {
-                    htmlEl.classList.add('dark-mode');
-                    localStorage.setItem('theme', 'dark-mode');
-                    themeToggleBtns.forEach(btn => btn.textContent = '☀️');
-                }
-            }
-            themeToggleBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    toggleTheme();
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                    }
-                });
-            });
+            modalPrevBtn.addEventListener('click', () => {
+                if (currentModalMomentIndex > 0) {
+                    currentModalMomentIndex--;
+                    updateModalContent();
+                }
+            });
+            modalNextBtn.addEventListener('click', () => {
+                if (currentModalMomentIndex < allMoments.length - 1) {
+                    currentModalMomentIndex++;
+                    updateModalContent();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (momentModal.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') modalPrevBtn.click();
+                    else if (e.key === 'ArrowRight') modalNextBtn.click();
+                    else if (e.key === 'Escape') closeModal();
+                }
+            });
 
-    
+            function initializeGallery() {
+                const initialMoments = allMoments.slice(0, INITIAL_SHOW);
+                renderMoments(initialMoments);
+                currentMomentIndex = INITIAL_SHOW;
+                if (currentMomentIndex >= allMoments.length) {
+                    loadMoreBtn.style.display = 'none';
+                }
+                loadMoreBtn.addEventListener('click', loadMore);
+            }
+            // (注意: initializeGallery() 现在由 fetch 成功后调用)
+            
 
-            // --- 6. (新增) 滚动淡入动画 JS ---
-            let fadeInObserver;
+            // --- 4. 主题切换 JS (无修改) ---
+            const themeToggleBtns = document.querySelectorAll('#theme-toggle');
+            const htmlEl = document.documentElement;
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                htmlEl.classList.add(currentTheme);
+                if (currentTheme === 'dark-mode') {
+                    themeToggleBtns.forEach(btn => btn.textContent = '☀️');
+                } else {
+                    themeToggleBtns.forEach(btn => btn.textContent = '🌙');
+                }
+            }
+            function toggleTheme() {
+                if (htmlEl.classList.contains('dark-mode')) {
+                    htmlEl.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                    themeToggleBtns.forEach(btn => btn.textContent = '🌙');
+                } else {
+                    htmlEl.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                    themeToggleBtns.forEach(btn => btn.textContent = '☀️');
+                }
+            }
+            themeToggleBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    toggleTheme();
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
 
-            function registerFadeInElements() {
-                // 如果观察器已存在, 先断开
-                if (fadeInObserver) {
-                    fadeInObserver.disconnect();
-                }
-                
-                const fadeInElements = document.querySelectorAll('.fade-in');
-                
-                // 创建观察器
-                fadeInObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            // (可选) 动画只播放一次, 播放后停止观察
-                            // fadeInObserver.unobserve(entry.target);
-                        } else {
-                            // (可选) 如果想让元素滚出视口后重置动画, 取消注释
-                            // entry.target.classList.remove('is-visible');
-                        }
-                    });
-                }, {
-                    threshold: 0.1 // 元素进入视口 10% 时触发
-                });
+    
 
-                // 观察所有带 .fade-in 的元素
-                fadeInElements.forEach(el => {
-                    fadeInObserver.observe(el);
-                });
-            }
-            
-            // 初始注册 (在 DOMContentLoaded 时被调用)
-            // registerFadeInElements(); 
-            
-        });
-    </script>
+            // --- 6. (新增) 滚动淡入动画 JS ---
+            let fadeInObserver;
+
+            function registerFadeInElements() {
+                // 如果观察器已存在, 先断开
+                if (fadeInObserver) {
+                    fadeInObserver.disconnect();
+                }
+                
+                const fadeInElements = document.querySelectorAll('.fade-in');
+                
+                // 创建观察器
+                fadeInObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            // (可选) 动画只播放一次, 播放后停止观察
+                            // fadeInObserver.unobserve(entry.target);
+                        } else {
+                            // (可选) 如果想让元素滚出视口后重置动画, 取消注释
+                            // entry.target.classList.remove('is-visible');
+                        }
+                    });
+                }, {
+                    threshold: 0.1 // 元素进入视口 10% 时触发
+                });
+
+                // 观察所有带 .fade-in 的元素
+                fadeInElements.forEach(el => {
+                    fadeInObserver.observe(el);
+                });
+            }
+            
+            // 初始注册 (在 DOMContentLoaded 时被调用)
+            // registerFadeInElements(); 
+
+            // --- 🌟 鼠标点击粒子爆炸特效 (Scheme 4) ---
+            // 监听全局点击事件
+            document.addEventListener('click', (e) => {
+                createParticles(e.clientX, e.clientY);
+            });
+
+            function createParticles(x, y) {
+                const particleCount = 12; // 粒子数量
+                // 粒子颜色组合，配合网站主色调
+                const colors = ['#007aff', '#00c6ff', '#ff2d55', '#ffcc00', '#4cd964'];
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    // 设置粒子样式
+                    particle.style.position = 'fixed';
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    particle.style.width = Math.random() * 6 + 4 + 'px'; // 大小随机 4-10px
+                    particle.style.height = particle.style.width;
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.borderRadius = '50%'; // 圆形
+                    particle.style.pointerEvents = 'none'; // 关键：不阻挡鼠标点击，防止影响链接跳转
+                    particle.style.zIndex = '9999'; // 保证在最上层
+                    
+                    document.body.appendChild(particle);
+                    
+                    // 随机方向和速度
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = Math.random() * 100 + 50; // 扩散距离
+                    const tx = Math.cos(angle) * velocity;
+                    const ty = Math.sin(angle) * velocity;
+                    
+                    // 执行动画 (Web Animations API)
+                    const animation = particle.animate([
+                        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                        { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+                    ], {
+                        duration: Math.random() * 600 + 400, // 持续时间 400-1000ms
+                        easing: 'cubic-bezier(0, .9, .57, 1)', // 缓动效果
+                    });
+                    
+                    // 动画结束后移除 DOM 元素，防止内存泄漏
+                    animation.onfinish = () => particle.remove();
+                }
+            }
+            
+        });
+    </script>
 
 </body>
 </html>
