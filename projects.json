@@ -19,6 +19,13 @@
     },
 
     {
+        "image": "Screenshot 2025-11-21 at 02.18.29.png",
+        "title": "統計的機械学習",
+        "description": "我在学习Sugiyama的統計的機械学習课程",
+        "link": "https://github.com/Elevenvenven/Machine-learning/tree/Sugiyama"
+    },
+    
+    {
         "image": "nanochat.png",
         "title": "NanoChat",
         "description": "我在参与NanoChat项目，“The best ChatGPT that $100 can buy”.",
