@@ -234,7 +234,49 @@
             margin-bottom: 1.5rem;
             box-shadow: 0 4px 15px var(--shadow-color);
         }
-        
+
+        /* --- 5b. (新增) 技能栈 (Skills) --- */
+        .skill-category {
+            margin-bottom: 2.5rem;
+        }
+        .skill-category h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .skill-tag {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            cursor: default;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        /* 悬停特效：变色并上浮 */
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+        }
+        /* 暗黑模式微调 */
+        html.dark-mode .skill-tag {
+            border: 1px solid var(--border-color);
+        }
+        html.dark-mode .skill-tag:hover {
+            border-color: var(--primary-color);
+        }
         /* --- 6. 项目 (Projects) (无修改) --- */
         .project-grid {
             display: grid;
@@ -414,6 +456,7 @@
                 <ul id="nav-menu">
                     <li><a href="#hero" class="nav-link active" data-key="nav_home">首页</a></li>
                     <li><a href="#about" class="nav-link" data-key="nav_about">关于我</a></li>
+                    <li><a href="#skills" class="nav-link" data-key="nav_skills">技能</a></li>
                     <li><a href="#news" class="nav-link" data-key="nav_news">新闻/事件</a></li>
                     <li><a href="#projects" class="nav-link" data-key="nav_projects">项目&学习</a></li>
                     <li><a href="#moments" class="nav-link" data-key="nav_moments">我的日常</a></li>
@@ -452,7 +495,46 @@
                 <p data-key="about_p5" class="fade-in fade-in-delay-3"> When there is some free time, I will play the go/guitar，hike with classmates，read novels……☺️ </p>
             </div>
         </section>
+        <section id="skills">
+            <div class="container">
+                <h2 data-key="skills_title" class="fade-in">技能栈</h2>
+                <p data-key="skills_subtitle" class="subtitle fade-in fade-in-delay-1">持续学习，探索技术的边界。</p>
 
+                <div class="skill-category fade-in fade-in-delay-2">
+                    <h3 data-key="skill_cat_lang">编程语言</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C / C++</span>
+                        <span class="skill-tag">Swift</span>
+                        <span class="skill-tag">HTML5 / CSS3</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">MATLAB</span>
+                    </div>
+                </div>
+
+                <div class="skill-category fade-in fade-in-delay-3">
+                    <h3 data-key="skill_cat_ai">AI & 深度学习</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">GNN (Graph Neural Networks)</span>
+                        <span class="skill-tag">MoE (Mixture of Experts)</span>
+                        <span class="skill-tag">Dataset Distillation</span>
+                        <span class="skill-tag">Computer Vision</span>
+                    </div>
+                </div>
+
+                <div class="skill-category fade-in fade-in-delay-3">
+                    <h3 data-key="skill_cat_core">核心课程 & 工具</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git / GitHub</span>
+                        <span class="skill-tag">Linux / Shell</span>
+                        <span class="skill-tag">Circuit Analysis</span>
+                        <span class="skill-tag">Pattern Recognition</span>
+                        <span class="skill-tag">Automatic Control</span>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="news">
             <div class="container">
                 <h2 data-key="news_title" class="fade-in">新闻/事件</h2>
@@ -532,6 +614,13 @@
                     hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
                     hero_subtitle_3: 'Much more content coming soon……',
                     hero_cta: '查看我的项目&学习😼',
+
+                    nav_skills: '技能',
+                    skills_title: '技能栈',
+                    skills_subtitle: '持续学习，探索技术的边界。',
+                    skill_cat_lang: '编程语言',
+                    skill_cat_ai: 'AI & 深度学习',
+                    skill_cat_core: '核心课程 & 工具',
                     
                     about_title: '关于我',
                     about_p1: 'SCU（四川大学）， EE Bachelor，2025😎',
@@ -578,6 +667,13 @@
                     about_p3: 'Will live & study in Japan 2026-?🤔',
                     about_p4: 'Main research interests in HCI & Robot & AI……🧐',
                     about_p5: 'When I have free time, I play Go/guitar, hike with classmates, and read novels……☺️',
+
+                    nav_skills: 'Skills',
+                    skills_title: 'Skills & Stack',
+                    skills_subtitle: 'Continuous learning, exploring the boundaries of technology.',
+                    skill_cat_lang: 'Programming Languages',
+                    skill_cat_ai: 'AI & Deep Learning',
+                    skill_cat_core: 'Core Courses & Tools',
                     
                     news_title: 'News', // 新增
                     news_subtitle: 'Recording recent important events and study progress.', // 新增
@@ -617,6 +713,14 @@
                     about_p3: '2026年からは日本で生活・勉強する予定です🤔',
                     about_p4: '主な研究関心はHCI、Robot、AIなどです……🧐',
                     about_p5: '自由時間には、囲碁やギターを弾いたり、クラスメートとハイキングに行ったり、小説を読んだりします……☺️',
+
+
+                    nav_skills: 'スキル',
+                    skills_title: 'スキルセット',
+                    skills_subtitle: '継続的に学習し、技術の境界を探求しています。',
+                    skill_cat_lang: 'プログラミング言語',
+                    skill_cat_ai: 'AI & ディープラーニング',
+                    skill_cat_core: 'コアコース & ツール',
                     
                     news_title: 'ニュース', // 新增
                     news_subtitle: '最近の重要なイベントや学習の進捗を記録しています。', // 新增
