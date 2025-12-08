@@ -17,6 +17,13 @@
         "description": "我在记录我学习Machine Learning过程中的问题和心得",
         "link": "https://zh.d2l.ai"
     },
+    {
+        "image": "https://source.unsplash.com/600x400/?technology,blockchain",
+        "title": "Virtual-Coin_system",
+        "description": "分布式虚拟货币系统，验证性开发，施工中",
+        "link": "https://github.com/Elevenvenven/Virtual-Coin_system"
+    },
+
 
     {
         "image": "Screenshot 2025-11-21 at 02.18.29.png",
