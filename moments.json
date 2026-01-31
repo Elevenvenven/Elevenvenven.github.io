@@ -12,7 +12,7 @@
         "description": "风景"
     },
     { 
-        "img": "WechatIMG250.jpg", 
+        "img": "4BBD5ED8-B94E-4957-B505-5DAB056BD6FD_1_102_o.jpeg", 
         "alt": "美食", 
         "date": "2025-11-14",
         "description": "美食"
@@ -36,13 +36,25 @@
         "description": "宠物"
     },
     { 
-        "img": "WechatIMG693.jpg", 
+        "img": "IMG_1099.jpeg", 
         "alt": "另一张图", 
         "date": "2025-11-14",
         "description": "另一张图"
     },
     { 
         "img": "1000030599.jpg", 
+        "alt": "更多...", 
+        "date": "2025-11-14",
+        "description": "更多..."
+    },
+    { 
+        "img": "IMG_1011.jpeg", 
+        "alt": "更多...", 
+        "date": "2025-11-14",
+        "description": "更多..."
+    },
+    { 
+        "img": "9B826B96-EA5B-4082-AD5E-A184B37347B9_1_105_c.jpeg", 
         "alt": "更多...", 
         "date": "2025-11-14",
         "description": "更多..."
