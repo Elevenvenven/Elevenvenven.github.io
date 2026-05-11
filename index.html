@@ -329,7 +329,6 @@
             transform: scale(1.02);
         }
         .gallery-item:hover::after { opacity: 1; }
-        .gallery-item:hover .moment-date { opacity: 1; transform: translateY(0); }
         .gallery-item:hover img { transform: scale(1.1); }
         
         #load-more-btn {
@@ -667,7 +666,6 @@
             fetch('projects.json')
                 .then(response => response.json())
                 .then(projects => {
-                    const projectLinkKey = translations[currentLanguage].project_link;
                     projects.forEach((project, index) => {
                         const card = document.createElement('div');
                         card.className = `project-card fade-in fade-in-delay-${(index % 3) + 1}`; // 添加动画
@@ -677,7 +675,7 @@
                             <div class="project-content">
                                 <h3>${project.title}</h3>
                                 <p>${project.description}</p>
-                                <a href="${project.link}" class="project-link" target="_blank">${projectLinkKey}</a>
+                                <a href="${project.link}" class="project-link" target="_blank">View Project</a>
                             </div>
                         `;
                         projectGrid.appendChild(card);
@@ -724,7 +722,6 @@
                 item.dataset.index = index;
                 item.innerHTML = `
                     <img src="${moment.img}" alt="${moment.alt}">
-                    <span class="moment-date">${moment.date}</span>
                 `;
                 item.addEventListener('click', () => openModal(index));
                 return item;
@@ -762,11 +759,10 @@
         
             function updateModalContent() {
                 const moment = allMoments[currentModalMomentIndex];
-                const datePrefix = translations[currentLanguage].modal_date_prefix; // 使用当前语言前缀
-                
+
                 modalImage.src = moment.img;
                 modalImage.alt = moment.alt;
-                modalDate.textContent = `${datePrefix}${moment.date}`;
+                modalDate.textContent = moment.date;
                 modalDescription.textContent = moment.description || "";
                 modalPrevBtn.style.display = currentModalMomentIndex === 0 ? 'none' : 'flex';
                 modalNextBtn.style.display = currentModalMomentIndex === allMoments.length - 1 ? 'none' : 'flex';
