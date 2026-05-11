@@ -3,21 +3,18 @@
         "date": "2025-11-24",
         "title": "阅读了S.Weinberg的“Four golden lessons”",
         "description": "不错的文章，很多作为研究者的心得",
-        "type": "Study",
-        "image": "news_reading.jpg"
+        "type": "Study"
     },
     {
         "date": "2025-11-16",
         "title": "成功部署个人网站多语言版本",
         "description": "完成了网站的中文、英文、日语三语切换功能，并新增了新闻事件板块。",
-        "type": "website",
-        "image": "news_website.jpg"
+        "type": "website"
     },
     {
         "date": "2025-11-13",
         "title": "成功部署个人网站",
         "description": "大家多找我交流玩耍！",
-        "type": "website",
-        "image": "news_deploy.jpg"
+        "type": "website"
     }
 ]

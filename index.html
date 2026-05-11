@@ -850,9 +850,7 @@
             function createNewsItem(news, index) {
                 const item = document.createElement('div');
                 item.className = `news-item fade-in fade-in-delay-${(index % 3) + 1}`;
-                const imgHtml = news.image ? `<img src="${news.image}" alt="${news.title}" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:12px;">` : '';
                 item.innerHTML = `
-                    ${imgHtml}
                     <h3 class="news-title">${news.title}</h3>
                     <p class="date">${news.date}</p>
                     <p class="description">${news.description}</p>
