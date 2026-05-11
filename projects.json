@@ -1,62 +1,62 @@
 [
-    {
-        "image": "Evolution-of-Coding-scaled.jpg",
-        "title": "Algorithm",
-        "description": "我在记录我学习Algorithm过程中所遇到的问题和心得",
-        "link": "https://github.com/Elevenvenven/Utokyo-test"
-    },
-    {
-        "image": "Screenshot 2025-11-15 at 02.49.45.png",
-        "title": "Computer Architecture",
-        "description": "我在记录我学习Computer Architecture过程中的问题和心得",
-        "link": "https://github.com/Elevenvenven/Utokyo-test"
-    },
-    {
-        "image": "Graph-Neural-Networks.jpg.webp",
-        "title": "Machine Learning",
-        "description": "我在记录我学习Machine Learning过程中的问题和心得",
-        "link": "https://zh.d2l.ai"
-    },
-    {
-        "image": "blockchain.jpg",
-        "title": "Virtual-Coin_system",
-        "description": "分布式虚拟货币系统，验证性开发，施工中",
-        "link": "https://github.com/Elevenvenven/Virtual-Coin_system"
-    },
-    {
-        "image": "touch_real.jpg",
-        "title": "Touch-real Project",
-        "description": "复制现实纸质纸质资料就像复制电脑上的资料一样简单",
-        "link": "https://github.com/Elevenvenven/Virtual-Coin_system"
-    },
-    {
-        "image": "Screenshot 2025-11-21 at 02.18.29.png",
-        "title": "統計的機械学習",
-        "description": "我在学习Sugiyama的統計的機械学習课程",
-        "link": "https://github.com/Elevenvenven/Machine-learning/tree/Sugiyama"
-    },
-    {
-        "image": "nanochat.png",
-        "title": "NanoChat",
-        "description": "我在参与NanoChat项目，“The best ChatGPT that $100 can buy”.",
-        "link": "https://github.com/karpathy/nanochat"
-    },
-    {
-        "image": "lego.jpeg",
-        "title": "Teacher_everywhere",
-        "description": "一款OCR+大模型MacOS应用，帮助消化新知识，施工中",
-        "link": "https://github.com/Elevenvenven/Teacher_Everywhere"
-    },
-    {
-        "image": "llm.webp",
-        "title": "Large Language Model",
-        "description": "我在记录我学习Large Language Model过程中的问题和心得",
-        "link": "https://arxiv.org/abs/2501.09223"
-    },
-    {
-        "image": "meng_agent.jpg",
-        "title": "Meng Agent",
-        "description": "Meng Agent 是一个具备物理级执行能力的AI智能助手，能够直接操作浏览器、文件系统和外部API。它支持自动化网页浏览、数据采集、代码执行、文件处理等复杂任务，并通过记忆系统不断学习和优化。该Agent能理解自然语言指令，自主规划任务步骤，遇到问题时动态调整策略，真正实现「你动嘴，它动手」的智能体验。",
-        "link": "https://github.com/Elevenvenven/Meng-Agent"
-    }
+  {
+    "image": "images/Evolution-of-Coding-scaled.jpg",
+    "title": "Algorithm",
+    "description": "我在记录我学习Algorithm过程中所遇到的问题和心得",
+    "link": "https://github.com/Elevenvenven/Utokyo-test"
+  },
+  {
+    "image": "images/Screenshot 2025-11-15 at 02.49.45.png",
+    "title": "Computer Architecture",
+    "description": "我在记录我学习Computer Architecture过程中的问题和心得",
+    "link": "https://github.com/Elevenvenven/Utokyo-test"
+  },
+  {
+    "image": "images/Graph-Neural-Networks.jpg.webp",
+    "title": "Machine Learning",
+    "description": "我在记录我学习Machine Learning过程中的问题和心得",
+    "link": "https://zh.d2l.ai"
+  },
+  {
+    "image": "images/blockchain.jpg",
+    "title": "Virtual-Coin_system",
+    "description": "分布式虚拟货币系统，验证性开发，施工中",
+    "link": "https://github.com/Elevenvenven/Virtual-Coin_system"
+  },
+  {
+    "image": "images/touch_real.jpg",
+    "title": "Touch-real Project",
+    "description": "复制现实纸质纸质资料就像复制电脑上的资料一样简单",
+    "link": "https://github.com/Elevenvenven/Virtual-Coin_system"
+  },
+  {
+    "image": "images/Screenshot 2025-11-21 at 02.18.29.png",
+    "title": "統計的機械学習",
+    "description": "我在学习Sugiyama的統計的機械学習课程",
+    "link": "https://github.com/Elevenvenven/Machine-learning/tree/Sugiyama"
+  },
+  {
+    "image": "images/nanochat.png",
+    "title": "NanoChat",
+    "description": "我在参与NanoChat项目，“The best ChatGPT that $100 can buy”.",
+    "link": "https://github.com/karpathy/nanochat"
+  },
+  {
+    "image": "images/lego.jpeg",
+    "title": "Teacher_everywhere",
+    "description": "一款OCR+大模型MacOS应用，帮助消化新知识，施工中",
+    "link": "https://github.com/Elevenvenven/Teacher_Everywhere"
+  },
+  {
+    "image": "images/llm.webp",
+    "title": "Large Language Model",
+    "description": "我在记录我学习Large Language Model过程中的问题和心得",
+    "link": "https://arxiv.org/abs/2501.09223"
+  },
+  {
+    "image": "images/meng_agent.jpg",
+    "title": "Meng Agent",
+    "description": "Meng Agent 是一个具备物理级执行能力的AI智能助手，能够直接操作浏览器、文件系统和外部API。它支持自动化网页浏览、数据采集、代码执行、文件处理等复杂任务，并通过记忆系统不断学习和优化。该Agent能理解自然语言指令，自主规划任务步骤，遇到问题时动态调整策略，真正实现「你动嘴，它动手」的智能体验。",
+    "link": "https://github.com/Elevenvenven/Meng-Agent"
+  }
 ]
