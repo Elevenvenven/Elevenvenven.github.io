@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"> <head>
+<html lang="en"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elevensumm - 个人网站</title>
@@ -108,30 +108,7 @@
         #theme-toggle { background: none; border: none; color: var(--text-color); font-size: 1.5rem; cursor: pointer; padding: 0 5px; transition: color 0.3s ease, transform 0.3s ease; }
         #theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
 
-        /* 语言选择器样式 */
-        #language-select {
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: 1px solid var(--border-color);
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-            margin-left: 15px; /* 调整与主题切换按钮的间距 */
-            transition: all 0.3s ease;
-        }
-        #language-select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
-        }
-        .nav-item-lang {
-            display: flex;
-            align-items: center;
-        }
-
-
+        
         /* --- 4. 英雄/主页 (Hero) (修改: 添加 data-key) --- */
         #hero {
             height: 90vh;
@@ -410,15 +387,6 @@
             .navbar ul li a { display: block; padding: 15px; border-bottom: 1px solid var(--border-color); }
             .navbar ul li #theme-toggle { padding: 15px; width: 100%; }
             /* 手机端语言选择器样式调整 */
-            .nav-item-lang { 
-                width: 100%; 
-                border-bottom: 1px solid var(--border-color);
-                padding: 15px;
-                justify-content: center;
-            }
-            #language-select {
-                margin: 0 0 0 10px;
-            }
             .navbar ul li:last-child a, .navbar ul li:last-child #theme-toggle { border-bottom: none; }
             .menu-toggle { display: block; }
             :root { --gallery-item-height: 250px; --gallery-item-basis: 150px; }
@@ -454,22 +422,15 @@
                     &#9776;
                 </div>
                 <ul id="nav-menu">
-                    <li><a href="#hero" class="nav-link active" data-key="nav_home">首页</a></li>
-                    <li><a href="#about" class="nav-link" data-key="nav_about">关于我</a></li>
-                    <li><a href="#skills" class="nav-link" data-key="nav_skills">技能</a></li>
-                    <li><a href="#news" class="nav-link" data-key="nav_news">新闻/事件</a></li>
-                    <li><a href="#projects" class="nav-link" data-key="nav_projects">项目&学习</a></li>
-                    <li><a href="#moments" class="nav-link" data-key="nav_moments">我的日常</a></li>
-                    <li><a href="#contact" class="nav-link" data-key="nav_contact">联系我</a></li>
+                    <li><a href="#hero" class="nav-link active" >Home</a></li>
+                    <li><a href="#about" class="nav-link" >About Me</a></li>
+                    <li><a href="#skills" class="nav-link" >Skills</a></li>
+                    <li><a href="#news" class="nav-link" >News</a></li>
+                    <li><a href="#projects" class="nav-link" >Projects & Study</a></li>
+                    <li><a href="#moments" class="nav-link" >My Moments</a></li>
+                    <li><a href="#contact" class="nav-link" >Contact</a></li>
                     <li><button id="theme-toggle">🌙</button></li>
-                    <li class="nav-item-lang">
-                        <span>🌎</span>
-                        <select id="language-select">
-                            <option value="zh-CN">简体中文</option>
-                            <option value="en">English</option>
-                            <option value="ja">日本語</option>
-                        </select>
-                    </li>
+                    
                 </ul>
             </nav>
         </div>
@@ -477,30 +438,30 @@
 
     <main>
         <section id="hero">
-            <h1 data-key="hero_title">你好，我是11_sum</h1>
-            <p data-key="hero_subtitle_1">一名学生，AI&EE领域学习者，日常学习&玩耍&研究&睡觉😴。</p>
-            <p data-key="hero_subtitle_2">“The more you experience, the more open-mind you will be.🥸”</p>
-            <p data-key="hero_subtitle_3">Much more content coming soon……</p>
-            <a href="#projects" class="cta-button" data-key="hero_cta">查看我的项目&学习😼</a>
+            <h1 >Hello, I'm 11_sum</h1>
+            <p >A student, learner in AI & EE fields, who studies, plays, researches, and sleeps 😴.</p>
+            <p >"The more you experience, the more open-mind you will be.🥸"</p>
+            <p >Much more content coming soon……</p>
+            <a href="#projects" class="cta-button" >View My Projects & Study 😼</a>
         </section>
                 
         <section id="about">
             <div class="container">
                 <img src="11sum.jpg" alt="我的头像" class="profile-pic fade-in">
-                <h2 data-key="about_title" class="fade-in">关于我</h2>
-                <p data-key="about_p1" class="fade-in fade-in-delay-1"> SCU（四川大学）， EE Bachelor，2025😎 </p>
-                <p data-key="about_p2" class="fade-in fade-in-delay-2"> Currently, as a master student in IST，UTokyo（東京大学 情報理工） </p>
-                <p data-key="about_p4" class="fade-in fade-in-delay-3"> Main research Interest in AI&NLP……🧐 </p>
-                <p data-key="about_p5" class="fade-in fade-in-delay-3"> When there is some free time, I will play the go/guitar，hike with classmates，read novels……☺️ </p>
+                <h2 >About Me</h2>
+                <p >SCU (Sichuan University), EE Bachelor, 2025😎</p>
+                <p >Currently, as a master student in Information and Science Technology，UTokyo😋</p>
+                <p >Main research interests in HCI & Robot & AI……🧐</p>
+                <p >When I have free time, I play Go/guitar, hike with classmates, and read novels……☺️</p>
             </div>
         </section>
         <section id="skills">
             <div class="container">
-                <h2 data-key="skills_title" class="fade-in">技能栈</h2>
-                <p data-key="skills_subtitle" class="subtitle fade-in fade-in-delay-1">持续学习，探索技术的边界。</p>
+                <h2 >Skills & Stack</h2>
+                <p >Continuous learning, exploring the boundaries of technology.</p>
 
                 <div class="skill-category fade-in fade-in-delay-2">
-                    <h3 data-key="skill_cat_lang">编程语言</h3>
+                    <h3 >Programming Languages</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Python</span>
                         <span class="skill-tag">C / C++</span>
@@ -512,7 +473,7 @@
                 </div>
 
                 <div class="skill-category fade-in fade-in-delay-3">
-                    <h3 data-key="skill_cat_ai">AI & 深度学习</h3>
+                    <h3 >AI & Deep Learning</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">PyTorch</span>
                         <span class="skill-tag">GNN (Graph Neural Networks)</span>
@@ -523,7 +484,7 @@
                 </div>
 
                 <div class="skill-category fade-in fade-in-delay-3">
-                    <h3 data-key="skill_cat_core">核心课程 & 工具</h3>
+                    <h3 >Core Courses & Tools</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Git / GitHub</span>
                         <span class="skill-tag">Linux / Shell</span>
@@ -536,17 +497,17 @@
         </section>
         <section id="news">
             <div class="container">
-                <h2 data-key="news_title" class="fade-in">新闻/事件</h2>
-                <p data-key="news_subtitle" class="subtitle fade-in fade-in-delay-1">记录最近发生的一些重要事件和学习进展。</p>
+                <h2 >News</h2>
+                <p >Recording recent important events and study progress.</p>
                 <div class="news-list" id="news-list">
                     </div>
-                <button id="load-more-news-btn" class="cta-button" data-key="news_load_more_cta" style="display:none; margin-top: 2rem;">加载更多新闻</button>
+                <button id="load-more-news-btn" class="cta-button" >Load More News</button>
             </div>
         </section>
         
         <section id="projects">
             <div class="container">
-                <h2 data-key="projects_title" class="fade-in">项目&学习</h2>
+                <h2 >Projects & Study</h2>
                 <div class="project-grid" id="project-grid">
                     </div>
             </div>
@@ -554,18 +515,18 @@
 
         <section id="moments">
             <div class="container">
-                <h2 data-key="moments_title" class="fade-in">我的日常 (My Moments)</h2>
-                <p data-key="moments_subtitle" class="subtitle fade-in fade-in-delay-1">一些生活的碎片，记录我不在电脑前的时光。</p>
+                <h2 >My Moments</h2>
+                <p >A few fragments of life, recording time away from the computer.</p>
                 <div class="gallery-grid" id="gallery-grid">
                     </div>
-                <button id="load-more-btn" class="cta-button" data-key="moments_load_more">加载更多</button>
+                <button id="load-more-btn" class="cta-button" >Load More</button>
             </div>
         </section>
         
         <section id="contact">
             <div class="container fade-in">
-                <h2 data-key="contact_title">联系我</h2>
-                <p data-key="contact_subtitle">您可以通过以下方式找到我，期待与您交流！</p>
+                <h2 >Contact Me</h2>
+                <p >You can find me through the methods below. Looking forward to communicating with you!</p>
                 <ul class="social-links">
                     <li><a href="mailto:elevensumm@gmail.com" title="Email">📧</a></li>
                     <li><a href="https://github.com/Elevenvenven?tab=repositories" title="GitHub" target="_blank"><svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
@@ -576,7 +537,7 @@
     </main>
 
     <footer>
-        <p data-key="footer_text">&copy; 2025-2026 11_sum. 保留所有权利。</p>
+        <p >&copy; 2025-2026 11_sum. All Rights Reserved.</p>
     </footer>
 
     <div id="moment-modal" class="modal">
@@ -599,205 +560,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             
             // --- 新增: 语言包定义 (i18n Translation Dictionary) ---
-            const translations = {
-                'zh-CN': {
-                    nav_home: '首页',
-                    nav_about: '关于我',
-                    nav_news: '新闻', // 新增
-                    nav_projects: '项目&学习',
-                    nav_moments: '我的日常',
-                    nav_contact: '联系我',
-                    
-                    hero_title: '你好，我是11_sum',
-                    hero_subtitle_1: '一名学生，AI&EE领域学习者，日常学习&玩耍&研究&睡觉😴。',
-                    hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
-                    hero_subtitle_3: 'Much more content coming soon……',
-                    hero_cta: '查看我的项目&学习😼',
-
-                    nav_skills: '技能',
-                    skills_title: '技能栈',
-                    skills_subtitle: '持续学习，探索技术的边界。',
-                    skill_cat_lang: '编程语言',
-                    skill_cat_ai: 'AI & 深度学习',
-                    skill_cat_core: '核心课程 & 工具',
-                    
-                    about_title: '关于我',
-                    about_p1: 'SCU（四川大学）， EE Bachelor，2025😎',
-                    about_p2: 'Currently, as a master student in IST，UTokyo（東京大学 情報理工）',
-                    about_p4: 'Main research Interest in HCI&Robot&AI……🧐',
-                    about_p5: 'When there is some free time, I will play the go/guitar，hike with classmates，read novels……☺️',
-                    
-                    news_title: '新闻', // 新增
-                    news_subtitle: '记录最近发生的一些重要事件和学习进展。', // 新增
-                    news_load_more_cta: '加载更多新闻', // 新增
-                    
-                    projects_title: '项目&学习',
-                    project_link: '查看详情 &rarr;', // 用于项目卡片，会动态更新
-                    
-                    moments_title: '我的日常 (My Moments)',
-                    moments_subtitle: '一些生活的碎片，记录我不在电脑前的时光。',
-                    moments_load_more: '加载更多',
-                    
-                    contact_title: '联系我',
-                    contact_subtitle: '您可以通过以下方式找到我，期待与您交流！',
-
-                    modal_date_prefix: '日期: ', // 模态框日期前缀
-                    footer_text: '&copy; 2025-2026 11_sum. 保留所有权利。',
-                    logo_text: '11_sum的网站'
-                },
-                'en': {
-                    nav_home: 'Home',
-                    nav_about: 'About Me',
-                    nav_news: 'News', // 新增
-                    nav_projects: 'Projects & Study',
-                    nav_moments: 'My Moments',
-                    nav_contact: 'Contact',
-                    
-                    hero_title: 'Hello, I’m 11_sum',
-                    hero_subtitle_1: 'A student, learner in AI & EE fields, who studies, plays, researches, and sleeps 😴.',
-                    hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
-                    hero_subtitle_3: 'Much more content coming soon……',
-                    hero_cta: 'View My Projects & Study 😼',
-                    
-                    about_title: 'About Me',
-                    about_p1: 'SCU (Sichuan University), EE Bachelor, 2025😎',
-                    about_p2: 'Currently, as a master student in Information and Science Technology，UTokyo😋',
-                    about_p4: 'Main research interests in HCI & Robot & AI……🧐',
-                    about_p5: 'When I have free time, I play Go/guitar, hike with classmates, and read novels……☺️',
-
-                    nav_skills: 'Skills',
-                    skills_title: 'Skills & Stack',
-                    skills_subtitle: 'Continuous learning, exploring the boundaries of technology.',
-                    skill_cat_lang: 'Programming Languages',
-                    skill_cat_ai: 'AI & Deep Learning',
-                    skill_cat_core: 'Core Courses & Tools',
-                    
-                    news_title: 'News', // 新增
-                    news_subtitle: 'Recording recent important events and study progress.', // 新增
-                    news_load_more_cta: 'Load More News', // 新增
-                    
-                    projects_title: 'Projects & Study',
-                    project_link: 'View Details &rarr;',
-                    
-                    moments_title: 'My Moments',
-                    moments_subtitle: 'A few fragments of life, recording time away from the computer.',
-                    moments_load_more: 'Load More',
-                    
-                    contact_title: 'Contact Me',
-                    contact_subtitle: 'You can find me through the methods below. Looking forward to communicating with you!',
-
-                    modal_date_prefix: 'Date: ',
-                    footer_text: '&copy; 2025-2026 11_sum. All Rights Reserved.',
-                    logo_text: '11_sum\'s Website'
-                },
-                'ja': {
-                    nav_home: 'ホーム',
-                    nav_about: '私について',
-                    nav_news: 'ニュース', // 新增
-                    nav_projects: 'プロジェクト・学習',
-                    nav_moments: '日常',
-                    nav_contact: 'お問い合わせ',
-                    
-                    hero_title: 'こんにちは、11_sumです',
-                    hero_subtitle_1: 'AIとEE分野を学ぶ学生で、日々勉強、遊び、研究、そして睡眠😴をしています。',
-                    hero_subtitle_2: '“The more you experience, the more open-mind you will be.🥸”',
-                    hero_subtitle_3: '更なるコンテンツを近々公開します……',
-                    hero_cta: '私のプロジェクト・学習を見る😼',
-                    
-                    about_title: '私について',
-                    about_p1: 'SCU（四川大学）、電気工学（EE）学士、2025年卒業😎',
-                    about_p2: '現在、東京大学情報理工学研究科で学んでいます😋',
-                    about_p4: '主な研究関心はHCI、Robot、AIなどです……🧐',
-                    about_p5: '自由時間には、囲碁やギターを弾いたり、クラスメートとハイキングに行ったり、小説を読んだりします……☺️',
-
-
-                    nav_skills: 'スキル',
-                    skills_title: 'スキルセット',
-                    skills_subtitle: '継続的に学習し、技術の境界を探求しています。',
-                    skill_cat_lang: 'プログラミング言語',
-                    skill_cat_ai: 'AI & ディープラーニング',
-                    skill_cat_core: 'コアコース & ツール',
-                    
-                    news_title: 'ニュース', // 新增
-                    news_subtitle: '最近の重要なイベントや学習の進捗を記録しています。', // 新增
-                    news_load_more_cta: 'さらにニュースを読み込む', // 新增
-
-                    projects_title: 'プロジェクト・学習',
-                    project_link: '詳細を見る &rarr;',
-
-                    moments_title: '私の日常 (My Moments)',
-                    moments_subtitle: 'コンピューターから離れている時の生活の断片を記録しています。',
-                    moments_load_more: 'さらに読み込む',
-                    
-                    contact_title: 'お問い合わせ',
-                    contact_subtitle: '以下の方法で私を見つけることができます。交流を楽しみにしています！',
-
-                    modal_date_prefix: '日付: ',
-                    footer_text: '&copy; 2025-2026 11_sum. 全著作権所有。',
-                    logo_text: '11_sumのサイト'
-                }
-            };
-
-            // --- 新增: 语言切换逻辑 ---
-            const langSelect = document.getElementById('language-select');
-            const logo = document.querySelector('.navbar .logo');
             
-            // 1. 获取或设置默认语言
-            let currentLanguage = localStorage.getItem('language') || 'zh-CN';
-            langSelect.value = currentLanguage;
-
-            function setLanguage(lang) {
-                currentLanguage = lang;
-                localStorage.setItem('language', lang);
-                const t = translations[lang];
-
-                // a. 根元素 lang 属性
-                document.documentElement.lang = lang;
-                
-                // b. 静态文本更新 (使用 data-key)
-                document.querySelectorAll('[data-key]').forEach(el => {
-                    const key = el.getAttribute('data-key');
-                    if (t[key]) {
-                        // 特殊处理 <p> 标签，如果内容一样则不更新，以保留嵌入的 HTML 或表情符号
-                        if (el.tagName === 'P' || el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'A') {
-                            el.textContent = t[key];
-                        } else {
-                            el.innerHTML = t[key];
-                        }
-                    }
-                });
-
-                // c. 徽标/Logo文本更新
-                if (t.logo_text) {
-                    logo.textContent = t.logo_text;
-                }
-
-                // d. 动态内容更新: 项目卡片链接 (因为它们可能是异步加载的)
-                document.querySelectorAll('.project-link').forEach(link => {
-                    link.innerHTML = t.project_link;
-                });
-                
-                // e. 动态内容更新: 模态框日期前缀
-                const modalDateEl = document.getElementById('modal-date');
-                if (modalDateEl.textContent) {
-                    const dateContent = modalDateEl.textContent.replace(/^[^:]*: /, ''); // 移除旧前缀和冒号
-                    modalDateEl.textContent = `${t.modal_date_prefix}${dateContent}`;
-                }
-                
-                // f. 动态内容更新: 新闻列表（如果已经加载）
-                document.querySelectorAll('.news-item .news-title').forEach(el => {
-                    // 假设新闻标题存储在 news.json 中，这里只处理默认加载文本
-                    // 如果 news.json 中的数据也支持多语言，则需要更复杂的逻辑
-                });
-            }
-
-            // 2. 语言切换事件监听
-            langSelect.addEventListener('change', (event) => {
-                setLanguage(event.target.value);
-            });
-
-            // 3. 页面加载时立即设置语言
-            setLanguage(currentLanguage);
 
             
             // --- 1. 移动端菜单切换 (无修改) ---
