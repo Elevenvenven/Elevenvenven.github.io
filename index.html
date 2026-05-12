@@ -717,10 +717,8 @@
                     
                     // (重要) 在内容加载后, 重新注册滚动动画观察器
                     registerFadeInElements();
-                })
-                .catch(error => console.error('Error loading projects:', error));
 
-                    // Project Detail Modal Logic
+                    // Project Detail Modal Logic (must be inside .then() to access projects)
                     const pdModal = document.getElementById('project-detail-modal');
                     const pdClose = document.getElementById('project-detail-close');
                     document.addEventListener('click', function(e) {
@@ -748,6 +746,8 @@
                     });
                     pdClose.addEventListener('click', () => { pdModal.classList.remove('active'); document.body.style.overflow = ''; });
                     pdModal.addEventListener('click', (e) => { if (e.target === pdModal) { pdModal.classList.remove('active'); document.body.style.overflow = ''; } });
+                })
+                .catch(error => console.error('Error loading projects:', error));
 
 
             // (B) 加载日常 (Moments) - 逻辑保持不变
