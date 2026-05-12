@@ -297,9 +297,8 @@
         .project-detail-features li::before { content: '✦'; position: absolute; left: 0; color: var(--primary-color); }
         .project-detail-link { display: inline-block; background: var(--gradient); color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: transform 0.2s, box-shadow 0.2s; }
         .project-detail-link:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
-        .project-links .project-detail-btn { color: var(--primary-color); font-weight: 600; }
-        .project-links .project-detail-btn:hover { text-decoration: underline; }
+        .project-detail-btn { color: var(--primary-color); font-weight: 600; }
+        .project-detail-btn:hover { text-decoration: underline; }
 
         /* --- 6b. 生活日常 (Moments Gallery) (无修改) --- */
         #moments h2 { text-align: center; }
@@ -710,10 +709,7 @@
                             <div class="project-content">
                                 <h3>${project.title}</h3>
                                 <p>${project.description}</p>
-                                <div class="project-links">
-                                    ${project.long_description ? `<a href="javascript:void(0)" class="project-link project-detail-btn" data-index="${index}">查看详情 →</a>` : ''}
-                                    <a href="${project.link}" class="project-link" target="_blank">View Project</a>
-                                </div>
+                                ${project.long_description ? `<a href="javascript:void(0)" class="project-link project-detail-btn" data-index="${index}">View Project →</a>` : `<a href="${project.link}" class="project-link" target="_blank">View Project →</a>`}
                             </div>
                         `;
                         projectGrid.appendChild(card);
