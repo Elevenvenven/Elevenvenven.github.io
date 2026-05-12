@@ -57,6 +57,22 @@
     "image": "images/meng_agent.jpg",
     "title": "Meng Agent",
     "description": "Meng Agent 是一个具备物理级执行能力的AI智能助手，能够直接操作浏览器、文件系统和外部API。它支持自动化网页浏览、数据采集、代码执行、文件处理等复杂任务，并通过记忆系统不断学习和优化。该Agent能理解自然语言指令，自主规划任务步骤，遇到问题时动态调整策略，真正实现「你动嘴，它动手」的智能体验。",
-    "link": "https://github.com/Elevenvenven/Meng-Agent"
+    "link": "https://github.com/Elevenvenven/Meng-Agent",
+    "tech_stack": [
+      "Python",
+      "OpenAI API",
+      "Browser Automation",
+      "File I/O",
+      "Memory System"
+    ],
+    "features": [
+      "物理级执行能力（浏览器、文件系统、API）",
+      "自动化网页浏览与数据采集",
+      "代码执行与文件处理",
+      "记忆系统持续学习优化",
+      "自然语言理解与任务规划",
+      "动态策略调整与错误恢复"
+    ],
+    "long_description": "Meng Agent 是一个具备物理级执行能力的AI智能助手，设计初衷是让AI能够真正\"动手\"完成复杂任务。\n\n核心架构：\n• 物理层执行器 - 直接操作系统、浏览器、文件系统\n• 记忆系统 - L0-L4分层记忆，持续学习积累\n• 任务规划器 - 自主分解复杂任务为可执行步骤\n• 错误恢复 - 遇到问题时动态调整策略\n\n应用场景：\n• 自动化数据采集与分析\n• 复杂多步骤任务执行\n• 智能浏览器操作\n• 代码编写与调试辅助\n\n技术亮点：\n• 基于GPT-4的大模型驱动\n• 完整的内存管理与状态持久化\n• 支持跨平台操作（Windows/macOS）\n• 模块化设计，易于扩展新功能"
   }
 ]
