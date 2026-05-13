@@ -464,55 +464,38 @@
             font-weight: 500;
         }
     
+        /* ===== CLEAN VISUAL UPGRADE ===== */
 
-        /* ===== VISUAL UPGRADE STYLES ===== */
-
-        /* 1. Loading Screen */
+        /* Loading Screen */
         .loading-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #0a0a2e 0%, #1a1a4e 50%, #0d0d3b 100%);
+            background: var(--bg-color);
             z-index: 99999;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 0.5s ease;
         }
         .loading-screen.hidden {
             opacity: 0;
-            visibility: hidden;
             pointer-events: none;
         }
-        .loader-ring {
-            width: 80px; height: 80px;
-            border: 4px solid transparent;
-            border-top: 4px solid #00d4ff;
-            border-right: 4px solid #7b2ff7;
+        .loader-dot {
+            width: 12px; height: 12px;
+            background: var(--primary-color);
             border-radius: 50%;
-            animation: loader-spin 1s linear infinite;
+            margin: 0 6px;
+            animation: dot-bounce 1.2s ease-in-out infinite;
         }
-        .loader-ring::before {
-            content: '';
-            position: absolute;
-            top: 8px; left: 8px; right: 8px; bottom: 8px;
-            border: 4px solid transparent;
-            border-bottom: 4px solid #ff6b6b;
-            border-radius: 50%;
-            animation: loader-spin 0.6s linear reverse infinite;
+        .loader-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dot-bounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
         }
-        .loader-text {
-            margin-top: 24px;
-            color: #00d4ff;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            letter-spacing: 3px;
-            animation: loader-pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes loader-spin { to { transform: rotate(360deg); } }
-        @keyframes loader-pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* 2. Particle Canvas */
+        /* Particle Canvas */
         #particle-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -521,199 +504,64 @@
             pointer-events: none;
         }
 
-        /* 3. Mouse Glow */
-        .mouse-glow {
-            position: fixed;
-            width: 400px; height: 400px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s;
-        }
-        [data-theme="light"] .mouse-glow {
-            background: radial-gradient(circle, rgba(0,122,255,0.06) 0%, transparent 70%);
-        }
-
-        /* 4. Enhanced Gradient Text */
-        .hero h1 {
-            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 30%, #ff6b6b 60%, #00d4ff 100%);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradient-shift 4s ease infinite;
-        }
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* 5. Typewriter Cursor */
-        .typewriter-cursor {
-            display: inline-block;
-            width: 3px;
-            height: 1em;
-            background: #00d4ff;
-            margin-left: 4px;
-            animation: blink-cursor 0.8s step-end infinite;
-            vertical-align: text-bottom;
-        }
-        @keyframes blink-cursor { 50% { opacity: 0; } }
-
-        /* 6. Glassmorphism Cards */
-        .project-card, .news-item, .skill-category, .donate-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        [data-theme="light"] .project-card,
-        [data-theme="light"] .news-item,
-        [data-theme="light"] .skill-category,
-        [data-theme="light"] .donate-card {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-        }
-
-        /* 7. 3D Tilt Card */
-        .tilt-card {
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease;
-        }
-        .tilt-card .tilt-shine {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border-radius: inherit;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-            background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%),
-                rgba(255,255,255,0.15) 0%, transparent 60%);
-        }
-        .tilt-card:hover .tilt-shine { opacity: 1; }
-
-        /* 8. Glowing Border on Hover */
-        .project-card::before, .news-item::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px;
-            right: -2px; bottom: -2px;
-            border-radius: inherit;
-            background: linear-gradient(45deg, #00d4ff, #7b2ff7, #ff6b6b, #00d4ff);
-            background-size: 400% 400%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            animation: gradient-border 3s linear infinite;
-        }
-        .project-card:hover::before, .news-item:hover::before {
-            opacity: 1;
-        }
-        @keyframes gradient-border {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .project-card, .news-item {
-            position: relative;
-            overflow: visible;
-        }
-
-        /* 9. Ripple Button Effect */
-        .ripple-btn {
-            position: relative;
-            overflow: hidden;
-        }
-        .ripple-btn .ripple-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(0);
-            animation: ripple-anim 0.6s linear;
-            pointer-events: none;
-        }
-        @keyframes ripple-anim {
-            to { transform: scale(4); opacity: 0; }
-        }
-
-        /* 10. Parallax Layers */
-        .parallax-section {
-            position: relative;
-            overflow: hidden;
-        }
-        .parallax-bg {
-            position: absolute;
-            top: -20%; left: -5%;
-            width: 110%; height: 140%;
-            background-size: cover;
-            background-position: center;
-            will-change: transform;
-            z-index: -1;
-        }
-
-        /* 11. Enhanced section transitions */
-        section {
-            will-change: transform, opacity;
-        }
+        /* Enhanced fade-in */
         .fade-in {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* 12. Navbar glassmorphism */
-        .navbar {
-            background: rgba(10, 10, 46, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        /* Glassmorphism - light */
+        .project-card, .news-item, .skill-category {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
-        [data-theme="light"] .navbar {
-            background: rgba(255, 255, 255, 0.7);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        [data-theme="light"] .project-card,
+        [data-theme="light"] .news-item,
+        [data-theme="light"] .skill-category {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.06);
         }
 
-        /* 13. Scrollbar styling */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Hero gradient text */
+        .hero h1 {
+            background: linear-gradient(135deg, var(--primary-color), #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Typewriter cursor */
+        .typewriter-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--primary-color);
+            margin-left: 2px;
+            animation: blink-cursor 0.8s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink-cursor { 50% { opacity: 0; } }
+
+        /* Navbar glass */
+        .navbar {
+            background: rgba(var(--bg-rgb, 10, 10, 46), 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* Subtle scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #00d4ff, #7b2ff7);
-            border-radius: 4px;
-        }
-
-        /* 14. Gallery items glow */
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-        }
-        .gallery-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            box-shadow: inset 0 0 30px rgba(0,212,255,0);
-            transition: box-shadow 0.4s ease;
-            pointer-events: none;
-        }
-        .gallery-item:hover::after {
-            box-shadow: inset 0 0 30px rgba(0,212,255,0.2);
-        }
-
-        /* 15. Smooth page transitions */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 20px;
+            background: var(--primary-color);
+            border-radius: 3px;
         }
 
 
@@ -723,15 +571,11 @@
 
     <!-- Loading Screen -->
     <div class="loading-screen" id="loading-screen">
-        <div class="loader-ring" style="position:relative;"></div>
-        <div class="loader-text">LOADING...</div>
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
     </div>
-
-    <!-- Particle Background Canvas -->
     <canvas id="particle-canvas"></canvas>
-
-    <!-- Mouse Follow Glow -->
-    <div class="mouse-glow" id="mouse-glow"></div>
 
 
     <header class="navbar">
@@ -1311,26 +1155,22 @@
 
 
     <script>
-    // ===== VISUAL UPGRADE JAVASCRIPT =====
     document.addEventListener('DOMContentLoaded', function() {
-
-        // --- Loading Screen ---
+        // Loading screen
         window.addEventListener('load', function() {
             setTimeout(function() {
                 var ls = document.getElementById('loading-screen');
                 if (ls) ls.classList.add('hidden');
-            }, 800);
+            }, 600);
         });
 
-        // --- Particle Background (Canvas) ---
+        // Particle background (minimal)
         (function() {
             var canvas = document.getElementById('particle-canvas');
             if (!canvas) return;
             var ctx = canvas.getContext('2d');
             var particles = [];
-            var PARTICLE_COUNT = 80;
-            var connectionDistance = 120;
-            var mouseX = -1000, mouseY = -1000;
+            var COUNT = 50;
 
             function resize() {
                 canvas.width = window.innerWidth;
@@ -1339,23 +1179,20 @@
             resize();
             window.addEventListener('resize', resize);
 
-            function Particle() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2 + 0.5;
+            for (var i = 0; i < COUNT; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    r: Math.random() * 1.5 + 0.5
+                });
             }
 
-            for (var i = 0; i < PARTICLE_COUNT; i++) {
-                particles.push(new Particle());
-            }
-
-            function animate() {
+            function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-                var particleColor = isDark ? 'rgba(0,212,255,' : 'rgba(0,122,255,';
-                var lineColor = isDark ? 'rgba(0,212,255,' : 'rgba(0,122,255,';
+                var dark = document.documentElement.getAttribute('data-theme') !== 'light';
+                var alpha = dark ? 0.15 : 0.08;
 
                 for (var i = 0; i < particles.length; i++) {
                     var p = particles[i];
@@ -1363,163 +1200,73 @@
                     if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
                     if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-                    // Mouse attraction
-                    var dx = mouseX - p.x, dy = mouseY - p.y;
-                    var dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 200) {
-                        p.x += dx * 0.002;
-                        p.y += dy * 0.002;
-                    }
-
                     ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = particleColor + '0.6)';
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = dark ? 'rgba(0,212,255,0.5)' : 'rgba(0,122,255,0.3)';
                     ctx.fill();
 
                     for (var j = i + 1; j < particles.length; j++) {
                         var p2 = particles[j];
-                        var ddx = p.x - p2.x, ddy = p.y - p2.y;
-                        var d = Math.sqrt(ddx*ddx + ddy*ddy);
-                        if (d < connectionDistance) {
+                        var dx = p.x - p2.x, dy = p.y - p2.y;
+                        var d = Math.sqrt(dx*dx + dy*dy);
+                        if (d < 100) {
                             ctx.beginPath();
                             ctx.moveTo(p.x, p.y);
                             ctx.lineTo(p2.x, p2.y);
-                            ctx.strokeStyle = lineColor + (0.15 * (1 - d / connectionDistance)) + ')';
+                            ctx.strokeStyle = 'rgba(0,212,255,' + (alpha * (1 - d/100)) + ')';
                             ctx.lineWidth = 0.5;
                             ctx.stroke();
                         }
                     }
                 }
-                requestAnimationFrame(animate);
+                requestAnimationFrame(draw);
             }
-            animate();
-
-            document.addEventListener('mousemove', function(e) {
-                mouseX = e.clientX; mouseY = e.clientY;
-            });
+            draw();
         })();
 
-        // --- Mouse Follow Glow ---
+        // Typewriter effect
         (function() {
-            var glow = document.getElementById('mouse-glow');
-            if (!glow) return;
-            document.addEventListener('mousemove', function(e) {
-                glow.style.left = e.clientX + 'px';
-                glow.style.top = e.clientY + 'px';
-            });
-        })();
-
-        // --- Typewriter Effect for Hero ---
-        (function() {
-            var heroH2 = document.querySelector('.hero h2');
-            if (!heroH2) return;
-            var texts = ['Developer', 'Creator', 'Innovator', 'Problem Solver'];
-            var textIndex = 0, charIndex = 0, isDeleting = false;
-            var originalText = heroH2.textContent;
-            // Add cursor
+            var el = document.querySelector('.hero h2');
+            if (!el) return;
+            var texts = ['Developer', 'Creator', 'Innovator'];
+            var idx = 0, charIdx = 0, deleting = false;
             var cursor = document.createElement('span');
             cursor.className = 'typewriter-cursor';
-            heroH2.innerHTML = '';
-            var typeSpan = document.createElement('span');
-            heroH2.appendChild(typeSpan);
-            heroH2.appendChild(cursor);
+            var span = document.createElement('span');
+            el.innerHTML = '';
+            el.appendChild(span);
+            el.appendChild(cursor);
 
             function type() {
-                var current = texts[textIndex];
-                if (isDeleting) {
-                    charIndex--;
-                    typeSpan.textContent = current.substring(0, charIndex);
+                var t = texts[idx];
+                if (deleting) {
+                    charIdx--;
+                    span.textContent = t.substring(0, charIdx);
                 } else {
-                    charIndex++;
-                    typeSpan.textContent = current.substring(0, charIndex);
+                    charIdx++;
+                    span.textContent = t.substring(0, charIdx);
                 }
-                var speed = isDeleting ? 50 : 100;
-                if (!isDeleting && charIndex === current.length) {
-                    speed = 2000; isDeleting = true;
-                } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    textIndex = (textIndex + 1) % texts.length;
-                    speed = 500;
-                }
+                var speed = deleting ? 40 : 80;
+                if (!deleting && charIdx === t.length) { speed = 2000; deleting = true; }
+                else if (deleting && charIdx === 0) { deleting = false; idx = (idx+1) % texts.length; speed = 400; }
                 setTimeout(type, speed);
             }
-            // Start after a short delay
-            setTimeout(type, 1500);
+            setTimeout(type, 1000);
         })();
 
-        // --- 3D Tilt Cards ---
+        // Fade-in observer
         (function() {
-            var cards = document.querySelectorAll('.project-card, .skill-category, .news-item');
-            cards.forEach(function(card) {
-                card.classList.add('tilt-card');
-                // Add shine overlay
-                var shine = document.createElement('div');
-                shine.className = 'tilt-shine';
-                card.appendChild(shine);
-
-                card.addEventListener('mousemove', function(e) {
-                    var rect = card.getBoundingClientRect();
-                    var x = (e.clientX - rect.left) / rect.width;
-                    var y = (e.clientY - rect.top) / rect.height;
-                    var tiltX = (0.5 - y) * 10;
-                    var tiltY = (x - 0.5) * 10;
-                    card.style.transform = 'perspective(800px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) scale(1.02)';
-                    card.style.setProperty('--shine-x', (x * 100) + '%');
-                    card.style.setProperty('--shine-y', (y * 100) + '%');
-                });
-                card.addEventListener('mouseleave', function() {
-                    card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
-                });
-            });
-        })();
-
-        // --- Ripple Button Effect ---
-        (function() {
-            var buttons = document.querySelectorAll('button, .project-link, .nav-link, #load-more-btn, #load-more-news-btn');
-            buttons.forEach(function(btn) {
-                btn.classList.add('ripple-btn');
-                btn.addEventListener('click', function(e) {
-                    var rect = btn.getBoundingClientRect();
-                    var ripple = document.createElement('span');
-                    ripple.className = 'ripple-circle';
-                    var size = Math.max(rect.width, rect.height);
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-                    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-                    btn.appendChild(ripple);
-                    setTimeout(function() { ripple.remove(); }, 600);
-                });
-            });
-        })();
-
-        // --- Parallax on Scroll ---
-        (function() {
-            var hero = document.querySelector('.hero');
-            if (!hero) return;
-            window.addEventListener('scroll', function() {
-                var scrollY = window.pageYOffset;
-                hero.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
-            });
-        })();
-
-        // --- Enhanced Fade-in with stagger ---
-        (function() {
-            var observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
+            var obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        obs.unobserve(e.target);
                     }
                 });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-            document.querySelectorAll('.fade-in').forEach(function(el) {
-                observer.observe(el);
-            });
-            // Make observer globally accessible for dynamic content
-            window._visualUpgradeObserver = observer;
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
+            window._visualUpgradeObserver = obs;
         })();
-
     });
     </script>
 
