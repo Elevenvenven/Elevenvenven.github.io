@@ -568,22 +568,118 @@
             -webkit-backdrop-filter: blur(15px);
         }
 
+    
+        /* MIT风格Logo */
+        .mit-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .mit-logo .symbol {
+            display: flex;
+            gap: 4px;
+            align-items: flex-end;
+            height: 24px;
+        }
+        .mit-logo .bar {
+            width: 3px;
+            background: var(--primary-color, #007aff);
+            border-radius: 1px;
+            transition: transform 0.3s ease;
+        }
+        .mit-logo .bar:nth-child(1) { height: 50%; }
+        .mit-logo .bar:nth-child(2) { height: 100%; }
+        .mit-logo .bar:nth-child(3) { height: 70%; }
+        .mit-logo .bar:nth-child(4) { height: 40%; }
+        .mit-logo .text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-color, #1a1a1a);
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+        .mit-logo:hover .bar {
+            animation: barPulse 0.6s ease infinite;
+        }
+        .mit-logo:hover .text {
+            color: var(--primary-color, #007aff);
+            transition: color 0.3s ease;
+        }
+        @keyframes barPulse {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.2); }
+        }
+        /* 加载动画中的大版Logo */
+        .loading-logo .symbol {
+            height: 60px;
+            gap: 8px;
+        }
+        .loading-logo .bar {
+            width: 6px;
+        }
+        .loading-logo .text {
+            font-size: 3rem;
+        }
+        .loading-logo .sub-text {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: var(--text-secondary, #666);
+            text-transform: uppercase;
+        }
+        .loading-logo .bottom-line {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color, #007aff);
+            animation: lineExpand 1s ease forwards;
+            animation-delay: 0.8s;
+        }
+        @keyframes lineExpand {
+            to { width: 100%; }
+        }
+        @keyframes barGrow {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
     </style>
 </head>
 <body>
 
     <!-- Loading Screen -->
     <div class="loading-screen" id="loading-screen">
-        <div class="loader-dot"></div>
-        <div class="loader-dot"></div>
-        <div class="loader-dot"></div>
+        <div class="mit-logo loading-logo" style="position:relative;">
+            <div class="symbol">
+                <div class="bar" style="animation: barGrow 1.2s ease forwards; animation-delay: 0.1s;"></div>
+                <div class="bar" style="animation: barGrow 1.2s ease forwards; animation-delay: 0.3s;"></div>
+                <div class="bar" style="animation: barGrow 1.2s ease forwards; animation-delay: 0.5s;"></div>
+                <div class="bar" style="animation: barGrow 1.2s ease forwards; animation-delay: 0.7s;"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px;">
+                <div class="text">11_sum</div>
+                <div class="sub-text">Developer & Learner</div>
+            </div>
+            <div class="bottom-line"></div>
+        </div>
     </div>
     <canvas id="particle-canvas"></canvas>
 
 
     <header class="navbar">
         <div class="container">
-            <a href="#hero" class="logo">11_sum的网站</a>
+            <a href="#hero" class="mit-logo">
+                <div class="symbol">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <span class="text">11_sum</span>
+            </a>
             <nav>
                 <div class="menu-toggle" id="mobile-menu">
                     &#9776;
