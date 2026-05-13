@@ -395,11 +395,39 @@
         /* --- 8. 响应式设计 (Mobile) (修改: 适配语言选择器) --- */
         .menu-toggle { display: none; cursor: pointer; font-size: 1.8rem; color: var(--text-color); }
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            #hero h1 { font-size: 3rem; }
+            /* 文字排版移动端优化 */
+            h1 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 0.8rem; }
+            h2 { font-size: 1.8rem; line-height: 1.3; margin-bottom: 0.6rem; }
+            h3 { font-size: 1.3rem; line-height: 1.4; margin-bottom: 0.5rem; }
+            p { font-size: 1rem; line-height: 1.7; margin-bottom: 0.8rem; }
+            
+            #hero h1 { font-size: 2.5rem; }
             #hero p { 
-                font-size: 1.2rem; 
+                font-size: 1.1rem; 
                 margin-bottom: 0.75rem;
+            }
+            
+            /* 确保文字不溢出 */
+            * {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                -webkit-hyphens: auto;
+                hyphens: auto;
+            }
+            
+            /* 段落文字优化 */
+            .section-content p,
+            .project-card p,
+            .about-text p {
+                font-size: 0.95rem;
+                line-height: 1.8;
+                margin-bottom: 1rem;
+            }
+            
+            /* 标题间距优化 */
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
             }
             
             /* 导航栏移动端优化 */
@@ -465,6 +493,25 @@
             }
             section {
                 padding: 60px 0;
+            }
+            
+            /* 卡片文字优化 */
+            .project-card {
+                margin-bottom: 1rem;
+            }
+            .project-card h3 {
+                font-size: 1.2rem;
+                padding: 1rem 1rem 0.5rem;
+            }
+            .project-card p {
+                padding: 0 1rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            /* 技能标签优化 */
+            .skill-tag {
+                font-size: 0.85rem;
+                padding: 0.3rem 0.6rem;
             }
         }
         
