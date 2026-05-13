@@ -431,6 +431,38 @@
             transform: translateY(0);
         }
 
+
+        /* --- Donate Section --- */
+        .donate-cards {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .donate-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .donate-card img {
+            width: 220px;
+            height: auto;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .donate-card img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .donate-card span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -541,6 +573,24 @@
                 <div class="gallery-grid" id="gallery-grid">
                     </div>
                 <button id="load-more-btn" class="cta-button" >Load More</button>
+            </div>
+        </section>
+        
+
+        <section id="donate">
+            <div class="container fade-in">
+                <h2>Buy Me a Coffee ☕</h2>
+                <p>If you find my work helpful, feel free to support me!</p>
+                <div class="donate-cards">
+                    <div class="donate-card">
+                        <img src="images/alipay_qrcode.jpg" alt="Alipay QR Code" />
+                        <span>支付宝</span>
+                    </div>
+                    <div class="donate-card">
+                        <img src="images/wechat_qrcode.jpg" alt="WeChat Pay QR Code" />
+                        <span>微信支付</span>
+                    </div>
+                </div>
             </div>
         </section>
         
