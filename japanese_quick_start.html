@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日语快速入门手册（注音版）</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;background:linear-gradient(135deg,#f5f7fa,#c3cfe2);color:#333;line-height:1.8;min-height:100vh}
+.hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;text-align:center;padding:60px 20px 40px;position:relative;overflow:hidden}
+.hero::before{content:'🇯🇵';position:absolute;font-size:200px;opacity:.08;top:-30px;right:30px}
+.hero h1{font-size:2.5em;margin-bottom:10px}
+.hero .sub{font-size:1.2em;opacity:.9}
+.hero .jp{font-size:1.1em;margin-top:10px;opacity:.8}
+.nav{background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.nav-in{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:5px;padding:10px 15px}
+.nav a{text-decoration:none;color:#667eea;font-size:.85em;padding:5px 12px;border-radius:20px;transition:.3s;white-space:nowrap}
+.nav a:hover{background:#667eea;color:#fff}
+.ctn{max-width:900px;margin:0 auto;padding:30px 20px 60px}
+.ch{background:#fff;border-radius:16px;padding:35px 40px;margin-bottom:30px;box-shadow:0 4px 20px rgba(0,0,0,.08);transition:transform .3s}
+.ch:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.12)}
+.ch-n{display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;width:36px;height:36px;border-radius:50%;text-align:center;line-height:36px;font-weight:700;margin-right:10px}
+h2{font-size:1.6em;color:#333;margin-bottom:25px;padding-bottom:10px;border-bottom:3px solid #667eea;display:flex;align-items:center}
+h3{font-size:1.2em;color:#667eea;margin:25px 0 15px;padding-left:15px;border-left:4px solid #764ba2}
+p{margin:10px 0}
+.pat{background:linear-gradient(135deg,#f0f4ff,#e8eeff);border-left:5px solid #667eea;padding:15px 20px;margin:15px 0;border-radius:0 10px 10px 0;font-size:1.1em}
+.ex{background:#f9fafb;padding:12px 18px;margin:8px 0;border-radius:8px;border-left:3px solid #a0aec0;font-size:1em}
+.ex .cn{color:#718096;font-size:.9em}
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:15px 0}
+.ci{padding:15px;border-radius:10px;text-align:center}
+.ci-cn{background:#ebf8ff;border:2px solid #bee3f8}
+.ci-jp{background:#fef3c7;border:2px solid #fbd38d}
+.ci-l{font-size:.8em;font-weight:700;text-transform:uppercase;margin-bottom:5px;color:#718096}
+table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.95em}
+thead{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+th{padding:12px 15px;text-align:center;font-weight:600}
+td{padding:10px 15px;text-align:center;border-bottom:1px solid #e2e8f0}
+tbody tr:hover{background:#f7fafc}
+tbody tr:nth-child(even){background:#fafbfc}
+.jp-c{font-family:'Noto Sans JP',sans-serif;font-size:1.05em}
+.rm-c{color:#718096;font-style:italic}
+.tag{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.8em;font-weight:700;margin:0 3px}
+.tag-g{background:#ebf8ff;color:#3182ce}
+.tag-v{background:#fef3c7;color:#d69e2e}
+.tag-a{background:#f0fff4;color:#38a169}
+.tag-p{background:#fed7e2;color:#d53f8c}
+.code-b{background:#2d3748;color:#e2e8f0;padding:18px 22px;border-radius:10px;font-family:'Courier New',monospace;font-size:.95em;margin:15px 0;line-height:1.7;overflow-x:auto}
+.tip{background:linear-gradient(135deg,#fefcbf,#fefce8);border-left:5px solid #d69e2e;padding:15px 20px;margin:15px 0;border-radius:0 10px 10px 0}
+.tip::before{content:'💡 ';font-size:1.2em}
+.footer{text-align:center;padding:40px 20px;color:#718096;font-size:.9em}
+.footer .cheer{font-size:1.5em;font-family:'Noto Sans JP',sans-serif;color:#667eea;margin-bottom:10px}
+.back-top{position:fixed;bottom:30px;right:30px;width:45px;height:45px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:50%;font-size:1.3em;cursor:pointer;box-shadow:0 4px 15px rgba(102,126,234,.4);display:none;z-index:200;transition:transform .3s}
+.back-top:hover{transform:scale(1.1)}
+ruby rt{font-size:.55em;font-weight:400;color:#d69e2e}
+@media(max-width:600px){.hero h1{font-size:1.8em}.ch{padding:20px 18px}h2{font-size:1.3em}.contrast{grid-template-columns:1fr}.nav-in{gap:3px}.nav a{font-size:.75em;padding:4px 8px}}
+</style>
+</head>
+<body>
+<div class="hero">
+<h1>🎌 日语快速入门手册</h1>
+<p class="sub">面向有五十音基础的学习者</p>
+<p class="jp"><ruby>日本語<rp>(</rp><rt>にほんご</rt><rp>)</rp></ruby>クイックスタートガイド</p>
+</div>
+<div class="nav"><div class="nav-in">
+<a href="#ch1">语法框架</a><a href="#ch2">核心词汇</a><a href="#ch3">实用会话</a><a href="#ch4">助词基础</a><a href="#ch5">数字计数</a><a href="#ch6">场景会话</a><a href="#ch7">学习建议</a><a href="#app">动词变形</a>
+</div></div>
+<div class="ctn">
+
+<div class="ch" id="ch1">
+<h2><span class="ch-n">1</span><ruby>核心<rp>(</rp><rt>かくしん</rt><rp>)</rp></ruby>语法框架</h2>
+
+<h3>1.1 <ruby>句<rp>(</rp><rt>く</rt><rp>)</rp></ruby>子<ruby>基本<rp>(</rp><rt>きほん</rt><rp>)</rp></ruby><ruby>構造<rp>(</rp><rt>こうぞう</rt><rp>)</rp></ruby>：SOV</h3>
+<p><ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby>语的<ruby>基本<rp>(</rp><rt>きほん</rt><rp>)</rp></ruby>语序是 <span class="tag tag-g"><ruby>主<rp>(</rp><rt>しゅ</rt><rp>)</rp></ruby>语(S) + <ruby>賓<rp>(</rp><rt>ひん</rt><rp>)</rp></ruby>语(O) + <ruby>謂<rp>(</rp><rt>い</rt><rp>)</rp></ruby>语(V)</span>，与<ruby>中<rp>(</rp><rt>ちゅう</rt><rp>)</rp></ruby><ruby>文<rp>(</rp><rt>ぶん</rt><rp>)</rp></ruby>的SVO不同。</p>
+<div class="contrast">
+<div class="ci ci-cn"><div class="ci-l">🇨🇳 <ruby>中<rp>(</rp><rt>ちゅう</rt><rp>)</rp></ruby><ruby>文<rp>(</rp><rt>ぶん</rt><rp>)</rp></ruby> (SVO)</div><div>我 吃 饭。</div></div>
+<div class="ci ci-jp"><div class="ci-l">🇯🇵 <ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby> (SOV)</div><div><ruby>私<rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>は <ruby>御<rp>(</rp><rt>ご</rt><rp>)</rp></ruby><ruby>飯<rp>(</rp><rt>はん</rt><rp>)</rp></ruby>を <ruby>食<rp>(</rp><rt>た</rt><rp>)</rp></ruby>べます。</div></div>
+</div>
+
+<h3>1.2 <ruby>判断<rp>(</rp><rt>はんだん</rt><rp>)</rp></ruby><ruby>句<rp>(</rp><rt>く</rt><rp>)</rp></ruby>：〜は〜です</h3>
+<div class="pat">A は B です（A是B）</div>
+<div class="ex"><ruby>私<rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>は<ruby>学<rp>(</rp><rt>がく</rt><rp>)</rp></ruby><ruby>生<rp>(</rp><rt>せい</rt><rp>)</rp></ruby>です。<span class="cn">（我是学生。）</span></div>
+<div class="ex">これは<ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby>です。<span class="cn">（这是书。）</span></div>
+<div class="ex">あそこは<ruby>駅<rp>(</rp><rt>えき</rt><rp>)</rp></ruby>です。<span class="cn">（那里是车站。）</span></div>
+
+<p style="margin-top:15px"><strong><ruby>否定<rp>(</rp><rt>ひてい</rt><rp>)</rp></ruby><ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby>：</strong></p>
+<div class="pat">〜は〜ではありません（不是...）</div>
+<div class="ex"><ruby>私<rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>は<ruby>学<rp>(</rp><rt>がく</rt><rp>)</rp></ruby><ruby>生<rp>(</rp><rt>せい</rt><rp>)</rp></ruby>ではありません。<span class="cn">（我不是学生。）</span></div>
+
+<p style="margin-top:15px"><strong><ruby>過去<rp>(</rp><rt>かこ</rt><rp>)</rp></ruby>时：</strong></p>
+<div class="pat">〜は〜でした（曾是...）</div>
+<div class="ex"><ruby>昨日<rp>(</rp><rt>きのう</rt><rp>)</rp></ruby>は<ruby>月<rp>(</rp><rt>げつ</rt><rp>)</rp></ruby><ruby>曜<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>日<rp>(</rp><rt>び</rt><rp>)</rp></ruby>でした。<span class="cn">（昨天是星期一。）</span></div>
+
+<h3>1.3 <ruby>存在<rp>(</rp><rt>そんざい</rt><rp>)</rp></ruby><ruby>句<rp>(</rp><rt>く</rt><rp>)</rp></ruby>：〜は〜にあります/います</h3>
+<div class="pat">A は B に あります/います（A在B）</div>
+<div class="tip">あります → <ruby>無<rp>(</rp><rt>む</rt><rp>)</rp></ruby><ruby>生<rp>(</rp><rt>せい</rt><rp>)</rp></ruby><ruby>命<rp>(</rp><rt>めい</rt><rp>)</rp></ruby>物体 &nbsp;|&nbsp; います → <ruby>有<rp>(</rp><rt>ゆう</rt><rp>)</rp></ruby><ruby>生<rp>(</rp><rt>せい</rt><rp>)</rp></ruby><ruby>命<rp>(</rp><rt>めい</rt><rp>)</rp></ruby>物体（人、<ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>物<rp>(</rp><rt>ぶつ</rt><rp>)</rp></ruby>）</div>
+<div class="ex"><ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby>は<ruby>机<rp>(</rp><rt>つくえ</rt><rp>)</rp></ruby>の<ruby>上<rp>(</rp><rt>うえ</rt><rp>)</rp></ruby>にあります。<span class="cn">（书在桌子上。）</span></div>
+<div class="ex"><ruby>猫<rp>(</rp><rt>ねこ</rt><rp>)</rp></ruby>は<ruby>庭<rp>(</rp><rt>にわ</rt><rp>)</rp></ruby>にいます。<span class="cn">（猫在院子里。）</span></div>
+<div class="ex"><ruby>駅<rp>(</rp><rt>えき</rt><rp>)</rp></ruby>はどこですか？<span class="cn">（车站在哪里？）</span></div>
+
+<h3>1.4 <ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>句<rp>(</rp><rt>く</rt><rp>)</rp></ruby>：〜は〜を〜ます</h3>
+<div class="pat"><ruby>主<rp>(</rp><rt>しゅ</rt><rp>)</rp></ruby>语 は <ruby>賓<rp>(</rp><rt>ひん</rt><rp>)</rp></ruby>语を <ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby>ます</div>
+<div class="ex"><ruby>私<rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>は<ruby>御<rp>(</rp><rt>ご</rt><rp>)</rp></ruby><ruby>飯<rp>(</rp><rt>はん</rt><rp>)</rp></ruby>を<ruby>食<rp>(</rp><rt>た</rt><rp>)</rp></ruby>べます。<span class="cn">（我吃饭。）</span></div>
+<div class="ex"><ruby>彼<rp>(</rp><rt>かれ</rt><rp>)</rp></ruby>は<ruby>新<rp>(</rp><rt>しん</rt><rp>)</rp></ruby><ruby>聞<rp>(</rp><rt>ぶん</rt><rp>)</rp></ruby>を<ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>みます。<span class="cn">（他读报纸。）</span></div>
+<div class="ex"><ruby>私<rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>は<ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby>を<ruby>勉<rp>(</rp><rt>べん</rt><rp>)</rp></ruby><ruby>強<rp>(</rp><rt>きょう</rt><rp>)</rp></ruby>します。<span class="cn">（我学习日语。）</span></div>
+
+<p style="margin-top:15px"><strong><ruby>否定<rp>(</rp><rt>ひてい</rt><rp>)</rp></ruby>：</strong><span class="tag tag-v">〜ません</span> &nbsp; <strong><ruby>過去<rp>(</rp><rt>かこ</rt><rp>)</rp></ruby>时：</strong><span class="tag tag-v">〜ました</span></p>
+<div class="ex"><ruby>私<rp>(</rp><rt>わたし</rt><rp>)</rp></ruby>は<ruby>肉<rp>(</rp><rt>にく</rt><rp>)</rp></ruby>を<ruby>食<rp>(</rp><rt>た</rt><rp>)</rp></ruby>べません。<span class="cn">（我不吃肉。）</span></div>
+<div class="ex"><ruby>昨日<rp>(</rp><rt>きのう</rt><rp>)</rp></ruby>、<ruby>映<rp>(</rp><rt>えい</rt><rp>)</rp></ruby><ruby>画<rp>(</rp><rt>が</rt><rp>)</rp></ruby>を<ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>ました。<span class="cn">（昨天看了电影。）</span></div>
+
+<h3>1.5 <ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby><ruby>容<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>句<rp>(</rp><rt>く</rt><rp>)</rp></ruby></h3>
+<p><span class="tag tag-a">い<ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby><ruby>容<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></span> 直接修饰名词：</p>
+<div class="ex"><ruby>大<rp>(</rp><rt>おお</rt><rp>)</rp></ruby>きい<ruby>家<rp>(</rp><rt>いえ</rt><rp>)</rp></ruby> <span class="cn">（大的房子）</span></div>
+<div class="ex">この<ruby>林<rp>(</rp><rt>りん</rt><rp>)</rp></ruby><ruby>檎<rp>(</rp><rt>ご</rt><rp>)</rp></ruby>は<ruby>甘<rp>(</rp><rt>あま</rt><rp>)</rp></ruby>いです。<span class="cn">（这个苹果很甜。）</span></div>
+<p style="margin-top:10px"><span class="tag tag-a">な<ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby><ruby>容<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></span> 加「な」修饰名词：</p>
+<div class="ex"><ruby>静<rp>(</rp><rt>しず</rt><rp>)</rp></ruby>かな<ruby>部<rp>(</rp><rt>へ</rt><rp>)</rp></ruby><ruby>屋<rp>(</rp><rt>や</rt><rp>)</rp></ruby> <span class="cn">（安静的房间）</span></div>
+<div class="ex">この<ruby>公<rp>(</rp><rt>こう</rt><rp>)</rp></ruby><ruby>園<rp>(</rp><rt>えん</rt><rp>)</rp></ruby>は<ruby>綺<rp>(</rp><rt>き</rt><rp>)</rp></ruby><ruby>麗<rp>(</rp><rt>れい</rt><rp>)</rp></ruby>です。<span class="cn">（这个公园很美。）</span></div>
+</div>
+
+<div class="ch" id="ch2">
+<h2><span class="ch-n">2</span><ruby>高<rp>(</rp><rt>こう</rt><rp>)</rp></ruby><ruby>頻<rp>(</rp><rt>ひん</rt><rp>)</rp></ruby><ruby>核心<rp>(</rp><rt>かくしん</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>彙<rp>(</rp><rt>い</rt><rp>)</rp></ruby>（100<ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby>）</h2>
+
+<h3>2.1 <ruby>代<rp>(</rp><rt>だい</rt><rp>)</rp></ruby><ruby>名<rp>(</rp><rt>めい</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></h3>
+<table>
+<thead><tr><th><ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby></th><th><ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>み</th><th><ruby>意<rp>(</rp><rt>い</rt><rp>)</rp></ruby><ruby>味<rp>(</rp><rt>み</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td class="jp-c"><ruby>私<rp>(</rp><rt>わたし</rt><rp>)</rp></ruby></td><td class="rm-c">watashi</td><td>我</td></tr>
+<tr><td class="jp-c">あなた</td><td class="rm-c">anata</td><td>你</td></tr>
+<tr><td class="jp-c"><ruby>彼<rp>(</rp><rt>かれ</rt><rp>)</rp></ruby></td><td class="rm-c">kare</td><td>他</td></tr>
+<tr><td class="jp-c"><ruby>彼女<rp>(</rp><rt>かのじょ</rt><rp>)</rp></ruby></td><td class="rm-c">kanojo</td><td>她</td></tr>
+<tr><td class="jp-c">これ</td><td class="rm-c">kore</td><td>这个</td></tr>
+<tr><td class="jp-c">それ</td><td class="rm-c">sore</td><td>那个</td></tr>
+<tr><td class="jp-c">あれ</td><td class="rm-c">are</td><td>那个（远称）</td></tr>
+<tr><td class="jp-c">ここ</td><td class="rm-c">koko</td><td>这里</td></tr>
+<tr><td class="jp-c">そこ</td><td class="rm-c">soko</td><td>那里</td></tr>
+<tr><td class="jp-c">あそこ</td><td class="rm-c">asoko</td><td>那里（远称）</td></tr>
+</tbody></table>
+
+<h3>2.2 <ruby>時<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><ruby>間<rp>(</rp><rt>かん</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>彙<rp>(</rp><rt>い</rt><rp>)</rp></ruby></h3>
+<table>
+<thead><tr><th><ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby></th><th><ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>み</th><th><ruby>意<rp>(</rp><rt>い</rt><rp>)</rp></ruby><ruby>味<rp>(</rp><rt>み</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td class="jp-c"><ruby>今日<rp>(</rp><rt>きょう</rt><rp>)</rp></ruby></td><td class="rm-c">kyou</td><td>今天</td></tr>
+<tr><td class="jp-c"><ruby>明日<rp>(</rp><rt>あした</rt><rp>)</rp></ruby></td><td class="rm-c">ashita</td><td>明天</td></tr>
+<tr><td class="jp-c"><ruby>昨日<rp>(</rp><rt>きのう</rt><rp>)</rp></ruby></td><td class="rm-c">kinou</td><td>昨天</td></tr>
+<tr><td class="jp-c"><ruby>今<rp>(</rp><rt>いま</rt><rp>)</rp></ruby></td><td class="rm-c">ima</td><td>现在</td></tr>
+<tr><td class="jp-c"><ruby>朝<rp>(</rp><rt>あさ</rt><rp>)</rp></ruby></td><td class="rm-c">asa</td><td>早上</td></tr>
+<tr><td class="jp-c"><ruby>昼<rp>(</rp><rt>ひる</rt><rp>)</rp></ruby></td><td class="rm-c">hiru</td><td>中午</td></tr>
+<tr><td class="jp-c"><ruby>夜<rp>(</rp><rt>よる</rt><rp>)</rp></ruby></td><td class="rm-c">yoru</td><td>晚上</td></tr>
+</tbody></table>
+
+<h3>2.3 <ruby>常<rp>(</rp><rt>じょう</rt><rp>)</rp></ruby><ruby>用<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby>（ます<ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby>）</h3>
+<table>
+<thead><tr><th><ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby></th><th><ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>み</th><th><ruby>意<rp>(</rp><rt>い</rt><rp>)</rp></ruby><ruby>味<rp>(</rp><rt>み</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td class="jp-c">します</td><td class="rm-c">shimasu</td><td>做</td></tr>
+<tr><td class="jp-c"><ruby>行<rp>(</rp><rt>い</rt><rp>)</rp></ruby>きます</td><td class="rm-c">ikimasu</td><td>去</td></tr>
+<tr><td class="jp-c"><ruby>来<rp>(</rp><rt>き</rt><rp>)</rp></ruby>ます</td><td class="rm-c">kimasu</td><td>来</td></tr>
+<tr><td class="jp-c"><ruby>食<rp>(</rp><rt>た</rt><rp>)</rp></ruby>べます</td><td class="rm-c">tabemasu</td><td>吃</td></tr>
+<tr><td class="jp-c"><ruby>飲<rp>(</rp><rt>の</rt><rp>)</rp></ruby>みます</td><td class="rm-c">nomimasu</td><td>喝</td></tr>
+<tr><td class="jp-c"><ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>ます</td><td class="rm-c">mimasu</td><td>看</td></tr>
+<tr><td class="jp-c"><ruby>聞<rp>(</rp><rt>き</rt><rp>)</rp></ruby>きます</td><td class="rm-c">kikimasu</td><td>听/问</td></tr>
+<tr><td class="jp-c"><ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>みます</td><td class="rm-c">yomimasu</td><td>读</td></tr>
+<tr><td class="jp-c"><ruby>書<rp>(</rp><rt>か</rt><rp>)</rp></ruby>きます</td><td class="rm-c">kakimasu</td><td>写</td></tr>
+<tr><td class="jp-c"><ruby>話<rp>(</rp><rt>はな</rt><rp>)</rp></ruby>します</td><td class="rm-c">hanashimasu</td><td>说</td></tr>
+<tr><td class="jp-c"><ruby>買<rp>(</rp><rt>か</rt><rp>)</rp></ruby>います</td><td class="rm-c">kaimasu</td><td>买</td></tr>
+<tr><td class="jp-c"><ruby>帰<rp>(</rp><rt>かえ</rt><rp>)</rp></ruby>ります</td><td class="rm-c">kaerimasu</td><td>回去</td></tr>
+</tbody></table>
+
+<h3>2.4 <ruby>常<rp>(</rp><rt>じょう</rt><rp>)</rp></ruby><ruby>用<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby><ruby>容<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></h3>
+<table>
+<thead><tr><th><ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby></th><th><ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>み</th><th><ruby>意<rp>(</rp><rt>い</rt><rp>)</rp></ruby><ruby>味<rp>(</rp><rt>み</rt><rp>)</rp></ruby></th><th><ruby>類<rp>(</rp><rt>るい</rt><rp>)</rp></ruby><ruby>型<rp>(</rp><rt>がた</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td class="jp-c"><ruby>大<rp>(</rp><rt>おお</rt><rp>)</rp></ruby>きい</td><td class="rm-c">ookii</td><td>大的</td><td><span class="tag tag-a">い</span></td></tr>
+<tr><td class="jp-c"><ruby>小<rp>(</rp><rt>ちい</rt><rp>)</rp></ruby>さい</td><td class="rm-c">chiisai</td><td>小的</td><td><span class="tag tag-a">い</span></td></tr>
+<tr><td class="jp-c"><ruby>新<rp>(</rp><rt>あたら</rt><rp>)</rp></ruby>しい</td><td class="rm-c">atarashii</td><td>新的</td><td><span class="tag tag-a">い</span></td></tr>
+<tr><td class="jp-c"><ruby>古<rp>(</rp><rt>ふる</rt><rp>)</rp></ruby>い</td><td class="rm-c">furui</td><td>旧的</td><td><span class="tag tag-a">い</span></td></tr>
+<tr><td class="jp-c">いい/<ruby>良<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>い</td><td class="rm-c">ii/yoi</td><td>好的</td><td><span class="tag tag-a">い</span></td></tr>
+<tr><td class="jp-c"><ruby>悪<rp>(</rp><rt>わる</rt><rp>)</rp></ruby>い</td><td class="rm-c">warui</td><td>坏的</td><td><span class="tag tag-a">い</span></td></tr>
+<tr><td class="jp-c"><ruby>高<rp>(</rp><rt>たか</rt><rp>)</rp></ruby>い</td><td class="rm-c">takai</td><td>贵的/高的</td><td><span class="tag tag-a">い</span></td></tr>
+<tr><td class="jp-c"><ruby>安<rp>(</rp><rt>やす</rt><rp>)</rp></ruby>い</td><td class="rm-c">yasui</td><td>便宜的</td><td><span class="tag tag-a">い</span></td></tr>
+<tr><td class="jp-c"><ruby>暑<rp>(</rp><rt>あつ</rt><rp>)</rp></ruby>い/<ruby>熱<rp>(</rp><rt>あつ</rt><rp>)</rp></ruby>い</td><td class="rm-c">atsui</td><td>热的</td><td><span class="tag tag-a">い</span></td></tr>
+<tr><td class="jp-c"><ruby>寒<rp>(</rp><rt>さむ</rt><rp>)</rp></ruby>い</td><td class="rm-c">samui</td><td>冷的</td><td><span class="tag tag-a">い</span></td></tr>
+</tbody></table>
+</div>
+
+<div class="ch" id="ch3">
+<h2><span class="ch-n">3</span><ruby>実<rp>(</rp><rt>じつ</rt><rp>)</rp></ruby><ruby>用<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>会<rp>(</rp><rt>かい</rt><rp>)</rp></ruby><ruby>話<rp>(</rp><rt>わ</rt><rp>)</rp></ruby><ruby>句<rp>(</rp><rt>く</rt><rp>)</rp></ruby><ruby>型<rp>(</rp><rt>がた</rt><rp>)</rp></ruby></h2>
+
+<h3>3.1 <ruby>自<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><ruby>己<rp>(</rp><rt>こ</rt><rp>)</rp></ruby><ruby>紹<rp>(</rp><rt>しょう</rt><rp>)</rp></ruby><ruby>介<rp>(</rp><rt>かい</rt><rp>)</rp></ruby></h3>
+<div class="pat">〜と<ruby>申<rp>(</rp><rt>もう</rt><rp>)</rp></ruby>します。（我叫...）</div>
+<div class="pat">〜から<ruby>来<rp>(</rp><rt>き</rt><rp>)</rp></ruby>ました。（我从...来）</div>
+<div class="pat">〜が<ruby>好<rp>(</rp><rt>す</rt><rp>)</rp></ruby>きです。（我喜欢...）</div>
+<p style="margin-top:15px"><strong>📝 <ruby>完<rp>(</rp><rt>かん</rt><rp>)</rp></ruby><ruby>全<rp>(</rp><rt>ぜん</rt><rp>)</rp></ruby><ruby>自<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><ruby>己<rp>(</rp><rt>こ</rt><rp>)</rp></ruby><ruby>紹<rp>(</rp><rt>しょう</rt><rp>)</rp></ruby><ruby>介<rp>(</rp><rt>かい</rt><rp>)</rp></ruby><ruby>模<rp>(</rp><rt>も</rt><rp>)</rp></ruby><ruby>版<rp>(</rp><rt>ばん</rt><rp>)</rp></ruby>：</strong></p>
+<div class="code-b">
+<ruby>初<rp>(</rp><rt>はじ</rt><rp>)</rp></ruby>めまして。〇〇と<ruby>申<rp>(</rp><rt>もう</rt><rp>)</rp></ruby>します。<br>
+<ruby>中<rp>(</rp><rt>ちゅう</rt><rp>)</rp></ruby><ruby>国<rp>(</rp><rt>ごく</rt><rp>)</rp></ruby>から<ruby>来<rp>(</rp><rt>き</rt><rp>)</rp></ruby>ました。<br>
+<ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby>を<ruby>勉<rp>(</rp><rt>べん</rt><rp>)</rp></ruby><ruby>強<rp>(</rp><rt>きょう</rt><rp>)</rp></ruby>しています。<br>
+どうぞよろしくお<ruby>願<rp>(</rp><rt>ねが</rt><rp>)</rp></ruby>いします。
+</div>
+<p style="color:#718096;text-align:center">初次见面。我叫〇〇。我从中国来。我在学习日语。请多多关照。</p>
+
+<h3>3.2 <ruby>質<rp>(</rp><rt>しつ</rt><rp>)</rp></ruby><ruby>問<rp>(</rp><rt>もん</rt><rp>)</rp></ruby>と<ruby>依<rp>(</rp><rt>い</rt><rp>)</rp></ruby><ruby>頼<rp>(</rp><rt>らい</rt><rp>)</rp></ruby></h3>
+<div class="pat">〜はどこですか？（...在哪里？）</div>
+<div class="pat">〜をください。（请给我...）</div>
+<div class="pat">〜てもいいですか？（可以...吗？）</div>
+<div class="pat">〜てください。（请...）</div>
+<div class="ex"><ruby>手<rp>(</rp><rt>て</rt><rp>)</rp></ruby><ruby>洗<rp>(</rp><rt>あら</rt><rp>)</rp></ruby>いはどこですか？<span class="cn">（洗手间在哪里？）</span></div>
+<div class="ex"><ruby>水<rp>(</rp><rt>みず</rt><rp>)</rp></ruby>をください。<span class="cn">（请给我水。）</span></div>
+<div class="ex"><ruby>写<rp>(</rp><rt>しゃ</rt><rp>)</rp></ruby><ruby>真<rp>(</rp><rt>しん</rt><rp>)</rp></ruby>を<ruby>撮<rp>(</rp><rt>と</rt><rp>)</rp></ruby>ってもいいですか？<span class="cn">（可以拍照吗？）</span></div>
+<div class="ex">もう<ruby>一<rp>(</rp><rt>いち</rt><rp>)</rp></ruby><ruby>度<rp>(</rp><rt>ど</rt><rp>)</rp></ruby><ruby>言<rp>(</rp><rt>い</rt><rp>)</rp></ruby>ってください。<span class="cn">（请再说一次。）</span></div>
+
+<h3>3.3 <ruby>表<rp>(</rp><rt>ひょう</rt><rp>)</rp></ruby><ruby>現<rp>(</rp><rt>げん</rt><rp>)</rp></ruby><ruby>希<rp>(</rp><rt>き</rt><rp>)</rp></ruby><ruby>望<rp>(</rp><rt>ぼう</rt><rp>)</rp></ruby></h3>
+<div class="pat">〜がほしいです。（我想要...）</div>
+<div class="pat">〜たいです。（我想做...）</div>
+<div class="pat">〜が<ruby>必<rp>(</rp><rt>ひつ</rt><rp>)</rp></ruby><ruby>要<rp>(</rp><rt>よう</rt><rp>)</rp></ruby>です。（需要...）</div>
+<div class="ex"><ruby>新<rp>(</rp><rt>あたら</rt><rp>)</rp></ruby>しいパソコンがほしいです。<span class="cn">（我想要新电脑。）</span></div>
+<div class="ex"><ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby>に<ruby>行<rp>(</rp><rt>い</rt><rp>)</rp></ruby>きたいです。<span class="cn">（我想去日本。）</span></div>
+<div class="ex"><ruby>時<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><ruby>間<rp>(</rp><rt>かん</rt><rp>)</rp></ruby>が<ruby>必<rp>(</rp><rt>ひつ</rt><rp>)</rp></ruby><ruby>要<rp>(</rp><rt>よう</rt><rp>)</rp></ruby>です。<span class="cn">（需要时间。）</span></div>
+
+<h3>3.4 <ruby>日<rp>(</rp><rt>にち</rt><rp>)</rp></ruby><ruby>常<rp>(</rp><rt>じょう</rt><rp>)</rp></ruby><ruby>寒<rp>(</rp><rt>さむ</rt><rp>)</rp></ruby><ruby>暄<rp>(</rp><rt>うん</rt><rp>)</rp></ruby></h3>
+<table>
+<thead><tr><th><ruby>場<rp>(</rp><rt>ば</rt><rp>)</rp></ruby><ruby>合<rp>(</rp><rt>あい</rt><rp>)</rp></ruby></th><th><ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby></th><th><ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>み</th><th><ruby>意<rp>(</rp><rt>い</rt><rp>)</rp></ruby><ruby>味<rp>(</rp><rt>み</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td>🌅 早上</td><td class="jp-c">おはようございます</td><td class="rm-c">ohayou gozaimasu</td><td>早上好</td></tr>
+<tr><td>☀️ 白天</td><td class="jp-c">こんにちは</td><td class="rm-c">konnichiwa</td><td>你好</td></tr>
+<tr><td>🌙 晚上</td><td class="jp-c">こんばんは</td><td class="rm-c">konbanwa</td><td>晚上好</td></tr>
+<tr><td>😴 晚安</td><td class="jp-c">おやすみなさい</td><td class="rm-c">oyasuminasai</td><td>晚安</td></tr>
+<tr><td>👋 再见</td><td class="jp-c">さようなら</td><td class="rm-c">sayounara</td><td>再见</td></tr>
+<tr><td>🙏 谢谢</td><td class="jp-c">ありがとうございます</td><td class="rm-c">arigatou gozaimasu</td><td>谢谢</td></tr>
+<tr><td>🙇 对不起</td><td class="jp-c">すみません</td><td class="rm-c">sumimasen</td><td>对不起/打扰了</td></tr>
+<tr><td>👌 没关系</td><td class="jp-c"><ruby>大<rp>(</rp><rt>だい</rt><rp>)</rp></ruby><ruby>丈<rp>(</rp><rt>じょう</rt><rp>)</rp></ruby><ruby>夫<rp>(</rp><rt>ぶ</rt><rp>)</rp></ruby>です</td><td class="rm-c">daijoubu desu</td><td>没关系</td></tr>
+</tbody></table>
+</div>
+
+<div class="ch" id="ch4">
+<h2><span class="ch-n">4</span><ruby>助<rp>(</rp><rt>じょ</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>基<rp>(</rp><rt>き</rt><rp>)</rp></ruby><ruby>礎<rp>(</rp><rt>そ</rt><rp>)</rp></ruby></h2>
+<h3>4.1 <ruby>核<rp>(</rp><rt>かく</rt><rp>)</rp></ruby><ruby>心<rp>(</rp><rt>しん</rt><rp>)</rp></ruby><ruby>助<rp>(</rp><rt>じょ</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></h3>
+<div class="tip"><ruby>助<rp>(</rp><rt>じょ</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby>是<ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby>的灵魂！掌握这9个<ruby>助<rp>(</rp><rt>じょ</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby>，就能理解大部分<ruby>基<rp>(</rp><rt>き</rt><rp>)</rp></ruby><ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby><ruby>句<rp>(</rp><rt>く</rt><rp>)</rp></ruby><ruby>型<rp>(</rp><rt>がた</rt><rp>)</rp></ruby>。</div>
+<table>
+<thead><tr><th><ruby>助<rp>(</rp><rt>じょ</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></th><th><ruby>功<rp>(</rp><rt>こう</rt><rp>)</rp></ruby><ruby>能<rp>(</rp><rt>のう</rt><rp>)</rp></ruby></th><th><ruby>例<rp>(</rp><rt>れい</rt><rp>)</rp></ruby><ruby>文<rp>(</rp><rt>ぶん</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td><span class="tag tag-p">は (wa)</span></td><td><ruby>主<rp>(</rp><rt>しゅ</rt><rp>)</rp></ruby><ruby>題<rp>(</rp><rt>だい</rt><rp>)</rp></ruby><ruby>標<rp>(</rp><rt>ひょう</rt><rp>)</rp></ruby><ruby>識<rp>(</rp><rt>しき</rt><rp>)</rp></ruby></td><td class="jp-c"><ruby>私<rp>(</rp><rt>わたし</rt><rp>)</rp></ruby><b>は</b><ruby>学<rp>(</rp><rt>がく</rt><rp>)</rp></ruby><ruby>生<rp>(</rp><rt>せい</rt><rp>)</rp></ruby>です。</td></tr>
+<tr><td><span class="tag tag-p">が (ga)</span></td><td><ruby>主<rp>(</rp><rt>しゅ</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby><ruby>標<rp>(</rp><rt>ひょう</rt><rp>)</rp></ruby><ruby>識<rp>(</rp><rt>しき</rt><rp>)</rp></ruby></td><td class="jp-c"><ruby>猫<rp>(</rp><rt>ねこ</rt><rp>)</rp></ruby><b>が</b>います。</td></tr>
+<tr><td><span class="tag tag-p">を (wo/o)</span></td><td><ruby>賓<rp>(</rp><rt>ひん</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby><ruby>標<rp>(</rp><rt>ひょう</rt><rp>)</rp></ruby><ruby>識<rp>(</rp><rt>しき</rt><rp>)</rp></ruby></td><td class="jp-c"><ruby>御<rp>(</rp><rt>ご</rt><rp>)</rp></ruby><ruby>飯<rp>(</rp><rt>はん</rt><rp>)</rp></ruby><b>を</b><ruby>食<rp>(</rp><rt>た</rt><rp>)</rp></ruby>べます。</td></tr>
+<tr><td><span class="tag tag-p">に (ni)</span></td><td><ruby>時<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><ruby>間<rp>(</rp><rt>かん</rt><rp>)</rp></ruby>/<ruby>場<rp>(</rp><rt>ば</rt><rp>)</rp></ruby><ruby>所<rp>(</rp><rt>しょ</rt><rp>)</rp></ruby>/<ruby>方<rp>(</rp><rt>ほう</rt><rp>)</rp></ruby><ruby>向<rp>(</rp><rt>こう</rt><rp>)</rp></ruby></td><td class="jp-c">7<ruby>時<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><b>に</b><ruby>起<rp>(</rp><rt>お</rt><rp>)</rp></ruby>きます。</td></tr>
+<tr><td><span class="tag tag-p">で (de)</span></td><td><ruby>場<rp>(</rp><rt>ば</rt><rp>)</rp></ruby><ruby>所<rp>(</rp><rt>しょ</rt><rp>)</rp></ruby>(<ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>作<rp>(</rp><rt>さ</rt><rp>)</rp></ruby>)/<ruby>手<rp>(</rp><rt>しゅ</rt><rp>)</rp></ruby><ruby>段<rp>(</rp><rt>だん</rt><rp>)</rp></ruby></td><td class="jp-c"><ruby>図<rp>(</rp><rt>と</rt><rp>)</rp></ruby><ruby>書<rp>(</rp><rt>しょ</rt><rp>)</rp></ruby><ruby>館<rp>(</rp><rt>かん</rt><rp>)</rp></ruby><b>で</b><ruby>勉<rp>(</rp><rt>べん</rt><rp>)</rp></ruby><ruby>強<rp>(</rp><rt>きょう</rt><rp>)</rp></ruby>します。</td></tr>
+<tr><td><span class="tag tag-p">の (no)</span></td><td><ruby>所<rp>(</rp><rt>しょ</rt><rp>)</rp></ruby><ruby>有<rp>(</rp><rt>ゆう</rt><rp>)</rp></ruby>/<ruby>修<rp>(</rp><rt>しゅう</rt><rp>)</rp></ruby><ruby>飾<rp>(</rp><rt>しょく</rt><rp>)</rp></ruby></td><td class="jp-c"><ruby>私<rp>(</rp><rt>わたし</rt><rp>)</rp></ruby><b>の</b><ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby>。</td></tr>
+<tr><td><span class="tag tag-p">と (to)</span></td><td>和/与</td><td class="jp-c"><ruby>友<rp>(</rp><rt>とも</rt><rp>)</rp></ruby><ruby>達<rp>(</rp><rt>だち</rt><rp>)</rp></ruby><b>と</b><ruby>行<rp>(</rp><rt>い</rt><rp>)</rp></ruby>きます。</td></tr>
+<tr><td><span class="tag tag-p">から (kara)</span></td><td>从...</td><td class="jp-c"><ruby>中<rp>(</rp><rt>ちゅう</rt><rp>)</rp></ruby><ruby>国<rp>(</rp><rt>ごく</rt><rp>)</rp></ruby><b>から</b><ruby>来<rp>(</rp><rt>き</rt><rp>)</rp></ruby>ました。</td></tr>
+<tr><td><span class="tag tag-p">まで (made)</span></td><td>到...</td><td class="jp-c">5<ruby>時<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><b>まで</b><ruby>働<rp>(</rp><rt>はたら</rt><rp>)</rp></ruby>きます。</td></tr>
+</tbody></table>
+</div>
+
+<div class="ch" id="ch5">
+<h2><span class="ch-n">5</span><ruby>数<rp>(</rp><rt>すう</rt><rp>)</rp></ruby><ruby>字<rp>(</rp><rt>じ</rt><rp>)</rp></ruby>と<ruby>計<rp>(</rp><rt>けい</rt><rp>)</rp></ruby><ruby>数<rp>(</rp><rt>すう</rt><rp>)</rp></ruby></h2>
+<h3>5.1 <ruby>基<rp>(</rp><rt>き</rt><rp>)</rp></ruby><ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby><ruby>数<rp>(</rp><rt>すう</rt><rp>)</rp></ruby><ruby>字<rp>(</rp><rt>じ</rt><rp>)</rp></ruby></h3>
+<table>
+<thead><tr><th><ruby>数<rp>(</rp><rt>すう</rt><rp>)</rp></ruby><ruby>字<rp>(</rp><rt>じ</rt><rp>)</rp></ruby></th><th><ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby></th><th><ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>み</th></tr></thead>
+<tbody>
+<tr><td>0</td><td class="jp-c">ゼロ/<ruby>零<rp>(</rp><rt>れい</rt><rp>)</rp></ruby></td><td class="rm-c">zero/rei</td></tr>
+<tr><td>1</td><td class="jp-c"><ruby>一<rp>(</rp><rt>いち</rt><rp>)</rp></ruby></td><td class="rm-c">ichi</td></tr>
+<tr><td>2</td><td class="jp-c"><ruby>二<rp>(</rp><rt>に</rt><rp>)</rp></ruby></td><td class="rm-c">ni</td></tr>
+<tr><td>3</td><td class="jp-c"><ruby>三<rp>(</rp><rt>さん</rt><rp>)</rp></ruby></td><td class="rm-c">san</td></tr>
+<tr><td>4</td><td class="jp-c"><ruby>四<rp>(</rp><rt>よん</rt><rp>)</rp></ruby>/<ruby>四<rp>(</rp><rt>し</rt><rp>)</rp></ruby></td><td class="rm-c">yon/shi</td></tr>
+<tr><td>5</td><td class="jp-c"><ruby>五<rp>(</rp><rt>ご</rt><rp>)</rp></ruby></td><td class="rm-c">go</td></tr>
+<tr><td>6</td><td class="jp-c"><ruby>六<rp>(</rp><rt>ろく</rt><rp>)</rp></ruby></td><td class="rm-c">roku</td></tr>
+<tr><td>7</td><td class="jp-c"><ruby>七<rp>(</rp><rt>なな</rt><rp>)</rp></ruby>/<ruby>七<rp>(</rp><rt>しち</rt><rp>)</rp></ruby></td><td class="rm-c">nana/shichi</td></tr>
+<tr><td>8</td><td class="jp-c"><ruby>八<rp>(</rp><rt>はち</rt><rp>)</rp></ruby></td><td class="rm-c">hachi</td></tr>
+<tr><td>9</td><td class="jp-c"><ruby>九<rp>(</rp><rt>きゅう</rt><rp>)</rp></ruby>/<ruby>九<rp>(</rp><rt>く</rt><rp>)</rp></ruby></td><td class="rm-c">kyuu/ku</td></tr>
+<tr><td>10</td><td class="jp-c"><ruby>十<rp>(</rp><rt>じゅう</rt><rp>)</rp></ruby></td><td class="rm-c">juu</td></tr>
+<tr><td>100</td><td class="jp-c"><ruby>百<rp>(</rp><rt>ひゃく</rt><rp>)</rp></ruby></td><td class="rm-c">hyaku</td></tr>
+<tr><td>1000</td><td class="jp-c"><ruby>千<rp>(</rp><rt>せん</rt><rp>)</rp></ruby></td><td class="rm-c">sen</td></tr>
+<tr><td>10000</td><td class="jp-c"><ruby>一<rp>(</rp><rt>いち</rt><rp>)</rp></ruby><ruby>万<rp>(</rp><rt>まん</rt><rp>)</rp></ruby></td><td class="rm-c">ichiman</td></tr>
+</tbody></table>
+<h3>5.2 <ruby>常<rp>(</rp><rt>じょう</rt><rp>)</rp></ruby><ruby>用<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>量<rp>(</rp><rt>りょう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></h3>
+<table>
+<thead><tr><th><ruby>量<rp>(</rp><rt>りょう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></th><th><ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>み</th><th><ruby>用<rp>(</rp><rt>よう</rt><rp>)</rp></ruby><ruby>途<rp>(</rp><rt>と</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td class="jp-c">〜<ruby>個<rp>(</rp><rt>こ</rt><rp>)</rp></ruby></td><td class="rm-c">ko</td><td>小物品</td></tr>
+<tr><td class="jp-c">〜<ruby>人<rp>(</rp><rt>にん</rt><rp>)</rp></ruby></td><td class="rm-c">nin</td><td>人数</td></tr>
+<tr><td class="jp-c">〜<ruby>枚<rp>(</rp><rt>まい</rt><rp>)</rp></ruby></td><td class="rm-c">mai</td><td>扁平物（纸、盘）</td></tr>
+<tr><td class="jp-c">〜<ruby>冊<rp>(</rp><rt>さつ</rt><rp>)</rp></ruby></td><td class="rm-c">satsu</td><td>书籍</td></tr>
+<tr><td class="jp-c">〜<ruby>台<rp>(</rp><rt>だい</rt><rp>)</rp></ruby></td><td class="rm-c">dai</td><td>机器、车辆</td></tr>
+<tr><td class="jp-c">〜<ruby>杯<rp>(</rp><rt>はい</rt><rp>)</rp></ruby></td><td class="rm-c">hai</td><td>杯、碗</td></tr>
+<tr><td class="jp-c">〜<ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby></td><td class="rm-c">hon</td><td>细长物（笔、瓶）</td></tr>
+<tr><td class="jp-c">〜<ruby>匹<rp>(</rp><rt>ひき</rt><rp>)</rp></ruby></td><td class="rm-c">hiki</td><td>小动物</td></tr>
+</tbody></table>
+</div>
+
+<div class="ch" id="ch6">
+<h2><span class="ch-n">6</span><ruby>場<rp>(</rp><rt>ば</rt><rp>)</rp></ruby><ruby>面<rp>(</rp><rt>めん</rt><rp>)</rp></ruby><ruby>会<rp>(</rp><rt>かい</rt><rp>)</rp></ruby><ruby>話<rp>(</rp><rt>わ</rt><rp>)</rp></ruby></h2>
+<h3>6.1 <ruby>購<rp>(</rp><rt>こう</rt><rp>)</rp></ruby><ruby>物<rp>(</rp><rt>ぶつ</rt><rp>)</rp></ruby></h3>
+<div class="ex">いくらですか？<span class="cn">（多少钱？）</span></div>
+<div class="ex">これをください。<span class="cn">（请给我这个。）</span></div>
+<div class="ex">もう<ruby>少<rp>(</rp><rt>すこ</rt><rp>)</rp></ruby>し<ruby>安<rp>(</rp><rt>やす</rt><rp>)</rp></ruby>くなりますか？<span class="cn">（能再便宜点吗？）</span></div>
+<div class="ex"><ruby>レジ<rp>(</rp><rt>れじ</rt><rp>)</rp></ruby>はどこですか？<span class="cn">（收银台在哪里？）</span></div>
+<h3>6.2 <ruby>飲<rp>(</rp><rt>いん</rt><rp>)</rp></ruby><ruby>食<rp>(</rp><rt>しょく</rt><rp>)</rp></ruby><ruby>店<rp>(</rp><rt>てん</rt><rp>)</rp></ruby></h3>
+<div class="ex"><ruby>メニュー<rp>(</rp><rt>めにゅー</rt><rp>)</rp></ruby>をください。<span class="cn">（请给我菜单。）</span></div>
+<div class="ex">これとこれをください。<span class="cn">（请给我这个和这个。）</span></div>
+<div class="ex">お<ruby>会<rp>(</rp><rt>かい</rt><rp>)</rp></ruby><ruby>計<rp>(</rp><rt>けい</rt><rp>)</rp></ruby>お<ruby>願<rp>(</rp><rt>ねが</rt><rp>)</rp></ruby>いします。<span class="cn">（请结账。）</span></div>
+<div class="ex">ご<ruby>馳<rp>(</rp><rt>ち</rt><rp>)</rp></ruby>そうさまでした。<span class="cn">（多谢款待。）</span></div>
+<h3>6.3 <ruby>道<rp>(</rp><rt>みち</rt><rp>)</rp></ruby>を<ruby>聞<rp>(</rp><rt>き</rt><rp>)</rp></ruby>く</h3>
+<div class="ex"><ruby>駅<rp>(</rp><rt>えき</rt><rp>)</rp></ruby>はどこですか？<span class="cn">（车站在哪里？）</span></div>
+<div class="ex"><ruby>右<rp>(</rp><rt>みぎ</rt><rp>)</rp></ruby>に<ruby>曲<rp>(</rp><rt>ま</rt><rp>)</rp></ruby>がってください。<span class="cn">（请右转。）</span></div>
+<div class="ex"><ruby>左<rp>(</rp><rt>ひだり</rt><rp>)</rp></ruby>に<ruby>曲<rp>(</rp><rt>ま</rt><rp>)</rp></ruby>がってください。<span class="cn">（请左转。）</span></div>
+<div class="ex">まっすぐ<ruby>行<rp>(</rp><rt>い</rt><rp>)</rp></ruby>ってください。<span class="cn">（请直走。）</span></div>
+<h3>6.4 <ruby>交<rp>(</rp><rt>こう</rt><rp>)</rp></ruby><ruby>通<rp>(</rp><rt>つう</rt><rp>)</rp></ruby></h3>
+<div class="ex"><ruby>切<rp>(</rp><rt>きっ</rt><rp>)</rp></ruby><ruby>符<rp>(</rp><rt>ぷ</rt><rp>)</rp></ruby>を<ruby>買<rp>(</rp><rt>か</rt><rp>)</rp></ruby>いたいです。<span class="cn">（我想买票。）</span></div>
+<div class="ex"><ruby>次<rp>(</rp><rt>つぎ</rt><rp>)</rp></ruby>の<ruby>電<rp>(</rp><rt>でん</rt><rp>)</rp></ruby><ruby>車<rp>(</rp><rt>しゃ</rt><rp>)</rp></ruby>は<ruby>何<rp>(</rp><rt>なん</rt><rp>)</rp></ruby><ruby>時<rp>(</rp><rt>じ</rt><rp>)</rp></ruby>ですか？<span class="cn">（下一班电车几点？）</span></div>
+<div class="ex">ここは<ruby>何<rp>(</rp><rt>なん</rt><rp>)</rp></ruby><ruby>駅<rp>(</rp><rt>えき</rt><rp>)</rp></ruby>ですか？<span class="cn">（这里是什么站？）</span></div>
+<div class="ex">タクシーを<ruby>呼<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>んでください。<span class="cn">（请叫出租车。）</span></div>
+</div>
+
+<div class="ch" id="ch7">
+<h2><span class="ch-n">7</span><ruby>学<rp>(</rp><rt>がく</rt><rp>)</rp></ruby><ruby>習<rp>(</rp><rt>しゅう</rt><rp>)</rp></ruby><ruby>助<rp>(</rp><rt>じょ</rt><rp>)</rp></ruby><ruby>言<rp>(</rp><rt>げん</rt><rp>)</rp></ruby></h2>
+<h3>7.1 <ruby>毎<rp>(</rp><rt>まい</rt><rp>)</rp></ruby><ruby>日<rp>(</rp><rt>にち</rt><rp>)</rp></ruby><ruby>学<rp>(</rp><rt>がく</rt><rp>)</rp></ruby><ruby>習<rp>(</rp><rt>しゅう</rt><rp>)</rp></ruby><ruby>計<rp>(</rp><rt>けい</rt><rp>)</rp></ruby><ruby>画<rp>(</rp><rt>かく</rt><rp>)</rp></ruby></h3>
+<div class="tip"><ruby>毎<rp>(</rp><rt>まい</rt><rp>)</rp></ruby><ruby>日<rp>(</rp><rt>にち</rt><rp>)</rp></ruby>30<ruby>分<rp>(</rp><rt>ふん</rt><rp>)</rp></ruby>，比偶尔3<ruby>時<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><ruby>間<rp>(</rp><rt>かん</rt><rp>)</rp></ruby>更有效！</div>
+<table>
+<thead><tr><th><ruby>時<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><ruby>間<rp>(</rp><rt>かん</rt><rp>)</rp></ruby></th><th><ruby>内<rp>(</rp><rt>ない</rt><rp>)</rp></ruby><ruby>容<rp>(</rp><rt>よう</rt><rp>)</rp></ruby></th><th><ruby>建<rp>(</rp><rt>けん</rt><rp>)</rp></ruby><ruby>議<rp>(</rp><rt>ぎ</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td>🌅 10<ruby>分<rp>(</rp><rt>ふん</rt><rp>)</rp></ruby></td><td><ruby>復<rp>(</rp><rt>ふく</rt><rp>)</rp></ruby><ruby>習<rp>(</rp><rt>しゅう</rt><rp>)</rp></ruby><ruby>仮<rp>(</rp><rt>か</rt><rp>)</rp></ruby><ruby>名<rp>(</rp><rt>な</rt><rp>)</rp></ruby></td><td>平假名+片假名交替练习</td></tr>
+<tr><td>📖 10<ruby>分<rp>(</rp><rt>ふん</rt><rp>)</rp></ruby></td><td>学5个新词</td><td>结合例句记忆</td></tr>
+<tr><td>🗣️ 10<ruby>分<rp>(</rp><rt>ふん</rt><rp>)</rp></ruby></td><td>朗读/跟读</td><td>模仿语调，大声读出</td></tr>
+</tbody></table>
+<h3>7.2 <ruby>推<rp>(</rp><rt>すい</rt><rp>)</rp></ruby><ruby>薦<rp>(</rp><rt>せん</rt><rp>)</rp></ruby><ruby>学<rp>(</rp><rt>がく</rt><rp>)</rp></ruby><ruby>習<rp>(</rp><rt>しゅう</rt><rp>)</rp></ruby><ruby>資<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>源<rp>(</rp><rt>げん</rt><rp>)</rp></ruby></h3>
+<div class="ex">📘 <strong>教材</strong>：《<ruby>大<rp>(</rp><rt>みんな</rt><rp>)</rp></ruby><ruby>家<rp>(</rp><rt>の</rt><rp>)</rp></ruby><ruby>的<rp>(</rp><rt>にほんご</rt><rp>)</rp></ruby>》(みんなの<ruby>日<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>本<rp>(</rp><rt>ほん</rt><rp>)</rp></ruby><ruby>語<rp>(</rp><rt>ご</rt><rp>)</rp></ruby>) — 入门经典</div>
+<div class="ex">📱 <strong>APP</strong>：Duolingo / 沪江日语 / MOJi<ruby>辞<rp>(</rp><rt>じ</rt><rp>)</rp></ruby><ruby>書<rp>(</rp><rt>しょ</rt><rp>)</rp></ruby></div>
+<div class="ex">📺 <strong>视频</strong>：日语教学频道 / 日剧（带字幕）</div>
+<div class="ex">🎧 <strong>听力</strong>：日语播客 / NHK Easy News</div>
+<h3>7.3 <ruby>常<rp>(</rp><rt>じょう</rt><rp>)</rp></ruby><ruby>見<rp>(</rp><rt>けん</rt><rp>)</rp></ruby><ruby>誤<rp>(</rp><rt>ご</rt><rp>)</rp></ruby><ruby>区<rp>(</rp><rt>く</rt><rp>)</rp></ruby></h3>
+<div class="ex">❌ 只背单词不学语法 → ✅ 结合句型学单词</div>
+<div class="ex">❌ 忽略声调 → ✅ 从一开始就注意高低音</div>
+<div class="ex">❌ 只看不读 → ✅ 大声朗读加深记忆</div>
+<div class="ex">❌ 追求完美再开口 → ✅ 犯错是学习的一部分</div>
+</div>
+
+<div class="ch" id="app">
+<h2><span class="ch-n">+</span><ruby>附<rp>(</rp><rt>ふ</rt><rp>)</rp></ruby><ruby>録<rp>(</rp><rt>ろく</rt><rp>)</rp></ruby>：<ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>変<rp>(</rp><rt>へん</rt><rp>)</rp></ruby><ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby><ruby>速<rp>(</rp><rt>そく</rt><rp>)</rp></ruby><ruby>查<rp>(</rp><rt>さ</rt><rp>)</rp></ruby></h2>
+<h3>ます<ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby>（<ruby>礼<rp>(</rp><rt>れい</rt><rp>)</rp></ruby><ruby>儀<rp>(</rp><rt>ぎ</rt><rp>)</rp></ruby><ruby>体<rp>(</rp><rt>たい</rt><rp>)</rp></ruby>）</h3>
+<table>
+<thead><tr><th><ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>類<rp>(</rp><rt>るい</rt><rp>)</rp></ruby><ruby>型<rp>(</rp><rt>がた</rt><rp>)</rp></ruby></th><th><ruby>変<rp>(</rp><rt>へん</rt><rp>)</rp></ruby><ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby><ruby>規<rp>(</rp><rt>き</rt><rp>)</rp></ruby><ruby>則<rp>(</rp><rt>そく</rt><rp>)</rp></ruby></th><th><ruby>例<rp>(</rp><rt>れい</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td>一类<ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby>（五段）</td><td>う段→い段+ます</td><td class="jp-c"><ruby>書<rp>(</rp><rt>か</rt><rp>)</rp></ruby>く→<ruby>書<rp>(</rp><rt>か</rt><rp>)</rp></ruby>きます</td></tr>
+<tr><td>二类<ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby>（一段）</td><td>去る+ます</td><td class="jp-c"><ruby>食<rp>(</rp><rt>た</rt><rp>)</rp></ruby>べる→<ruby>食<rp>(</rp><rt>た</rt><rp>)</rp></ruby>べます</td></tr>
+<tr><td>三类<ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby>（不规则）</td><td>特殊变化</td><td class="jp-c">する→します、<ruby>来<rp>(</rp><rt>き</rt><rp>)</rp></ruby>る→<ruby>来<rp>(</rp><rt>き</rt><rp>)</rp></ruby>ます</td></tr>
+</tbody></table>
+<h3>て<ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby>（<ruby>連<rp>(</rp><rt>れん</rt><rp>)</rp></ruby><ruby>接<rp>(</rp><rt>せつ</rt><rp>)</rp></ruby><ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby>）</h3>
+<table>
+<thead><tr><th><ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>類<rp>(</rp><rt>るい</rt><rp>)</rp></ruby><ruby>型<rp>(</rp><rt>がた</rt><rp>)</rp></ruby></th><th><ruby>変<rp>(</rp><rt>へん</rt><rp>)</rp></ruby><ruby>形<rp>(</rp><rt>けい</rt><rp>)</rp></ruby><ruby>規<rp>(</rp><rt>き</rt><rp>)</rp></ruby><ruby>則<rp>(</rp><rt>そく</rt><rp>)</rp></ruby></th><th><ruby>例<rp>(</rp><rt>れい</rt><rp>)</rp></ruby></th></tr></thead>
+<tbody>
+<tr><td>一类<ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></td><td>音便变化</td><td class="jp-c"><ruby>書<rp>(</rp><rt>か</rt><rp>)</rp></ruby>いて、<ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>んで、<ruby>買<rp>(</rp><rt>か</rt><rp>)</rp></ruby>って</td></tr>
+<tr><td>二类<ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></td><td>去る+て</td><td class="jp-c"><ruby>食<rp>(</rp><rt>た</rt><rp>)</rp></ruby>べて、<ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>て</td></tr>
+<tr><td>三类<ruby>動<rp>(</rp><rt>どう</rt><rp>)</rp></ruby><ruby>詞<rp>(</rp><rt>し</rt><rp>)</rp></ruby></td><td>特殊变化</td><td class="jp-c">して、<ruby>来<rp>(</rp><rt>き</rt><rp>)</rp></ruby>て</td></tr>
+</tbody></table>
+</div>
+
+<div class="footer">
+<div class="cheer">日本語の勉強、頑張ってください！</div>
+<p>🎌 祝你学习愉快！加油！🎌</p>
+</div>
+</div>
+
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+window.addEventListener('scroll',function(){
+  document.querySelector('.back-top').style.display=window.scrollY>400?'block':'none';
+});
+</script>
+</body></html>
