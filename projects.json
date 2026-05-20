@@ -49,9 +49,9 @@
   },
   {
     "image": "images/llm.webp",
-    "title": "Large Language Model",
-    "description": "我在记录我学习Large Language Model过程中的问题和心得",
-    "link": "https://arxiv.org/abs/2501.09223"
+    "title": "LLM Fine-tuning Guide",
+    "description": "基于Colab的大模型微调课程，涵盖DeepSeek、LLaMA3、Qwen等模型的LoRA/QLoRA微调实战，使用Unsloth加速训练。",
+    "link": "https://github.com/R6410418/Jackrong-llm-finetuning-guide"
   },
   {
     "image": "images/meng_agent.jpg",
