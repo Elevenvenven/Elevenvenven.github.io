@@ -75,7 +75,28 @@ input:focus{outline:none;border-color:#ffd700}
 .step{display:flex;align-items:flex-start;gap:15px;margin:15px 0}
 .step .num{background:#ffd700;color:#000;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0}
 .footer{text-align:center;padding:40px;color:#555;font-size:0.9em}
-@media(max-width:600px){.hero h1{font-size:2em}.card{padding:25px}.block{min-width:140px}}
+.merkle-tree{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 0;overflow-x:auto}
+.merkle-level{display:flex;gap:8px;justify-content:center}
+.merkle-node{padding:8px 14px;border-radius:8px;font-family:monospace;font-size:0.75em;border:1px solid rgba(255,215,0,0.3);background:rgba(255,255,255,0.05);word-break:break-all;text-align:center;min-width:80px;transition:all 0.5s}
+.merkle-node.highlight{border-color:#4caf50;background:rgba(76,175,80,0.2);box-shadow:0 0 10px rgba(76,175,80,0.4)}
+.merkle-connector{height:20px;display:flex;align-items:center;justify-content:center;color:#ffd700;font-size:0.8em}
+.wallet-card{background:rgba(0,0,0,0.3);border-radius:12px;padding:20px;margin:10px 0;border-left:3px solid #ffd700}
+.wallet-card label{color:#888;font-size:0.85em;display:block;margin-bottom:3px}
+.wallet-card .val{font-family:monospace;color:#4fc3f7;word-break:break-all;font-size:0.9em;padding:8px;background:rgba(0,0,0,0.3);border-radius:6px;margin-bottom:10px}
+.contract-box{background:rgba(0,0,0,0.3);border-radius:12px;padding:20px;font-family:monospace;border:1px solid rgba(255,215,0,0.2)}
+.contract-box pre{color:#4fc3f7;white-space:pre-wrap;line-height:1.6}
+.halving-timeline{display:flex;align-items:flex-end;gap:4px;justify-content:center;padding:20px;flex-wrap:wrap}
+.halving-bar{width:50px;background:linear-gradient(180deg,#ffd700,#ff8c00);border-radius:4px 4px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:5px;transition:all 0.5s;font-size:0.7em;font-weight:bold;text-align:center}
+.mempool-area{background:rgba(0,0,0,0.3);border-radius:12px;padding:20px;min-height:100px;position:relative}
+.mempool-tx{display:inline-block;padding:6px 12px;margin:4px;border-radius:8px;font-family:monospace;font-size:0.8em;cursor:pointer;transition:all 0.3s}
+.mempool-tx.pending{background:rgba(255,183,77,0.2);border:1px solid #ffb74d}
+.mempool-tx.confirmed{background:rgba(76,175,80,0.2);border:1px solid #4caf50}
+.mempool-tx.high-fee{background:rgba(239,83,80,0.2);border:1px solid #ef5350}
+.halving-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin:20px 0}
+.halving-stat{background:rgba(0,0,0,0.3);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(255,215,0,0.2)}
+.halving-stat .num{font-size:2em;font-weight:bold;color:#ffd700;font-family:monospace}
+.halving-stat .lbl{color:#888;font-size:0.85em;margin-top:5px}
+@media(max-width:600px){.hero h1{font-size:2em}.card{padding:25px}.block{min-width:140px}.halving-bar{width:35px}}
 </style>
 </head>
 <body>
@@ -92,6 +113,11 @@ input:focus{outline:none;border-color:#ffd700}
 <a href="#s4">④ 交易</a>
 <a href="#s5">⑤ 双花攻击</a>
 <a href="#s6">⑥ 共识机制</a>
+<a href="#s7">⑦ 钱包与私钥</a>
+<a href="#s8">⑧ 默克尔树</a>
+<a href="#s9">⑨ 智能合约</a>
+<a href="#s10">⑩ 减半机制</a>
+<a href="#s11">⑪ 交易费与内存池</a>
 </nav>
 
 <!-- ==================== 第1章 ==================== -->
@@ -263,6 +289,206 @@ input:focus{outline:none;border-color:#ffd700}
 💡 <strong>核心规则</strong>：节点总是选择<strong>最长的链</strong>（或工作量最大的链）。如果有人想篡改历史，他必须拥有超过全网 51% 的算力才能制造出更长的假链——这就是<strong>"51%攻击"</strong>，成本极高，几乎不可能。
 </p>
 </div>
+</div>
+</div>
+
+
+<!-- ==================== 第7章：钱包与私钥 ==================== -->
+<div class="section" id="s7">
+<div class="card">
+<h2>🔐 第七章：钱包与私钥——你的数字保险箱</h2>
+<p class="subtitle">私钥=资产所有权，丢了就全没了！</p>
+
+<div class="analogy">
+想象你有一个特殊的保险箱：钥匙（私钥）只有一把，没有备份。你可以用这把钥匙"盖章"证明这是你的钱，别人也能用你的"公章"（公钥/地址）验证。但钥匙一旦丢了或被人偷了——资产就永远没了，没有任何人能帮你找回！
+</div>
+
+<div style="text-align:center;margin:20px 0">
+<button onclick="generateWallet()">🔑 生成新钱包</button>
+<button onclick="resetWallet()" style="background:#555;color:#fff">🔄 重置</button>
+</div>
+
+<div id="walletArea">
+<p style="color:#888;text-align:center">👆 点击上方按钮生成一对密钥</p>
+</div>
+
+<div style="margin-top:20px">
+<p><strong>🔑 钱包三件套：</strong></p>
+<ul>
+<li><strong style="color:#4fc3f7">私钥</strong>：一串随机数，绝对不能告诉任何人！相当于银行密码+U盾</li>
+<li><strong style="color:#81c784">公钥</strong>：由私钥通过数学运算生成（单向的，无法反推私钥）</li>
+<li><strong style="color:#ffd700">地址</strong>：公钥再经过哈希处理，就是你的"收款码"</li>
+</ul>
+<p style="margin-top:10px;color:#ef5350">⚠️ 真实案例：一位程序员丢了含 7500 个比特币的硬盘，价值数十亿美元，再也找不回来了。</p>
+</div>
+</div>
+</div>
+
+<!-- ==================== 第8章：默克尔树 ==================== -->
+<div class="section" id="s8">
+<div class="card">
+<h2>🌳 第八章：默克尔树——交易的"指纹汇总树"</h2>
+<p class="subtitle">把一堆交易压缩成一个根哈希，快速验证任何一笔交易</p>
+
+<div class="analogy">
+假设你有8份作业要交给老师检查。老师不想逐份看，于是你先把每两份"打包"算一个汇总指纹，再把汇总指纹两两打包，最终得到一个"根指纹"。老师只需要看根指纹，就知道这堆作业有没有被篡改。如果有人偷偷改了第3份作业，从根指纹就能发现！
+</div>
+
+<div style="text-align:center;margin:20px 0">
+<button onclick="buildMerkleTree()">🌳 构建默克尔树</button>
+<button onclick="tamperMerkle()" id="tamperBtn" disabled style="background:#ef5350;color:#fff">🔧 篡改交易 #1</button>
+<button onclick="verifyMerkle()" id="verifyBtn" disabled style="background:#4caf50;color:#fff">✅ 验证交易 #1</button>
+</div>
+
+<div class="merkle-tree" id="merkleTree"></div>
+
+<div id="merkleStatus" style="margin-top:15px"></div>
+
+<p style="margin-top:20px">
+<strong>💡 为什么需要默克尔树？</strong>
+</p>
+<ul>
+<li><strong>轻节点验证</strong>：手机钱包不需要下载整个区块链，只需要"默克尔证明"就能验证自己的交易</li>
+<li><strong>数据完整性</strong>：区块头只需存一个根哈希，就能确保区块内所有交易没被篡改</li>
+<li><strong>高效省空间</strong>：1000笔交易只需要 10 个哈希就能完成验证（log₂1000 ≈ 10）</li>
+</ul>
+</div>
+</div>
+
+<!-- ==================== 第9章：智能合约 ==================== -->
+<div class="section" id="s9">
+<div class="card">
+<h2>📜 第九章：智能合约——自动执行的数字合同</h2>
+<p class="subtitle">代码即法律：满足条件自动执行，没有中间人</p>
+
+<div class="analogy">
+想象你和朋友打赌："如果明天北京下雨，我给你100元；如果没下雨，你给我100元。"传统方式需要找一个裁判（银行/律师）来监督执行。智能合约就是这个"自动裁判"——它会自动查询天气数据，自动转账，谁也赖不掉，而且不收手续费！
+</div>
+
+<div class="contract-box">
+<pre id="contractCode">// 智能合约示例：简单的众筹
+contract Crowdfund {
+    goal = 100 ETH;       // 目标金额
+    raised = 0;           // 已筹金额
+    deadline = 30天;       // 截止日期
+
+    function contribute(amount) {
+        if (now > deadline) revert;   // 超时拒绝
+        raised += amount;             // 累加
+    }
+
+    function finalize() {
+        if (raised >= goal) {
+            send(projectOwner, raised);  // 达标→打款
+        } else {
+            refundAll();                  // 未达标→退款
+        }
+    }
+}</pre>
+</div>
+
+<div style="text-align:center;margin:20px 0">
+<button onclick="runContract()">▶️ 模拟众筹过程</button>
+<button onclick="resetContract()" style="background:#555;color:#fff">🔄 重置</button>
+</div>
+
+<div id="contractArea"></div>
+
+<div style="margin-top:20px">
+<p><strong>💡 智能合约 vs 传统合同：</strong></p>
+<ul>
+<li>🏛️ 传统：签合同 → 出问题 → 打官司 → 执行（几个月，花大钱）</li>
+<li>🤖 智能：写代码 → 满足条件 → 自动执行（秒级，几乎零成本）</li>
+<li>⚠️ 但是：代码有 bug 就会出大问题（如 2016 年 The DAO 被盗 6000 万美元）</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- ==================== 第10章：减半机制 ==================== -->
+<div class="section" id="s10">
+<div class="card">
+<h2>📉 第十章：比特币减半——为什么它越来越"值钱"？</h2>
+<p class="subtitle">每 4 年挖矿奖励减半，总共只有 2100 万个比特币</p>
+
+<div class="analogy">
+想象一座金矿：刚开始挖的时候，每挖一桶能得 50 克黄金。每隔4年，每桶只能得到 25 克，再过4年变成 12.5 克……直到挖完。因为黄金总量有限，每次减半后，新黄金的供给减少，价格自然容易上涨。比特币就像"数字黄金"，总量永远只有 2100 万枚！
+</div>
+
+<div class="halving-info">
+<div class="halving-stat">
+<div class="num" id="currentReward">3.125</div>
+<div class="lbl">当前区块奖励 (BTC)</div>
+</div>
+<div class="halving-stat">
+<div class="num" id="nextHalving">~2028</div>
+<div class="lbl">下次减半年份</div>
+</div>
+<div class="halving-stat">
+<div class="num" id="totalMined">~19.8M</div>
+<div class="lbl">已挖出 (BTC)</div>
+</div>
+<div class="halving-stat">
+<div class="num" id="remaining">~1.2M</div>
+<div class="lbl">剩余待挖 (BTC)</div>
+</div>
+</div>
+
+<h3 style="color:#ffd700;margin:20px 0 10px">📊 历史减半时间线（点击看详情）</h3>
+<div class="halving-timeline" id="halvingTimeline"></div>
+
+<div id="halvingDetail" style="margin-top:20px"></div>
+
+<p style="margin-top:20px">
+<strong>💡 减半的影响：</strong>
+</p>
+<ul>
+<li><strong>供给减少</strong>：新币产出减半 → 供不应求 → 价格可能上涨</li>
+<li><strong>矿工压力</strong>：收入减半 → 效率低的矿工被淘汰 → 矿业集中化</li>
+<li><strong>稀缺性</strong>：2140 年左右，最后一个比特币将被挖出</li>
+<li><strong>历史规律</strong>：每次减半后 12-18 个月内，比特币都经历了大牛市 🚀</li>
+</ul>
+</div>
+</div>
+
+<!-- ==================== 第11章：交易费与内存池 ==================== -->
+<div class="section" id="s11">
+<div class="card">
+<h2>⛽ 第十一章：交易费与内存池——矿工优先打包谁？</h2>
+<p class="subtitle">不是所有交易都能立刻上链，得"竞价"让矿工优先处理你</p>
+
+<div class="analogy">
+想象高速公路收费站：每个区块就像一班"公交车"，座位有限（区块大小限制）。矿工就是公交司机，他会优先让"付小费多"的乘客上车。没上车的乘客就在"候车厅"（内存池/Mempool）等着，直到下一班车来。小费给得太少？可能要等很久！
+</div>
+
+<div style="text-align:center;margin:20px 0">
+<button onclick="simulateMempool()">⛽ 模拟交易打包</button>
+<button onclick="addRandomTx()">➕ 添加新交易</button>
+<button onclick="resetMempool()" style="background:#555;color:#fff">🔄 重置</button>
+</div>
+
+<div style="display:flex;gap:20px;flex-wrap:wrap;margin:20px 0">
+<div style="flex:1;min-width:250px">
+<h3 style="color:#ffb74d">⏳ 内存池（等待区）</h3>
+<div class="mempool-area" id="mempoolArea"></div>
+</div>
+<div style="flex:1;min-width:250px">
+<h3 style="color:#4caf50">✅ 已确认区块</h3>
+<div class="mempool-area" id="confirmedArea" style="border:1px dashed rgba(76,175,80,0.3)"></div>
+</div>
+</div>
+
+<div id="mempoolStats" style="margin-top:15px"></div>
+
+<p style="margin-top:20px">
+<strong>💡 交易费的奥秘：</strong>
+</p>
+<ul>
+<li><strong>竞价机制</strong>：手续费越高，矿工越优先打包你的交易</li>
+<li><strong>网络拥堵</strong>：当很多人同时交易时，手续费会飙升（如 NFT 铸造时）</li>
+<li><strong>区块大小</strong>：比特币每个区块约 1MB，只能容纳约 2000-3000 笔交易</li>
+<li><strong>Layer 2</strong>：为解决拥堵，出现了闪电网络等"链下"方案（如高速公路旁的快速通道）</li>
+</ul>
 </div>
 </div>
 
@@ -469,6 +695,260 @@ voteNext();
 }
 voteNext();
 }
+
+// ==================== 钱包与私钥 ====================
+function generateWallet(){
+// 模拟生成密钥对（真实场景用 secp256k1 椭圆曲线）
+var privKey='';
+for(var i=0;i<64;i++)privKey+='0123456789abcdef'[Math.floor(Math.random()*16)];
+// 模拟公钥（真实是椭圆曲线点乘）
+var pubKey='04'+sha256('pub'+privKey)+sha256('pub2'+privKey);
+// 模拟地址（真实是 RIPEMD160(SHA256(pubKey))）
+var addr='1'+sha256('addr'+pubKey).substring(0,33);
+
+document.getElementById('walletArea').innerHTML=
+'<div class="wallet-card">'+
+'<label>🔒 私钥（绝对保密！）</label>'+
+'<div class="val" style="color:#ef5350">'+privKey+'</div>'+
+'<label>🔓 公钥（可公开）</label>'+
+'<div class="val" style="color:#81c784">'+pubKey.substring(0,40)+'...（'+pubKey.length+'位）</div>'+
+'<label>📬 收款地址（别人给你转账用）</label>'+
+'<div class="val" style="color:#ffd700">'+addr+'</div>'+
+'<p style="margin-top:10px;font-size:0.85em;color:#ef5350">⚠️ 模拟生成，仅供演示。真实钱包使用椭圆曲线加密（secp256k1）。</p>'+
+'<button onclick="signDemo()" style="margin-top:10px">✍️ 用私钥签名一条消息</button>'+
+'<div id="signResult"></div>'+
+'</div>';
+}
+
+function signDemo(){
+var msg='Alice转给Bob 1 BTC';
+var sig=sha256('sign'+msg+Date.now()).substring(0,32)+'...';
+document.getElementById('signResult').innerHTML=
+'<div style="margin-top:10px;padding:10px;background:rgba(0,0,0,0.2);border-radius:8px">'+
+'<p>📝 消息: "'+msg+'"</p>'+
+'<p style="color:#4fc3f7">✍️ 签名: '+sig+'</p>'+
+'<p style="color:#4caf50">✅ 任何人都可以用公钥验证：此签名确实由私钥持有者生成</p>'+
+'<p style="color:#888;font-size:0.85em">但没人能从签名反推出私钥！</p>'+
+'</div>';
+}
+
+function resetWallet(){document.getElementById('walletArea').innerHTML='<p style="\"color:#888;text-align:center\"">👆 点击上方按钮生成一对密钥</p>';}
+
+// ==================== 默克尔树 ====================
+var merkleTransactions=['Alice→Bob 1BTC','Charlie→Dave 2BTC','Eve→Frank 0.5BTC','Grace→Heidi 3BTC'];
+var merkleTreeNodes=[];
+var merkleTampered=false;
+
+function buildMerkleTree(){
+merkleTampered=false;
+document.getElementById('tamperBtn').disabled=false;
+document.getElementById('verifyBtn').disabled=false;
+var txs=merkleTransactions.slice();
+// 计算叶子节点哈希
+var leaves=txs.map(function(t){return sha256(t).substring(0,16);});
+merkleTreeNodes=[leaves.slice()];
+// 逐层向上合并
+var current=leaves;
+while(current.length>1){
+var next=[];
+for(var i=0;i<current.length;i+=2){
+var left=current[i];
+var right=(i+1<current.length)?current[i+1]:left;
+next.push(sha256(left+right).substring(0,16));
+}
+merkleTreeNodes.push(next);
+current=next;
+}
+renderMerkleTree();
+document.getElementById('merkleStatus').innerHTML='<span style="color:#4caf50">✅ 默克尔树已构建，根哈希: '+current[0]+'</span>';
+}
+
+function renderMerkleTree(){
+var el=document.getElementById('merkleTree');
+el.innerHTML='';
+// 从上到下渲染（根在最上面）
+for(var lvl=merkleTreeNodes.length-1;lvl>=0;lvl--){
+var nodes=merkleTreeNodes[lvl];
+var html='<div class="merkle-level">';
+nodes.forEach(function(n,i){
+var cls='merkle-node';
+if(merkleTampered&&lvl===0&&i===0)cls+=' highlight';
+html+='<div class="'+cls+'">'+n+'</div>';
+});
+html+='</div>';
+if(lvl<merkleTreeNodes.length-1)html+='<div class="merkle-connector">│ │</div>';
+el.innerHTML+=html;
+}
+}
+
+function tamperMerkle(){
+if(merkleTreeNodes.length===0)return;
+merkleTampered=true;
+// 篡改第一个交易
+merkleTreeNodes[0][0]=sha256('TAMPERED!').substring(0,16);
+renderMerkleTree();
+document.getElementById('merkleStatus').innerHTML='<span style="color:#ef5350">🔧 交易 #1 已被篡改！注意哈希变化沿树向上传导——根哈希也变了！</span>';
+}
+
+function verifyMerkleTree(){
+if(merkleTreeNodes.length===0)return;
+// 重新计算
+var txs=merkleTransactions.slice();
+var leaves=txs.map(function(t){return sha256(t).substring(0,16);});
+var expectedRoot=sha256(sha256(leaves[0]+leaves[1]).substring(0,16)+sha256(leaves[2]+leaves[3]).substring(0,16)).substring(0,16);
+var actualRoot=merkleTreeNodes[merkleTreeNodes.length-1][0];
+if(expectedRoot===actualRoot){
+document.getElementById('merkleStatus').innerHTML='<span style="color:#4caf50">✅ 验证通过！根哈希匹配，数据完整。</span>';
+}else{
+document.getElementById('merkleStatus').innerHTML='<span style="color:#ef5350">❌ 验证失败！根哈希不匹配——数据已被篡改！<br>期望: '+expectedRoot+'<br>实际: '+actualRoot+'</span>';
+}
+}
+
+// ==================== 智能合约 ====================
+var contractState={raised:0,goal:100,contributors:[],finalized:false};
+function runContract(){
+var area=document.getElementById('contractArea');
+contractState={raised:0,goal:100,contributors:[],finalized:false};
+var steps=[
+{name:'Alice 投入 30 ETH',amount:30,who:'Alice',emoji:'👩'},
+{name:'Bob 投入 25 ETH',amount:25,who:'Bob',emoji:'👨'},
+{name:'Charlie 投入 20 ETH',amount:20,who:'Charlie',emoji:'🧑'},
+{name:'Dave 投入 35 ETH',amount:35,who:'Dave',emoji:'👴'},
+{name:'触发 finalize()——达标！',finalize:true}
+];
+area.innerHTML='';
+var i=0;
+function nextStep(){
+if(i>=steps.length){
+area.innerHTML+='<div style="padding:15px;margin:10px 0;background:rgba(76,175,80,0.1);border-radius:10px;border-left:4px solid #4caf50">'+
+'<strong>🎉 众筹成功！</strong><br>'+
+'<span style="color:#4caf50">合约自动将 '+contractState.raised+' ETH 转给项目方——无需人工干预！</span>'+
+'<p style="margin-top:8px;font-size:0.85em;color:#888">如果未达标，合约会自动把钱退还给所有参与者。</p></div>';
+return;
+}
+var s=steps[i];
+if(s.finalize){
+contractState.finalized=true;
+area.innerHTML+='<div style="padding:15px;margin:10px 0;background:rgba(255,215,0,0.1);border-radius:10px;border-left:4px solid #ffd700">'+
+'<strong>📜 '+s.name+'</strong><br>'+
+'<span style="color:#ffd700">代码检查：raised('+contractState.raised+') ≥ goal('+contractState.goal+') ✅</span><br>'+
+'<span style="color:#4fc3f7">执行：send(projectOwner, '+contractState.raised+')</span></div>';
+}else{
+contractState.raised+=s.amount;
+contractState.contributors.push(s.who);
+area.innerHTML+='<div style="padding:15px;margin:10px 0;background:rgba(255,255,255,0.05);border-radius:10px;border-left:4px solid #4fc3f7">'+
+'<strong>'+s.emoji+' '+s.name+'</strong><br>'+
+'<span style="color:#888">合约余额: '+contractState.raised+' / '+contractState.goal+' ETH</span></div>';
+}
+i++;
+setTimeout(nextStep,1000);
+}
+nextStep();
+}
+function resetContract(){contractState={raised:0,goal:100,contributors:[],finalized:false};document.getElementById('contractArea').innerHTML='';}
+
+// ==================== 比特币减半 ====================
+var halvingData=[
+{year:2009,reward:50,block:0,label:'创世'},
+{year:2012,reward:25,block:210000,label:'第1次减半'},
+{year:2016,reward:12.5,block:420000,label:'第2次减半'},
+{year:2020,reward:6.25,block:630000,label:'第3次减半'},
+{year:2024,reward:3.125,block:840000,label:'第4次减半'},
+{year:2028,reward:1.5625,block:1050000,label:'第5次减半（预计）'}
+];
+function renderHalvingTimeline(){
+var el=document.getElementById('halvingTimeline');
+el.innerHTML='';
+var maxReward=50;
+halvingData.forEach(function(h,i){
+var pct=(h.reward/maxReward)*100;
+var color=i<4?'#ffd700':'#888';
+var style='height:'+Math.max(30,pct*1.5)+'px;background:linear-gradient(180deg,'+color+','+color+'88)';
+el.innerHTML+='<div class="halving-bar" style="'+style+'" onclick="showHalvingDetail('+i+')">'+
+'<div>'+h.reward+' BTC</div><div style="font-size:0.65em">'+h.year+'</div></div>';
+});
+}
+renderHalvingTimeline();
+
+function showHalvingDetail(idx){
+var h=halvingData[idx];
+var next=halvingData[idx+1];
+var totalMined=0;
+for(var i=0;i<=idx;i++){
+var blocks=(i<idx)?(halvingData[i+1].block-halvingData[i].block):(840000);
+totalMined+=blocks*halvingData[i].reward;
+}
+var nextReward=next?next.reward+' BTC':'0 BTC（已挖完）';
+document.getElementById('halvingDetail').innerHTML=
+'<div style="padding:20px;background:rgba(255,215,0,0.08);border-radius:12px;border:1px solid rgba(255,215,0,0.2)">'+
+'<h3 style="color:#ffd700">'+h.label+' ('+h.year+')</h3>'+
+'<p>📦 区块高度: '+h.block.toLocaleString()+'</p>'+
+'<p>🎁 区块奖励: <strong>'+h.reward+' BTC</strong></p>'+
+'<p>⛏️ 下一次奖励: '+nextReward+'</p>'+
+'<p>📊 当时已挖出约: ~'+(totalMined/1e6).toFixed(1)+'M BTC</p>'+
+'</div>';
+}
+
+// ==================== 交易费与内存池 ====================
+var mempoolTxs=[];
+var confirmedTxs=[];
+var txIdCounter=0;
+function initMempool(){
+mempoolTxs=[];
+confirmedTxs=[];
+txIdCounter=0;
+for(var i=0;i<8;i++)addRandomTx();
+renderMempool();
+}
+
+function addRandomTx(){
+var fee=Math.random()*100+1;
+var from=['Alice','Bob','Charlie','Dave','Eve'][Math.floor(Math.random()*5)];
+var to=['Frank','Grace','Heidi','Ivan','Judy'][Math.floor(Math.random()*5)];
+var amount=(Math.random()*5+0.1).toFixed(2);
+txIdCounter++;
+mempoolTxs.push({id:'tx'+txIdCounter,from:from,to:to,amount:amount,fee:Math.round(fee),status:'pending'});
+renderMempool();
+}
+
+function simulateMempool(){
+if(mempoolTxs.length===0){addRandomTx();return;}
+// 按手续费降序排序
+mempoolTxs.sort(function(a,b){return b.fee-a.fee;});
+// 取前5个打包（模拟区块大小限制）
+var blockSize=5;
+var packed=mempoolTxs.splice(0,Math.min(blockSize,mempoolTxs.length));
+packed.forEach(function(tx){tx.status='confirmed';});
+confirmedTxs=confirmedTxs.concat(packed);
+renderMempool();
+}
+
+function renderMempool(){
+var memEl=document.getElementById('mempoolArea');
+var confEl=document.getElementById('confirmedArea');
+var statsEl=document.getElementById('mempoolStats');
+
+memEl.innerHTML='';
+confEl.innerHTML='';
+
+mempoolTxs.forEach(function(tx){
+var cls='mempool-tx '+(tx.fee>50?'high-fee':'pending');
+memEl.innerHTML+='<div class="'+cls+'" title="手续费: '+tx.fee+' sat/vB">'+tx.from+'→'+tx.to+' '+tx.amount+'BTC | ⛽'+tx.fee+'</div>';
+});
+
+confirmedTxs.forEach(function(tx){
+confEl.innerHTML+='<div class="mempool-tx confirmed">'+tx.from+'→'+tx.to+' '+tx.amount+'BTC | ⛽'+tx.fee+'</div>';
+});
+
+var avgFee=mempoolTxs.length>0?Math.round(mempoolTxs.reduce(function(s,t){return s+t.fee;},0)/mempoolTxs.length):0;
+statsEl.innerHTML='<p style="color:#888">⏳ 等待中: <strong>'+mempoolTxs.length+'</strong> 笔 | ✅ 已确认: <strong>'+confirmedTxs.length+'</strong> 笔 | 平均待确认手续费: <strong>'+avgFee+' sat/vB</strong></p>'+
+'<p style="font-size:0.85em;color:#888;margin-top:5px">💡 红色 = 高手续费（矿工优先打包） | 橙色 = 普通手续费</p>';
+}
+
+function resetMempool(){initMempool();}
+
+// 初始化内存池
+initMempool();
 </script>
 </body>
 </html>
