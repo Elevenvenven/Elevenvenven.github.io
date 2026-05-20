@@ -12,12 +12,6 @@
     "link": "https://github.com/Elevenvenven/Utokyo-test"
   },
   {
-    "image": "images/Graph-Neural-Networks.jpg.webp",
-    "title": "Machine Learning",
-    "description": "我在记录我学习Machine Learning过程中的问题和心得",
-    "link": "https://zh.d2l.ai"
-  },
-  {
     "image": "images/blockchain.jpg",
     "title": "Virtual-Coin_system",
     "description": "分布式虚拟货币系统，验证性开发，施工中",
