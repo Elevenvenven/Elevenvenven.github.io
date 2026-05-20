@@ -14,8 +14,8 @@
   {
     "image": "images/blockchain.jpg",
     "title": "Virtual-Coin_system",
-    "description": "分布式虚拟货币系统，验证性开发，施工中",
-    "link": "https://github.com/Elevenvenven/Virtual-Coin_system"
+    "description": "虚拟货币原理交互式演示：区块链、哈希、挖矿、交易、双花攻击、共识机制",
+    "link": "https://elevenvenven.github.io/virtual_coin.html"
   },
   {
     "image": "images/touch_real.jpg",

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>虚拟货币原理演示</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:linear-gradient(135deg,#0a0e27 0%,#1a1a3e 50%,#0d1b2a 100%);color:#e0e0e0;min-height:100vh;overflow-x:hidden}
+.hero{text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,rgba(255,215,0,0.1) 0%,transparent 100%)}
+.hero h1{font-size:3em;background:linear-gradient(90deg,#ffd700,#ff8c00,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+.hero p{font-size:1.2em;color:#aaa;max-width:700px;margin:0 auto}
+.nav{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:20px;position:sticky;top:0;z-index:100;background:rgba(10,14,39,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,215,0,0.2)}
+.nav a{color:#ffd700;text-decoration:none;padding:8px 18px;border:1px solid rgba(255,215,0,0.3);border-radius:25px;font-size:0.9em;transition:all 0.3s}
+.nav a:hover{background:rgba(255,215,0,0.15);border-color:#ffd700}
+.section{max-width:900px;margin:40px auto;padding:0 20px}
+.card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:40px;margin-bottom:40px;backdrop-filter:blur(10px)}
+.card h2{font-size:1.8em;color:#ffd700;margin-bottom:8px}
+.card .subtitle{color:#888;font-size:0.95em;margin-bottom:25px;border-left:3px solid #ffd700;padding-left:12px}
+.card p,.card li{line-height:1.8;color:#ccc}
+.card ul{padding-left:20px;margin:15px 0}
+.analogy{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:20px;margin:20px 0}
+.analogy::before{content:"💡 生活类比：";font-weight:bold;color:#ffd700}
+button{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;border:none;padding:12px 28px;border-radius:25px;font-size:1em;font-weight:bold;cursor:pointer;transition:all 0.3s;margin:5px}
+button:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(255,215,0,0.3)}
+button:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.input-group{display:flex;gap:10px;margin:15px 0;flex-wrap:wrap;align-items:center}
+input[type=text],input[type=number],select{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:10px 15px;border-radius:10px;font-size:1em}
+input:focus{outline:none;border-color:#ffd700}
+.chain{display:flex;overflow-x:auto;gap:0;padding:20px 0;align-items:center}
+.block{min-width:180px;background:linear-gradient(135deg,#1a2a4a,#0d1b2a);border:2px solid rgba(255,215,0,0.3);border-radius:12px;padding:15px;flex-shrink:0;transition:all 0.5s;position:relative}
+.block.genesis{border-color:#ffd700;background:linear-gradient(135deg,#2a2a0a,#1a1a00)}
+.block.new{animation:blockAppear 0.6s ease-out}
+@keyframes blockAppear{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+.block .idx{font-size:0.8em;color:#ffd700;font-weight:bold}
+.block .data{font-size:0.75em;color:#888;word-break:break-all;margin:5px 0}
+.block .hash-val{font-size:0.7em;color:#4fc3f7;word-break:break-all}
+.block .prev-val{font-size:0.7em;color:#ef5350;word-break:break-all}
+.arrow{color:#ffd700;font-size:1.5em;margin:0 -5px;flex-shrink:0}
+.hash-demo{background:rgba(0,0,0,0.3);border-radius:12px;padding:20px;font-family:monospace}
+.hash-input{width:100%;padding:12px;background:#111;color:#0f0;border:1px solid #333;border-radius:8px;font-size:1.1em;font-family:monospace}
+.hash-output{background:#000;color:#ffd700;padding:15px;border-radius:8px;margin-top:10px;font-size:0.95em;word-break:break-all;border:1px solid #333}
+.mining-area{text-align:center;padding:20px;background:rgba(0,0,0,0.2);border-radius:12px}
+.nonce-display{font-size:3em;font-family:monospace;color:#ffd700;margin:20px 0}
+.target-display{font-size:1.1em;color:#ef5350;margin:10px 0}
+.hash-try{font-family:monospace;font-size:0.9em;word-break:break-all;padding:10px;background:#000;border-radius:8px;margin:10px 0;min-height:60px}
+.ledger{background:rgba(0,0,0,0.3);border-radius:12px;padding:20px}
+.user-card{display:flex;justify-content:space-between;align-items:center;padding:15px;margin:10px 0;background:rgba(255,255,255,0.05);border-radius:10px;border-left:3px solid}
+.user-card .name{font-weight:bold;font-size:1.1em}
+.user-card .balance{font-size:1.5em;font-weight:bold;font-family:monospace}
+.user-card .avatar{font-size:2em;margin-right:10px}
+.tx-log{max-height:250px;overflow-y:auto;background:#000;border-radius:8px;padding:15px;font-family:monospace;font-size:0.85em;margin-top:15px}
+.tx-log div{padding:5px 0;border-bottom:1px solid #222}
+.tx-log .success{color:#4caf50}
+.tx-log .fail{color:#ef5350}
+.attack-visual{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+.chain-branch{display:flex;align-items:center;gap:5px;padding:15px;border-radius:12px}
+.chain-branch.valid{border:2px solid #4caf50;background:rgba(76,175,80,0.1)}
+.chain-branch.invalid{border:2px solid #ef5350;background:rgba(239,83,80,0.1)}
+.vote-area{text-align:center}
+.vote-buttons{display:flex;justify-content:center;gap:20px;margin:20px 0;flex-wrap:wrap}
+.vote-option{padding:20px 40px;background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.2);border-radius:15px;cursor:pointer;transition:all 0.3s;font-size:1.2em;min-width:120px}
+.vote-option:hover{border-color:#ffd700;background:rgba(255,215,0,0.1)}
+.vote-option.selected{border-color:#ffd700;background:rgba(255,215,0,0.2);box-shadow:0 0 20px rgba(255,215,0,0.3)}
+.vote-bar{height:30px;border-radius:15px;margin:5px 0;transition:width 0.5s;position:relative;display:flex;align-items:center;padding-left:10px;font-weight:bold;font-size:0.9em}
+.node-grid{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin:20px 0}
+.node{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8em;font-weight:bold;border:3px solid #ffd700;background:rgba(255,215,0,0.1);transition:all 0.5s;flex-direction:column}
+.node.syncing{animation:syncPulse 0.5s infinite alternate}
+@keyframes syncPulse{from{box-shadow:0 0 5px rgba(255,215,0,0.3)}to{box-shadow:0 0 25px rgba(255,215,0,0.8)}}
+.node.done{border-color:#4caf50;background:rgba(76,175,80,0.2)}
+.progress{width:100%;height:6px;background:#333;border-radius:3px;overflow:hidden;margin:10px 0}
+.progress-bar{height:100%;background:linear-gradient(90deg,#ffd700,#ff8c00);border-radius:3px;transition:width 0.3s}
+.tooltip{position:relative;display:inline-block;cursor:help;border-bottom:1px dotted #ffd700}
+.tooltip:hover::after{content:attr(data-tip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 12px;border-radius:8px;font-size:0.85em;white-space:nowrap;z-index:10}
+.step{display:flex;align-items:flex-start;gap:15px;margin:15px 0}
+.step .num{background:#ffd700;color:#000;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0}
+.footer{text-align:center;padding:40px;color:#555;font-size:0.9em}
+@media(max-width:600px){.hero h1{font-size:2em}.card{padding:25px}.block{min-width:140px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<h1>🪙 虚拟货币原理演示</h1>
+<p>从零开始，通过交互实验理解区块链和虚拟货币的每一个核心概念</p>
+</div>
+
+<nav class="nav">
+<a href="#s1">① 区块链</a>
+<a href="#s2">② 哈希</a>
+<a href="#s3">③ 挖矿</a>
+<a href="#s4">④ 交易</a>
+<a href="#s5">⑤ 双花攻击</a>
+<a href="#s6">⑥ 共识机制</a>
+</nav>
+
+<!-- ==================== 第1章 ==================== -->
+<div class="section" id="s1">
+<div class="card">
+<h2>🔗 第一章：什么是区块链？</h2>
+<p class="subtitle">把账本装进"集装箱"，然后用链条串起来</p>
+
+<div class="analogy">
+想象一个班级的记账本。每记满10笔交易，就把这页撕下来装进一个"箱子"，在箱子上写好编号，还要写上"上一个箱子的编号"。这样所有箱子就用编号串成了一条链——这就是<strong>区块链</strong>。
+</div>
+
+<p style="margin:20px 0">👇 点击按钮，亲手往链上添加新区块：</p>
+
+<div style="text-align:center">
+<button onclick="addBlock()">⛏️ 添加新区块</button>
+<button onclick="resetChain()" style="background:#555;color:#fff">🔄 重置</button>
+</div>
+
+<div class="chain" id="blockchain"></div>
+
+<p style="margin-top:20px;font-size:0.9em;color:#888">
+💡 注意看每个区块的<strong style="color:#ef5350">"上一块哈希"</strong>（红色）——它正好等于前一个区块的<strong style="color:#4fc3f7">"本块哈希"</strong>（蓝色）。<br>
+改了任何一个区块的内容，它的哈希就会变，后面的链条就会全部断掉！
+</p>
+</div>
+</div>
+
+<!-- ==================== 第2章 ==================== -->
+<div class="section" id="s2">
+<div class="card">
+<h2>🔢 第二章：哈希是什么？</h2>
+<p class="subtitle">一个神奇的"数字指纹机"——输入不同，输出完全不同</p>
+
+<div class="analogy">
+把任何东西放进"绞肉机"，出来的是固定长度的"指纹"。无论你放进去的是一句话还是一本书，出来的指纹长度都一样。而且只要改动一个字，出来的指纹就会完全不同。
+</div>
+
+<div class="hash-demo">
+<label style="color:#ffd700;font-weight:bold">请输入任意内容：</label>
+<input type="text" id="hashInput" class="hash-input" placeholder="试试输入 Hello、你好、或任何文字..." oninput="computeHash()" value="Hello">
+<div class="hash-output" id="hashOutput"></div>
+<p style="margin-top:10px;font-size:0.85em;color:#888">👆 改动一个字试试？观察指纹变化有多大！</p>
+</div>
+
+<div style="margin-top:20px">
+<p><strong>🔑 哈希的三大特点：</strong></p>
+<ul>
+<li><strong>固定长度</strong>：不管输入多长，SHA-256 输出永远是 64 个字符</li>
+<li><strong>雪崩效应</strong>：改一个字，输出面目全非</li>
+<li><strong>不可逆</strong>：从指纹无法反推出原文（就像你不能从指纹还原出整根手指）</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- ==================== 第3章 ==================== -->
+<div class="section" id="s3">
+<div class="card">
+<h2>⛏️ 第三章：挖矿是怎么回事？</h2>
+<p class="subtitle">全世界矿工比拼"猜数字"，谁先猜对谁拿奖</p>
+
+<div class="analogy">
+想象一个猜数字游戏：管理员说"请找一个数字，和交易记录混在一起绞碎后，出来的指纹必须以4个0开头"。全世界的矿工疯狂地换数字去试，谁先试出来谁赢，奖励1个比特币！
+</div>
+
+<div class="mining-area">
+<p style="color:#888;margin-bottom:10px">难度（要求哈希开头有几个0）：</p>
+<div class="input-group" style="justify-content:center">
+<button onclick="setDifficulty(1)" id="d1">1个零</button>
+<button onclick="setDifficulty(2)" id="d2">2个零</button>
+<button onclick="setDifficulty(3)" id="d3">3个零</button>
+<button onclick="setDifficulty(4)" id="d4" style="background:#ef5350;color:#fff">4个零</button>
+</div>
+
+<div class="target-display" id="targetDisplay">目标：哈希必须以 "0" 开头</div>
+
+<button onclick="startMining()" id="mineBtn">⛏️ 开始挖矿！</button>
+<button onclick="stopMining()" id="stopBtn" disabled style="background:#555;color:#fff">⏹ 停止</button>
+
+<div class="nonce-display" id="nonceDisplay">Nonce: 0</div>
+<div class="progress"><div class="progress-bar" id="mineProgress" style="width:0%"></div></div>
+<div class="hash-try" id="hashTry">等待开始...</div>
+<p id="mineResult" style="font-size:1.2em;margin-top:15px"></p>
+<p style="font-size:0.85em;color:#888;margin-top:10px">
+💡 注意：难度越大，找到正确数字花的时间越长！这就是为什么比特币挖矿需要消耗大量电力——全世界矿工都在疯狂计算。
+</p>
+</div>
+</div>
+</div>
+
+<!-- ==================== 第4章 ==================== -->
+<div class="section" id="s4">
+<div class="card">
+<h2>💸 第四章：交易与余额</h2>
+<p class="subtitle">用私钥"签名"，全网都能验证，但没人能伪造</p>
+
+<div class="analogy">
+你有一把只有你有的"印章"（私钥），你在支票上盖章（签名），任何人拿到支票都能用你的"公钥印章"验证是真的，但没人能仿造你的印章。
+</div>
+
+<div class="ledger" id="ledgerArea">
+<h3 style="color:#ffd700;margin-bottom:15px">📊 账本</h3>
+<div id="userCards"></div>
+</div>
+
+<div style="margin-top:20px">
+<h3 style="color:#ffd700;margin-bottom:10px">📝 发起交易</h3>
+<div class="input-group">
+<select id="txFrom"><option value="Alice">Alice</option><option value="Bob">Bob</option><option value="Charlie">Charlie</option></select>
+<span style="color:#ffd700;font-size:1.5em">→</span>
+<select id="txTo"><option value="Bob">Bob</option><option value="Alice">Alice</option><option value="Charlie">Charlie</option></select>
+<input type="number" id="txAmount" placeholder="金额" value="1" min="1" style="width:80px">
+<button onclick="sendTransaction()">📤 发送</button>
+<button onclick="resetLedger()" style="background:#555;color:#fff;font-size:0.85em">🔄 重置</button>
+</div>
+</div>
+
+<div class="tx-log" id="txLog">
+<div style="color:#888">等待交易...</div>
+</div>
+</div>
+</div>
+
+<!-- ==================== 第5章 ==================== -->
+<div class="section" id="s5">
+<div class="card">
+<h2>🚫 第五章：双花攻击——为什么不能"一币两花"？</h2>
+<p class="subtitle">坏人想把同一笔钱花两次，区块链怎么阻止他？</p>
+
+<div class="analogy">
+你有一张100元纸币，你复印了一份，先用原件在A店买东西，再用复印件去B店买东西。在现实世界，店员可以辨别真假。在虚拟世界，区块链就是那个"辨别器"——全网都记录了你的余额，你花完就没了！
+</div>
+
+<div style="text-align:center;margin:20px 0">
+<button onclick="simulateDoubleSpend()">🎮 模拟双花攻击</button>
+<button onclick="resetAttack()" style="background:#555;color:#fff">🔄 重置</button>
+</div>
+
+<div id="attackArea"></div>
+
+<p id="attackResult" style="margin-top:15px;font-size:1.05em"></p>
+</div>
+</div>
+
+<!-- ==================== 第6章 ==================== -->
+<div class="section" id="s6">
+<div class="card">
+<h2>🗳️ 第六章：共识机制——大家怎么达成一致？</h2>
+<p class="subtitle">没有"央行"说了算，那谁来决定哪条链是真的？</p>
+
+<div class="analogy">
+一个班级要投票决定春游去哪里。规则是：<strong>超过半数同意的方案生效</strong>。每个人说出自己的选择，最后数票。少数服从多数——这就是"共识"。区块链网络里，每个节点都有投票权，最长的链（工作量最大的链）获胜。
+</div>
+
+<div class="vote-area">
+<h3 style="color:#ffd700;margin:20px 0">🌍 模拟 6 个节点投票</h3>
+<p style="color:#888">每个节点独立决定：把区块记到链 A 还是链 B？</p>
+
+<div class="node-grid" id="nodeGrid"></div>
+
+<button onclick="startConsensus()" id="consensusBtn">🗳️ 开始投票！</button>
+
+<div id="consensusResult" style="margin-top:20px"></div>
+
+<div id="consensusVisual" style="margin-top:20px"></div>
+
+<p style="font-size:0.85em;color:#888;margin-top:20px">
+💡 <strong>核心规则</strong>：节点总是选择<strong>最长的链</strong>（或工作量最大的链）。如果有人想篡改历史，他必须拥有超过全网 51% 的算力才能制造出更长的假链——这就是<strong>"51%攻击"</strong>，成本极高，几乎不可能。
+</p>
+</div>
+</div>
+</div>
+
+<div class="footer">
+<p>🪙 虚拟货币原理演示 | 纯前端实现，无需服务器</p>
+<p style="margin-top:5px">Made with ❤️ for learning</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+<script>
+// ==================== SHA-256 哈希 ====================
+function computeHash(){
+var v=document.getElementById('hashInput').value;
+var h=sha256(v);
+document.getElementById('hashOutput').innerHTML=
+'<div style="margin-bottom:5px">输入：<strong style="color:#4fc3f7">'+escapeHtml(v||'(空)')+'</strong></div>'+
+'<div>哈希：<strong>'+h+'</strong></div>'+
+'<div style="margin-top:8px;font-size:0.85em;color:#888">长度：'+h.length+' 位（无论输入多长，输出永远 '+h.length+' 位）</div>';
+}
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// ==================== 区块链 ====================
+var chain=[];
+function genesisBlock(){
+return{index:0,data:'创世区块',prevHash:'0'.repeat(64),timestamp:Date.now()};
+}
+function getHash(block){
+return sha256(block.index+block.data+block.prevHash+block.timestamp);
+}
+function renderChain(){
+var el=document.getElementById('blockchain');
+el.innerHTML='';
+chain.forEach(function(b,i){
+if(i>0)el.innerHTML+='<span class="arrow">→</span>';
+var cls=i===0?'block genesis':'block';
+if(i===chain.length-1&&i>0)cls+=' new';
+el.innerHTML+='<div class="'+cls+'">'+
+'<div class="idx">#'+b.index+'</div>'+
+'<div class="data">'+escapeHtml(b.data)+'</div>'+
+'<div class="prev-val">上一块: '+b.prevHash.substring(0,12)+'...</div>'+
+'<div class="hash-val">本块: '+getHash(b).substring(0,12)+'...</div>'+
+'</div>';
+});
+}
+function addBlock(){
+var prev=chain[chain.length-1];
+var b={index:chain.length,data:'区块 #'+chain.length+' 的交易记录',prevHash:getHash(prev),timestamp:Date.now()};
+chain.push(b);
+renderChain();
+}
+function resetChain(){chain=[genesisBlock()];renderChain();}
+resetChain();
+
+// ==================== 挖矿 ====================
+var mining=false,miningTimer=null;
+var difficulty=1;
+function setDifficulty(d){
+difficulty=d;
+document.querySelectorAll('[id^="d"]').forEach(function(b){b.style.opacity='1'});
+for(var i=1;i<=d;i++)document.getElementById('d'+i).style.opacity='0.7';
+document.getElementById('targetDisplay').textContent='目标：哈希必须以 '+'0'.repeat(d)+' 开头';
+document.getElementById('mineResult').textContent='';
+document.getElementById('nonceDisplay').textContent='Nonce: 0';
+document.getElementById('hashTry').textContent='等待开始...';
+document.getElementById('mineProgress').style.width='0%';
+}
+function startMining(){
+if(mining)return;
+mining=true;
+document.getElementById('mineBtn').disabled=true;
+document.getElementById('stopBtn').disabled=false;
+document.getElementById('mineResult').textContent='';
+var nonce=0;
+var data='Alice→Bob 1BTC | '+new Date().toLocaleTimeString();
+var target='0'.repeat(difficulty);
+miningTimer=setInterval(function(){
+for(var i=0;i<500;i++){
+nonce++;
+var hash=sha256(data+nonce);
+document.getElementById('nonceDisplay').textContent='Nonce: '+nonce.toLocaleString();
+document.getElementById('hashTry').innerHTML=
+'数据: '+escapeHtml(data)+'<br>Nonce: '+nonce+'<br>哈希: <span style="color:'+
+(hash.startsWith(target)?'#4caf50':'#ef5350')+'">'+hash+'</span>';
+if(hash.startsWith(target)){
+mining=false;
+clearInterval(miningTimer);
+document.getElementById('mineBtn').disabled=false;
+document.getElementById('stopBtn').disabled=true;
+document.getElementById('mineResult').innerHTML=
+'🎉 <span style="color:#4caf50">挖矿成功！</span> 用了 '+nonce.toLocaleString()+' 次尝试<br>'+
+'<span style="font-size:0.85em;color:#888">哈希: '+hash+'</span>';
+document.getElementById('mineProgress').style.width='100%';
+return;
+}
+}
+document.getElementById('mineProgress').style.width=Math.min(99,nonce/(Math.pow(16,difficulty)*0.3)*100)+'%';
+},10);
+}
+function stopMining(){
+mining=false;
+clearInterval(miningTimer);
+document.getElementById('mineBtn').disabled=false;
+document.getElementById('stopBtn').disabled=true;
+document.getElementById('mineResult').innerHTML='⏹ 已停止，Nonce: '+document.getElementById('nonceDisplay').textContent;
+}
+
+// ==================== 交易 ====================
+var users={Alice:{balance:10,color:'#4fc3f7',emoji:'👩'},Bob:{balance:10,color:'#81c784',emoji:'👨'},Charlie:{balance:10,color:'#ffb74d',emoji:'🧑'}};
+function renderLedger(){
+var el=document.getElementById('userCards');
+el.innerHTML='';
+Object.keys(users).forEach(function(name){
+var u=users[name];
+el.innerHTML+='<div class="user-card" style="border-left-color:'+u.color+'">'+
+'<div style="display:flex;align-items:center"><span class="avatar">'+u.emoji+'</span><span class="name">'+name+'</span></div>'+
+'<div class="balance" style="color:'+u.color+'">💰 '+u.balance+'</div></div>';
+});
+}
+function sendTransaction(){
+var from=document.getElementById('txFrom').value;
+var to=document.getElementById('txTo').value;
+var amount=parseInt(document.getElementById('txAmount').value);
+var log=document.getElementById('txLog');
+if(from===to){log.innerHTML='<div class="fail">❌ 不能给自己转账！</div>'+log.innerHTML;return;}
+if(amount<=0||isNaN(amount)){log.innerHTML='<div class="fail">❌ 金额必须大于0</div>'+log.innerHTML;return;}
+if(users[from].balance<amount){
+log.innerHTML='<div class="fail">❌ 余额不足！'+from+' 只有 '+users[from].balance+' 元</div>'+log.innerHTML;
+return;
+}
+var txId=sha256(from+to+amount+Date.now()).substring(0,8);
+users[from].balance-=amount;
+users[to].balance+=amount;
+log.innerHTML='<div class="success">✅ #'+txId+' '+from+' → '+to+' | '+amount+'元 | 签名验证通过 ✓</div>'+log.innerHTML;
+renderLedger();
+}
+function resetLedger(){users={Alice:{balance:10,color:'#4fc3f7',emoji:'👩'},Bob:{balance:10,color:'#81c784',emoji:'👨'},Charlie:{balance:10,color:'#ffb74d',emoji:'🧑'}};renderLedger();document.getElementById('txLog').innerHTML='<div style="color:#888">等待交易...</div>';}
+renderLedger();
+
+// ==================== 双花攻击 ====================
+function simulateDoubleSpend(){
+var area=document.getElementById('attackArea');
+var result=document.getElementById('attackResult');
+area.innerHTML='';
+result.innerHTML='';
+var steps=[
+{t:'步骤1：小明有1个币',d:'账户余额: 1 BTC ✓',c:'#4fc3f7'},
+{t:'步骤2：小明向A商家发1个币',d:'交易已广播到全网，余额变为0',c:'#4caf50'},
+{t:'步骤3：小明想再向B商家发同一个币',d:'小明偷偷修改本地记录...',c:'#ffb74d'},
+{t:'步骤4：区块链验证！',d:'全网节点检查：小明余额=0，拒绝交易！',c:'#ef5350'}
+];
+var i=0;
+function showStep(){
+if(i>=steps.length){result.innerHTML='🎯 <strong>结论</strong>：区块链上每一笔交易都被全网记录和验证。你的余额是全网共识，不是你本地说了算！双花攻击<strong style="color:#4caf50">失败</strong>！';return;}
+var s=steps[i];
+area.innerHTML+='<div style="padding:15px;margin:10px 0;background:rgba(255,255,255,0.05);border-radius:10px;border-left:4px solid '+s.c+';animation:fadeIn 0.5s"><strong>'+s.t+'</strong><br><span style="color:'+s.c+'">'+s.d+'</span></div>';
+i++;
+setTimeout(showStep,1200);
+}
+showStep();
+}
+function resetAttack(){document.getElementById('attackArea').innerHTML='';document.getElementById('attackResult').innerHTML='';}
+
+// ==================== 共识机制 ====================
+function renderNodes(){
+var el=document.getElementById('nodeGrid');
+el.innerHTML='';
+for(var i=0;i<6;i++){
+el.innerHTML+='<div class="node" id="node'+i+'">节点'+(i+1)+'<span style="font-size:0.7em;color:#888">待投票</span></div>';
+}
+}
+renderNodes();
+
+function startConsensus(){
+var btn=document.getElementById('consensusBtn');
+btn.disabled=true;
+var votes={A:0,B:0};
+var results=[];
+for(var i=0;i<6;i++){var v=Math.random()<0.6?'A':'B';results.push(v);votes[v]++;}
+var nodeIdx=0;
+function voteNext(){
+if(nodeIdx>=6){
+var winner=votes.A>=votes.B?'A':'B';
+var total=6;
+var winnerCount=votes[winner];
+document.getElementById('consensusResult').innerHTML=
+'<div style="padding:20px;background:rgba(76,175,80,0.1);border:1px solid #4caf50;border-radius:12px;margin-top:20px">'+
+'<h3 style="color:#4caf50">🗳️ 投票结果</h3>'+
+'<p style="font-size:1.2em;margin:10px 0">链 A：<strong>'+votes.A+'</strong> 票 | 链 B：<strong>'+votes.B+'</strong> 票</p>'+
+'<p style="color:#ffd700;font-size:1.1em">✅ 链 <strong>'+winner+'</strong> 获胜！（'+winnerCount+'/'+total+' 票）</p>'+
+'<p style="margin-top:10px;color:#888">所有节点切换到链 '+winner+'，全网达成共识！</p></div>';
+btn.disabled=false;
+return;
+}
+var node=document.getElementById('node'+nodeIdx);
+node.classList.add('syncing');
+var myVote=results[nodeIdx];
+setTimeout(function(){
+node.classList.remove('syncing');
+node.classList.add('done');
+node.innerHTML='节点'+(nodeIdx+1)+'<span style="font-size:0.8em;color:#ffd700">→链 '+myVote+'</span>';
+nodeIdx++;
+voteNext();
+},400);
+}
+voteNext();
+}
+</script>
+</body>
+</html>
