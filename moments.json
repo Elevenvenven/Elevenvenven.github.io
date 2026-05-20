@@ -30,12 +30,6 @@
     "description": "Campus"
   },
   {
-    "img": "images/3583eaeea1195c86fbc325a03b68d3dc.jpg",
-    "alt": "Pet",
-    "date": "2025-11-14",
-    "description": "Pet"
-  },
-  {
     "img": "images/IMG_1099.jpeg",
     "alt": "Another Photo",
     "date": "2025-11-14",
@@ -64,5 +58,59 @@
     "alt": "Last Photo",
     "date": "2025-11-14",
     "description": "Last Photo"
+  },
+  {
+    "img": "images/323B366C-DD16-45CC-99F6-83ADB6E4B7BB_1_105_c.jpeg",
+    "alt": "New Moment",
+    "date": "2025-05-21",
+    "description": "New Moment"
+  },
+  {
+    "img": "images/4692E741-D66C-476C-B98D-99A8C097E58C_1_102_o.jpeg",
+    "alt": "New Moment",
+    "date": "2025-05-21",
+    "description": "New Moment"
+  },
+  {
+    "img": "images/6E59D90E-FA05-40F0-A030-ED0B0CA80228.jpeg",
+    "alt": "New Moment",
+    "date": "2025-05-21",
+    "description": "New Moment"
+  },
+  {
+    "img": "images/8E57AE66-46EC-40DC-88C0-79F6B40F8F9D_1_105_c.jpeg",
+    "alt": "New Moment",
+    "date": "2025-05-21",
+    "description": "New Moment"
+  },
+  {
+    "img": "images/B1C6500E-8A38-401C-B34D-26AAED3E45E2_1_105_c.jpeg",
+    "alt": "New Moment",
+    "date": "2025-05-21",
+    "description": "New Moment"
+  },
+  {
+    "img": "images/B707AFDE-8C68-403B-84CD-AA6DCDD5738E.jpeg",
+    "alt": "New Moment",
+    "date": "2025-05-21",
+    "description": "New Moment"
+  },
+  {
+    "img": "images/C07B29C3-E3F3-46B9-8039-6FD1D521D691_1_105_c.jpeg",
+    "alt": "New Moment",
+    "date": "2025-05-21",
+    "description": "New Moment"
+  },
+  {
+    "img": "images/F25ACAC2-2BC2-4DD6-B06B-9EF99AE7768B_1_105_c.jpeg",
+    "alt": "New Moment",
+    "date": "2025-05-21",
+    "description": "New Moment"
+  },
+  {
+    "img": "images/F97F9E56-251F-4BD0-8623-AD6CD40514E2_1_105_c.jpeg",
+    "alt": "New Moment",
+    "date": "2025-05-21",
+    "description": "New Moment"
   }
 ]
