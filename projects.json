@@ -74,5 +74,11 @@
     "title": "Japanese Quick Start",
     "description": "日语快速入门手册（注音版），涵盖五十音图、基础语法、常用词汇和实用会话，附带振假名注音便于初学者阅读。",
     "link": "japanese_quick_start.html"
+  },
+  {
+    "image": "images/chip_verification_cover.jpg",
+    "title": "芯片验证从零入门",
+    "description": "用生活化比喻讲解芯片验证全流程——建筑验收、期末考试、监控摄像头，覆盖SystemVerilog/UVM/SVA/覆盖率，含15个章节+交互式折叠面板。",
+    "link": "chip_verification_guide.html"
   }
 ]

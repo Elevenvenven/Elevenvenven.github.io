@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-05-23",
+    "title": "Published Chip Verification Guide (芯片验证从零入门)",
+    "description": "用生活化比喻讲解芯片验证全流程——覆盖SystemVerilog、UVM、SVA、Coverage，含15个交互式章节",
+    "type": "Study"
+  },
+  {
     "date": "2026-05-21",
     "title": "Published Japanese Quick Start Guide",
     "description": "Created a comprehensive Japanese learning guide with furigana annotations, covering hiragana, katakana, basic grammar and vocabulary.",
