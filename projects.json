@@ -1,5 +1,27 @@
 [
   {
+    "image": "https://opengraph.githubassets.com/1/Elevenvenven/pkiler",
+    "title": "pkiler",
+    "description": "AI PDF幻灯片解读器。macOS app：拖入任意PDF，AI自动解读每一页。三档解读粒度（简略/标准/详细），通俗模式，整体解读。支持小米MIMO视觉模型，可配置任意OpenAI兼容API。",
+    "link": "https://github.com/Elevenvenven/pkiler",
+    "tech_stack": [
+      "Python",
+      "Flask",
+      "Xiaomi MIMO Vision",
+      "pymupdf",
+      "macOS .app"
+    ],
+    "features": [
+      "拖放任意PDF即可阅读",
+      "三档解读：简略/标准/详细",
+      "通俗模式：大白话解释复杂概念",
+      "整体解读：一键分析全部内容",
+      "暗色主题护眼",
+      "配置灵活，支持任意AI后端"
+    ],
+    "long_description": "pkiler 是一个开源的AI PDF幻灯片解读器。\n\n核心功能：\n\n• 拖放PDF - 把任意PDF拖入窗口即可开始阅读\n• 三档解读 - 简略（一句话摘要）/ 标准（通俗解释）/ 详细（深入剖析）\n• 通俗模式 - 用大白话+生活例子解释，适合完全不懂的小白\n• 整体解读 - 一键分析全部PPT内容，输出完整讲解\n• 暗色主题 - 护眼舒适的暗色UI\n\n技术架构：\n• Flask Python后端 + HTML/JS前端\n• 通过SSE流式传输AI解读结果\n• pymupdf提取和转换PDF页面为图片\n• 小米MIMO视觉模型进行图文分析\n• 打包为macOS .app，双击即可运行\n\n配置：通过.env文件配置API Key和模型，不硬编码任何隐私信息。\n\n开源在GitHub：https://github.com/Elevenvenven/pkiler"
+  },
+  {
     "image": "images/Evolution-of-Coding-scaled.jpg",
     "title": "Algorithm",
     "description": "我在记录我学习Algorithm过程中所遇到的问题和心得",

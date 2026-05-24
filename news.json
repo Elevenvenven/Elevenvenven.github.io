@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-05-24",
+    "title": "pkiler - Open-Source AI PDF Slide Reader (AI幻灯片解读器)",
+    "description": "macOS app: drag-drop any PDF, AI explains every slide. Configurable AI backend, three explanation tiers, plain-language mode, dark theme. Supports MIMO vision models. 开源可配置的AI幻灯片解读器。",
+    "type": "Project"
+  },
+  {
     "date": "2026-05-23",
     "title": "Published Chip Verification Guide (芯片验证从零入门)",
     "description": "用生活化比喻讲解芯片验证全流程——覆盖SystemVerilog、UVM、SVA、Coverage，含15个交互式章节",
