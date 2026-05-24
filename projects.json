@@ -108,5 +108,11 @@
     "title": "Codex × MIMO Proxy",
     "description": "让 OpenAI Codex CLI 支持小米 MIMO 大模型的代理方案，实现 Responses API 到 ChatCompletions 的完整转换",
     "link": "codex_mimo_proxy.html"
+  },
+  {
+    "image": "images/bioskin_cover.jpg",
+    "title": "Bio-Skin 实时传感器演示",
+    "description": "3×3 法向力表面图 + 2D 剪切力矢量 + 实时波形，基于 ESP32-S3 的仿生触觉传感器 Web 演示",
+    "link": "bioskin_demo.html"
   }
 ]
