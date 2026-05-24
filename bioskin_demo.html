@@ -570,6 +570,7 @@ function updateTable(raw, filtered, cal) {
 // ── Main loop ──
 function mainLoop() {
     if (!running) return;
+    try {
     let now = performance.now() / 1000, t = now - t0;
     let raw = generateSample(t);
     let rawArr = new Float64Array(raw);
@@ -609,6 +610,11 @@ function mainLoop() {
     updateTable(rawArr, filtered, cal);
 
     requestAnimationFrame(mainLoop);
+    } catch(e) {
+        document.getElementById('rawLine').textContent = 'LOOP ERROR: ' + e.message;
+        document.getElementById('rawLine').style.color = 'red';
+        running = false;
+    }
 }
 
 function doStart() {
@@ -639,8 +645,13 @@ function doResetZ() {
 }
 
 // Init
-initTable();
-setTimeout(doStart, 300);
+try {
+    initTable();
+    setTimeout(doStart, 300);
+} catch(e) {
+    document.getElementById('rawLine').textContent = 'ERROR: ' + e.message + ' | ' + e.stack;
+    document.getElementById('rawLine').style.color = 'red';
+}
 </script>
 </body>
 </html>
