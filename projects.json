@@ -102,5 +102,11 @@
     "title": "芯片验证从零入门",
     "description": "用生活化比喻讲解芯片验证全流程——建筑验收、期末考试、监控摄像头，覆盖SystemVerilog/UVM/SVA/覆盖率，含15个章节+交互式折叠面板。",
     "link": "chip_verification_guide.html"
+  },
+  {
+    "image": "images/codex_mimo.jpg",
+    "title": "Codex × MIMO Proxy",
+    "description": "让 OpenAI Codex CLI 支持小米 MIMO 大模型的代理方案，实现 Responses API 到 ChatCompletions 的完整转换",
+    "link": "codex_mimo_proxy.html"
   }
 ]
