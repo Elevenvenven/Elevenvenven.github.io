@@ -25,9 +25,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0;padding:14px 18px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--surface2)}
 .controls button{padding:8px 18px;border-radius:8px;border:1px solid var(--surface2);background:var(--surface2);color:var(--text);font-size:13px;cursor:pointer;transition:all .15s;font-weight:600}
 .controls button:hover{border-color:var(--accent);color:var(--accent)}
-.controls button.active{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-.controls button.danger{border-color:var(--red);color:var(--red)}
-.controls button.danger:hover{background:var(--red);color:#fff}
 .controls label{color:var(--text2);font-size:13px}
 .controls input[type=range]{width:120px;accent-color:var(--accent)}
 .controls select{padding:6px 10px;border-radius:6px;background:var(--surface2);color:var(--text);border:1px solid var(--surface2);font-size:13px}
@@ -47,16 +44,13 @@ canvas{display:block;max-width:100%}
 .force-cell .pos{font-size:10px;color:var(--text2);opacity:.7}
 .force-cell .val{font-size:16px;font-family:monospace}
 .full-width{grid-column:1/-1}
-.chart-container{width:100%;height:220px;position:relative}
-.chart-container canvas{width:100%!important;height:100%!important}
 .footer{text-align:center;padding:32px 24px;color:var(--text2);font-size:13px;border-top:1px solid var(--surface2)}
 a{color:var(--accent)}
 .raw-line{padding:6px 14px;background:#0d1117;border-radius:6px;font-family:monospace;font-size:12px;color:var(--text2);overflow-x:auto;white-space:nowrap;margin:10px 0}
 table.data-table{width:100%;border-collapse:collapse;font-size:12px;font-family:monospace}
 table.data-table th{text-align:left;padding:6px 10px;color:var(--accent);border-bottom:1px solid var(--surface2);background:var(--surface2);font-weight:600}
 table.data-table td{padding:5px 10px;color:var(--text2);border-bottom:1px solid rgba(39,53,72,.4)}
-.gamma-indicator{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
-.surface-3d-wrap{position:relative;width:100%;max-width:420px;margin:0 auto}
+.surface-3d-wrap{position:relative;width:100%;max-width:480px;margin:0 auto}
 .surface-3d-wrap .hint{position:absolute;bottom:8px;right:12px;font-size:11px;color:var(--text2);opacity:.6;pointer-events:none}
 </style>
 </head>
@@ -81,32 +75,20 @@ table.data-table td{padding:5px 10px;color:var(--text2);border-bottom:1px solid 
 <div class="container">
     <div class="plain-mode">
         <h4>💡 通俗模式</h4>
-        <p>想象你的手指按在一块柔软的橡皮上。这块"橡皮"里藏着 5 个微小的传感器，能感受到你<strong>按了多大力</strong>（法向力）、<strong>往哪个方向推</strong>（剪切力），还能<strong>感知温度</strong>。下面的演示就是把这 5 个传感器的数据变成直观的 3D 山丘图和箭头图，让你看到"力"的形状。拖动 3D 图可以旋转视角。</p>
+        <p>想象你的手指按在一块柔软的橡皮上。这块"橡皮"里藏着 5 个微小的传感器，能感受到你<strong>按了多大力</strong>（法向力）、<strong>往哪个方向推</strong>（剪切力），还能<strong>感知温度</strong>。下面的 3D 演示就像一个"虚拟手指"在按压传感器表面，拖动可以旋转视角。</p>
     </div>
 
     <div class="controls">
         <button id="btnStart" onclick="startDemo()">▶ 开始演示</button>
         <button id="btnStop" onclick="stopDemo()" style="display:none">⏹ 停止</button>
-        <button id="btnZero" onclick="zeroTare()">⚖ Zero/Tare</button>
-        <button id="btnResetZero" onclick="resetZero()">↺ 重置基线</button>
-        <label>法向量程:
-            <select id="normalRange" onchange="updateRanges()">
-                <option value="3">3 N</option>
-                <option value="6" selected>6 N</option>
-                <option value="10">10 N</option>
-            </select>
-        </label>
-        <label>剪切量程:
-            <select id="shearRange" onchange="updateRanges()">
-                <option value="5">5 N</option>
-                <option value="10" selected>10 N</option>
-                <option value="15">15 N</option>
-            </select>
-        </label>
+        <button onclick="zeroTare()">⚖ Zero/Tare</button>
+        <button onclick="resetZero()">↺ 重置基线</button>
+        <label>法向量程: <select id="normalRange"><option value="3">3 N</option><option value="6" selected>6 N</option><option value="10">10 N</option></select></label>
+        <label>剪切量程: <select id="shearRange"><option value="5">5 N</option><option value="10" selected>10 N</option><option value="15">15 N</option></select></label>
         <label>灵敏度: <input type="range" id="sensitivity" min="0.5" max="3" step="0.1" value="1.5"></label>
     </div>
 
-    <div class="status-bar" id="statusBar">
+    <div class="status-bar">
         <div class="stat"><span class="label">状态:</span><span class="value" id="stStatus">待机</span></div>
         <div class="stat"><span class="label">采样率:</span><span class="value" id="stRate">-- Hz</span></div>
         <div class="stat"><span class="label">滤波:</span><span class="value">MA15 + EMA</span></div>
@@ -118,12 +100,12 @@ table.data-table td{padding:5px 10px;color:var(--text2);border-bottom:1px solid 
     <div class="raw-line" id="rawLine">原始数据: 等待中...</div>
 
     <div class="dashboard">
-        <!-- 3D Normal Force Surface -->
+        <!-- 3D Finger Press Visualization -->
         <div class="panel">
-            <div class="panel-header"><h3>📊 3×3 法向力 3D 表面</h3></div>
+            <div class="panel-header"><h3>👆 手指按压 3D 变形</h3></div>
             <div class="panel-body">
                 <div class="surface-3d-wrap">
-                    <canvas id="surface3D" width="420" height="340"></canvas>
+                    <canvas id="surface3D" width="480" height="380"></canvas>
                     <span class="hint">🖱 拖动旋转</span>
                 </div>
             </div>
@@ -137,7 +119,7 @@ table.data-table td{padding:5px 10px;color:var(--text2);border-bottom:1px solid 
             </div>
         </div>
 
-        <!-- Heatmap -->
+        <!-- Heatmap + Force Grid -->
         <div class="panel">
             <div class="panel-header"><h3>🗺️ 力分布热力图</h3></div>
             <div class="panel-body" style="flex-direction:column;gap:12px">
@@ -146,7 +128,7 @@ table.data-table td{padding:5px 10px;color:var(--text2);border-bottom:1px solid 
             </div>
         </div>
 
-        <!-- Time History Chart -->
+        <!-- Time History -->
         <div class="panel">
             <div class="panel-header"><h3>📈 实时力波形</h3></div>
             <div class="panel-body">
@@ -158,32 +140,24 @@ table.data-table td{padding:5px 10px;color:var(--text2);border-bottom:1px solid 
         <div class="panel full-width">
             <div class="panel-header"><h3>📋 通道数据</h3></div>
             <div class="panel-body" style="overflow-x:auto;display:block">
-                <table class="data-table" id="dataTable">
-                    <thead><tr><th>通道</th><th>原始 ADC</th><th>滤波值</th><th>校准值</th></tr></thead>
-                    <tbody></tbody>
-                </table>
+                <table class="data-table" id="dataTable"><thead><tr><th>通道</th><th>原始 ADC</th><th>滤波值</th><th>校准值</th></tr></thead><tbody></tbody></table>
             </div>
         </div>
     </div>
 </div>
 
-<div class="footer">
-    <p>Built with ☕ | <a href="https://github.com/Elevenvenven">GitHub</a></p>
-</div>
+<div class="footer"><p>Built with ☕ | <a href="https://github.com/Elevenvenven">GitHub</a></p></div>
 
 <script>
 // ============================================================
 // Constants
 // ============================================================
-const ADC_MAX=4095, ADC_VREF=3.3;
 const MA_WINDOW=15, EMA_ALPHA=0.25;
 const NORMAL_ADC_ZERO=680, NORMAL_ADC_DELTA=60, NORMAL_F_MAX=6.0;
 const SHEAR_F_MAX=10.0;
-const HIST_LEN=400, FAKE_RATE_HZ=100;
-const FAKE_NORMAL_BASE=680, FAKE_NORMAL_NOISE=2.2, FAKE_STD_BASE=202;
+const HIST_LEN=400;
 const NF_POS={0:1,1:3,2:5,3:7,4:9};
 const POS_XY={1:[0,2],2:[1,2],3:[2,2],4:[0,1],5:[1,1],6:[2,1],7:[0,0],8:[1,0],9:[2,0]};
-const POS_ORDER=[1,2,3,4,5,6,7,8,9];
 const CHANNEL_NAMES=["NF1","NF2","NF3","NF4","NF5","SF1(x+)","SF2(x-)","SF3(y+)","SF4(y-)","Temp_ADC","Standard"];
 const SHEAR_DIR=["x+","x-","y+","y-"];
 const sensorXY=[[0,2],[2,2],[1,1],[0,0],[2,0]];
@@ -198,8 +172,8 @@ let maBuf=[], lastEMA=null;
 function resetFilter(){maBuf=[];lastEMA=null;}
 let histT=[],histFN=[],histFx=[],histFy=[];
 
-// 3D rotation state
-let rotX=-0.55, rotZ=-0.85;  // initial view angle (radians)
+// 3D camera
+let camRotX=-0.50, camRotZ=-0.80, camDist=3.8;
 let dragging=false, dragX=0, dragY=0;
 
 // ============================================================
@@ -224,14 +198,13 @@ function generateFakeSample(t){
         let shape=Math.exp(-(dx*dx+dy*dy)/(2*rng_sigma*rng_sigma));
         if(Math.random()<0.38){
             let cx2=rand(-0.2,2.2),cy2=rand(-0.2,2.2),s2=rand(0.28,0.65),str2=rand(0.3,1.8);
-            let d2b=(sensorXY[i][0]-cx2)**2+(sensorXY[i][1]-cy2)**2;
-            shape+=str2*Math.exp(-d2b/(2*s2*s2));
+            shape+=str2*Math.exp(-((sensorXY[i][0]-cx2)**2+(sensorXY[i][1]-cy2)**2)/(2*s2*s2));
         }
         let force_n=Math.max(0,Math.min(6,rng_strength*shape*(1+randn()*0.16)+rng_offsets[i]*0.12));
         normal[i]=FAKE_NORMAL_BASE+(force_n/NORMAL_F_MAX)*NORMAL_ADC_DELTA+randn()*FAKE_NORMAL_NOISE*1.25;
         normal[i]=Math.round(Math.max(660,Math.min(735,normal[i])));
     }
-    let px=0.5+0.5*Math.sin(2*Math.PI*0.11*t), py=0.5+0.5*Math.cos(2*Math.PI*0.09*t+0.5);
+    let px=0.5+0.5*Math.sin(2*Math.PI*0.11*t),py=0.5+0.5*Math.cos(2*Math.PI*0.09*t+0.5);
     let shear=[
         Math.max(0,Math.min(9,2+Math.round(5*px)+Math.floor(rand(-1,2)))),
         Math.max(0,Math.min(9,2+Math.round(4*(1-px))+Math.floor(rand(-1,2)))),
@@ -242,6 +215,7 @@ function generateFakeSample(t){
     let std=FAKE_STD_BASE+Math.round(2*Math.sin(2*Math.PI*0.07*t))+Math.floor(rand(-1,2));
     return [...normal,...shear,temp,std];
 }
+const FAKE_NORMAL_BASE=680, FAKE_NORMAL_NOISE=2.2, FAKE_STD_BASE=202;
 
 // ============================================================
 // Signal Processing
@@ -251,8 +225,8 @@ function processSample(raw){
     let ma=new Float64Array(11);
     for(let s of maBuf) for(let i=0;i<11;i++) ma[i]+=s[i];
     for(let i=0;i<11;i++) ma[i]/=maBuf.length;
-    if(!lastEMA){lastEMA=new Float64Array(ma);}
-    else{for(let i=0;i<11;i++) lastEMA[i]=EMA_ALPHA*ma[i]+(1-EMA_ALPHA)*lastEMA[i];}
+    if(!lastEMA) lastEMA=new Float64Array(ma);
+    else for(let i=0;i<11;i++) lastEMA[i]=EMA_ALPHA*ma[i]+(1-EMA_ALPHA)*lastEMA[i];
     return new Float64Array(lastEMA);
 }
 
@@ -268,32 +242,17 @@ function computeCalibrated(filtered){
     let s4=new Float64Array(4);
     for(let i=0;i<4;i++) s4[i]=Math.max(0,Math.min(SHEAR_F_MAX,si[i]));
     let fx=s4[0]-s4[1],fy=s4[2]-s4[3],fmag=Math.hypot(fx,fy);
-    let fnRepr=Math.max(...fn9);
-    let gamma=fmag>1e-9?fnRepr/fmag:null;
+    let fnRepr=Math.max(...fn9), gamma=fmag>1e-9?fnRepr/fmag:null;
     return {fn9,shear4:s4,fx,fy,fmag,fnRepr,gamma,tempADC:filtered[9]};
 }
 
 // ============================================================
-// Color helper
+// 3D Finger-Press Renderer
 // ============================================================
-function forceToColor(val,maxVal){
-    let t=Math.max(0,Math.min(1,val/maxVal));
-    let r,g,b;
-    if(t<0.25){let u=t/0.25;r=0;g=0;b=Math.round(100+155*u);}
-    else if(t<0.5){let u=(t-0.25)/0.25;r=0;g=Math.round(255*u);b=Math.round(255*(1-u));}
-    else if(t<0.75){let u=(t-0.5)/0.25;r=Math.round(255*u);g=255;b=0;}
-    else{let u=(t-0.75)/0.25;r=255;g=Math.round(255*(1-u));b=0;}
-    return[r,g,b];
-}
-function rgbStr(r,g,b){return`rgb(${r},${g},${b})`;}
+const c3d = document.getElementById('surface3D');
+const ctx = c3d.getContext('2d');
 
-// ============================================================
-// 3D Surface Renderer (Canvas)
-// ============================================================
-const surface3D = document.getElementById('surface3D');
-const ctx3d = surface3D.getContext('2d');
-
-// IDW interpolation on a grid
+// IDW on grid
 function idwGrid(fn9, gridN){
     let grid=[];
     for(let gy=0;gy<=gridN;gy++){
@@ -313,151 +272,263 @@ function idwGrid(fn9, gridN){
     return grid;
 }
 
-// 3D projection
-function project(x,y,z){
-    // Rotate around Z
-    let x1=x*Math.cos(rotZ)-y*Math.sin(rotZ);
-    let y1=x*Math.sin(rotZ)+y*Math.cos(rotZ);
-    let z1=z;
-    // Rotate around X
-    let y2=y1*Math.cos(rotX)-z1*Math.sin(rotX);
-    let z2=y1*Math.sin(rotX)+z1*Math.cos(rotX);
-    // Simple perspective
-    let fov=4;
-    let scale=fov/(fov+z2*0.3);
-    return[210+x1*scale*90, 170-y2*scale*90];
+// 3D projection with perspective
+function proj(x,y,z){
+    // Rotate Z (horizontal orbit)
+    let x1=x*Math.cos(camRotZ)-y*Math.sin(camRotZ);
+    let y1=x*Math.sin(camRotZ)+y*Math.cos(camRotZ);
+    // Rotate X (tilt)
+    let y2=y1*Math.cos(camRotX)-z*Math.sin(camRotX);
+    let z2=y1*Math.sin(camRotX)+z*Math.cos(camRotX);
+    // Perspective
+    let f=camDist/(camDist+z2*0.4);
+    return[240+x1*f*85, 200-y2*f*85, z2];
 }
 
-function draw3DSurface(fn9, maxVal){
-    const W=surface3D.width, H=surface3D.height;
-    ctx3d.clearRect(0,0,W,H);
+// Color: blue→cyan→green→yellow→red
+function valColor(v,maxV){
+    let t=Math.max(0,Math.min(1,v/maxV));
+    let r,g,b;
+    if(t<0.2){let u=t/0.2;r=0;g=Math.round(100*u);b=Math.round(150+105*u);}
+    else if(t<0.4){let u=(t-0.2)/0.2;r=0;g=Math.round(100+155*u);b=Math.round(255*(1-u));}
+    else if(t<0.6){let u=(t-0.4)/0.2;r=Math.round(255*u);g=255;b=0;}
+    else if(t<0.8){let u=(t-0.6)/0.2;r=255;g=Math.round(255*(1-u*0.5));b=0;}
+    else{let u=(t-0.8)/0.2;r=255;g=Math.round(128*(1-u));b=0;}
+    return[r,g,b];
+}
 
-    // Background
-    ctx3d.fillStyle='#0d1117';
-    ctx3d.fillRect(0,0,W,H);
+function draw3D(fn9, maxVal){
+    const W=c3d.width, H=c3d.height;
+    ctx.clearRect(0,0,W,H);
 
-    let gridN=20;
+    let gridN=28;
     let grid=idwGrid(fn9, gridN);
-    let zScale=0.8; // height exaggeration
+    let deformScale=0.55; // how much the finger press deforms the surface
 
-    // Collect faces with depth for painter's algorithm
-    let faces=[];
+    // Collect quads for depth sort
+    let quads=[];
     for(let gy=0;gy<gridN;gy++){
         for(let gx=0;gx<gridN;gx++){
             let u0=gx/gridN*2-1, v0=(1-gy/gridN)*2-1;
             let u1=(gx+1)/gridN*2-1, v1=(1-(gy+1)/gridN)*2-1;
-            let z00=grid[gy][gx]*zScale, z10=grid[gy][gx+1]*zScale;
-            let z01=grid[gy+1][gx]*zScale, z11=grid[gy+1][gx+1]*zScale;
-            let avgZ=(z00+z10+z01+z11)/4;
 
-            let p00=project(u0,v0,z00), p10=project(u1,v0,z10);
-            let p01=project(u0,v1,z01), p11=project(u1,v1,z11);
-            let cx=(p00[0]+p10[0]+p01[0]+p11[0])/4;
-            let cy=(p00[1]+p10[1]+p01[1]+p11[1])/4;
+            // The surface deforms: flat base + force-driven indentation/bulge
+            // The finger pushes DOWN into the surface, creating a depression
+            let f00=grid[gy][gx], f10=grid[gy][gx+1], f01=grid[gy+1][gx], f11=grid[gy+1][gx+1];
+            let z00=-f00*deformScale/maxVal;
+            let z10=-f10*deformScale/maxVal;
+            let z01=-f01*deformScale/maxVal;
+            let z11=-f11*deformScale/maxVal;
 
-            let avgForce=(grid[gy][gx]+grid[gy][gx+1]+grid[gy+1][gx]+grid[gy+1][gx+1])/4;
-            let col=forceToColor(avgForce,maxVal);
+            let p00=proj(u0,v0,z00), p10=proj(u1,v0,z10);
+            let p01=proj(u0,v1,z01), p11=proj(u1,v1,z11);
+            let avgZ=(p00[2]+p10[2]+p01[2]+p11[2])/4;
+            let avgF=(f00+f10+f01+f11)/4;
 
-            // Compute normal for lighting
-            let n1x=[u1-u0, 0, z10-z00], n1y=[0, v1-v0, z01-z00];
-            let nx=n1y[1]*n1x[2]-n1x[1]*n1y[2], ny=n1x[0]*n1y[2]-n1y[0]*n1x[2], nz=n1x[1]*n1y[0]-n1y[1]*n1x[0];
+            // Surface normal for lighting
+            let du=2/gridN, dv=2/gridN;
+            let nx=(z10-z00)*(z11-z01)-(z01-z00)*(z11-z10);
+            let ny=(z01-z00)*(z11-z10)-(z10-z00)*(z01-z00);
+            let nz=du*dv;
             let nl=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;
-            let light=Math.max(0.3, (nx*0.3+ny*0.5+nz*0.8)/nl);
+            // Light from upper-right-front
+            let light=Math.max(0.25, 0.4+0.6*(nx*0.3+ny*0.4+nz*0.85)/nl);
 
-            faces.push({p00,p10,p01,p11,z:avgZ,col,light,cx,cy});
+            // Edge rim: detect if on the edge of the pad
+            let onEdge=(gx===0||gx===gridN-1||gy===0||gy===gridN-1);
+
+            quads.push({p00,p10,p01,p11,avgZ,avgF,light,onEdge});
         }
     }
 
-    // Sort back-to-front (painter's algorithm)
-    faces.sort((a,b)=>b.z-a.z);
+    // Sort back-to-front
+    quads.sort((a,b)=>b.avgZ-a.avgZ);
 
-    // Draw faces
-    for(let f of faces){
-        let r=Math.round(f.col[0]*f.light), g=Math.round(f.col[1]*f.light), b=Math.round(f.col[2]*f.light);
-        ctx3d.fillStyle=rgbStr(r,g,b);
-        ctx3d.strokeStyle=rgbStr(Math.round(r*0.7),Math.round(g*0.7),Math.round(b*0.7));
-        ctx3d.lineWidth=0.5;
-        ctx3d.beginPath();
-        ctx3d.moveTo(f.p00[0],f.p00[1]);
-        ctx3d.lineTo(f.p10[0],f.p10[1]);
-        ctx3d.lineTo(f.p11[0],f.p11[1]);
-        ctx3d.lineTo(f.p01[0],f.p01[1]);
-        ctx3d.closePath();
-        ctx3d.fill();
-        ctx3d.stroke();
+    // Draw
+    for(let q of quads){
+        let col=valColor(q.avgF, maxVal);
+        let r=Math.round(col[0]*q.light), g=Math.round(col[1]*q.light), b=Math.round(col[2]*q.light);
+        ctx.fillStyle=`rgb(${r},${g},${b})`;
+        ctx.strokeStyle=`rgba(${Math.round(r*0.6)},${Math.round(g*0.6)},${Math.round(b*0.6)},0.4)`;
+        ctx.lineWidth=0.3;
+        ctx.beginPath();
+        ctx.moveTo(q.p00[0],q.p00[1]);
+        ctx.lineTo(q.p10[0],q.p10[1]);
+        ctx.lineTo(q.p11[0],q.p11[1]);
+        ctx.lineTo(q.p01[0],q.p01[1]);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // Draw thicker rim for edge faces to show pad boundary
+        if(q.onEdge){
+            ctx.strokeStyle='rgba(56,189,248,0.5)';
+            ctx.lineWidth=1.2;
+            ctx.beginPath();
+            ctx.moveTo(q.p00[0],q.p00[1]);
+            ctx.lineTo(q.p10[0],q.p10[1]);
+            ctx.lineTo(q.p11[0],q.p11[1]);
+            ctx.lineTo(q.p01[0],q.p01[1]);
+            ctx.closePath();
+            ctx.stroke();
+        }
     }
 
-    // Draw sensor point labels
-    ctx3d.font='bold 11px monospace';
-    ctx3d.textAlign='center';
+    // Draw sensor position markers on the depressed surface
+    ctx.font='bold 11px monospace'; ctx.textAlign='center';
     for(let i=0;i<9;i++){
         let ux=POS_XY[i+1][0]-1, vy=1-POS_XY[i+1][1];
-        let pz=fn9[i]*zScale;
-        let p=project(ux,vy,pz);
-        ctx3d.fillStyle='#fff';
-        ctx3d.shadowColor='#000'; ctx3d.shadowBlur=4;
-        ctx3d.fillText((i+1)+':'+fn9[i].toFixed(1), p[0], p[1]-6);
-        ctx3d.shadowBlur=0;
+        let z=-fn9[i]*deformScale/maxVal;
+        let p=proj(ux,vy,z);
+        // Sensor dot
+        ctx.fillStyle='rgba(255,255,255,0.85)';
+        ctx.beginPath(); ctx.arc(p[0],p[1],3,0,Math.PI*2); ctx.fill();
+        // Label with shadow
+        ctx.shadowColor='rgba(0,0,0,0.7)'; ctx.shadowBlur=3;
+        ctx.fillStyle='#fff';
+        ctx.fillText(fn9[i].toFixed(1), p[0], p[1]-8);
+        ctx.shadowBlur=0;
     }
 
-    // Draw axis labels
-    ctx3d.fillStyle='#94a3b8'; ctx3d.font='11px sans-serif';
-    ctx3d.fillText('X',370,180);
-    ctx3d.fillText('Y',200,30);
-    ctx3d.fillText('F(N)',200,330);
+    // Draw a translucent "finger" shape above the contact area
+    // Find the center of force
+    let totalF=0, sumX=0, sumY=0;
+    for(let i=0;i<9;i++){
+        totalF+=fn9[i]; sumX+=POS_XY[i+1][0]*fn9[i]; sumY+=POS_XY[i+1][1]*fn9[i];
+    }
+    if(totalF>0.1){
+        let fcx=sumX/totalF-1, fcy=1-sumY/totalF;
+        let fRadius=0.45;
+        let fingerZ=0.15; // float above the surface
+
+        // Draw finger outline (elliptical shadow)
+        let fingerProj=[];
+        let steps=24;
+        for(let s=0;s<=steps;s++){
+            let angle=s/steps*Math.PI*2;
+            let fx2=fcx+fRadius*Math.cos(angle)*0.8;
+            let fy2=fcy+fRadius*Math.sin(angle)*1.2;
+            fingerProj.push(proj(fx2,fy2,fingerZ));
+        }
+        // Shadow on surface
+        ctx.fillStyle='rgba(0,0,0,0.15)';
+        ctx.beginPath();
+        let shadowSteps=24;
+        for(let s=0;s<=shadowSteps;s++){
+            let angle=s/shadowSteps*Math.PI*2;
+            let sx=fcx+fRadius*Math.cos(angle)*0.8;
+            let sy=fcy+fRadius*Math.sin(angle)*1.2;
+            let sp=proj(sx,sy,-0.01);
+            if(s===0) ctx.moveTo(sp[0],sp[1]); else ctx.lineTo(sp[0],sp[1]);
+        }
+        ctx.closePath(); ctx.fill();
+
+        // Finger body (translucent cylinder-ish shape)
+        let topProj=[], botProj=[];
+        for(let s=0;s<=steps;s++){
+            let angle=s/steps*Math.PI*2;
+            let fx2=fcx+fRadius*Math.cos(angle)*0.8;
+            let fy2=fcy+fRadius*Math.sin(angle)*1.2;
+            topProj.push(proj(fx2,fy2,fingerZ+0.35));
+            botProj.push(proj(fx2,fy2,fingerZ));
+        }
+        // Side faces (semi-transparent)
+        ctx.fillStyle='rgba(255,220,180,0.25)';
+        ctx.strokeStyle='rgba(255,220,180,0.4)';
+        ctx.lineWidth=0.8;
+        for(let s=0;s<steps;s++){
+            ctx.beginPath();
+            ctx.moveTo(topProj[s][0],topProj[s][1]);
+            ctx.lineTo(topProj[s+1][0],topProj[s+1][1]);
+            ctx.lineTo(botProj[s+1][0],botProj[s+1][1]);
+            ctx.lineTo(botProj[s][0],botProj[s][1]);
+            ctx.closePath();
+            ctx.fill(); ctx.stroke();
+        }
+        // Top cap
+        ctx.fillStyle='rgba(255,210,160,0.35)';
+        ctx.beginPath();
+        for(let s=0;s<=steps;s++){
+            if(s===0) ctx.moveTo(topProj[s][0],topProj[s][1]);
+            else ctx.lineTo(topProj[s][0],topProj[s][1]);
+        }
+        ctx.closePath(); ctx.fill();
+        // Bottom ring (contact area)
+        ctx.strokeStyle='rgba(255,180,120,0.6)';
+        ctx.lineWidth=1.5;
+        ctx.beginPath();
+        for(let s=0;s<=steps;s++){
+            if(s===0) ctx.moveTo(botProj[s][0],botProj[s][1]);
+            else ctx.lineTo(botProj[s][0],botProj[s][1]);
+        }
+        ctx.closePath(); ctx.stroke();
+    }
+
+    // Legend / scale bar
+    let barX=400, barY=60, barH=200;
+    let grad=ctx.createLinearGradient(barX,barY,barX,barY+barH);
+    for(let i=0;i<=10;i++){
+        let t=i/10;
+        let col=valColor(t*maxVal, maxVal);
+        grad.addColorStop(t,`rgb(${col[0]},${col[1]},${col[2]})`);
+    }
+    ctx.fillStyle=grad;
+    ctx.fillRect(barX,barY,14,barH);
+    ctx.fillStyle='#94a3b8'; ctx.font='10px monospace'; ctx.textAlign='left';
+    ctx.fillText(maxVal.toFixed(0)+' N',barX+18,barY+8);
+    ctx.fillText('0 N',barX+18,barY+barH);
+
+    // Title
+    ctx.fillStyle='#94a3b8'; ctx.font='11px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('3×3 法向力表面 (手指按压视图)',240,20);
 }
 
-// 3D mouse rotation
-surface3D.addEventListener('mousedown',e=>{dragging=true;dragX=e.clientX;dragY=e.clientY;});
-surface3D.addEventListener('mousemove',e=>{
-    if(!dragging)return;
-    rotZ+=(e.clientX-dragX)*0.01;
-    rotX+=(e.clientY-dragY)*0.01;
-    rotX=Math.max(-1.5,Math.min(0.1,rotX));
+// 3D mouse/touch interaction
+c3d.addEventListener('mousedown',e=>{dragging=true;dragX=e.clientX;dragY=e.clientY;});
+c3d.addEventListener('mousemove',e=>{
+    if(!dragging) return;
+    camRotZ+=(e.clientX-dragX)*0.008;
+    camRotX+=(e.clientY-dragY)*0.008;
+    camRotX=Math.max(-1.3,Math.min(0.05,camRotX));
     dragX=e.clientX; dragY=e.clientY;
 });
-surface3D.addEventListener('mouseup',()=>{dragging=false;});
-surface3D.addEventListener('mouseleave',()=>{dragging=false;});
-// Touch
-surface3D.addEventListener('touchstart',e=>{
-    e.preventDefault(); dragging=true;
-    dragX=e.touches[0].clientX; dragY=e.touches[0].clientY;
+c3d.addEventListener('mouseup',()=>dragging=false);
+c3d.addEventListener('mouseleave',()=>dragging=false);
+c3d.addEventListener('wheel',e=>{
+    e.preventDefault();
+    camDist=Math.max(2.5,Math.min(8,camDist+e.deltaY*0.005));
 },{passive:false});
-surface3D.addEventListener('touchmove',e=>{
-    if(!dragging)return; e.preventDefault();
-    rotZ+=(e.touches[0].clientX-dragX)*0.01;
-    rotX+=(e.touches[0].clientY-dragY)*0.01;
-    rotX=Math.max(-1.5,Math.min(0.1,rotX));
-    dragX=e.touches[0].clientX; dragY=e.touches[0].clientY;
+c3d.addEventListener('touchstart',e=>{e.preventDefault();dragging=true;dragX=e.touches[0].clientX;dragY=e.touches[0].clientY;},{passive:false});
+c3d.addEventListener('touchmove',e=>{
+    if(!dragging)return;e.preventDefault();
+    camRotZ+=(e.touches[0].clientX-dragX)*0.008;
+    camRotX+=(e.touches[0].clientY-dragY)*0.008;
+    camRotX=Math.max(-1.3,Math.min(0.05,camRotX));
+    dragX=e.touches[0].clientX;dragY=e.touches[0].clientY;
 },{passive:false});
-surface3D.addEventListener('touchend',()=>{dragging=false;});
+c3d.addEventListener('touchend',()=>dragging=false);
 
 // ============================================================
-// Heatmap (2D top-down)
+// Heatmap
 // ============================================================
-function drawHeatmap(fn9, maxVal){
+function drawHeatmap(fn9,maxVal){
     const c=document.getElementById('heatmapCanvas');
-    const ctx=c.getContext('2d');
-    const W=c.width, H=c.height, pad=30;
-    ctx.clearRect(0,0,W,H);
-    let gw=W-2*pad, gh=H-2*pad;
-    let gridN=24;
-    let grid=idwGrid(fn9, gridN);
+    const x=c.getContext('2d');
+    const W=c.width,H=c.height,pad=30;
+    x.clearRect(0,0,W,H);
+    let gw=W-2*pad,gh=H-2*pad,gridN=24;
+    let grid=idwGrid(fn9,gridN);
     for(let gy=0;gy<gridN;gy++){
         for(let gx=0;gx<gridN;gx++){
             let val=Math.max(0,Math.min(maxVal,grid[gy][gx]));
-            let col=forceToColor(val,maxVal);
-            ctx.fillStyle=rgbStr(col[0],col[1],col[2]);
-            let x1=pad+gx/gridN*gw, y1=pad+(1-(gy+1)/gridN)*gh;
-            let cw=gw/gridN+0.5, ch=gh/gridN+0.5;
-            ctx.fillRect(x1,y1,cw,ch);
+            let col=valColor(val,maxVal);
+            x.fillStyle=`rgb(${col[0]},${col[1]},${col[2]})`;
+            x.fillRect(pad+gx/gridN*gw, pad+(1-(gy+1)/gridN)*gh, gw/gridN+0.5, gh/gridN+0.5);
         }
     }
-    // Labels
-    ctx.font='bold 11px monospace'; ctx.textAlign='center'; ctx.fillStyle='#fff';
+    x.font='bold 11px monospace';x.textAlign='center';x.fillStyle='#fff';
     for(let i=0;i<9;i++){
-        let px=pad+POS_XY[i+1][0]/2*gw, py=pad+(1-POS_XY[i+1][1]/2)*gh;
-        ctx.fillText(fn9[i].toFixed(1),px,py+4);
+        x.fillText(fn9[i].toFixed(1), pad+POS_XY[i+1][0]/2*gw, pad+(1-POS_XY[i+1][1]/2)*gh+4);
     }
 }
 
@@ -465,30 +536,23 @@ function drawHeatmap(fn9, maxVal){
 // Force Grid
 // ============================================================
 function initForceGrid(){
-    let el=document.getElementById('forceGrid');
-    el.innerHTML='';
-    for(let row=2;row>=0;row--){
-        for(let col=0;col<3;col++){
-            let pos=row*3+col+1;
-            let cell=document.createElement('div');
-            cell.className='force-cell';
-            cell.id='fcell-'+pos;
-            cell.innerHTML=`<span class="pos">P${pos}</span><span class="val">0.0</span>`;
-            el.appendChild(cell);
-        }
+    let el=document.getElementById('forceGrid');el.innerHTML='';
+    for(let row=2;row>=0;row--)for(let col=0;col<3;col++){
+        let pos=row*3+col+1;
+        let cell=document.createElement('div');cell.className='force-cell';cell.id='fcell-'+pos;
+        cell.innerHTML=`<span class="pos">P${pos}</span><span class="val">0.0</span>`;
+        el.appendChild(cell);
     }
 }
-
 function updateForceGrid(fn9,maxVal){
     for(let i=0;i<9;i++){
-        let cell=document.getElementById('fcell-'+(i+1));
-        if(!cell)continue;
+        let cell=document.getElementById('fcell-'+(i+1));if(!cell)continue;
         let v=fn9[i];
         cell.querySelector('.val').textContent=v.toFixed(2);
-        let col=forceToColor(v,maxVal);
-        cell.style.background=rgbStr(col[0],col[1],col[2]);
+        let col=valColor(v,maxVal);
+        cell.style.background=`rgb(${col[0]},${col[1]},${col[2]})`;
         cell.style.color=v/maxVal>0.5?'#000':'#fff';
-        cell.style.borderColor=rgbStr(col[0],col[1],col[2]);
+        cell.style.borderColor=`rgb(${col[0]},${col[1]},${col[2]})`;
     }
 }
 
@@ -497,36 +561,33 @@ function updateForceGrid(fn9,maxVal){
 // ============================================================
 function drawShear(shear4,fx,fy,fmag){
     const c=document.getElementById('shearCanvas');
-    const ctx=c.getContext('2d');
+    const x=c.getContext('2d');
     const W=c.width,H=c.height,cx=W/2,cy=H/2,R=Math.min(W,H)/2-40;
-    ctx.clearRect(0,0,W,H);
-    ctx.fillStyle='#0d1117';
-    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.fill();
-    ctx.strokeStyle='rgba(148,163,184,0.15)';ctx.lineWidth=1;
-    for(let r=R/4;r<=R;r+=R/4){ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();}
-    ctx.beginPath();ctx.moveTo(cx-R,cy);ctx.lineTo(cx+R,cy);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(cx,cy-R);ctx.lineTo(cx,cy+R);ctx.stroke();
-    ctx.fillStyle='#94a3b8';ctx.font='bold 12px sans-serif';ctx.textAlign='center';
-    ctx.fillText('y+ S3: '+shear4[2].toFixed(1)+'N',cx,cy-R+16);
-    ctx.fillText('x+ S1: '+shear4[0].toFixed(1)+'N',cx+R-10,cy+5);
-    ctx.fillText('y- S4: '+shear4[3].toFixed(1)+'N',cx,cy+R-8);
-    ctx.fillText('x- S2: '+shear4[1].toFixed(1)+'N',cx-R+14,cy+5);
-    let maxRange=parseFloat(document.getElementById('shearRange').value);
-    let vx=(fx/maxRange)*R*0.8, vy=-(fy/maxRange)*R*0.8;
-    let len=Math.hypot(vx,vy);
-    if(len>1){
-        ctx.strokeStyle='#4ade80';ctx.fillStyle='#4ade80';ctx.lineWidth=3;
-        ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+vx,cy+vy);ctx.stroke();
-        let angle=Math.atan2(vy,vx);
-        ctx.beginPath();
-        ctx.moveTo(cx+vx,cy+vy);
-        ctx.lineTo(cx+vx-12*Math.cos(angle-0.3),cy+vy-12*Math.sin(angle-0.3));
-        ctx.lineTo(cx+vx-12*Math.cos(angle+0.3),cy+vy-12*Math.sin(angle+0.3));
-        ctx.closePath();ctx.fill();
+    x.clearRect(0,0,W,H);
+    x.fillStyle='#0d1117';x.beginPath();x.arc(cx,cy,R,0,Math.PI*2);x.fill();
+    x.strokeStyle='rgba(148,163,184,0.15)';x.lineWidth=1;
+    for(let r=R/4;r<=R;r+=R/4){x.beginPath();x.arc(cx,cy,r,0,Math.PI*2);x.stroke();}
+    x.beginPath();x.moveTo(cx-R,cy);x.lineTo(cx+R,cy);x.stroke();
+    x.beginPath();x.moveTo(cx,cy-R);x.lineTo(cx,cy+R);x.stroke();
+    x.fillStyle='#94a3b8';x.font='bold 12px sans-serif';x.textAlign='center';
+    x.fillText('y+ S3: '+shear4[2].toFixed(1)+'N',cx,cy-R+16);
+    x.fillText('x+ S1: '+shear4[0].toFixed(1)+'N',cx+R-10,cy+5);
+    x.fillText('y- S4: '+shear4[3].toFixed(1)+'N',cx,cy+R-8);
+    x.fillText('x- S2: '+shear4[1].toFixed(1)+'N',cx-R+14,cy+5);
+    let maxR=parseFloat(document.getElementById('shearRange').value);
+    let vx=(fx/maxR)*R*0.8,vy=-(fy/maxR)*R*0.8;
+    if(Math.hypot(vx,vy)>1){
+        x.strokeStyle='#4ade80';x.fillStyle='#4ade80';x.lineWidth=3;
+        x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+vx,cy+vy);x.stroke();
+        let a=Math.atan2(vy,vx);
+        x.beginPath();x.moveTo(cx+vx,cy+vy);
+        x.lineTo(cx+vx-12*Math.cos(a-0.3),cy+vy-12*Math.sin(a-0.3));
+        x.lineTo(cx+vx-12*Math.cos(a+0.3),cy+vy-12*Math.sin(a+0.3));
+        x.closePath();x.fill();
     }
-    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#b24735';ctx.font='bold 13px monospace';
-    ctx.fillText('F: '+fmag.toFixed(2)+'N  ∠'+(fmag>1e-9?Math.atan2(fy,fx)*180/Math.PI:0).toFixed(0)+'\u00B0',cx,cy+R+20);
+    x.fillStyle='#fff';x.beginPath();x.arc(cx,cy,3,0,Math.PI*2);x.fill();
+    x.fillStyle='#b24735';x.font='bold 13px monospace';
+    x.fillText('F: '+fmag.toFixed(2)+'N  \u2220'+(fmag>1e-9?Math.atan2(fy,fx)*180/Math.PI:0).toFixed(0)+'\u00B0',cx,cy+R+20);
 }
 
 // ============================================================
@@ -534,86 +595,66 @@ function drawShear(shear4,fx,fy,fmag){
 // ============================================================
 function drawHistory(){
     const c=document.getElementById('historyCanvas');
-    const ctx=c.getContext('2d');
+    const x=c.getContext('2d');
     const W=c.width,H=c.height,pad={l:46,r:12,t:18,b:28};
-    ctx.clearRect(0,0,W,H);
-    if(histT.length<2) return;
-    let now=histT[histT.length-1];
-    let tMin=now-8, tMax=now;
-    let gW=W-pad.l-pad.r, gH=H-pad.t-pad.b;
+    x.clearRect(0,0,W,H);
+    if(histT.length<2)return;
+    let now=histT[histT.length-1],tMin=now-8,tMax=now;
+    let gW=W-pad.l-pad.r,gH=H-pad.t-pad.b;
     let yMax=0;
-    for(let i=0;i<histFN.length;i++) yMax=Math.max(yMax,Math.abs(histFN[i]),Math.abs(histFx[i]),Math.abs(histFy[i]));
-    yMax=Math.max(1,yMax*1.15);
-    let yMin=-yMax*0.1;
-    ctx.strokeStyle='rgba(148,163,184,0.15)';ctx.lineWidth=1;
-    for(let y=0;y<=4;y++){let yy=pad.t+y/4*gH;ctx.beginPath();ctx.moveTo(pad.l,yy);ctx.lineTo(W-pad.r,yy);ctx.stroke();}
-    ctx.fillStyle='#94a3b8';ctx.font='10px monospace';ctx.textAlign='right';
-    for(let y=0;y<=4;y++){let v=yMax-y/4*(yMax-yMin);ctx.fillText(v.toFixed(1),pad.l-6,pad.t+y/4*gH+4);}
-    ctx.textAlign='center';ctx.fillText('时间 (s)',W/2,H-4);
+    for(let i=0;i<histFN.length;i++)yMax=Math.max(yMax,Math.abs(histFN[i]),Math.abs(histFx[i]),Math.abs(histFy[i]));
+    yMax=Math.max(1,yMax*1.15);let yMin=-yMax*0.1;
+    x.strokeStyle='rgba(148,163,184,0.15)';x.lineWidth=1;
+    for(let y=0;y<=4;y++){let yy=pad.t+y/4*gH;x.beginPath();x.moveTo(pad.l,yy);x.lineTo(W-pad.r,yy);x.stroke();}
+    x.fillStyle='#94a3b8';x.font='10px monospace';x.textAlign='right';
+    for(let y=0;y<=4;y++){let v=yMax-y/4*(yMax-yMin);x.fillText(v.toFixed(1),pad.l-6,pad.t+y/4*gH+4);}
+    x.textAlign='center';x.fillText('Time (s)',W/2,H-4);
     function plotLine(data,color){
-        ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.beginPath();let started=false;
+        x.strokeStyle=color;x.lineWidth=1.5;x.beginPath();let ok=false;
         for(let i=0;i<data.length;i++){
-            let x=pad.l+(histT[i]-tMin)/(tMax-tMin)*gW;
-            let y=pad.t+(1-(data[i]-yMin)/(yMax-yMin))*gH;
-            if(x<pad.l) continue;
-            if(!started){ctx.moveTo(x,y);started=true;}else ctx.lineTo(x,y);
+            let px=pad.l+(histT[i]-tMin)/(tMax-tMin)*gW;
+            let py=pad.t+(1-(data[i]-yMin)/(yMax-yMin))*gH;
+            if(px<pad.l)continue;
+            if(!ok){x.moveTo(px,py);ok=true;}else x.lineTo(px,py);
         }
-        ctx.stroke();
+        x.stroke();
     }
     plotLine(histFN,'#38bdf8');plotLine(histFx,'#fb923c');plotLine(histFy,'#c084fc');
-    ctx.font='bold 11px sans-serif';
-    ctx.fillStyle='#38bdf8';ctx.fillText('\u25A0 FN_repr',pad.l+40,pad.t+14);
-    ctx.fillStyle='#fb923c';ctx.fillText('\u25A0 Fx',pad.l+105,pad.t+14);
-    ctx.fillStyle='#c084fc';ctx.fillText('\u25A0 Fy',pad.l+150,pad.t+14);
+    x.font='bold 11px sans-serif';
+    x.fillStyle='#38bdf8';x.fillText('\u25A0 FN',pad.l+30,pad.t+14);
+    x.fillStyle='#fb923c';x.fillText('\u25A0 Fx',pad.l+80,pad.t+14);
+    x.fillStyle='#c084fc';x.fillText('\u25A0 Fy',pad.l+125,pad.t+14);
 }
 
 // ============================================================
 // Data Table
 // ============================================================
 function initTable(){
-    let tbody=document.querySelector('#dataTable tbody');
-    tbody.innerHTML='';
-    for(let name of CHANNEL_NAMES){let tr=document.createElement('tr');tr.innerHTML=`<td>${name}</td><td>--</td><td>--</td><td>--</td>`;tbody.appendChild(tr);}
+    let tbody=document.querySelector('#dataTable tbody');tbody.innerHTML='';
+    for(let n of CHANNEL_NAMES){let tr=document.createElement('tr');tr.innerHTML=`<td>${n}</td><td>--</td><td>--</td><td>--</td>`;tbody.appendChild(tr);}
     for(let i=1;i<=9;i++){let tr=document.createElement('tr');tr.innerHTML=`<td>FN_pos${i}</td><td></td><td></td><td>--</td>`;tbody.appendChild(tr);}
-    for(let name of ['Fx','Fy','Fshear_mag','FN_repr','Gamma']){let tr=document.createElement('tr');tr.innerHTML=`<td>${name}</td><td></td><td></td><td>--</td>`;tbody.appendChild(tr);}
+    for(let n of ['Fx','Fy','Fshear_mag','FN_repr','Gamma']){let tr=document.createElement('tr');tr.innerHTML=`<td>${n}</td><td></td><td></td><td>--</td>`;tbody.appendChild(tr);}
 }
-
 function updateTable(raw,filtered,cal){
-    let rows=document.querySelectorAll('#dataTable tbody tr');
-    let idx=0;
-    for(let i=0;i<11;i++){
-        let r=rows[idx++];
-        r.children[1].textContent=raw[i].toFixed(0);
-        r.children[2].textContent=filtered[i].toFixed(1);
-        if(i<5) r.children[3].textContent='\u2192FN pos'+NF_POS[i];
-        else if(i<9) r.children[3].textContent='FS '+SHEAR_DIR[i-5];
-        else if(i===9) r.children[3].textContent=cal.tempADC.toFixed(0)+' ADC';
-        else r.children[3].textContent='standard';
-    }
-    for(let i=0;i<9;i++){let r=rows[idx++];r.children[3].textContent=cal.fn9[i].toFixed(3);}
-    let extras=[cal.fx.toFixed(3),cal.fy.toFixed(3),cal.fmag.toFixed(3),cal.fnRepr.toFixed(3),cal.gamma!==null?cal.gamma.toFixed(3):'--'];
-    for(let v of extras){let r=rows[idx++];r.children[3].textContent=v;}
+    let rows=document.querySelectorAll('#dataTable tbody tr'),idx=0;
+    for(let i=0;i<11;i++){let r=rows[idx++];r.children[1].textContent=raw[i].toFixed(0);r.children[2].textContent=filtered[i].toFixed(1);
+        if(i<5)r.children[3].textContent='\u2192FN pos'+NF_POS[i];else if(i<9)r.children[3].textContent='FS '+SHEAR_DIR[i-5];else if(i===9)r.children[3].textContent=cal.tempADC.toFixed(0)+' ADC';else r.children[3].textContent='standard';}
+    for(let i=0;i<9;i++){rows[idx++].children[3].textContent=cal.fn9[i].toFixed(3);}
+    for(let v of[cal.fx.toFixed(3),cal.fy.toFixed(3),cal.fmag.toFixed(3),cal.fnRepr.toFixed(3),cal.gamma!==null?cal.gamma.toFixed(3):'--']){rows[idx++].children[3].textContent=v;}
 }
 
 // ============================================================
 // Main Loop
 // ============================================================
 function mainLoop(){
-    if(!running) return;
-    let now=performance.now()/1000;
-    let t=now-t0;
-    let raw=generateFakeSample(t);
-    let rawArr=new Float64Array(raw);
-    let filtered=processSample(rawArr);
-    let cal=computeCalibrated(filtered);
-
+    if(!running)return;
+    let now=performance.now()/1000, t=now-t0;
+    let raw=generateFakeSample(t), rawArr=new Float64Array(raw);
+    let filtered=processSample(rawArr), cal=computeCalibrated(filtered);
     histT.push(t);histFN.push(cal.fnRepr);histFx.push(cal.fx);histFy.push(cal.fy);
     if(histT.length>HIST_LEN){histT.shift();histFN.shift();histFx.shift();histFy.shift();}
-
     frameCount++;
     if(t-lastRateCalc>0.5){sampleRate=frameCount/(t-lastRateCalc);frameCount=0;lastRateCalc=t;}
-
-    // Update status
     document.getElementById('stRate').textContent=sampleRate.toFixed(0)+' Hz';
     document.getElementById('stTemp').textContent=cal.tempADC.toFixed(0)+' ADC';
     document.getElementById('stStatus').textContent='运行中 (演示模式)';
@@ -623,49 +664,21 @@ function mainLoop(){
         if(cal.fmag<4){cr.textContent='剪切力偏弱';cr.style.color='var(--orange)';}
         else if(0.25<=cal.gamma&&cal.gamma<=2){cr.textContent='正常';cr.style.color='var(--green)';}
         else{cr.textContent='可能干扰';cr.style.color='var(--red)';}
-    }else{
-        document.getElementById('stGamma').textContent='--';
-        document.getElementById('stCrossRef').textContent='剪切力偏弱';
-        document.getElementById('stCrossRef').style.color='var(--text2)';
-    }
+    }else{document.getElementById('stGamma').textContent='--';document.getElementById('stCrossRef').textContent='剪切力偏弱';document.getElementById('stCrossRef').style.color='var(--text2)';}
     document.getElementById('rawLine').textContent='原始数据: '+raw.map(v=>v.toFixed(0)).join(', ');
-
     let maxN=parseFloat(document.getElementById('normalRange').value);
-    draw3DSurface(cal.fn9,maxN);
-    drawShear(cal.shear4,cal.fx,cal.fy,cal.fmag);
-    drawHeatmap(cal.fn9,maxN);
-    updateForceGrid(cal.fn9,maxN);
-    drawHistory();
-    updateTable(rawArr,filtered,cal);
+    draw3D(cal.fn9,maxN);drawShear(cal.shear4,cal.fx,cal.fy,cal.fmag);
+    drawHeatmap(cal.fn9,maxN);updateForceGrid(cal.fn9,maxN);drawHistory();updateTable(rawArr,filtered,cal);
     document.getElementById('progress-bar').style.width=((t*2)%100)+'%';
     requestAnimationFrame(mainLoop);
 }
 
-// ============================================================
-// Controls
-// ============================================================
-function startDemo(){
-    running=true;t0=performance.now()/1000;frameCount=0;lastRateCalc=0;
-    resetFilter();histT=[];histFN=[];histFx=[];histFy=[];
-    document.getElementById('btnStart').style.display='none';
-    document.getElementById('btnStop').style.display='';
-    requestAnimationFrame(mainLoop);
-}
-function stopDemo(){
-    running=false;
-    document.getElementById('btnStart').style.display='';
-    document.getElementById('btnStop').style.display='none';
-    document.getElementById('stStatus').textContent='已停止';
-}
+function startDemo(){running=true;t0=performance.now()/1000;frameCount=0;lastRateCalc=0;resetFilter();histT=[];histFN=[];histFx=[];histFy=[];document.getElementById('btnStart').style.display='none';document.getElementById('btnStop').style.display='';requestAnimationFrame(mainLoop);}
+function stopDemo(){running=false;document.getElementById('btnStart').style.display='';document.getElementById('btnStop').style.display='none';document.getElementById('stStatus').textContent='已停止';}
 function zeroTare(){normalZero=true;shearZero=true;document.getElementById('stStatus').textContent='Zero applied';}
 function resetZero(){normalZero=false;shearZero=false;normalBaseline.fill(0);shearBaseline.fill(0);document.getElementById('stStatus').textContent='基线已重置';}
-function updateRanges(){}
 
-// ============================================================
-// Init
-// ============================================================
-initForceGrid();
-initTable();
+initForceGrid();initTable();
 setTimeout(startDemo,500);
 </script>
 </body>
