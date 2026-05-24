@@ -3,683 +3,447 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bio-Skin Sensor Real-time Demo</title>
+<title>Bio-Skin Sensor Demo</title>
 <style>
-:root{--bg:#0f172a;--surface:#1e293b;--surface2:#273548;--text:#e2e8f0;--text2:#94a3b8;--accent:#38bdf8;--green:#4ade80;--orange:#fb923c;--red:#f87171;--purple:#c084fc;--radius:12px;--shadow:0 4px 24px rgba(0,0,0,.3)}
+:root{--bg:#0a0a0a;--card:#141414;--border:#222;--text:#e8e8e8;--dim:#666;--accent:#00d4aa;--warm:#ff6b4a;--cool:#4a9eff;--purple:#b07aff;--radius:16px}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px}
-#progress-bar{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--green),var(--accent));z-index:9999;transition:width .3s;border-radius:0 2px 2px 0}
-#top-nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--surface2);padding:10px 24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center}
-#top-nav a{color:var(--text2);text-decoration:none;padding:6px 14px;border-radius:20px;font-size:14px;transition:all .2s;white-space:nowrap}
-#top-nav a:hover,#top-nav a.active{background:var(--surface);color:var(--accent)}
-.hero{text-align:center;padding:60px 24px 40px;background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f172a 100%)}
-.hero h1{font-size:38px;font-weight:800;margin-bottom:12px;background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{color:var(--text2);font-size:17px;max-width:700px;margin:0 auto}
-.badge-row{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600}
-.badge-sensor{background:#166534;color:var(--green)}
-.badge-realtime{background:#1e3a5f;color:var(--accent)}
-.container{max-width:1200px;margin:0 auto;padding:20px}
-.plain-mode{background:linear-gradient(135deg,rgba(192,132,252,.1),rgba(56,189,248,.1));border:1px solid rgba(192,132,252,.3);border-radius:var(--radius);padding:20px;margin:20px 0}
-.plain-mode h4{color:var(--purple);margin-bottom:8px;font-size:15px}
-.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0;padding:14px 18px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--surface2)}
-.controls button{padding:8px 18px;border-radius:8px;border:1px solid var(--surface2);background:var(--surface2);color:var(--text);font-size:13px;cursor:pointer;transition:all .15s;font-weight:600}
-.controls button:hover{border-color:var(--accent);color:var(--accent)}
-.controls label{color:var(--text2);font-size:13px}
-.controls input[type=range]{width:120px;accent-color:var(--accent)}
-.controls select{padding:6px 10px;border-radius:6px;background:var(--surface2);color:var(--text);border:1px solid var(--surface2);font-size:13px}
-.status-bar{display:flex;gap:16px;flex-wrap:wrap;padding:10px 18px;background:var(--surface);border-radius:var(--radius);margin:10px 0;font-size:13px;border:1px solid var(--surface2)}
-.status-bar .stat{display:flex;align-items:center;gap:6px}
-.status-bar .stat .label{color:var(--text2)}
-.status-bar .stat .value{color:var(--accent);font-weight:600;font-family:monospace}
-.dashboard{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
-@media(max-width:900px){.dashboard{grid-template-columns:1fr}}
-.panel{background:var(--surface);border-radius:var(--radius);border:1px solid var(--surface2);overflow:hidden}
-.panel-header{padding:12px 16px;border-bottom:1px solid var(--surface2);display:flex;align-items:center;gap:8px}
-.panel-header h3{font-size:14px;font-weight:600;color:var(--accent)}
-.panel-body{padding:16px;display:flex;justify-content:center;align-items:center}
-canvas{display:block;max-width:100%}
-.force-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:320px}
-.force-cell{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:600;border:2px solid transparent;transition:all .1s}
-.force-cell .pos{font-size:10px;color:var(--text2);opacity:.7}
-.force-cell .val{font-size:16px;font-family:monospace}
-.full-width{grid-column:1/-1}
-.footer{text-align:center;padding:32px 24px;color:var(--text2);font-size:13px;border-top:1px solid var(--surface2)}
-a{color:var(--accent)}
-.raw-line{padding:6px 14px;background:#0d1117;border-radius:6px;font-family:monospace;font-size:12px;color:var(--text2);overflow-x:auto;white-space:nowrap;margin:10px 0}
-table.data-table{width:100%;border-collapse:collapse;font-size:12px;font-family:monospace}
-table.data-table th{text-align:left;padding:6px 10px;color:var(--accent);border-bottom:1px solid var(--surface2);background:var(--surface2);font-weight:600}
-table.data-table td{padding:5px 10px;color:var(--text2);border-bottom:1px solid rgba(39,53,72,.4)}
-.surface-3d-wrap{position:relative;width:100%;max-width:480px;margin:0 auto}
-.surface-3d-wrap .hint{position:absolute;bottom:8px;right:12px;font-size:11px;color:var(--text2);opacity:.6;pointer-events:none}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:14px;-webkit-font-smoothing:antialiased}
+
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 28px;display:flex;align-items:center;gap:16px}
+.top-bar .logo{font-size:15px;font-weight:700;letter-spacing:-0.3px}
+.top-bar .logo span{color:var(--accent)}
+.top-bar nav{display:flex;gap:4px;margin-left:auto}
+.top-bar nav a{color:var(--dim);text-decoration:none;padding:6px 14px;border-radius:8px;font-size:13px;transition:all .2s}
+.top-bar nav a:hover,.top-bar nav a.on{color:var(--text);background:rgba(255,255,255,.06)}
+
+.layout{max-width:1100px;margin:0 auto;padding:24px 20px}
+.intro{text-align:center;padding:40px 20px 32px}
+.intro h1{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:8px}
+.intro h1 span{background:linear-gradient(135deg,var(--accent),var(--cool));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.intro p{color:var(--dim);font-size:15px;max-width:460px;margin:0 auto}
+.intro .plain{margin-top:16px;padding:14px 20px;background:rgba(0,212,170,.06);border:1px solid rgba(0,212,170,.15);border-radius:12px;color:var(--accent);font-size:13px;max-width:480px;margin-left:auto;margin-right:auto;text-align:left;line-height:1.7}
+
+.ctrls{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+.ctrls button{padding:8px 20px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--dim);font-size:13px;cursor:pointer;transition:all .2s;font-weight:500}
+.ctrls button:hover{border-color:var(--accent);color:var(--accent)}
+.ctrls button.go{background:var(--accent);color:#0a0a0a;border-color:var(--accent);font-weight:600}
+.ctrls button.go:hover{opacity:.85}
+
+.stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.stat-chip{display:flex;align-items:center;gap:6px;padding:6px 14px;background:var(--card);border:1px solid var(--border);border-radius:20px;font-size:12px}
+.stat-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.stat-chip .dot.off{background:var(--dim)}
+.stat-chip .lbl{color:var(--dim)}
+.stat-chip .val{color:var(--text);font-weight:600;font-family:"SF Mono",Menlo,monospace}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .2s}
+.card:hover{border-color:#333}
+.card-head{padding:14px 18px 10px;display:flex;align-items:center;gap:8px}
+.card-head .icon{font-size:14px;opacity:.6}
+.card-head h3{font-size:13px;font-weight:600;color:var(--dim);letter-spacing:0.3px}
+.card-body{padding:0 18px 18px}
+.span-full{grid-column:1/-1}
+
+canvas{display:block;width:100%}
+
+/* Force dots - the key minimalist element */
+.force-dots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:260px;margin:0 auto}
+.force-dot{aspect-ratio:1;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .15s;position:relative}
+.force-dot .num{font-size:10px;color:var(--dim);font-weight:500;position:absolute;top:6px}
+.force-dot .v{font-size:18px;font-weight:700;font-family:"SF Mono",Menlo,monospace}
+.force-dot .n{font-size:9px;color:rgba(255,255,255,.5);position:absolute;bottom:6px}
+
+/* 3D surface container */
+.surface-3d{position:relative}
+.surface-3d .hint{position:absolute;bottom:10px;right:14px;font-size:10px;color:var(--dim);opacity:.5}
+
+/* Data table */
+.mini-table{width:100%;border-collapse:collapse;font-size:12px;font-family:"SF Mono",Menlo,monospace}
+.mini-table th{text-align:left;padding:8px 10px;color:var(--dim);font-weight:500;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+.mini-table td{padding:6px 10px;color:var(--dim);border-bottom:1px solid rgba(34,34,34,.5)}
+.mini-table td:nth-child(2),.mini-table td:nth-child(3),.mini-table td:nth-child(4){text-align:right;font-variant-numeric:tabular-nums}
+.mini-table tr:hover td{color:var(--text)}
+.mini-table .highlight td{color:var(--accent);font-weight:600}
+
+.raw{margin-top:8px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-family:"SF Mono",monospace;font-size:11px;color:var(--dim);overflow-x:auto;white-space:nowrap}
+
+.footer{text-align:center;padding:32px;color:var(--dim);font-size:12px;border-top:1px solid var(--border);margin-top:32px}
+.footer a{color:var(--accent);text-decoration:none}
 </style>
 </head>
 <body>
-<div id="progress-bar" style="width:0"></div>
-<nav id="top-nav">
-    <a href="index.html">首页</a>
-    <a href="bioskin_demo.html" class="active">Bio-Skin Demo</a>
-    <a href="chip_verification_guide.html">芯片验证</a>
-    <a href="codex_mimo_proxy.html">Codex × MIMO</a>
-</nav>
 
-<div class="hero">
-    <h1>🧤 Bio-Skin 实时传感器演示</h1>
-    <p>3×3 法向力表面图 + 2D 剪切力矢量 + 实时波形 — 基于 ESP32-S3 的仿生触觉传感器</p>
-    <div class="badge-row">
-        <span class="badge badge-sensor">📡 11-CH ADC</span>
-        <span class="badge badge-realtime">⚡ 100 Hz</span>
-    </div>
+<div class="top-bar">
+    <div class="logo">bio<span>skin</span></div>
+    <nav>
+        <a href="index.html">首页</a>
+        <a href="bioskin_demo.html" class="on">Demo</a>
+        <a href="chip_verification_guide.html">芯片验证</a>
+        <a href="codex_mimo_proxy.html">Codex×MIMO</a>
+    </nav>
 </div>
 
-<div class="container">
-    <div class="plain-mode">
-        <h4>💡 通俗模式</h4>
-        <p>想象你的手指按在一块柔软的橡皮上。这块"橡皮"里藏着 5 个微小的传感器，能感受到你<strong>按了多大力</strong>（法向力）、<strong>往哪个方向推</strong>（剪切力），还能<strong>感知温度</strong>。下面的 3D 演示就像一个"虚拟手指"在按压传感器表面，拖动可以旋转视角。</p>
+<div class="layout">
+    <div class="intro">
+        <h1><span>Bio-Skin</span> 实时传感器</h1>
+        <p>3×3 法向力 + 2D 剪切力 + 温度 — ESP32-S3 仿生触觉</p>
+        <div class="plain">
+            💡 通俗模式：把传感器想象成一块智能橡皮泥，能感受"按了多大力"、"往哪边推"、"多少度"。下面的圆点越大越亮，代表力越大。拖动 3D 图可以旋转。
+        </div>
     </div>
 
-    <div class="controls">
-        <button id="btnStart" onclick="startDemo()">▶ 开始演示</button>
+    <div class="ctrls">
+        <button class="go" id="btnStart" onclick="startDemo()">▶ 开始</button>
         <button id="btnStop" onclick="stopDemo()" style="display:none">⏹ 停止</button>
-        <button onclick="zeroTare()">⚖ Zero/Tare</button>
-        <button onclick="resetZero()">↺ 重置基线</button>
-        <label>法向量程: <select id="normalRange"><option value="3">3 N</option><option value="6" selected>6 N</option><option value="10">10 N</option></select></label>
-        <label>剪切量程: <select id="shearRange"><option value="5">5 N</option><option value="10" selected>10 N</option><option value="15">15 N</option></select></label>
-        <label>灵敏度: <input type="range" id="sensitivity" min="0.5" max="3" step="0.1" value="1.5"></label>
+        <button onclick="zeroTare()">归零</button>
+        <button onclick="resetZero()">重置</button>
     </div>
 
-    <div class="status-bar">
-        <div class="stat"><span class="label">状态:</span><span class="value" id="stStatus">待机</span></div>
-        <div class="stat"><span class="label">采样率:</span><span class="value" id="stRate">-- Hz</span></div>
-        <div class="stat"><span class="label">滤波:</span><span class="value">MA15 + EMA</span></div>
-        <div class="stat"><span class="label">温度:</span><span class="value" id="stTemp">--</span></div>
-        <div class="stat"><span class="label">γ=FN/FS:</span><span class="value" id="stGamma">--</span></div>
-        <div class="stat"><span class="label">交叉验证:</span><span class="value" id="stCrossRef">--</span></div>
+    <div class="stats">
+        <div class="stat-chip"><div class="dot" id="dotRun"></div><span class="val" id="stStatus">待机</span></div>
+        <div class="stat-chip"><span class="lbl">采样</span><span class="val" id="stRate">--</span></div>
+        <div class="stat-chip"><span class="lbl">滤波</span><span class="val">MA+EMA</span></div>
+        <div class="stat-chip"><span class="lbl">温度</span><span class="val" id="stTemp">--</span></div>
+        <div class="stat-chip"><span class="lbl">γ</span><span class="val" id="stGamma">--</span></div>
     </div>
 
-    <div class="raw-line" id="rawLine">原始数据: 等待中...</div>
-
-    <div class="dashboard">
-        <!-- 3D Finger Press Visualization -->
-        <div class="panel">
-            <div class="panel-header"><h3>👆 手指按压 3D 变形</h3></div>
-            <div class="panel-body">
-                <div class="surface-3d-wrap">
-                    <canvas id="surface3D" width="480" height="380"></canvas>
-                    <span class="hint">🖱 拖动旋转</span>
-                </div>
+    <div class="grid">
+        <!-- 3D Surface -->
+        <div class="card">
+            <div class="card-head"><span class="icon">◆</span><h3>法向力 3D 表面</h3></div>
+            <div class="card-body surface-3d">
+                <canvas id="c3d" width="440" height="320"></canvas>
+                <span class="hint">拖动旋转 · 滚轮缩放</span>
             </div>
         </div>
 
-        <!-- 2D Shear Force Vector -->
-        <div class="panel">
-            <div class="panel-header"><h3>🧭 2D 剪切力矢量</h3></div>
-            <div class="panel-body">
-                <canvas id="shearCanvas" width="360" height="360"></canvas>
+        <!-- Shear Vector -->
+        <div class="card">
+            <div class="card-head"><span class="icon">◆</span><h3>剪切力矢量</h3></div>
+            <div class="card-body">
+                <canvas id="cShear" width="440" height="320"></canvas>
             </div>
         </div>
 
-        <!-- Heatmap + Force Grid -->
-        <div class="panel">
-            <div class="panel-header"><h3>🗺️ 力分布热力图</h3></div>
-            <div class="panel-body" style="flex-direction:column;gap:12px">
-                <div class="force-grid" id="forceGrid"></div>
-                <canvas id="heatmapCanvas" width="320" height="240"></canvas>
+        <!-- Force Dots -->
+        <div class="card">
+            <div class="card-head"><span class="icon">◆</span><h3>法向力分布</h3></div>
+            <div class="card-body">
+                <div class="force-dots" id="dots"></div>
             </div>
         </div>
 
-        <!-- Time History -->
-        <div class="panel">
-            <div class="panel-header"><h3>📈 实时力波形</h3></div>
-            <div class="panel-body">
-                <canvas id="historyCanvas" width="420" height="260"></canvas>
+        <!-- History -->
+        <div class="card">
+            <div class="card-head"><span class="icon">◆</span><h3>力波形</h3></div>
+            <div class="card-body">
+                <canvas id="cHist" width="440" height="240"></canvas>
             </div>
         </div>
 
         <!-- Data Table -->
-        <div class="panel full-width">
-            <div class="panel-header"><h3>📋 通道数据</h3></div>
-            <div class="panel-body" style="overflow-x:auto;display:block">
-                <table class="data-table" id="dataTable"><thead><tr><th>通道</th><th>原始 ADC</th><th>滤波值</th><th>校准值</th></tr></thead><tbody></tbody></table>
+        <div class="card span-full">
+            <div class="card-head"><span class="icon">◆</span><h3>通道数据</h3></div>
+            <div class="card-body" style="overflow-x:auto">
+                <table class="mini-table" id="tbl">
+                    <thead><tr><th>通道</th><th>原始</th><th>滤波</th><th>校准</th></tr></thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </div>
+
+    <div class="raw" id="rawLine">等待数据...</div>
 </div>
 
-<div class="footer"><p>Built with ☕ | <a href="https://github.com/Elevenvenven">GitHub</a></p></div>
+<div class="footer">Built with ☕ · <a href="https://github.com/Elevenvenven">GitHub</a></div>
 
 <script>
-// ============================================================
-// Constants
-// ============================================================
-const MA_WINDOW=15, EMA_ALPHA=0.25;
-const NORMAL_ADC_ZERO=680, NORMAL_ADC_DELTA=60, NORMAL_F_MAX=6.0;
-const SHEAR_F_MAX=10.0;
-const HIST_LEN=400;
-const NF_POS={0:1,1:3,2:5,3:7,4:9};
-const POS_XY={1:[0,2],2:[1,2],3:[2,2],4:[0,1],5:[1,1],6:[2,1],7:[0,0],8:[1,0],9:[2,0]};
-const CHANNEL_NAMES=["NF1","NF2","NF3","NF4","NF5","SF1(x+)","SF2(x-)","SF3(y+)","SF4(y-)","Temp_ADC","Standard"];
-const SHEAR_DIR=["x+","x-","y+","y-"];
-const sensorXY=[[0,2],[2,2],[1,1],[0,0],[2,0]];
+// ── Constants ──
+const MA_W=15, EMA_A=0.25;
+const N_ZERO=680, N_DELTA=60, N_MAX=6, S_MAX=10;
+const HIST=400;
+const NF={0:1,1:3,2:5,3:7,4:9};
+const PX={1:[0,2],2:[1,2],3:[2,2],4:[0,1],5:[1,1],6:[2,1],7:[0,0],8:[1,0],9:[2,0]};
+const CH=["NF1","NF2","NF3","NF4","NF5","SF1·x+","SF2·x-","SF3·y+","SF4·y-","Temp","Std"];
+const SDIR=["x+","x-","y+","y-"];
+const SXY=[[0,2],[2,2],[1,1],[0,0],[2,0]];
 
-// ============================================================
-// State
-// ============================================================
-let running=false, t0=0, frameCount=0, lastRateCalc=0, sampleRate=0;
-let normalZero=false, shearZero=false;
-let normalBaseline=new Float64Array(5), shearBaseline=new Float64Array(4);
-let maBuf=[], lastEMA=null;
-function resetFilter(){maBuf=[];lastEMA=null;}
-let histT=[],histFN=[],histFx=[],histFy=[];
+// ── State ──
+let on=false, t0=0, fc=0, lr=0, rate=0;
+let nz=false, sz=false, nb=new Float64Array(5), sb=new Float64Array(4);
+let ma=[], ema=null;
+let hT=[],hFN=[],hFx=[],hFy=[];
+function rstF(){ma=[];ema=null;}
 
-// 3D camera
-let camRotX=-0.50, camRotZ=-0.80, camDist=3.8;
-let dragging=false, dragX=0, dragY=0;
+// Camera
+let rx=-0.52, rz=-0.82, cd=3.6;
+let dg=false,dx=0,dy=0;
 
-// ============================================================
-// Fake Data Generator
-// ============================================================
-let rng_nextChange=0, rng_center=[1,1], rng_strength=3, rng_sigma=0.6, rng_offsets=[0,0,0,0,0];
-function randn(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
-function rand(a,b){return a+Math.random()*(b-a);}
+// ── RNG ──
+let rnc=[1,1],rns=3,rnsg=0.6,rno=[0,0,0,0,0],rnn=0;
+function rn(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function ra(a,b){return a+Math.random()*(b-a);}
 
-function generateFakeSample(t){
-    if(t>=rng_nextChange){
-        rng_center=[rand(-0.15,2.15),rand(-0.15,2.15)];
-        rng_strength=rand(1.4,5.8)*parseFloat(document.getElementById('sensitivity').value);
-        rng_sigma=rand(0.38,0.90);
-        rng_offsets=Array.from({length:5},()=>randn()*0.9);
-        rng_nextChange=t+rand(0.28,0.95);
+function gen(t){
+    if(t>=rnn){
+        rnc=[ra(-.15,2.15),ra(-.15,2.15)];rns=ra(1.4,5.8)*parseFloat(document.getElementById('sensitivity').value);
+        rnsg=ra(.38,.9);rno=Array.from({length:5},()=>rn()*.9);rnn=t+ra(.28,.95);
     }
-    let cx=rng_center[0]+randn()*0.035, cy=rng_center[1]+randn()*0.035;
-    let normal=new Float64Array(5);
+    let cx=rnc[0]+rn()*.035,cy=rnc[1]+rn()*.035,n=new Float64Array(5);
     for(let i=0;i<5;i++){
-        let dx=sensorXY[i][0]-cx, dy=sensorXY[i][1]-cy;
-        let shape=Math.exp(-(dx*dx+dy*dy)/(2*rng_sigma*rng_sigma));
-        if(Math.random()<0.38){
-            let cx2=rand(-0.2,2.2),cy2=rand(-0.2,2.2),s2=rand(0.28,0.65),str2=rand(0.3,1.8);
-            shape+=str2*Math.exp(-((sensorXY[i][0]-cx2)**2+(sensorXY[i][1]-cy2)**2)/(2*s2*s2));
-        }
-        let force_n=Math.max(0,Math.min(6,rng_strength*shape*(1+randn()*0.16)+rng_offsets[i]*0.12));
-        normal[i]=FAKE_NORMAL_BASE+(force_n/NORMAL_F_MAX)*NORMAL_ADC_DELTA+randn()*FAKE_NORMAL_NOISE*1.25;
-        normal[i]=Math.round(Math.max(660,Math.min(735,normal[i])));
+        let dx=SXY[i][0]-cx,dy=SXY[i][1]-cy,sh=Math.exp(-(dx*dx+dy*dy)/(2*rnsg*rnsg));
+        if(Math.random()<.38){let x2=ra(-.2,2.2),y2=ra(-.2,2.2),s2=ra(.28,.65),st=ra(.3,1.8);sh+=st*Math.exp(-((SXY[i][0]-x2)**2+(SXY[i][1]-y2)**2)/(2*s2*s2));}
+        let fn=Math.max(0,Math.min(6,rns*sh*(1+rn()*.16)+rno[i]*.12));
+        n[i]=680+(fn/N_MAX)*N_DELTA+rn()*2.2*1.25;
+        n[i]=Math.round(Math.max(660,Math.min(735,n[i])));
     }
-    let px=0.5+0.5*Math.sin(2*Math.PI*0.11*t),py=0.5+0.5*Math.cos(2*Math.PI*0.09*t+0.5);
-    let shear=[
-        Math.max(0,Math.min(9,2+Math.round(5*px)+Math.floor(rand(-1,2)))),
-        Math.max(0,Math.min(9,2+Math.round(4*(1-px))+Math.floor(rand(-1,2)))),
-        Math.max(0,Math.min(9,2+Math.round(5*py)+Math.floor(rand(-1,2)))),
-        Math.max(0,Math.min(9,2+Math.round(4*(1-py))+Math.floor(rand(-1,2))))
-    ];
-    let temp=Math.max(0,Math.min(9,5+Math.round(3*Math.sin(2*Math.PI*0.025*t+1.2))+Math.floor(rand(-1,2))));
-    let std=FAKE_STD_BASE+Math.round(2*Math.sin(2*Math.PI*0.07*t))+Math.floor(rand(-1,2));
-    return [...normal,...shear,temp,std];
-}
-const FAKE_NORMAL_BASE=680, FAKE_NORMAL_NOISE=2.2, FAKE_STD_BASE=202;
-
-// ============================================================
-// Signal Processing
-// ============================================================
-function processSample(raw){
-    maBuf.push(raw); if(maBuf.length>MA_WINDOW) maBuf.shift();
-    let ma=new Float64Array(11);
-    for(let s of maBuf) for(let i=0;i<11;i++) ma[i]+=s[i];
-    for(let i=0;i<11;i++) ma[i]/=maBuf.length;
-    if(!lastEMA) lastEMA=new Float64Array(ma);
-    else for(let i=0;i<11;i++) lastEMA[i]=EMA_ALPHA*ma[i]+(1-EMA_ALPHA)*lastEMA[i];
-    return new Float64Array(lastEMA);
+    let px=.5+.5*Math.sin(2*Math.PI*.11*t),py=.5+.5*Math.cos(2*Math.PI*.09*t+.5);
+    let s=[Math.max(0,Math.min(9,2+Math.round(5*px)+Math.floor(ra(-1,2)))),Math.max(0,Math.min(9,2+Math.round(4*(1-px))+Math.floor(ra(-1,2)))),Math.max(0,Math.min(9,2+Math.round(5*py)+Math.floor(ra(-1,2)))),Math.max(0,Math.min(9,2+Math.round(4*(1-py))+Math.floor(ra(-1,2))))];
+    let tp=Math.max(0,Math.min(9,5+Math.round(3*Math.sin(2*Math.PI*.025*t+1.2))+Math.floor(ra(-1,2))));
+    return[...n,...s,tp,202+Math.round(2*Math.sin(2*Math.PI*.07*t))+Math.floor(ra(-1,2))];
 }
 
-function computeCalibrated(filtered){
-    let ni=filtered.slice(0,5), si=filtered.slice(5,9);
-    if(normalZero) for(let i=0;i<5;i++) ni[i]-=normalBaseline[i];
-    else for(let i=0;i<5;i++) ni[i]-=NORMAL_ADC_ZERO;
-    if(shearZero) for(let i=0;i<4;i++) si[i]-=shearBaseline[i];
-    let fn9=new Float64Array(9);
-    for(let i=0;i<5;i++){let p=NF_POS[i];fn9[p-1]=Math.max(0,Math.min(NORMAL_F_MAX,Math.abs(ni[i])/NORMAL_ADC_DELTA*NORMAL_F_MAX));}
-    fn9[1]=(fn9[0]+fn9[2]+fn9[4])/3; fn9[3]=(fn9[0]+fn9[4]+fn9[6])/3;
-    fn9[5]=(fn9[2]+fn9[4]+fn9[8])/3; fn9[7]=(fn9[4]+fn9[6]+fn9[8])/3;
-    let s4=new Float64Array(4);
-    for(let i=0;i<4;i++) s4[i]=Math.max(0,Math.min(SHEAR_F_MAX,si[i]));
-    let fx=s4[0]-s4[1],fy=s4[2]-s4[3],fmag=Math.hypot(fx,fy);
-    let fnRepr=Math.max(...fn9), gamma=fmag>1e-9?fnRepr/fmag:null;
-    return {fn9,shear4:s4,fx,fy,fmag,fnRepr,gamma,tempADC:filtered[9]};
+// ── Filter ──
+function filt(r){
+    ma.push(r);if(ma.length>MA_W)ma.shift();
+    let m=new Float64Array(11);
+    for(let s of ma)for(let i=0;i<11;i++)m[i]+=s[i];
+    for(let i=0;i<11;i++)m[i]/=ma.length;
+    if(!ema)ema=new Float64Array(m);else for(let i=0;i<11;i++)ema[i]=EMA_A*m[i]+(1-EMA_A)*ema[i];
+    return new Float64Array(ema);
 }
 
-// ============================================================
-// 3D Finger-Press Renderer
-// ============================================================
-const c3d = document.getElementById('surface3D');
-const ctx = c3d.getContext('2d');
-
-// IDW on grid
-function idwGrid(fn9, gridN){
-    let grid=[];
-    for(let gy=0;gy<=gridN;gy++){
-        grid[gy]=[];
-        for(let gx=0;gx<=gridN;gx++){
-            let px=gx/gridN*2, py=(1-gy/gridN)*2;
-            let wsum=0, val=0;
-            for(let i=0;i<9;i++){
-                let sx=POS_XY[i+1][0], sy=POS_XY[i+1][1];
-                let d2=(px-sx)**2+(py-sy)**2;
-                let w=1/(Math.pow(d2+0.035,1.65)+1e-9);
-                val+=w*fn9[i]; wsum+=w;
-            }
-            grid[gy][gx]=val/wsum;
-        }
-    }
-    return grid;
+function cal(f){
+    let ni=f.slice(0,5),si=f.slice(5,9);
+    if(nz)for(let i=0;i<5;i++)ni[i]-=nb[i];else for(let i=0;i<5;i++)ni[i]-=N_ZERO;
+    if(sz)for(let i=0;i<4;i++)si[i]-=sb[i];
+    let fn=new Float64Array(9);
+    for(let i=0;i<5;i++){let p=NF[i];fn[p-1]=Math.max(0,Math.min(N_MAX,Math.abs(ni[i])/N_DELTA*N_MAX));}
+    fn[1]=(fn[0]+fn[2]+fn[4])/3;fn[3]=(fn[0]+fn[4]+fn[6])/3;fn[5]=(fn[2]+fn[4]+fn[8])/3;fn[7]=(fn[4]+fn[6]+fn[8])/3;
+    let s4=new Float64Array(4);for(let i=0;i<4;i++)s4[i]=Math.max(0,Math.min(S_MAX,si[i]));
+    let fx=s4[0]-s4[1],fy=s4[2]-s4[3],fm=Math.hypot(fx,fy);
+    let fr=Math.max(...fn),g=fm>1e-9?fr/fm:null;
+    return{fn,s4,fx,fy,fm,fr,g,ta:f[9]};
 }
 
-// 3D projection with perspective
-function proj(x,y,z){
-    // Rotate Z (horizontal orbit)
-    let x1=x*Math.cos(camRotZ)-y*Math.sin(camRotZ);
-    let y1=x*Math.sin(camRotZ)+y*Math.cos(camRotZ);
-    // Rotate X (tilt)
-    let y2=y1*Math.cos(camRotX)-z*Math.sin(camRotX);
-    let z2=y1*Math.sin(camRotX)+z*Math.cos(camRotX);
-    // Perspective
-    let f=camDist/(camDist+z2*0.4);
-    return[240+x1*f*85, 200-y2*f*85, z2];
-}
-
-// Color: blue→cyan→green→yellow→red
-function valColor(v,maxV){
-    let t=Math.max(0,Math.min(1,v/maxV));
-    let r,g,b;
-    if(t<0.2){let u=t/0.2;r=0;g=Math.round(100*u);b=Math.round(150+105*u);}
-    else if(t<0.4){let u=(t-0.2)/0.2;r=0;g=Math.round(100+155*u);b=Math.round(255*(1-u));}
-    else if(t<0.6){let u=(t-0.4)/0.2;r=Math.round(255*u);g=255;b=0;}
-    else if(t<0.8){let u=(t-0.6)/0.2;r=255;g=Math.round(255*(1-u*0.5));b=0;}
-    else{let u=(t-0.8)/0.2;r=255;g=Math.round(128*(1-u));b=0;}
+// ── Color ──
+function vc(v,mx){
+    let t=Math.max(0,Math.min(1,v/mx)),r,g,b;
+    if(t<.3){let u=t/.3;r=0;g=Math.round(180*u);b=Math.round(100+155*u);}
+    else if(t<.6){let u=(t-.3)/.3;r=Math.round(255*u);g=Math.round(180+75*u);b=Math.round(255*(1-u));}
+    else{let u=(t-.6)/.4;r=255;g=Math.round(255*(1-u*.7));b=0;}
     return[r,g,b];
 }
 
-function draw3D(fn9, maxVal){
-    const W=c3d.width, H=c3d.height;
-    ctx.clearRect(0,0,W,H);
-
-    let gridN=28;
-    let grid=idwGrid(fn9, gridN);
-    let deformScale=0.55; // how much the finger press deforms the surface
-
-    // Collect quads for depth sort
-    let quads=[];
-    for(let gy=0;gy<gridN;gy++){
-        for(let gx=0;gx<gridN;gx++){
-            let u0=gx/gridN*2-1, v0=(1-gy/gridN)*2-1;
-            let u1=(gx+1)/gridN*2-1, v1=(1-(gy+1)/gridN)*2-1;
-
-            // The surface deforms: flat base + force-driven indentation/bulge
-            // The finger pushes DOWN into the surface, creating a depression
-            let f00=grid[gy][gx], f10=grid[gy][gx+1], f01=grid[gy+1][gx], f11=grid[gy+1][gx+1];
-            let z00=-f00*deformScale/maxVal;
-            let z10=-f10*deformScale/maxVal;
-            let z01=-f01*deformScale/maxVal;
-            let z11=-f11*deformScale/maxVal;
-
-            let p00=proj(u0,v0,z00), p10=proj(u1,v0,z10);
-            let p01=proj(u0,v1,z01), p11=proj(u1,v1,z11);
-            let avgZ=(p00[2]+p10[2]+p01[2]+p11[2])/4;
-            let avgF=(f00+f10+f01+f11)/4;
-
-            // Surface normal for lighting
-            let du=2/gridN, dv=2/gridN;
-            let nx=(z10-z00)*(z11-z01)-(z01-z00)*(z11-z10);
-            let ny=(z01-z00)*(z11-z10)-(z10-z00)*(z01-z00);
-            let nz=du*dv;
-            let nl=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;
-            // Light from upper-right-front
-            let light=Math.max(0.25, 0.4+0.6*(nx*0.3+ny*0.4+nz*0.85)/nl);
-
-            // Edge rim: detect if on the edge of the pad
-            let onEdge=(gx===0||gx===gridN-1||gy===0||gy===gridN-1);
-
-            quads.push({p00,p10,p01,p11,avgZ,avgF,light,onEdge});
-        }
-    }
-
-    // Sort back-to-front
-    quads.sort((a,b)=>b.avgZ-a.avgZ);
-
-    // Draw
-    for(let q of quads){
-        let col=valColor(q.avgF, maxVal);
-        let r=Math.round(col[0]*q.light), g=Math.round(col[1]*q.light), b=Math.round(col[2]*q.light);
-        ctx.fillStyle=`rgb(${r},${g},${b})`;
-        ctx.strokeStyle=`rgba(${Math.round(r*0.6)},${Math.round(g*0.6)},${Math.round(b*0.6)},0.4)`;
-        ctx.lineWidth=0.3;
-        ctx.beginPath();
-        ctx.moveTo(q.p00[0],q.p00[1]);
-        ctx.lineTo(q.p10[0],q.p10[1]);
-        ctx.lineTo(q.p11[0],q.p11[1]);
-        ctx.lineTo(q.p01[0],q.p01[1]);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-        // Draw thicker rim for edge faces to show pad boundary
-        if(q.onEdge){
-            ctx.strokeStyle='rgba(56,189,248,0.5)';
-            ctx.lineWidth=1.2;
-            ctx.beginPath();
-            ctx.moveTo(q.p00[0],q.p00[1]);
-            ctx.lineTo(q.p10[0],q.p10[1]);
-            ctx.lineTo(q.p11[0],q.p11[1]);
-            ctx.lineTo(q.p01[0],q.p01[1]);
-            ctx.closePath();
-            ctx.stroke();
-        }
-    }
-
-    // Draw sensor position markers on the depressed surface
-    ctx.font='bold 11px monospace'; ctx.textAlign='center';
-    for(let i=0;i<9;i++){
-        let ux=POS_XY[i+1][0]-1, vy=1-POS_XY[i+1][1];
-        let z=-fn9[i]*deformScale/maxVal;
-        let p=proj(ux,vy,z);
-        // Sensor dot
-        ctx.fillStyle='rgba(255,255,255,0.85)';
-        ctx.beginPath(); ctx.arc(p[0],p[1],3,0,Math.PI*2); ctx.fill();
-        // Label with shadow
-        ctx.shadowColor='rgba(0,0,0,0.7)'; ctx.shadowBlur=3;
-        ctx.fillStyle='#fff';
-        ctx.fillText(fn9[i].toFixed(1), p[0], p[1]-8);
-        ctx.shadowBlur=0;
-    }
-
-    // Draw a translucent "finger" shape above the contact area
-    // Find the center of force
-    let totalF=0, sumX=0, sumY=0;
-    for(let i=0;i<9;i++){
-        totalF+=fn9[i]; sumX+=POS_XY[i+1][0]*fn9[i]; sumY+=POS_XY[i+1][1]*fn9[i];
-    }
-    if(totalF>0.1){
-        let fcx=sumX/totalF-1, fcy=1-sumY/totalF;
-        let fRadius=0.45;
-        let fingerZ=0.15; // float above the surface
-
-        // Draw finger outline (elliptical shadow)
-        let fingerProj=[];
-        let steps=24;
-        for(let s=0;s<=steps;s++){
-            let angle=s/steps*Math.PI*2;
-            let fx2=fcx+fRadius*Math.cos(angle)*0.8;
-            let fy2=fcy+fRadius*Math.sin(angle)*1.2;
-            fingerProj.push(proj(fx2,fy2,fingerZ));
-        }
-        // Shadow on surface
-        ctx.fillStyle='rgba(0,0,0,0.15)';
-        ctx.beginPath();
-        let shadowSteps=24;
-        for(let s=0;s<=shadowSteps;s++){
-            let angle=s/shadowSteps*Math.PI*2;
-            let sx=fcx+fRadius*Math.cos(angle)*0.8;
-            let sy=fcy+fRadius*Math.sin(angle)*1.2;
-            let sp=proj(sx,sy,-0.01);
-            if(s===0) ctx.moveTo(sp[0],sp[1]); else ctx.lineTo(sp[0],sp[1]);
-        }
-        ctx.closePath(); ctx.fill();
-
-        // Finger body (translucent cylinder-ish shape)
-        let topProj=[], botProj=[];
-        for(let s=0;s<=steps;s++){
-            let angle=s/steps*Math.PI*2;
-            let fx2=fcx+fRadius*Math.cos(angle)*0.8;
-            let fy2=fcy+fRadius*Math.sin(angle)*1.2;
-            topProj.push(proj(fx2,fy2,fingerZ+0.35));
-            botProj.push(proj(fx2,fy2,fingerZ));
-        }
-        // Side faces (semi-transparent)
-        ctx.fillStyle='rgba(255,220,180,0.25)';
-        ctx.strokeStyle='rgba(255,220,180,0.4)';
-        ctx.lineWidth=0.8;
-        for(let s=0;s<steps;s++){
-            ctx.beginPath();
-            ctx.moveTo(topProj[s][0],topProj[s][1]);
-            ctx.lineTo(topProj[s+1][0],topProj[s+1][1]);
-            ctx.lineTo(botProj[s+1][0],botProj[s+1][1]);
-            ctx.lineTo(botProj[s][0],botProj[s][1]);
-            ctx.closePath();
-            ctx.fill(); ctx.stroke();
-        }
-        // Top cap
-        ctx.fillStyle='rgba(255,210,160,0.35)';
-        ctx.beginPath();
-        for(let s=0;s<=steps;s++){
-            if(s===0) ctx.moveTo(topProj[s][0],topProj[s][1]);
-            else ctx.lineTo(topProj[s][0],topProj[s][1]);
-        }
-        ctx.closePath(); ctx.fill();
-        // Bottom ring (contact area)
-        ctx.strokeStyle='rgba(255,180,120,0.6)';
-        ctx.lineWidth=1.5;
-        ctx.beginPath();
-        for(let s=0;s<=steps;s++){
-            if(s===0) ctx.moveTo(botProj[s][0],botProj[s][1]);
-            else ctx.lineTo(botProj[s][0],botProj[s][1]);
-        }
-        ctx.closePath(); ctx.stroke();
-    }
-
-    // Legend / scale bar
-    let barX=400, barY=60, barH=200;
-    let grad=ctx.createLinearGradient(barX,barY,barX,barY+barH);
-    for(let i=0;i<=10;i++){
-        let t=i/10;
-        let col=valColor(t*maxVal, maxVal);
-        grad.addColorStop(t,`rgb(${col[0]},${col[1]},${col[2]})`);
-    }
-    ctx.fillStyle=grad;
-    ctx.fillRect(barX,barY,14,barH);
-    ctx.fillStyle='#94a3b8'; ctx.font='10px monospace'; ctx.textAlign='left';
-    ctx.fillText(maxVal.toFixed(0)+' N',barX+18,barY+8);
-    ctx.fillText('0 N',barX+18,barY+barH);
-
-    // Title
-    ctx.fillStyle='#94a3b8'; ctx.font='11px sans-serif'; ctx.textAlign='center';
-    ctx.fillText('3×3 法向力表面 (手指按压视图)',240,20);
+// ── IDW grid ──
+function idw(fn,n){
+    let g=[];
+    for(let y=0;y<=n;y++){g[y]=[];for(let x=0;x<=n;x++){
+        let px=x/n*2,py=(1-y/n)*2,ws=0,v=0;
+        for(let i=0;i<9;i++){let sx=PX[i+1][0],sy=PX[i+1][1],d=(px-sx)**2+(py-sy)**2,w=1/(Math.pow(d+.035,1.65)+1e-9);v+=w*fn[i];ws+=w;}
+        g[y][x]=v/ws;
+    }}
+    return g;
 }
 
-// 3D mouse/touch interaction
-c3d.addEventListener('mousedown',e=>{dragging=true;dragX=e.clientX;dragY=e.clientY;});
-c3d.addEventListener('mousemove',e=>{
-    if(!dragging) return;
-    camRotZ+=(e.clientX-dragX)*0.008;
-    camRotX+=(e.clientY-dragY)*0.008;
-    camRotX=Math.max(-1.3,Math.min(0.05,camRotX));
-    dragX=e.clientX; dragY=e.clientY;
-});
-c3d.addEventListener('mouseup',()=>dragging=false);
-c3d.addEventListener('mouseleave',()=>dragging=false);
-c3d.addEventListener('wheel',e=>{
-    e.preventDefault();
-    camDist=Math.max(2.5,Math.min(8,camDist+e.deltaY*0.005));
-},{passive:false});
-c3d.addEventListener('touchstart',e=>{e.preventDefault();dragging=true;dragX=e.touches[0].clientX;dragY=e.touches[0].clientY;},{passive:false});
-c3d.addEventListener('touchmove',e=>{
-    if(!dragging)return;e.preventDefault();
-    camRotZ+=(e.touches[0].clientX-dragX)*0.008;
-    camRotX+=(e.touches[0].clientY-dragY)*0.008;
-    camRotX=Math.max(-1.3,Math.min(0.05,camRotX));
-    dragX=e.touches[0].clientX;dragY=e.touches[0].clientY;
-},{passive:false});
-c3d.addEventListener('touchend',()=>dragging=false);
+// ── 3D Projection ──
+function P(x,y,z){
+    let x1=x*Math.cos(rz)-y*Math.sin(rz),y1=x*Math.sin(rz)+y*Math.cos(rz);
+    let y2=y1*Math.cos(rx)-z*Math.sin(rx),z2=y1*Math.sin(rx)+z*Math.cos(rx);
+    let s=cd/(cd+z2*.4);
+    return[220+x1*s*80,170-y2*s*80,z2];
+}
 
-// ============================================================
-// Heatmap
-// ============================================================
-function drawHeatmap(fn9,maxVal){
-    const c=document.getElementById('heatmapCanvas');
-    const x=c.getContext('2d');
-    const W=c.width,H=c.height,pad=30;
-    x.clearRect(0,0,W,H);
-    let gw=W-2*pad,gh=H-2*pad,gridN=24;
-    let grid=idwGrid(fn9,gridN);
-    for(let gy=0;gy<gridN;gy++){
-        for(let gx=0;gx<gridN;gx++){
-            let val=Math.max(0,Math.min(maxVal,grid[gy][gx]));
-            let col=valColor(val,maxVal);
-            x.fillStyle=`rgb(${col[0]},${col[1]},${col[2]})`;
-            x.fillRect(pad+gx/gridN*gw, pad+(1-(gy+1)/gridN)*gh, gw/gridN+0.5, gh/gridN+0.5);
-        }
+// ── 3D Draw ──
+function draw3D(fn,mx){
+    const c=document.getElementById('c3d'),x=c.getContext('2d'),W=c.width,H=c.height;
+    x.clearRect(0,0,W,H);x.fillStyle='#0e0e0e';x.fillRect(0,0,W,H);
+    let n=24,g=idw(fn,n),ds=.5;
+    let qs=[];
+    for(let gy=0;gy<n;gy++)for(let gx=0;gx<n;gx++){
+        let u0=gx/n*2-1,v0=(1-gy/n)*2-1,u1=(gx+1)/n*2-1,v1=(1-(gy+1)/n)*2-1;
+        let f00=g[gy][gx],f10=g[gy][gx+1],f01=g[gy+1][gx],f11=g[gy+1][gx+1];
+        let z00=-f00*ds/mx,z10=-f10*ds/mx,z01=-f01*ds/mx,z11=-f11*ds/mx;
+        let p00=P(u0,v0,z00),p10=P(u1,v0,z10),p01=P(u0,v1,z01),p11=P(u1,v1,z11);
+        let az=(p00[2]+p10[2]+p01[2]+p11[2])/4,af=(f00+f10+f01+f11)/4;
+        let nx=(z10-z00)*(z11-z01)-(z01-z00)*(z11-z10),ny=(z01-z00)*(z11-z10)-(z10-z00)*(z01-z00),nz2=1;
+        let nl=Math.sqrt(nx*nx+ny*ny+1)||1;
+        let lt=Math.max(.3,.5+.5*(nx*.3+ny*.4+nz2*.85)/nl);
+        let edge=gx===0||gx===n-1||gy===0||gy===n-1;
+        qs.push({p00,p10,p01,p11,az,af,lt,edge});
     }
-    x.font='bold 11px monospace';x.textAlign='center';x.fillStyle='#fff';
+    qs.sort((a,b)=>b.az-a.az);
+    for(let q of qs){
+        let c2=vc(q.af,mx);
+        let r=Math.round(c2[0]*q.lt),g2=Math.round(c2[1]*q.lt),b=Math.round(c2[2]*q.lt);
+        x.fillStyle=`rgb(${r},${g2},${b})`;
+        x.strokeStyle=`rgba(${r>>1},${g2>>1},${b>>1},.35)`;x.lineWidth=.3;
+        x.beginPath();x.moveTo(q.p00[0],q.p00[1]);x.lineTo(q.p10[0],q.p10[1]);x.lineTo(q.p11[0],q.p11[1]);x.lineTo(q.p01[0],q.p01[1]);x.closePath();x.fill();x.stroke();
+        if(q.edge){x.strokeStyle='rgba(0,212,170,.35)';x.lineWidth=1;x.beginPath();x.moveTo(q.p00[0],q.p00[1]);x.lineTo(q.p10[0],q.p10[1]);x.lineTo(q.p11[0],q.p11[1]);x.lineTo(q.p01[0],q.p01[1]);x.closePath();x.stroke();}
+    }
+    // Sensors
+    x.font='bold 11px SF Mono,Menlo,monospace';x.textAlign='center';
     for(let i=0;i<9;i++){
-        x.fillText(fn9[i].toFixed(1), pad+POS_XY[i+1][0]/2*gw, pad+(1-POS_XY[i+1][1]/2)*gh+4);
+        let ux=PX[i+1][0]-1,vy=1-PX[i+1][1],z=-fn[i]*ds/mx,p=P(ux,vy,z);
+        x.fillStyle='rgba(255,255,255,.8)';x.beginPath();x.arc(p[0],p[1],2.5,0,Math.PI*2);x.fill();
+        x.shadowColor='rgba(0,0,0,.6)';x.shadowBlur=3;x.fillStyle='rgba(255,255,255,.9)';
+        x.fillText(fn[i].toFixed(1),p[0],p[1]-7);x.shadowBlur=0;
     }
+    // Finger shadow
+    let tf=0,sx=0,sy=0;for(let i=0;i<9;i++){tf+=fn[i];sx+=PX[i+1][0]*fn[i];sy+=PX[i+1][1]*fn[i];}
+    if(tf>.1){
+        let fcx=sx/tf-1,fcy=1-sy/tf,fr=.45;
+        x.fillStyle='rgba(0,0,0,.12)';x.beginPath();
+        for(let s=0;s<=32;s++){let a=s/32*Math.PI*2,fx2=fcx+fr*Math.cos(a)*.8,fy2=fcy+fr*Math.sin(a)*1.2,sp=P(fx2,fy2,-.01);if(s===0)x.moveTo(sp[0],sp[1]);else x.lineTo(sp[0],sp[1]);}
+        x.closePath();x.fill();
+        // Finger body
+        let top=[],bot=[];
+        for(let s=0;s<=32;s++){let a=s/32*Math.PI*2,fx2=fcx+fr*Math.cos(a)*.8,fy2=fcy+fr*Math.sin(a)*1.2;top.push(P(fx2,fy2,.5));bot.push(P(fx2,fy2,.15));}
+        x.fillStyle='rgba(240,220,200,.18)';x.strokeStyle='rgba(240,220,200,.3)';x.lineWidth=.6;
+        for(let s=0;s<32;s++){x.beginPath();x.moveTo(top[s][0],top[s][1]);x.lineTo(top[s+1][0],top[s+1][1]);x.lineTo(bot[s+1][0],bot[s+1][1]);x.lineTo(bot[s][0],bot[s][1]);x.closePath();x.fill();x.stroke();}
+        x.fillStyle='rgba(240,220,200,.25)';x.beginPath();for(let s=0;s<=32;s++){if(s===0)x.moveTo(top[s][0],top[s][1]);else x.lineTo(top[s][0],top[s][1]);}x.closePath();x.fill();
+        x.strokeStyle='rgba(240,200,170,.5)';x.lineWidth=1.2;x.beginPath();for(let s=0;s<=32;s++){if(s===0)x.moveTo(bot[s][0],bot[s][1]);else x.lineTo(bot[s][0],bot[s][1]);}x.closePath();x.stroke();
+    }
+    // Scale
+    let bx=380,by=50,bh=160;
+    let grd=x.createLinearGradient(bx,by,bx,by+bh);
+    for(let i=0;i<=10;i++){let t=i/10,c2=vc(t*mx,mx);grd.addColorStop(t,`rgb(${c2[0]},${c2[1]},${c2[2]})`);}
+    x.fillStyle=grd;x.fillRect(bx,by,10,bh);
+    x.fillStyle='#666';x.font='10px SF Mono,monospace';x.textAlign='left';
+    x.fillText(mx.toFixed(0)+' N',bx+14,by+8);x.fillText('0',bx+14,by+bh);
 }
 
-// ============================================================
-// Force Grid
-// ============================================================
-function initForceGrid(){
-    let el=document.getElementById('forceGrid');el.innerHTML='';
-    for(let row=2;row>=0;row--)for(let col=0;col<3;col++){
-        let pos=row*3+col+1;
-        let cell=document.createElement('div');cell.className='force-cell';cell.id='fcell-'+pos;
-        cell.innerHTML=`<span class="pos">P${pos}</span><span class="val">0.0</span>`;
-        el.appendChild(cell);
-    }
-}
-function updateForceGrid(fn9,maxVal){
-    for(let i=0;i<9;i++){
-        let cell=document.getElementById('fcell-'+(i+1));if(!cell)continue;
-        let v=fn9[i];
-        cell.querySelector('.val').textContent=v.toFixed(2);
-        let col=valColor(v,maxVal);
-        cell.style.background=`rgb(${col[0]},${col[1]},${col[2]})`;
-        cell.style.color=v/maxVal>0.5?'#000':'#fff';
-        cell.style.borderColor=`rgb(${col[0]},${col[1]},${col[2]})`;
-    }
-}
+// 3D interaction
+const c3dEl=document.getElementById('c3d');
+c3dEl.addEventListener('mousedown',e=>{dg=true;dx=e.clientX;dy=e.clientY;});
+c3dEl.addEventListener('mousemove',e=>{if(!dg)return;rz+=(e.clientX-dx)*.008;rx+=(e.clientY-dy)*.008;rx=Math.max(-1.3,Math.min(.05,rx));dx=e.clientX;dy=e.clientY;});
+c3dEl.addEventListener('mouseup',()=>dg=false);c3dEl.addEventListener('mouseleave',()=>dg=false);
+c3dEl.addEventListener('wheel',e=>{e.preventDefault();cd=Math.max(2.5,Math.min(8,cd+e.deltaY*.005));},{passive:false});
+c3dEl.addEventListener('touchstart',e=>{e.preventDefault();dg=true;dx=e.touches[0].clientX;dy=e.touches[0].clientY;},{passive:false});
+c3dEl.addEventListener('touchmove',e=>{if(!dg)return;e.preventDefault();rz+=(e.touches[0].clientX-dx)*.008;rx+=(e.touches[0].clientY-dy)*.008;rx=Math.max(-1.3,Math.min(.05,rx));dx=e.touches[0].clientX;dy=e.touches[0].clientY;},{passive:false});
+c3dEl.addEventListener('touchend',()=>dg=false);
 
-// ============================================================
-// Shear Vector
-// ============================================================
-function drawShear(shear4,fx,fy,fmag){
-    const c=document.getElementById('shearCanvas');
-    const x=c.getContext('2d');
-    const W=c.width,H=c.height,cx=W/2,cy=H/2,R=Math.min(W,H)/2-40;
-    x.clearRect(0,0,W,H);
-    x.fillStyle='#0d1117';x.beginPath();x.arc(cx,cy,R,0,Math.PI*2);x.fill();
-    x.strokeStyle='rgba(148,163,184,0.15)';x.lineWidth=1;
+// ── Shear ──
+function drawShear(s4,fx,fy,fm){
+    const c=document.getElementById('cShear'),x=c.getContext('2d'),W=c.width,H=c.height,cx=W/2,cy=H/2,R=Math.min(W,H)/2-36;
+    x.clearRect(0,0,W,H);x.fillStyle='#0e0e0e';x.beginPath();x.arc(cx,cy,R,0,Math.PI*2);x.fill();
+    x.strokeStyle='rgba(255,255,255,.04)';x.lineWidth=1;
     for(let r=R/4;r<=R;r+=R/4){x.beginPath();x.arc(cx,cy,r,0,Math.PI*2);x.stroke();}
     x.beginPath();x.moveTo(cx-R,cy);x.lineTo(cx+R,cy);x.stroke();
     x.beginPath();x.moveTo(cx,cy-R);x.lineTo(cx,cy+R);x.stroke();
-    x.fillStyle='#94a3b8';x.font='bold 12px sans-serif';x.textAlign='center';
-    x.fillText('y+ S3: '+shear4[2].toFixed(1)+'N',cx,cy-R+16);
-    x.fillText('x+ S1: '+shear4[0].toFixed(1)+'N',cx+R-10,cy+5);
-    x.fillText('y- S4: '+shear4[3].toFixed(1)+'N',cx,cy+R-8);
-    x.fillText('x- S2: '+shear4[1].toFixed(1)+'N',cx-R+14,cy+5);
-    let maxR=parseFloat(document.getElementById('shearRange').value);
-    let vx=(fx/maxR)*R*0.8,vy=-(fy/maxR)*R*0.8;
+    x.fillStyle='#666';x.font='600 11px -apple-system,sans-serif';x.textAlign='center';
+    x.fillText('y+ '+s4[2].toFixed(1),cx,cy-R+15);
+    x.fillText('x+ '+s4[0].toFixed(1),cx+R-8,cy+4);
+    x.fillText('y- '+s4[3].toFixed(1),cx,cy+R-6);
+    x.fillText('x- '+s4[1].toFixed(1),cx-R+12,cy+4);
+    let mr=parseFloat(document.getElementById('shearRange').value);
+    let vx=(fx/mr)*R*.78,vy=-(fy/mr)*R*.78;
     if(Math.hypot(vx,vy)>1){
-        x.strokeStyle='#4ade80';x.fillStyle='#4ade80';x.lineWidth=3;
+        x.strokeStyle='var(--accent)';x.fillStyle='var(--accent)';x.lineWidth=2.5;
         x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+vx,cy+vy);x.stroke();
-        let a=Math.atan2(vy,vx);
-        x.beginPath();x.moveTo(cx+vx,cy+vy);
-        x.lineTo(cx+vx-12*Math.cos(a-0.3),cy+vy-12*Math.sin(a-0.3));
-        x.lineTo(cx+vx-12*Math.cos(a+0.3),cy+vy-12*Math.sin(a+0.3));
+        let a=Math.atan2(vy,vx);x.beginPath();x.moveTo(cx+vx,cy+vy);
+        x.lineTo(cx+vx-10*Math.cos(a-.3),cy+vy-10*Math.sin(a-.3));
+        x.lineTo(cx+vx-10*Math.cos(a+.3),cy+vy-10*Math.sin(a+.3));
         x.closePath();x.fill();
     }
-    x.fillStyle='#fff';x.beginPath();x.arc(cx,cy,3,0,Math.PI*2);x.fill();
-    x.fillStyle='#b24735';x.font='bold 13px monospace';
-    x.fillText('F: '+fmag.toFixed(2)+'N  \u2220'+(fmag>1e-9?Math.atan2(fy,fx)*180/Math.PI:0).toFixed(0)+'\u00B0',cx,cy+R+20);
+    x.fillStyle='#fff';x.beginPath();x.arc(cx,cy,2.5,0,Math.PI*2);x.fill();
+    x.fillStyle='#666';x.font='600 12px SF Mono,monospace';
+    x.fillText(fm.toFixed(2)+'N · '+(fm>1e-9?Math.atan2(fy,fx)*180/Math.PI:0).toFixed(0)+'\u00B0',cx,cy+R+18);
 }
 
-// ============================================================
-// History Chart
-// ============================================================
-function drawHistory(){
-    const c=document.getElementById('historyCanvas');
-    const x=c.getContext('2d');
-    const W=c.width,H=c.height,pad={l:46,r:12,t:18,b:28};
-    x.clearRect(0,0,W,H);
-    if(histT.length<2)return;
-    let now=histT[histT.length-1],tMin=now-8,tMax=now;
-    let gW=W-pad.l-pad.r,gH=H-pad.t-pad.b;
-    let yMax=0;
-    for(let i=0;i<histFN.length;i++)yMax=Math.max(yMax,Math.abs(histFN[i]),Math.abs(histFx[i]),Math.abs(histFy[i]));
-    yMax=Math.max(1,yMax*1.15);let yMin=-yMax*0.1;
-    x.strokeStyle='rgba(148,163,184,0.15)';x.lineWidth=1;
-    for(let y=0;y<=4;y++){let yy=pad.t+y/4*gH;x.beginPath();x.moveTo(pad.l,yy);x.lineTo(W-pad.r,yy);x.stroke();}
-    x.fillStyle='#94a3b8';x.font='10px monospace';x.textAlign='right';
-    for(let y=0;y<=4;y++){let v=yMax-y/4*(yMax-yMin);x.fillText(v.toFixed(1),pad.l-6,pad.t+y/4*gH+4);}
-    x.textAlign='center';x.fillText('Time (s)',W/2,H-4);
-    function plotLine(data,color){
-        x.strokeStyle=color;x.lineWidth=1.5;x.beginPath();let ok=false;
-        for(let i=0;i<data.length;i++){
-            let px=pad.l+(histT[i]-tMin)/(tMax-tMin)*gW;
-            let py=pad.t+(1-(data[i]-yMin)/(yMax-yMin))*gH;
-            if(px<pad.l)continue;
-            if(!ok){x.moveTo(px,py);ok=true;}else x.lineTo(px,py);
-        }
-        x.stroke();
+// ── Force Dots ──
+function initDots(){
+    let el=document.getElementById('dots');el.innerHTML='';
+    for(let r=2;r>=0;r--)for(let c=0;c<3;c++){
+        let p=r*3+c+1,d=document.createElement('div');
+        d.className='force-dot';d.id='dot'+p;
+        d.innerHTML=`<span class="num">${p}</span><span class="v">0</span>`;
+        el.appendChild(d);
     }
-    plotLine(histFN,'#38bdf8');plotLine(histFx,'#fb923c');plotLine(histFy,'#c084fc');
-    x.font='bold 11px sans-serif';
-    x.fillStyle='#38bdf8';x.fillText('\u25A0 FN',pad.l+30,pad.t+14);
-    x.fillStyle='#fb923c';x.fillText('\u25A0 Fx',pad.l+80,pad.t+14);
-    x.fillStyle='#c084fc';x.fillText('\u25A0 Fy',pad.l+125,pad.t+14);
+}
+function updateDots(fn,mx){
+    for(let i=0;i<9;i++){
+        let d=document.getElementById('dot'+(i+1));if(!d)continue;
+        let v=fn[i],t=Math.max(0,Math.min(1,v/mx));
+        let sz2=36+t*40; // 36-76px diameter
+        let c2=vc(v,mx),a=.3+t*.7;
+        d.style.width=sz2+'px';d.style.height=sz2+'px';
+        d.style.background=`rgba(${c2[0]},${c2[1]},${c2[2]},${a})`;
+        d.style.boxShadow=`0 0 ${8+t*20}px rgba(${c2[0]},${c2[1]},${c2[2]},${t*.4})`;
+        d.querySelector('.v').textContent=v.toFixed(1);
+        d.querySelector('.v').style.color=t>.5?'#000':'#fff';
+    }
 }
 
-// ============================================================
-// Data Table
-// ============================================================
-function initTable(){
-    let tbody=document.querySelector('#dataTable tbody');tbody.innerHTML='';
-    for(let n of CHANNEL_NAMES){let tr=document.createElement('tr');tr.innerHTML=`<td>${n}</td><td>--</td><td>--</td><td>--</td>`;tbody.appendChild(tr);}
-    for(let i=1;i<=9;i++){let tr=document.createElement('tr');tr.innerHTML=`<td>FN_pos${i}</td><td></td><td></td><td>--</td>`;tbody.appendChild(tr);}
-    for(let n of ['Fx','Fy','Fshear_mag','FN_repr','Gamma']){let tr=document.createElement('tr');tr.innerHTML=`<td>${n}</td><td></td><td></td><td>--</td>`;tbody.appendChild(tr);}
-}
-function updateTable(raw,filtered,cal){
-    let rows=document.querySelectorAll('#dataTable tbody tr'),idx=0;
-    for(let i=0;i<11;i++){let r=rows[idx++];r.children[1].textContent=raw[i].toFixed(0);r.children[2].textContent=filtered[i].toFixed(1);
-        if(i<5)r.children[3].textContent='\u2192FN pos'+NF_POS[i];else if(i<9)r.children[3].textContent='FS '+SHEAR_DIR[i-5];else if(i===9)r.children[3].textContent=cal.tempADC.toFixed(0)+' ADC';else r.children[3].textContent='standard';}
-    for(let i=0;i<9;i++){rows[idx++].children[3].textContent=cal.fn9[i].toFixed(3);}
-    for(let v of[cal.fx.toFixed(3),cal.fy.toFixed(3),cal.fmag.toFixed(3),cal.fnRepr.toFixed(3),cal.gamma!==null?cal.gamma.toFixed(3):'--']){rows[idx++].children[3].textContent=v;}
+// ── History ──
+function drawHist(){
+    const c=document.getElementById('cHist'),x=c.getContext('2d'),W=c.width,H=c.height,p={l:42,r:10,t:14,b:24};
+    x.clearRect(0,0,W,H);
+    if(hT.length<2)return;
+    let now=hT[hT.length-1],tm=now-8,tx=now,gW=W-p.l-p.r,gH=H-p.t-p.b;
+    let ym=0;for(let i=0;i<hFN.length;i++)ym=Math.max(ym,Math.abs(hFN[i]),Math.abs(hFx[i]),Math.abs(hFy[i]));
+    ym=Math.max(1,ym*1.15);let yn=-ym*.1;
+    x.strokeStyle='rgba(255,255,255,.04)';x.lineWidth=1;
+    for(let y=0;y<=4;y++){let yy=p.t+y/4*gH;x.beginPath();x.moveTo(p.l,yy);x.lineTo(W-p.r,yy);x.stroke();}
+    x.fillStyle='#666';x.font='10px SF Mono,monospace';x.textAlign='right';
+    for(let y=0;y<=4;y++){x.fillText((ym-y/4*(ym-yn)).toFixed(1),p.l-5,p.t+y/4*gH+4);}
+    function pl(d,c){x.strokeStyle=c;x.lineWidth=1.5;x.beginPath();let ok=false;for(let i=0;i<d.length;i++){let px=p.l+(hT[i]-tm)/(tx-tm)*gW,py=p.t+(1-(d[i]-yn)/(ym-yn))*gH;if(px<p.l)continue;if(!ok){x.moveTo(px,py);ok=true;}else x.lineTo(px,py);}x.stroke();}
+    pl(hFN,'#00d4aa');pl(hFx,'#ff6b4a');pl(hFy,'#b07aff');
+    x.font='600 10px -apple-system,sans-serif';
+    x.fillStyle='#00d4aa';x.fillText('\u25A0 FN',p.l+24,p.t+12);
+    x.fillStyle='#ff6b4a';x.fillText('\u25A0 Fx',p.l+68,p.t+12);
+    x.fillStyle='#b07aff';x.fillText('\u25A0 Fy',p.l+108,p.t+12);
 }
 
-// ============================================================
-// Main Loop
-// ============================================================
-function mainLoop(){
-    if(!running)return;
-    let now=performance.now()/1000, t=now-t0;
-    let raw=generateFakeSample(t), rawArr=new Float64Array(raw);
-    let filtered=processSample(rawArr), cal=computeCalibrated(filtered);
-    histT.push(t);histFN.push(cal.fnRepr);histFx.push(cal.fx);histFy.push(cal.fy);
-    if(histT.length>HIST_LEN){histT.shift();histFN.shift();histFx.shift();histFy.shift();}
-    frameCount++;
-    if(t-lastRateCalc>0.5){sampleRate=frameCount/(t-lastRateCalc);frameCount=0;lastRateCalc=t;}
-    document.getElementById('stRate').textContent=sampleRate.toFixed(0)+' Hz';
-    document.getElementById('stTemp').textContent=cal.tempADC.toFixed(0)+' ADC';
-    document.getElementById('stStatus').textContent='运行中 (演示模式)';
-    if(cal.gamma!==null){
-        document.getElementById('stGamma').textContent=cal.gamma.toFixed(2);
-        let cr=document.getElementById('stCrossRef');
-        if(cal.fmag<4){cr.textContent='剪切力偏弱';cr.style.color='var(--orange)';}
-        else if(0.25<=cal.gamma&&cal.gamma<=2){cr.textContent='正常';cr.style.color='var(--green)';}
-        else{cr.textContent='可能干扰';cr.style.color='var(--red)';}
-    }else{document.getElementById('stGamma').textContent='--';document.getElementById('stCrossRef').textContent='剪切力偏弱';document.getElementById('stCrossRef').style.color='var(--text2)';}
-    document.getElementById('rawLine').textContent='原始数据: '+raw.map(v=>v.toFixed(0)).join(', ');
-    let maxN=parseFloat(document.getElementById('normalRange').value);
-    draw3D(cal.fn9,maxN);drawShear(cal.shear4,cal.fx,cal.fy,cal.fmag);
-    drawHeatmap(cal.fn9,maxN);updateForceGrid(cal.fn9,maxN);drawHistory();updateTable(rawArr,filtered,cal);
+// ── Table ──
+function initTbl(){
+    let tb=document.querySelector('#tbl tbody');tb.innerHTML='';
+    for(let n of CH){let tr=document.createElement('tr');tr.innerHTML=`<td>${n}</td><td>--</td><td>--</td><td>--</td>`;tb.appendChild(tr);}
+    for(let i=1;i<=9;i++){let tr=document.createElement('tr');tr.innerHTML=`<td>FN·${i}</td><td></td><td></td><td>--</td>`;tb.appendChild(tr);}
+    for(let n of ['Fx','Fy','Fs','FN','\u03B3']){let tr=document.createElement('tr');tr.innerHTML=`<td>${n}</td><td></td><td></td><td>--</td>`;tb.appendChild(tr);}
+}
+function updTbl(r,f,cl){
+    let rows=document.querySelectorAll('#tbl tbody tr'),idx=0;
+    for(let i=0;i<11;i++){let tr=rows[idx++];tr.children[1].textContent=r[i].toFixed(0);tr.children[2].textContent=f[i].toFixed(1);
+        if(i<5)tr.children[3].textContent='\u2192'+NF[i];else if(i<9)tr.children[3].textContent=SDIR[i-5];else if(i===9)tr.children[3].textContent=cl.ta.toFixed(0)+' ADC';else tr.children[3].textContent='--';}
+    for(let i=0;i<9;i++){let tr=rows[idx++];tr.children[3].textContent=cl.fn[i].toFixed(3);if(cl.fn[i]>0.1)tr.classList.add('highlight');else tr.classList.remove('highlight');}
+    for(let v of[cl.fx.toFixed(3),cl.fy.toFixed(3),cl.fm.toFixed(3),cl.fr.toFixed(3),cl.g!==null?cl.g.toFixed(3):'--'])rows[idx++].children[3].textContent=v;
+}
+
+// ── Main Loop ──
+function loop(){
+    if(!on)return;
+    let now=performance.now()/1000,t=now-t0;
+    let raw=gen(t),ra2=new Float64Array(raw),f=filt(ra2),cl=cal(f);
+    hT.push(t);hFN.push(cl.fr);hFx.push(cl.fx);hFy.push(cl.fy);
+    if(hT.length>HIST){hT.shift();hFN.shift();hFx.shift();hFy.shift();}
+    fc++;if(t-lr>.5){rate=fc/(t-lr);fc=0;lr=t;}
+    document.getElementById('stRate').textContent=rate.toFixed(0)+' Hz';
+    document.getElementById('stTemp').textContent=cl.ta.toFixed(0)+' ADC';
+    document.getElementById('stStatus').textContent='运行中';
+    document.getElementById('dotRun').className='dot';
+    if(cl.g!==null){
+        document.getElementById('stGamma').textContent=cl.g.toFixed(2);
+        let cr=document.getElementById('stCrossRef');if(!cr)return;
+    }
+    document.getElementById('rawLine').textContent=raw.map(v=>v.toFixed(0)).join(', ');
+    let mx=parseFloat(document.getElementById('normalRange').value);
+    draw3D(cl.fn,mx);drawShear(cl.s4,cl.fx,cl.fy,cl.fm);
+    updateDots(cl.fn,mx);drawHist();updTbl(ra2,f,cl);
     document.getElementById('progress-bar').style.width=((t*2)%100)+'%';
-    requestAnimationFrame(mainLoop);
+    requestAnimationFrame(loop);
 }
 
-function startDemo(){running=true;t0=performance.now()/1000;frameCount=0;lastRateCalc=0;resetFilter();histT=[];histFN=[];histFx=[];histFy=[];document.getElementById('btnStart').style.display='none';document.getElementById('btnStop').style.display='';requestAnimationFrame(mainLoop);}
-function stopDemo(){running=false;document.getElementById('btnStart').style.display='';document.getElementById('btnStop').style.display='none';document.getElementById('stStatus').textContent='已停止';}
-function zeroTare(){normalZero=true;shearZero=true;document.getElementById('stStatus').textContent='Zero applied';}
-function resetZero(){normalZero=false;shearZero=false;normalBaseline.fill(0);shearBaseline.fill(0);document.getElementById('stStatus').textContent='基线已重置';}
+function startDemo(){on=true;t0=performance.now()/1000;fc=0;lr=0;rstF();hT=[];hFN=[];hFx=[];hFy=[];document.getElementById('btnStart').style.display='none';document.getElementById('btnStop').style.display='';requestAnimationFrame(loop);}
+function stopDemo(){on=false;document.getElementById('btnStart').style.display='';document.getElementById('btnStop').style.display='none';document.getElementById('stStatus').textContent='已停止';document.getElementById('dotRun').className='dot off';}
+function zeroTare(){nz=true;sz=true;}
+function resetZero(){nz=false;sz=false;nb.fill(0);sb.fill(0);}
 
-initForceGrid();initTable();
-setTimeout(startDemo,500);
+initDots();initTbl();setTimeout(startDemo,400);
 </script>
 </body>
 </html>
