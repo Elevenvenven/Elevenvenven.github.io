@@ -5,653 +5,426 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bio-Skin Paper-style ESP32-S3 Monitor</title>
 <style>
-:root{--bg:#f5f5f5;--card:#fff;--border:#ddd;--text:#333;--dim:#888;--accent:#1a73e8}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:var(--bg);color:var(--text);font-size:13px}
-.top-bar{background:#fff;border-bottom:1px solid #e0e0e0;padding:10px 20px;display:flex;align-items:center;gap:12px}
-.top-bar h1{font-size:15px;font-weight:700}
-.top-bar nav{margin-left:auto;display:flex;gap:6px}
-.top-bar nav a{color:var(--dim);text-decoration:none;padding:4px 12px;border-radius:6px;font-size:12px}
-.top-bar nav a:hover,.top-bar nav a.on{background:#e8f0fe;color:var(--accent)}
-.layout{max-width:1500px;margin:0 auto;padding:12px}
-.toolbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:8px 12px;background:#fff;border:1px solid #e0e0e0;border-radius:8px;margin-bottom:10px}
-.toolbar label{font-size:12px;color:#555}
-.toolbar select{padding:4px 8px;border:1px solid #ccc;border-radius:4px;font-size:12px}
-.toolbar button{padding:5px 14px;border:1px solid #ccc;border-radius:4px;background:#fff;font-size:12px;cursor:pointer}
-.toolbar button:hover{background:#e8f0fe;border-color:var(--accent);color:var(--accent)}
-.toolbar button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-.toolbar button.primary:hover{background:#1557b0}
-.toolbar button.danger{border-color:#d32f2f;color:#d32f2f}
-.toolbar .sep{width:1px;height:24px;background:#e0e0e0;margin:0 4px}
-.status-bar{display:flex;gap:16px;padding:6px 12px;font-size:12px;color:#555;background:#fff;border:1px solid #e0e0e0;border-radius:8px;margin-bottom:10px;flex-wrap:wrap}
-.status-bar b{font-weight:600;color:#333}
-.main-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:10px}
-@media(max-width:1100px){.main-grid{grid-template-columns:1fr}}
-.plot-area{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:8px;position:relative}
-.bottom-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
-@media(max-width:1100px){.bottom-row{grid-template-columns:1fr 1fr}}
-@media(max-width:700px){.bottom-row{grid-template-columns:1fr}}
-.table-area{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:8px;max-height:400px;overflow-y:auto}
-table.dt{width:100%;border-collapse:collapse;font-size:11px;font-family:monospace}
-table.dt th{text-align:left;padding:4px 6px;background:#f5f5f5;border-bottom:1px solid #ddd;color:#555;font-size:10px;font-weight:600}
-table.dt td{padding:3px 6px;border-bottom:1px solid #eee;color:#444}
-table.dt tr:hover td{background:#f8f9fa}
-.raw-line{margin-top:8px;padding:6px 12px;background:#fff;border:1px solid #e0e0e0;border-radius:6px;font-family:monospace;font-size:11px;color:#666;overflow-x:auto;white-space:nowrap}
-.footer{margin-top:20px;text-align:center;padding:16px;color:var(--dim);font-size:12px;border-top:1px solid #e0e0e0}
-.footer a{color:var(--accent);text-decoration:none}
-.hint{position:absolute;bottom:12px;right:16px;font-size:10px;color:#aaa;pointer-events:none}
-canvas{display:block;max-width:100%;height:auto}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:#f0f0f0;color:#333;font-size:13px;line-height:1.4}
+.topbar{background:#fff;border-bottom:1px solid #ddd;padding:8px 16px;display:flex;align-items:center;gap:12px}
+.topbar h1{font-size:14px;font-weight:700}
+.topbar nav{margin-left:auto;display:flex;gap:4px}
+.topbar nav a{color:#666;text-decoration:none;padding:3px 10px;border-radius:4px;font-size:12px}
+.topbar nav a:hover,.topbar nav a.on{background:#e8f0fe;color:#1a73e8}
+.wrap{max-width:1440px;margin:0 auto;padding:8px}
+.toolbar{display:flex;gap:4px;flex-wrap:wrap;align-items:center;padding:6px 10px;background:#fff;border:1px solid #ddd;border-radius:6px;margin-bottom:8px}
+.toolbar label{font-size:11px;color:#555}
+.toolbar select,.toolbar input{padding:3px 6px;border:1px solid #ccc;border-radius:3px;font-size:11px}
+.toolbar button{padding:4px 12px;border:1px solid #ccc;border-radius:3px;background:#fff;font-size:11px;cursor:pointer}
+.toolbar button:hover{background:#e8f0fe;border-color:#1a73e8;color:#1a73e8}
+.toolbar button.pri{background:#1a73e8;color:#fff;border-color:#1a73e8}
+.toolbar button.dng{color:#d32f2f;border-color:#d32f2f}
+.toolbar .sep{width:1px;height:20px;background:#ddd;margin:0 3px}
+.status{display:flex;gap:14px;padding:5px 10px;font-size:11px;color:#555;background:#fff;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;flex-wrap:wrap}
+.status b{font-weight:600;color:#333}
+.toprow{display:grid;grid-template-columns:3fr 2fr;gap:8px}
+@media(max-width:1000px){.toprow{grid-template-columns:1fr}}
+.botrow{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:8px;margin-top:8px}
+@media(max-width:1000px){.botrow{grid-template-columns:1fr 1fr}}
+.plot{background:#fff;border:1px solid #ddd;border-radius:6px;padding:6px;overflow:hidden}
+canvas{display:block;width:100%!important;height:auto!important}
+.tbl-wrap{background:#fff;border:1px solid #ddd;border-radius:6px;padding:6px;max-height:380px;overflow-y:auto;font-size:11px;font-family:monospace}
+.tbl-wrap table{width:100%;border-collapse:collapse}
+.tbl-wrap th{text-align:left;padding:3px 5px;background:#f5f5f5;border-bottom:1px solid #ddd;font-size:10px}
+.tbl-wrap td{padding:2px 5px;border-bottom:1px solid #eee}
+.raw{margin-top:6px;padding:5px 10px;background:#fff;border:1px solid #ddd;border-radius:4px;font-family:monospace;font-size:11px;color:#666;overflow-x:auto;white-space:nowrap}
+.foot{text-align:center;padding:16px;color:#888;font-size:11px;margin-top:16px;border-top:1px solid #ddd}
+.foot a{color:#1a73e8;text-decoration:none}
 </style>
 </head>
 <body>
-<div class="top-bar">
-    <h1>Bio-Skin Paper-style Real-time Calibration Monitor</h1>
-    <nav>
-        <a href="index.html">首页</a>
-        <a href="bioskin_demo.html" class="on">Demo</a>
-        <a href="chip_verification_guide.html">芯片验证</a>
-        <a href="codex_mimo_proxy.html">Codex×MIMO</a>
-    </nav>
+<div class="topbar">
+<h1>Bio-Skin Paper-style Real-time Calibration Monitor</h1>
+<nav>
+<a href="index.html">首页</a>
+<a href="bioskin_demo.html" class="on">Demo</a>
+<a href="chip_verification_guide.html">芯片验证</a>
+<a href="codex_mimo_proxy.html">Codex×MIMO</a>
+</nav>
 </div>
-<div class="layout">
-    <div class="toolbar">
-        <label>Port:</label>
-        <select><option>FAKE ESP32 Demo - simulated serial output</option></select>
-        <div class="sep"></div>
-        <button class="primary" id="btnStart" onclick="doStart()">Start</button>
-        <button id="btnStop" onclick="doStop()" style="display:none">Stop</button>
-        <div class="sep"></div>
-        <button onclick="doZeroN()">Zero Normal</button>
-        <button onclick="doZeroS()">Zero Shear</button>
-        <button onclick="doResetZ()" class="danger">Reset Zero</button>
-        <div class="sep"></div>
-        <label>Normal z-range:</label>
-        <select id="nRange"><option value="3">3.00 N</option><option value="6" selected>6.00 N</option><option value="10">10 N</option></select>
-        <label>Shear range:</label>
-        <select id="sRange"><option value="5">5.00 N</option><option value="10" selected>10.00 N</option><option value="15">15 N</option></select>
-    </div>
-    <div class="status-bar">
-        <div>Status: <b id="stSt">disconnected</b></div>
-        <div>Rate: <b id="stRate">-- Hz</b></div>
-        <div>Filter: <b>MA15 + EMA</b></div>
-        <div>Temperature: <b id="stTemp">--</b></div>
-        <div>Heater duty est.: <b id="stHeat">--</b></div>
-        <div>γ=FN/FS: <b id="stGam">--</b></div>
-        <div>Cross-reference: <b id="stCR">--</b></div>
-    </div>
-    <div class="main-grid">
-        <div>
-            <div class="plot-area"><canvas id="c3d" width="860" height="560"></canvas><span class="hint">拖动旋转 · 滚轮缩放</span></div>
-            <div class="bottom-row">
-                <div class="plot-area"><canvas id="cShear" width="400" height="380"></canvas></div>
-                <div class="plot-area"><canvas id="cHist" width="440" height="380"></canvas></div>
-                <div class="table-area"><table class="dt"><thead><tr><th>Item</th><th>Raw ADC</th><th>Filtered</th><th>Calibrated/N</th></tr></thead><tbody id="tBody"></tbody></table></div>
-            </div>
-        </div>
-        <div>
-            <div class="plot-area"><canvas id="cHeat" width="500" height="480"></canvas><span class="hint">top-down view</span></div>
-        </div>
-    </div>
-    <div class="raw-line" id="rawLine">Raw serial line: waiting...</div>
+<div class="wrap">
+<div class="toolbar">
+<label>Port:</label>
+<select><option>FAKE ESP32 Demo - simulated serial output</option></select>
+<div class="sep"></div>
+<button class="pri" id="btnS" onclick="doStart()">Start</button>
+<button id="btnE" onclick="doStop()" style="display:none">Stop</button>
+<div class="sep"></div>
+<button onclick="doZN()">Zero Normal</button>
+<button onclick="doZS()">Zero Shear</button>
+<button onclick="doZR()" class="dng">Reset Zero</button>
+<div class="sep"></div>
+<label>Normal z-range:</label>
+<select id="nR"><option value="3">3.00 N</option><option value="6" selected>6.00 N</option><option value="10">10.00 N</option></select>
+<label>Shear range:</label>
+<select id="sR"><option value="5">5.00 N</option><option value="10" selected>10.00 N</option><option value="15">15.00 N</option></select>
 </div>
-<div class="footer">Bio-Skin Paper-style ESP32-S3 上位机 Web 版 · <a href="https://github.com/Elevenvenven">GitHub</a></div>
-
+<div class="status">
+<div>Status: <b id="s1">disconnected</b></div>
+<div>Rate: <b id="s2">-- Hz</b></div>
+<div>Filter: <b>MA15 + EMA</b></div>
+<div>Temperature: <b id="s3">--</b></div>
+<div>Heater duty est.: <b id="s4">--</b></div>
+<div>γ=FN/FS: <b id="s5">--</b></div>
+<div>Cross-reference: <b id="s6">--</b></div>
+</div>
+<div class="toprow">
+<div class="plot"><canvas id="c3d" width="860" height="600"></canvas></div>
+<div class="plot"><canvas id="cHm" width="520" height="480"></canvas></div>
+</div>
+<div class="botrow">
+<div class="plot"><canvas id="cSh" width="420" height="400"></canvas></div>
+<div class="plot"><canvas id="cHi" width="480" height="380"></canvas></div>
+<div class="tbl-wrap"><table><thead><tr><th>Item</th><th>Raw ADC</th><th>Filtered</th><th>Calibrated/N</th></tr></thead><tbody id="tB"></tbody></table></div>
+</div>
+<div class="raw" id="rawL">Raw serial line: waiting...</div>
+</div>
+<div class="foot">Bio-Skin Paper-style ESP32-S3 上位机 Web 版 · <a href="https://github.com/Elevenvenven">GitHub</a></div>
 <script>
 "use strict";
 
-// ── Constants (matching original Python) ──
-const MA_W = 15, EMA_A = 0.25;
-const N_ZERO = 680, N_DELTA = 60, N_MAX = 6, S_MAX = 10;
-const GRID_N = 30, HIST_LEN = 400;
+// === Constants from Python original ===
+var MA_W=15, EMA_A=0.25;
+var N_ZERO=680, N_DELTA=60, N_MAX=6, S_MAX=10;
+var GRID_N=30, HIST_LEN=400;
+var NF_TO_POS=[1,3,5,7,9];
+var POS_C=[[0,2],[1,2],[2,2],[0,1],[1,1],[2,1],[0,0],[1,0],[2,0]]; // pos 1-9
+var SENSOR_XY=[[0,2],[2,2],[1,1],[0,0],[2,0]]; // NF1-5 actual positions
+var CH_NAMES=["NF1","NF2","NF3","NF4","NF5","SF1_x+","SF2_x-","SF3_y+","SF4_y-","Temperature_ADC","Standard"];
+var SDIR=["x+","x-","y+","y-"];
 
-// Hall sensor mapping: NF1..NF5 → positions 1,3,5,7,9
-// Position layout:    1 ---- 2 ---- 3
-//                     4 ---- 5 ---- 6
-//                     7 ---- 8 ---- 9
-const NF_TO_POS = [1, 3, 5, 7, 9];  // NF1→pos1, NF2→pos3, ...
-const POS_COORD = {1:[0,2],2:[1,2],3:[2,2],4:[0,1],5:[1,1],6:[2,1],7:[0,0],8:[1,0],9:[2,0]};
-// Sensor XY for fake data gen: positions 1,3,5,7,9
-const SENSOR_XY = [[0,2],[2,2],[1,1],[0,0],[2,0]];
-const CH_NAMES = ["NF1","NF2","NF3","NF4","NF5","SF1_x+","SF2_x-","SF3_y+","SF4_y-","Temperature_ADC","Standard_GPIO10"];
-const SDIR = ["x+","x-","y+","y-"];
+// === State ===
+var running=false, t0=0, fc=0, lr=0, rate=0;
+var zN=false, zS=false, bN=new Float64Array(5), bS=new Float64Array(4);
+var mBuf=[], eBuf=null;
+function rF(){mBuf=[];eBuf=null;}
+var hT=[],hFN=[],hFx=[],hFy=[];
 
-// ── State ──
-let running = false, t0 = 0, fc = 0, lr = 0, rate = 0;
-let zeroNormal = false, zeroShear = false;
-let normBaseline = new Float64Array(5), shearBaseline = new Float64Array(4);
-let maBuf = [], lastEMA = null;
-function resetFilter() { maBuf = []; lastEMA = null; }
-let histT = [], histFN = [], histFx = [], histFy = [];
+// 3D camera: matplotlib elev=28, azim=-55
+var eE=28*Math.PI/180, eA=-55*Math.PI/180, cD=6;
+var dr=false,dx=0,dy=0;
 
-// 3D camera (matplotlib default: elev=28, azim=-55)
-let camElev = 28 * Math.PI / 180;
-let camAzim = -55 * Math.PI / 180;
-let camDist = 6;
-let isDrag = false, dragStartX = 0, dragStartY = 0;
+// === RNG ===
+var rC=[1,1],rS=3,rG=.6,rO=[0,0,0,0,0],rN=0;
+function rn(){var u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function ra(a,b){return a+Math.random()*(b-a);}
 
-// ── RNG ──
-let rngNextChange = 0, rngCenter = [1, 1], rngStrength = 3, rngSigma = 0.6;
-let rngOffsets = [0, 0, 0, 0, 0];
-function randn() { let u = 0, v = 0; while (!u) u = Math.random(); while (!v) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
-function randf(a, b) { return a + Math.random() * (b - a); }
-
-// ── Fake data generator (matches Python FakeSerialReader._make_sample) ──
-function generateSample(t) {
-    if (t >= rngNextChange) {
-        rngCenter = [randf(-0.15, 2.15), randf(-0.15, 2.15)];
-        rngStrength = randf(1.4, 5.8);
-        rngSigma = randf(0.38, 0.90);
-        rngOffsets = Array.from({ length: 5 }, () => randn() * 0.9);
-        rngNextChange = t + randf(0.28, 0.95);
-    }
-    let cx = rngCenter[0] + randn() * 0.035;
-    let cy = rngCenter[1] + randn() * 0.035;
-    let normal = new Array(5);
-    for (let i = 0; i < 5; i++) {
-        let dx = SENSOR_XY[i][0] - cx, dy = SENSOR_XY[i][1] - cy;
-        let shape = Math.exp(-(dx * dx + dy * dy) / (2 * rngSigma * rngSigma));
-        if (Math.random() < 0.38) {
-            let cx2 = randf(-0.2, 2.2), cy2 = randf(-0.2, 2.2);
-            let s2 = randf(0.28, 0.65), st = randf(0.3, 1.8);
-            let d2b = (SENSOR_XY[i][0] - cx2) ** 2 + (SENSOR_XY[i][1] - cy2) ** 2;
-            shape += st * Math.exp(-d2b / (2 * s2 * s2));
-        }
-        let flicker = 1 + randn() * 0.16;
-        let force_n = Math.max(0, Math.min(6, rngStrength * shape * flicker + rngOffsets[i] * 0.12));
-        normal[i] = 680 + (force_n / N_MAX) * N_DELTA + randn() * 2.2 * 1.25;
-        normal[i] = Math.round(Math.max(660, Math.min(735, normal[i])));
-    }
-    let px = 0.5 + 0.5 * Math.sin(2 * Math.PI * 0.11 * t);
-    let py = 0.5 + 0.5 * Math.cos(2 * Math.PI * 0.09 * t + 0.5);
-    let shear = [
-        Math.max(0, Math.min(9, 2 + Math.round(5 * px) + Math.floor(randf(-1, 2)))),
-        Math.max(0, Math.min(9, 2 + Math.round(4 * (1 - px)) + Math.floor(randf(-1, 2)))),
-        Math.max(0, Math.min(9, 2 + Math.round(5 * py) + Math.floor(randf(-1, 2)))),
-        Math.max(0, Math.min(9, 2 + Math.round(4 * (1 - py)) + Math.floor(randf(-1, 2))))
-    ];
-    let temp = Math.max(0, Math.min(9, 5 + Math.round(3 * Math.sin(2 * Math.PI * 0.025 * t + 1.2)) + Math.floor(randf(-1, 2))));
-    let std = 202 + Math.round(2 * Math.sin(2 * Math.PI * 0.07 * t)) + Math.floor(randf(-1, 2));
-    return [...normal, ...shear, temp, std];
+// === Fake data ===
+function gen(t){
+if(t>=rN){rC=[ra(-.15,2.15),ra(-.15,2.15)];rS=ra(1.4,5.8);rG=ra(.38,.9);rO=[rn()*.9,rn()*.9,rn()*.9,rn()*.9,rn()*.9];rN=t+ra(.28,.95);}
+var cx=rC[0]+rn()*.035,cy=rC[1]+rn()*.035,n=[];
+for(var i=0;i<5;i++){
+var d=SENSOR_XY[i],dx=d[0]-cx,dy=d[1]-cy,sh=Math.exp(-(dx*dx+dy*dy)/(2*rG*rG));
+if(Math.random()<.38){var x2=ra(-.2,2.2),y2=ra(-.2,2.2),s2=ra(.28,.65),st=ra(.3,1.8);sh+=st*Math.exp(-((d[0]-x2)**2+(d[1]-y2)**2)/(2*s2*s2));}
+var fn=Math.max(0,Math.min(6,rS*sh*(1+rn()*.16)+rO[i]*.12));
+n.push(Math.round(Math.max(660,Math.min(735,680+(fn/N_MAX)*N_DELTA+rn()*2.2*1.25))));
+}
+var px=.5+.5*Math.sin(2*Math.PI*.11*t),py=.5+.5*Math.cos(2*Math.PI*.09*t+.5);
+var s=[
+Math.max(0,Math.min(9,2+Math.round(5*px)+Math.floor(ra(-1,2)))),
+Math.max(0,Math.min(9,2+Math.round(4*(1-px))+Math.floor(ra(-1,2)))),
+Math.max(0,Math.min(9,2+Math.round(5*py)+Math.floor(ra(-1,2)))),
+Math.max(0,Math.min(9,2+Math.round(4*(1-py))+Math.floor(ra(-1,2))))
+];
+var tp=Math.max(0,Math.min(9,5+Math.round(3*Math.sin(2*Math.PI*.025*t+1.2))+Math.floor(ra(-1,2))));
+var std=202+Math.round(2*Math.sin(2*Math.PI*.07*t))+Math.floor(ra(-1,2));
+return n.concat(s,tp,std);
 }
 
-// ── Streaming filter (MA + EMA) ──
-function processFilter(raw) {
-    maBuf.push(raw);
-    if (maBuf.length > MA_W) maBuf.shift();
-    let ma = new Float64Array(11);
-    for (let s of maBuf) for (let i = 0; i < 11; i++) ma[i] += s[i];
-    for (let i = 0; i < 11; i++) ma[i] /= maBuf.length;
-    if (!lastEMA) {
-        lastEMA = new Float64Array(ma);
-    } else {
-        for (let i = 0; i < 11; i++) lastEMA[i] = EMA_A * ma[i] + (1 - EMA_A) * lastEMA[i];
-    }
-    return new Float64Array(lastEMA);
+// === Filter ===
+function doFilt(r){
+mBuf.push(r);if(mBuf.length>MA_W)mBuf.shift();
+var m=new Float64Array(11);
+for(var j=0;j<mBuf.length;j++)for(var i=0;i<11;i++)m[i]+=mBuf[j][i];
+for(var i=0;i<11;i++)m[i]/=mBuf.length;
+if(!eBuf)eBuf=new Float64Array(m);else for(var i=0;i<11;i++)eBuf[i]=EMA_A*m[i]+(1-EMA_A)*eBuf[i];
+return new Float64Array(eBuf);
 }
 
-// ── Calibration (matches Python compute_calibrated) ──
-function computeCalibrated(filtered) {
-    let normInput = filtered.slice(0, 5);
-    let shearInput = filtered.slice(5, 9);
-    if (zeroNormal) for (let i = 0; i < 5; i++) normInput[i] -= normBaseline[i];
-    else for (let i = 0; i < 5; i++) normInput[i] -= N_ZERO;
-    if (zeroShear) for (let i = 0; i < 4; i++) shearInput[i] -= shearBaseline[i];
-
-    // Normal force at 9 positions
-    let fn9 = new Float64Array(9);
-    for (let i = 0; i < 5; i++) {
-        let pos = NF_TO_POS[i];  // position index (1-based)
-        fn9[pos - 1] = Math.max(0, Math.min(N_MAX, Math.abs(normInput[i]) / N_DELTA * N_MAX));
-    }
-    // Interpolate positions 2,4,6,8 from adjacent
-    fn9[1] = (fn9[0] + fn9[2] + fn9[4]) / 3;  // pos2
-    fn9[3] = (fn9[0] + fn9[4] + fn9[6]) / 3;  // pos4
-    fn9[5] = (fn9[2] + fn9[4] + fn9[8]) / 3;  // pos6
-    fn9[7] = (fn9[4] + fn9[6] + fn9[8]) / 3;  // pos8
-
-    let shear4 = new Float64Array(4);
-    for (let i = 0; i < 4; i++) shear4[i] = Math.max(0, Math.min(S_MAX, shearInput[i]));
-    let fx = shear4[0] - shear4[1], fy = shear4[2] - shear4[3];
-    let fmag = Math.hypot(fx, fy);
-    let fnRepr = Math.max(...fn9);
-    let gamma = fmag > 1e-9 ? fnRepr / fmag : null;
-    return { fn9, shear4, fx, fy, fmag, fnRepr, gamma, tempADC: filtered[9] };
+// === Calibration ===
+function doCal(f){
+var ni=f.slice(0,5),si=f.slice(5,9);
+if(zN)for(var i=0;i<5;i++)ni[i]-=bN[i];else for(var i=0;i<5;i++)ni[i]-=N_ZERO;
+if(zS)for(var i=0;i<4;i++)si[i]-=bS[i];
+var fn9=new Float64Array(9);
+for(var i=0;i<5;i++){var p=NF_TO_POS[i];fn9[p-1]=Math.max(0,Math.min(N_MAX,Math.abs(ni[i])/N_DELTA*N_MAX));}
+fn9[1]=(fn9[0]+fn9[2]+fn9[4])/3;fn9[3]=(fn9[0]+fn9[4]+fn9[6])/3;
+fn9[5]=(fn9[2]+fn9[4]+fn9[8])/3;fn9[7]=(fn9[4]+fn9[6]+fn9[8])/3;
+var s4=new Float64Array(4);for(var i=0;i<4;i++)s4[i]=Math.max(0,Math.min(S_MAX,si[i]));
+var fx=s4[0]-s4[1],fy=s4[2]-s4[3],fm=Math.hypot(fx,fy);
+var fr=0;for(var i=0;i<9;i++)if(fn9[i]>fr)fr=fn9[i];
+var gm=fm>1e-9?fr/fm:null;
+return{fn9:fn9,s4:s4,fx:fx,fy:fy,fm:fm,fr:fr,gm:gm,ta:f[9]};
 }
 
-// ── IDW interpolation ──
-function idwInterp(fn9, gridN) {
-    let grid = [];
-    for (let gy = 0; gy <= gridN; gy++) {
-        grid[gy] = [];
-        for (let gx = 0; gx <= gridN; gx++) {
-            let px = gx / gridN * 2, py = (1 - gy / gridN) * 2;
-            let wsum = 0, val = 0;
-            for (let i = 0; i < 9; i++) {
-                let sx = Object.values(POS_COORD)[i][0], sy = Object.values(POS_COORD)[i][1];
-                let d2 = (px - sx) ** 2 + (py - sy) ** 2;
-                let w = 1 / (Math.pow(d2 + 0.035, 1.65) + 1e-9);
-                val += w * fn9[i]; wsum += w;
-            }
-            grid[gy][gx] = val / wsum;
-        }
-    }
-    return grid;
+// === IDW ===
+function doIDW(fn9,gn){
+var g=[];
+for(var gy=0;gy<=gn;gy++){g[gy]=[];for(var gx=0;gx<=gn;gx++){
+var px=gx/gn*2,py=(1-gy/gn)*2,ws=0,v=0;
+for(var i=0;i<9;i++){var sx=POS_C[i][0],sy=POS_C[i][1],d=(px-sx)**2+(py-sy)**2,w=1/(Math.pow(d+.035,1.65)+1e-9);v+=w*fn9[i];ws+=w;}
+g[gy][gx]=v/ws;
+}}return g;
 }
 
-// ── RdYlGn_r colormap ──
-function colorRdYlGn(v, maxV) {
-    let t = Math.max(0, Math.min(1, v / maxV));
-    let r, g, b;
-    if (t < 0.25) { let u = t / 0.25; r = 0 + Math.round(100 * u); g = 130 + Math.round(125 * u); b = 60 + Math.round(60 * u); }
-    else if (t < 0.5) { let u = (t - 0.25) / 0.25; r = 100 + Math.round(155 * u); g = 255; b = 120 - Math.round(120 * u); }
-    else if (t < 0.75) { let u = (t - 0.5) / 0.25; r = 255; g = 255 - Math.round(100 * u); b = 0; }
-    else { let u = (t - 0.75) / 0.25; r = 255; g = 155 - Math.round(155 * u); b = 0; }
-    return [r, g, b];
+// === Color: RdYlGn_r ===
+function cR(v,mx){
+var t=Math.max(0,Math.min(1,v/mx)),r,g,b;
+if(t<.25){var u=t/.25;r=~~(100*u);g=~~(130+125*u);b=~~(60+60*u);}
+else if(t<.5){var u=(t-.25)/.25;r=~~(100+155*u);g=255;b=~~(120-120*u);}
+else if(t<.75){var u=(t-.5)/.25;r=255;g=~~(255-100*u);b=0;}
+else{var u=(t-.75)/.25;r=255;g=~~(155-155*u);b=0;}
+return[r,g,b];
 }
 
-// ── 3D projection ──
-function project3D(x, y, z) {
-    let x0 = x - 1, y0 = y - 1;
-    let cosA = Math.cos(camAzim), sinA = Math.sin(camAzim);
-    let cosE = Math.cos(camElev), sinE = Math.sin(camElev);
-    let x1 = x0 * cosA - y0 * sinA;
-    let y1 = x0 * sinA + y0 * cosA;
-    let y2 = y1 * cosE - z * sinE;
-    let z2 = y1 * sinE + z * cosE;
-    let f = camDist / (camDist + z2 * 0.15);
-    return [430 + x1 * f * 160, 280 - y2 * f * 160, z2];
+// === 3D projection (matplotlib style) ===
+function P3(x,y,z){
+var x0=x-1,y0=y-1;
+var cA=Math.cos(eA),sA=Math.sin(eA),cE=Math.cos(eE),sE=Math.sin(eE);
+var x1=x0*cA-y0*sA;
+var y1=x0*sA+y0*cA;
+var y2=y1*cE-z*sE;
+var z2=y1*sE+z*cE;
+var f=cD/(cD+z2*.12);
+// Center: canvas 860x600, surface centered at (430,300)
+return[430+x1*f*160,300-y2*f*160,z2];
 }
 
-// ── Draw 3D surface ──
-function draw3DSurface(fn9, maxVal) {
-    let c = document.getElementById('c3d');
-    let ctx = c.getContext('2d');
-    let W = c.width, H = c.height;
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#fafafa';
-    ctx.fillRect(0, 0, W, H);
+// === Draw 3D surface ===
+function draw3D(fn9,mx){
+var c=document.getElementById('c3d'),x=c.getContext('2d'),W=860,H=600;
+x.clearRect(0,0,W,H);x.fillStyle='#fafafa';x.fillRect(0,0,W,H);
 
-    let grid = idwInterp(fn9, GRID_N);
-    let quads = [];
-    for (let gy = 0; gy < GRID_N; gy++) {
-        for (let gx = 0; gx < GRID_N; gx++) {
-            let u0 = gx / GRID_N * 2, v0 = (1 - gy / GRID_N) * 2;
-            let u1 = (gx + 1) / GRID_N * 2, v1 = (1 - (gy + 1) / GRID_N) * 2;
-            let f00 = grid[gy][gx], f10 = grid[gy][gx + 1], f01 = grid[gy + 1][gx], f11 = grid[gy + 1][gx + 1];
-            let p00 = project3D(u0, v0, f00), p10 = project3D(u1, v0, f10);
-            let p01 = project3D(u0, v1, f01), p11 = project3D(u1, v1, f11);
-            let avgZ = (p00[2] + p10[2] + p01[2] + p11[2]) / 4;
-            let avgF = (f00 + f10 + f01 + f11) / 4;
-            // Normal for lighting
-            let du = 2 / GRID_N;
-            let nx = (f10 - f00) * (f11 - f01) - (f01 - f00) * (f11 - f10);
-            let ny = (f01 - f00) * (f11 - f10) - (f10 - f00) * (f01 - f00);
-            let nz = du * du;
-            let nl = Math.sqrt(nx * nx + ny * ny + nz * nz) || 1;
-            let light = Math.max(0.35, 0.5 + 0.5 * (nx * 0.2 + ny * 0.3 + nz * 0.9) / nl);
-            quads.push({ p00, p10, p01, p11, avgZ, avgF, light });
-        }
-    }
-    quads.sort((a, b) => b.avgZ - a.avgZ);
-    for (let q of quads) {
-        let c2 = colorRdYlGn(q.avgF, maxVal);
-        let r = Math.round(c2[0] * q.light), g = Math.round(c2[1] * q.light), b = Math.round(c2[2] * q.light);
-        ctx.fillStyle = `rgb(${r},${g},${b})`;
-        ctx.strokeStyle = `rgba(${r >> 1},${g >> 1},${b >> 1},0.4)`;
-        ctx.lineWidth = 0.4;
-        ctx.beginPath();
-        ctx.moveTo(q.p00[0], q.p00[1]);
-        ctx.lineTo(q.p10[0], q.p10[1]);
-        ctx.lineTo(q.p11[0], q.p11[1]);
-        ctx.lineTo(q.p01[0], q.p01[1]);
-        ctx.closePath();
-        ctx.fill(); ctx.stroke();
-    }
-    // Scatter at sensor positions
-    ctx.fillStyle = '#333';
-    ctx.font = '11px monospace';
-    ctx.textAlign = 'center';
-    for (let i = 0; i < 9; i++) {
-        let coord = POS_COORD[i + 1];
-        let p = project3D(coord[0], coord[1], fn9[i]);
-        ctx.beginPath(); ctx.arc(p[0], p[1], 3.5, 0, Math.PI * 2); ctx.fill();
-        ctx.fillText((i + 1) + '\n' + fn9[i].toFixed(1), p[0], p[1] - 12);
-    }
-    // Title & axes
-    ctx.font = 'bold 14px sans-serif'; ctx.fillStyle = '#333';
-    ctx.fillText('3×3 Normal Force Surface Map', 430, 540);
-    ctx.font = '12px sans-serif'; ctx.fillStyle = '#555';
-    ctx.fillText('X position', 430, 555);
-    // Colorbar
-    let cbX = 770, cbY = 60, cbH = 380;
-    for (let y = 0; y < cbH; y++) {
-        let v = (1 - y / cbH) * maxVal;
-        let c2 = colorRdYlGn(v, maxVal);
-        ctx.fillStyle = `rgb(${c2[0]},${c2[1]},${c2[2]})`;
-        ctx.fillRect(cbX, cbY + y, 16, 1.5);
-    }
-    ctx.strokeStyle = '#999'; ctx.lineWidth = 0.5;
-    ctx.strokeRect(cbX, cbY, 16, cbH);
-    ctx.font = '10px monospace'; ctx.fillStyle = '#555'; ctx.textAlign = 'left';
-    ctx.fillText('0 N', cbX + 20, cbY + cbH);
-    ctx.fillText(maxVal.toFixed(0) + ' N', cbX + 20, cbY + 6);
+var g=doIDW(fn9,GRID_N),qs=[];
+for(var gy=0;gy<GRID_N;gy++)for(var gx=0;gx<GRID_N;gx++){
+var u0=gx/GRID_N*2,v0=(1-gy/GRID_N)*2,u1=(gx+1)/GRID_N*2,v1=(1-(gy+1)/GRID_N)*2;
+var f00=g[gy][gx],f10=g[gy][gx+1],f01=g[gy+1][gx],f11=g[gy+1][gx+1];
+var p00=P3(u0,v0,f00),p10=P3(u1,v0,f10),p01=P3(u0,v1,f01),p11=P3(u1,v1,f11);
+var az=(p00[2]+p10[2]+p01[2]+p11[2])/4;
+var af=(f00+f10+f01+f11)/4;
+var du=2/GRID_N;
+var nx=(f10-f00)*(f11-f01)-(f01-f00)*(f11-f10);
+var ny=(f01-f00)*(f11-f10)-(f10-f00)*(f01-f00);
+var nz=du*du;
+var nl=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;
+var lt=Math.max(.35,.5+.5*(nx*.2+ny*.3+nz*.9)/nl);
+qs.push({p00:p00,p10:p10,p01:p01,p11:p11,az:az,af:af,lt:lt});
+}
+qs.sort(function(a,b){return b.az-a.az;});
+for(var i=0;i<qs.length;i++){
+var q=qs[i],c2=cR(q.af,mx);
+var r=~~(c2[0]*q.lt),g=~~(c2[1]*q.lt),b=~~(c2[2]*q.lt);
+x.fillStyle='rgb('+r+','+g+','+b+')';
+x.strokeStyle='rgba('+(r>>1)+','+(g>>1)+','+(b>>1)+',.4)';
+x.lineWidth=.4;
+x.beginPath();x.moveTo(q.p00[0],q.p00[1]);x.lineTo(q.p10[0],q.p10[1]);x.lineTo(q.p11[0],q.p11[1]);x.lineTo(q.p01[0],q.p01[1]);x.closePath();x.fill();x.stroke();
 }
 
-// 3D mouse interaction
-(function () {
-    let el = document.getElementById('c3d');
-    el.style.cursor = 'crosshair';
-    el.addEventListener('mousedown', e => { isDrag = true; dragStartX = e.clientX; dragStartY = e.clientY; });
-    el.addEventListener('mousemove', e => {
-        if (!isDrag) return;
-        camAzim += (e.clientX - dragStartX) * 0.006;
-        camElev += (e.clientY - dragStartY) * 0.006;
-        camElev = Math.max(0.05, Math.min(1.4, camElev));
-        dragStartX = e.clientX; dragStartY = e.clientY;
-    });
-    el.addEventListener('mouseup', () => isDrag = false);
-    el.addEventListener('mouseleave', () => isDrag = false);
-    el.addEventListener('wheel', e => { e.preventDefault(); camDist = Math.max(3, Math.min(12, camDist + e.deltaY * 0.01)); }, { passive: false });
-    el.addEventListener('touchstart', e => { e.preventDefault(); isDrag = true; dragStartX = e.touches[0].clientX; dragStartY = e.touches[0].clientY; }, { passive: false });
-    el.addEventListener('touchmove', e => { if (!isDrag) return; e.preventDefault(); camAzim += (e.touches[0].clientX - dragStartX) * 0.006; camElev += (e.touches[0].clientY - dragStartY) * 0.006; camElev = Math.max(0.05, Math.min(1.4, camElev)); dragStartX = e.touches[0].clientX; dragStartY = e.touches[0].clientY; }, { passive: false });
-    el.addEventListener('touchend', () => isDrag = false);
+// Scatter points
+x.fillStyle='#333';x.font='11px monospace';x.textAlign='center';
+for(var i=0;i<9;i++){
+var p=P3(POS_C[i][0],POS_C[i][1],fn9[i]);
+x.beginPath();x.arc(p[0],p[1],3,0,2*Math.PI);x.fill();
+x.fillText(String(i+1),p[0],p[1]-10);
+x.fillText(fn9[i].toFixed(1),p[0],p[1]+14);
+}
+
+// Title & axes
+x.font='bold 13px sans-serif';x.fillStyle='#333';x.textAlign='center';
+x.fillText('3\u00d73 Normal Force Surface Map',430,575);
+x.font='11px sans-serif';x.fillStyle='#555';
+x.fillText('X position',430,590);
+
+// Colorbar
+var cbX=790,cbY=70,cbH=400;
+for(var y=0;y<cbH;y++){
+var v=(1-y/cbH)*mx,c2=cR(v,mx);
+x.fillStyle='rgb('+c2[0]+','+c2[1]+','+c2[2]+')';x.fillRect(cbX,cbY+y,16,1.5);
+}
+x.strokeStyle='#999';x.lineWidth=.5;x.strokeRect(cbX,cbY,16,cbH);
+x.font='10px monospace';x.fillStyle='#555';x.textAlign='left';
+x.fillText('0 N',cbX+20,cbY+cbH);
+x.fillText(mx.toFixed(0)+' N',cbX+20,cbY+6);
+x.save();x.translate(cbX-10,cbY+cbH/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText('Normal / N',0,0);x.restore();
+}
+
+// 3D mouse
+(function(){
+var el=document.getElementById('c3d');
+el.addEventListener('mousedown',function(e){dr=true;dx=e.clientX;dy=e.clientY;});
+el.addEventListener('mousemove',function(e){if(!dr)return;eA+=(e.clientX-dx)*.006;eE+=(e.clientY-dy)*.006;eE=Math.max(.05,Math.min(1.4,eE));dx=e.clientX;dy=e.clientY;});
+el.addEventListener('mouseup',function(){dr=false;});
+el.addEventListener('mouseleave',function(){dr=false;});
+el.addEventListener('wheel',function(e){e.preventDefault();cD=Math.max(3,Math.min(12,cD+e.deltaY*.01));},{passive:false});
+el.addEventListener('touchstart',function(e){e.preventDefault();dr=true;dx=e.touches[0].clientX;dy=e.touches[0].clientY;},{passive:false});
+el.addEventListener('touchmove',function(e){if(!dr)return;e.preventDefault();eA+=(e.touches[0].clientX-dx)*.006;eE+=(e.touches[0].clientY-dy)*.006;eE=Math.max(.05,Math.min(1.4,eE));dx=e.touches[0].clientX;dy=e.touches[0].clientY;},{passive:false});
+el.addEventListener('touchend',function(){dr=false;});
 })();
 
-// ── Draw heatmap (top-down) ──
-function drawHeatmap(fn9, maxVal) {
-    let c = document.getElementById('cHeat');
-    let ctx = c.getContext('2d');
-    let W = c.width, H = c.height, pad = 40;
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#fafafa';
-    ctx.fillRect(0, 0, W, H);
-    let gw = W - 2 * pad, gh = H - 2 * pad;
-    let grid = idwInterp(fn9, 28);
-    for (let gy = 0; gy < 28; gy++) {
-        for (let gx = 0; gx < 28; gx++) {
-            let v = Math.max(0, Math.min(maxVal, grid[gy][gx]));
-            let c2 = colorRdYlGn(v, maxVal);
-            ctx.fillStyle = `rgb(${c2[0]},${c2[1]},${c2[2]})`;
-            ctx.fillRect(pad + gx / 28 * gw, pad + (1 - (gy + 1) / 28) * gh, gw / 28 + 0.5, gh / 28 + 0.5);
-        }
-    }
-    // Sensor dots & labels
-    ctx.font = 'bold 12px monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    for (let i = 0; i < 9; i++) {
-        let coord = POS_COORD[i + 1];
-        let x = pad + coord[0] / 2 * gw, y = pad + (1 - coord[1] / 2) * gh;
-        ctx.fillStyle = '#333';
-        ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill();
-        ctx.fillText(fn9[i].toFixed(1), x, y + 16);
-    }
-    // Title
-    ctx.font = 'bold 14px sans-serif'; ctx.fillStyle = '#333';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillText('3×3 Normal Force Heat Map', W / 2, 22);
-    // Axes
-    ctx.font = '11px sans-serif'; ctx.fillStyle = '#555';
-    ctx.fillText('X position', W / 2, H - 6);
-    ctx.save(); ctx.translate(12, H / 2); ctx.rotate(-Math.PI / 2);
-    ctx.textAlign = 'center'; ctx.fillText('Y position', 0, 0); ctx.restore();
-    // Colorbar
-    let cbX = W - 30, cbY = 40, cbH = H - 80;
-    for (let y = 0; y < cbH; y++) {
-        let v = (1 - y / cbH) * maxVal;
-        let c2 = colorRdYlGn(v, maxVal);
-        ctx.fillStyle = `rgb(${c2[0]},${c2[1]},${c2[2]})`;
-        ctx.fillRect(cbX, cbY + y, 12, 1.5);
-    }
-    ctx.font = '9px monospace'; ctx.fillStyle = '#555'; ctx.textAlign = 'left';
-    ctx.fillText('0', cbX + 14, cbY + cbH);
-    ctx.fillText(maxVal.toFixed(0), cbX + 14, cbY + 6);
+// === Heatmap (top-down) ===
+function drawHm(fn9,mx){
+var c=document.getElementById('cHm'),x=c.getContext('2d'),W=520,H=480,pad=40;
+x.clearRect(0,0,W,H);x.fillStyle='#fafafa';x.fillRect(0,0,W,H);
+var gw=W-2*pad,gh=H-2*pad,g=doIDW(fn9,26);
+for(var gy=0;gy<26;gy++)for(var gx=0;gx<26;gx++){
+var v=Math.max(0,Math.min(mx,g[gy][gx])),c2=cR(v,mx);
+x.fillStyle='rgb('+c2[0]+','+c2[1]+','+c2[2]+')';
+x.fillRect(pad+gx/26*gw,pad+(1-(gy+1)/26)*gh,gw/26+.5,gh/26+.5);
+}
+x.font='bold 11px monospace';x.textAlign='center';x.textBaseline='middle';
+for(var i=0;i<9;i++){
+var px=pad+POS_C[i][0]/2*gw,py=pad+(1-POS_C[i][1]/2)*gh;
+x.fillStyle='#333';x.beginPath();x.arc(px,py,3.5,0,2*Math.PI);x.fill();
+x.fillText(fn9[i].toFixed(1),px,py+15);
+}
+x.font='bold 13px sans-serif';x.fillStyle='#333';x.textBaseline='alphabetic';
+x.fillText('3\u00d73 Normal Force Heat Map',W/2,22);
+x.font='11px sans-serif';x.fillStyle='#555';
+x.fillText('X position',W/2,H-6);
+x.save();x.translate(14,H/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText('Y position',0,0);x.restore();
+var cbX=W-30,cbY=40,cbH=H-80;
+for(var y=0;y<cbH;y++){var v=(1-y/cbH)*mx,c2=cR(v,mx);x.fillStyle='rgb('+c2[0]+','+c2[1]+','+c2[2]+')';x.fillRect(cbX,cbY+y,12,1.5);}
+x.font='9px monospace';x.fillStyle='#555';x.textAlign='left';
+x.fillText('0',cbX+14,cbY+cbH);x.fillText(mx.toFixed(0),cbX+14,cbY+6);
 }
 
-// ── Draw shear (2D vector) ──
-function drawShear(shear4, fx, fy, fmag) {
-    let c = document.getElementById('cShear');
-    let ctx = c.getContext('2d');
-    let W = c.width, H = c.height, pad = 45;
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#fafafa';
-    ctx.fillRect(0, 0, W, H);
-    let cx = W / 2, cy = H / 2;
-    let lim = parseFloat(document.getElementById('sRange').value);
-    let pxPerN = (Math.min(W, H) - 2 * pad) / (2 * lim);
+// === Shear vector ===
+function drawSh(s4,fx,fy,fm){
+var c=document.getElementById('cSh'),x=c.getContext('2d'),W=420,H=400,pad=45;
+x.clearRect(0,0,W,H);x.fillStyle='#fafafa';x.fillRect(0,0,W,H);
+var cx=W/2,cy=H/2,lim=parseFloat(document.getElementById('sR').value);
+var pxN=(Math.min(W,H)-2*pad)/(2*lim);
 
-    // Grid
-    ctx.strokeStyle = '#e0e0e0'; ctx.lineWidth = 0.5;
-    for (let i = -5; i <= 5; i++) {
-        let v = i / 5 * lim;
-        let x = cx + v * pxPerN, y = cy - v * pxPerN;
-        ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, H - pad); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W - pad, y); ctx.stroke();
-    }
-    // Axes
-    ctx.strokeStyle = '#aaa'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(cx, pad); ctx.lineTo(cx, H - pad); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(pad, cy); ctx.lineTo(W - pad, cy); ctx.stroke();
+x.strokeStyle='#e0e0e0';x.lineWidth=.5;
+for(var i=-5;i<=5;i++){
+var v=i/5*lim;
+var lx=cx+v*pxN,ly=cy-v*pxN;
+x.beginPath();x.moveTo(lx,pad);x.lineTo(lx,H-pad);x.stroke();
+x.beginPath();x.moveTo(pad,ly);x.lineTo(W-pad,ly);x.stroke();
+}
+x.strokeStyle='#aaa';x.lineWidth=1;
+x.beginPath();x.moveTo(cx,pad);x.lineTo(cx,H-pad);x.stroke();
+x.beginPath();x.moveTo(pad,cy);x.lineTo(W-pad,cy);x.stroke();
 
-    // Tick labels
-    ctx.font = '9px monospace'; ctx.fillStyle = '#888'; ctx.textAlign = 'center';
-    for (let i = -2; i <= 2; i++) {
-        ctx.fillText((i * lim / 2).toFixed(1), cx + i * lim / 2 * pxPerN, H - pad + 12);
-    }
-    ctx.textAlign = 'right';
-    for (let i = -2; i <= 2; i++) {
-        ctx.fillText((i * lim / 2).toFixed(1), pad - 4, cy - i * lim / 2 * pxPerN + 4);
-    }
+x.font='9px monospace';x.fillStyle='#888';x.textAlign='center';
+for(var i=-2;i<=2;i++){x.fillText((i*lim/2).toFixed(1),cx+i*lim/2*pxN,H-pad+12);}
+x.textAlign='right';
+for(var i=-2;i<=2;i++){x.fillText((i*lim/2).toFixed(1),pad-4,cy-i*lim/2*pxN+4);}
 
-    // Direction labels
-    ctx.font = 'bold 11px sans-serif'; ctx.fillStyle = '#4f4b93'; ctx.textAlign = 'center';
-    ctx.fillText('S3 y+: ' + shear4[2].toFixed(2) + ' N', cx, pad + 14);
-    ctx.fillText('S1 x+: ' + shear4[0].toFixed(2) + ' N', W - pad - 2, cy + 4);
-    ctx.fillText('S4 y-: ' + shear4[3].toFixed(2) + ' N', cx, H - pad - 4);
-    ctx.fillText('S2 x-: ' + shear4[1].toFixed(2) + ' N', pad + 14, cy + 4);
+x.font='bold 11px sans-serif';x.fillStyle='#4f4b93';x.textAlign='center';
+x.fillText('S3 y+: '+s4[2].toFixed(2)+' N',cx,pad+14);
+x.fillText('S1 x+: '+s4[0].toFixed(2)+' N',W-pad-2,cy+4);
+x.fillText('S4 y-: '+s4[3].toFixed(2)+' N',cx,H-pad-4);
+x.fillText('S2 x-: '+s4[1].toFixed(2)+' N',pad+14,cy+4);
 
-    // Arrow
-    let ax = fx * pxPerN, ay = -fy * pxPerN;
-    if (Math.hypot(ax, ay) > 2) {
-        ctx.strokeStyle = 'limegreen'; ctx.fillStyle = 'limegreen'; ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + ax, cy + ay); ctx.stroke();
-        let angle = Math.atan2(ay, ax), hw = 10;
-        ctx.beginPath();
-        ctx.moveTo(cx + ax, cy + ay);
-        ctx.lineTo(cx + ax - hw * Math.cos(angle - 0.3), cy + ay - hw * Math.sin(angle - 0.3));
-        ctx.lineTo(cx + ax - hw * Math.cos(angle + 0.3), cy + ay - hw * Math.sin(angle + 0.3));
-        ctx.closePath(); ctx.fill();
-    }
-    ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.fill();
-
-    // Info
-    ctx.fillStyle = '#b24735'; ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'left';
-    let ang = fmag > 1e-9 ? Math.atan2(fy, fx) * 180 / Math.PI : 0;
-    ctx.fillText('F: ' + fmag.toFixed(2) + ' N  Angle: ' + ang.toFixed(0) + ' deg', pad + 4, H - 8);
-
-    // Title
-    ctx.font = 'bold 13px sans-serif'; ctx.fillStyle = '#333'; ctx.textAlign = 'center';
-    ctx.fillText('2D Shear Vector  |FS|=' + fmag.toFixed(2) + ' N', cx, 16);
+var ax=fx*pxN,ay=-fy*pxN;
+if(Math.hypot(ax,ay)>2){
+x.strokeStyle='limegreen';x.fillStyle='limegreen';x.lineWidth=2;
+x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+ax,cy+ay);x.stroke();
+var ag=Math.atan2(ay,ax),hw=10;
+x.beginPath();x.moveTo(cx+ax,cy+ay);
+x.lineTo(cx+ax-hw*Math.cos(ag-.3),cy+ay-hw*Math.sin(ag-.3));
+x.lineTo(cx+ax-hw*Math.cos(ag+.3),cy+ay-hw*Math.sin(ag+.3));
+x.closePath();x.fill();
+}
+x.fillStyle='#000';x.beginPath();x.arc(cx,cy,3,0,2*Math.PI);x.fill();
+x.fillStyle='#b24735';x.font='bold 11px sans-serif';x.textAlign='left';
+var ang=fm>1e-9?Math.atan2(fy,fx)*180/Math.PI:0;
+x.fillText('F: '+fm.toFixed(2)+' N  Angle: '+ang.toFixed(0)+' deg',pad+4,H-6);
+x.font='bold 12px sans-serif';x.fillStyle='#333';x.textAlign='center';
+x.fillText('2D Shear Vector  |FS|='+fm.toFixed(2)+' N',cx,16);
 }
 
-// ── Draw history (time traces) ──
-function drawHistory() {
-    let c = document.getElementById('cHist');
-    let ctx = c.getContext('2d');
-    let W = c.width, H = c.height, pad = { l: 46, r: 14, t: 22, b: 32 };
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#fafafa';
-    ctx.fillRect(0, 0, W, H);
-    if (histT.length < 2) {
-        ctx.fillStyle = '#999'; ctx.font = '12px sans-serif'; ctx.textAlign = 'center';
-        ctx.fillText('Recent Force Traces', W / 2, H / 2);
-        return;
-    }
-    let now = histT[histT.length - 1], tMin = now - 8, tMax = now;
-    let gW = W - pad.l - pad.r, gH = H - pad.t - pad.b;
-    let yMax = 0;
-    for (let i = 0; i < histFN.length; i++) yMax = Math.max(yMax, Math.abs(histFN[i]), Math.abs(histFx[i]), Math.abs(histFy[i]));
-    yMax = Math.max(1, yMax * 1.15);
-    let yMin = -yMax * 0.1;
+// === History ===
+function drawHi(){
+var c=document.getElementById('cHi'),x=c.getContext('2d'),W=480,H=380,p={l:44,r:12,t:20,b:30};
+x.clearRect(0,0,W,H);x.fillStyle='#fafafa';x.fillRect(0,0,W,H);
+if(hT.length<2){x.fillStyle='#999';x.font='12px sans-serif';x.textAlign='center';x.fillText('Recent Force Traces',W/2,H/2);return;}
+var now=hT[hT.length-1],tm=now-8,tx=now,gW=W-p.l-p.r,gH=H-p.t-p.b;
+var ym=0;for(var i=0;i<hFN.length;i++){if(Math.abs(hFN[i])>ym)ym=Math.abs(hFN[i]);if(Math.abs(hFx[i])>ym)ym=Math.abs(hFx[i]);if(Math.abs(hFy[i])>ym)ym=Math.abs(hFy[i]);}
+ym=Math.max(1,ym*1.15);var yn=-ym*.1;
 
-    // Grid
-    ctx.strokeStyle = '#e0e0e0'; ctx.lineWidth = 0.5;
-    for (let y = 0; y <= 5; y++) { let yy = pad.t + y / 5 * gH; ctx.beginPath(); ctx.moveTo(pad.l, yy); ctx.lineTo(W - pad.r, yy); ctx.stroke(); }
+x.strokeStyle='#e0e0e0';x.lineWidth=.5;
+for(var y=0;y<=5;y++){var yy=p.t+y/5*gH;x.beginPath();x.moveTo(p.l,yy);x.lineTo(W-p.r,yy);x.stroke();}
+x.strokeStyle='#888';x.lineWidth=1;
+x.beginPath();x.moveTo(p.l,p.t);x.lineTo(p.l,H-p.b);x.lineTo(W-p.r,H-p.b);x.stroke();
+x.font='9px monospace';x.fillStyle='#555';x.textAlign='right';
+for(var y=0;y<=5;y++){x.fillText((ym-y/5*(ym-yn)).toFixed(1),p.l-4,p.t+y/5*gH+3);}
+x.textAlign='center';
+for(var xi=0;xi<=4;xi++){x.fillText((tm+xi/4*(tx-tm)).toFixed(1)+'s',p.l+xi/4*gW,H-p.b+14);}
 
-    // Axes
-    ctx.strokeStyle = '#888'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, H - pad.b); ctx.lineTo(W - pad.r, H - pad.b); ctx.stroke();
+function pl(data,col){x.strokeStyle=col;x.lineWidth=1.5;x.beginPath();var ok=false;for(var i=0;i<data.length;i++){var px=p.l+(hT[i]-tm)/(tx-tm)*gW,py=p.t+(1-(data[i]-yn)/(ym-yn))*gH;if(px<p.l)continue;if(!ok){x.moveTo(px,py);ok=true;}else x.lineTo(px,py);}x.stroke();}
+pl(hFN,'#1f77b4');pl(hFx,'#ff7f0e');pl(hFy,'#2ca02c');
 
-    // Tick labels
-    ctx.font = '9px monospace'; ctx.fillStyle = '#555'; ctx.textAlign = 'right';
-    for (let y = 0; y <= 5; y++) { ctx.fillText((yMax - y / 5 * (yMax - yMin)).toFixed(1), pad.l - 4, pad.t + y / 5 * gH + 3); }
-    ctx.textAlign = 'center';
-    for (let x = 0; x <= 4; x++) { ctx.fillText((tMin + x / 4 * (tMax - tMin)).toFixed(1) + 's', pad.l + x / 4 * gW, H - pad.b + 14); }
-
-    // Plot lines
-    function plotLine(data, color) {
-        ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.beginPath();
-        let started = false;
-        for (let i = 0; i < data.length; i++) {
-            let px = pad.l + (histT[i] - tMin) / (tMax - tMin) * gW;
-            let py = pad.t + (1 - (data[i] - yMin) / (yMax - yMin)) * gH;
-            if (px < pad.l) continue;
-            if (!started) { ctx.moveTo(px, py); started = true; } else ctx.lineTo(px, py);
-        }
-        ctx.stroke();
-    }
-    plotLine(histFN, '#1f77b4');
-    plotLine(histFx, '#ff7f0e');
-    plotLine(histFy, '#2ca02c');
-
-    // Legend
-    ctx.font = 'bold 10px sans-serif';
-    ctx.fillStyle = '#1f77b4'; ctx.textAlign = 'left'; ctx.fillText('— FN_repr', pad.l + 20, pad.t + 14);
-    ctx.fillStyle = '#ff7f0e'; ctx.fillText('— Fx', pad.l + 100, pad.t + 14);
-    ctx.fillStyle = '#2ca02c'; ctx.fillText('— Fy', pad.l + 150, pad.t + 14);
-
-    // Title & axis labels
-    ctx.font = 'bold 13px sans-serif'; ctx.fillStyle = '#333'; ctx.textAlign = 'center';
-    ctx.fillText('Recent Force Traces', W / 2, 14);
-    ctx.font = '11px sans-serif'; ctx.fillStyle = '#555';
-    ctx.fillText('Time before now / s', W / 2, H - 4);
-    ctx.save(); ctx.translate(10, pad.t + gH / 2); ctx.rotate(-Math.PI / 2);
-    ctx.textAlign = 'center'; ctx.fillText('Force / N', 0, 0); ctx.restore();
+x.font='bold 10px sans-serif';x.textAlign='left';
+x.fillStyle='#1f77b4';x.fillText('\u2500 FN_repr',p.l+16,p.t+14);
+x.fillStyle='#ff7f0e';x.fillText('\u2500 Fx',p.l+80,p.t+14);
+x.fillStyle='#2ca02c';x.fillText('\u2500 Fy',p.l+125,p.t+14);
+x.font='bold 12px sans-serif';x.fillStyle='#333';x.textAlign='center';
+x.fillText('Recent Force Traces',W/2,12);
+x.font='11px sans-serif';x.fillStyle='#555';
+x.fillText('Time before now / s',W/2,H-2);
+x.save();x.translate(10,p.t+gH/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText('Force / N',0,0);x.restore();
 }
 
-// ── Data table ──
-function initTable() {
-    let tbody = document.getElementById('tBody');
-    tbody.innerHTML = '';
-    let labels = [...CH_NAMES];
-    for (let i = 1; i <= 9; i++) labels.push('FN_pos' + i);
-    labels.push('Fx', 'Fy', 'Fshear_mag', 'FN_repr', 'Gamma');
-    for (let name of labels) {
-        let tr = document.createElement('tr');
-        tr.innerHTML = `<td>${name}</td><td>--</td><td>--</td><td>--</td>`;
-        tbody.appendChild(tr);
-    }
+// === Table ===
+function initT(){
+var tb=document.getElementById('tB');tb.innerHTML='';
+var labels=CH_NAMES.slice();
+for(var i=1;i<=9;i++)labels.push('FN_pos'+i);
+labels.push('Fx','Fy','Fshear_mag','FN_repr','Gamma');
+for(var j=0;j<labels.length;j++){var tr=document.createElement('tr');tr.innerHTML='<td>'+labels[j]+'</td><td>--</td><td>--</td><td>--</td>';tb.appendChild(tr);}
 }
-function updateTable(raw, filtered, cal) {
-    let rows = document.querySelectorAll('#tBody tr');
-    let idx = 0;
-    for (let i = 0; i < 11; i++) {
-        let r = rows[idx++];
-        r.children[1].textContent = raw[i].toFixed(0);
-        r.children[2].textContent = filtered[i].toFixed(2);
-        if (i < 5) r.children[3].textContent = 'mapped to FN pos';
-        else if (i < 9) r.children[3].textContent = 'FS ' + SDIR[i - 5];
-        else if (i === 9) r.children[3].textContent = cal.tempADC.toFixed(0) + ' ADC';
-        else r.children[3].textContent = 'standard';
-    }
-    for (let i = 0; i < 9; i++) rows[idx++].children[3].textContent = cal.fn9[i].toFixed(3);
-    let extras = [cal.fx.toFixed(3), cal.fy.toFixed(3), cal.fmag.toFixed(3), cal.fnRepr.toFixed(3), cal.gamma !== null ? cal.gamma.toFixed(3) : '--'];
-    for (let v of extras) rows[idx++].children[3].textContent = v;
+function updT(r,f,cl){
+var rows=document.getElementById('tB').children,idx=0;
+for(var i=0;i<11;i++){var tr=rows[idx++];tr.children[1].textContent=r[i].toFixed(0);tr.children[2].textContent=f[i].toFixed(2);
+if(i<5)tr.children[3].textContent='mapped to FN pos';else if(i<9)tr.children[3].textContent='FS '+SDIR[i-5];else if(i===9)tr.children[3].textContent=cl.ta.toFixed(0)+' ADC';else tr.children[3].textContent='standard';}
+for(var i=0;i<9;i++)rows[idx++].children[3].textContent=cl.fn9[i].toFixed(3);
+var ex=[cl.fx.toFixed(3),cl.fy.toFixed(3),cl.fm.toFixed(3),cl.fr.toFixed(3),cl.gm!==null?cl.gm.toFixed(3):'--'];
+for(var i=0;i<ex.length;i++)rows[idx++].children[3].textContent=ex[i];
 }
 
-// ── Main loop ──
-function mainLoop() {
-    if (!running) return;
-    try {
-    let now = performance.now() / 1000, t = now - t0;
-    let raw = generateSample(t);
-    let rawArr = new Float64Array(raw);
-    let filtered = processFilter(rawArr);
-    let cal = computeCalibrated(filtered);
-
-    histT.push(t); histFN.push(cal.fnRepr); histFx.push(cal.fx); histFy.push(cal.fy);
-    if (histT.length > HIST_LEN) { histT.shift(); histFN.shift(); histFx.shift(); histFy.shift(); }
-
-    fc++;
-    if (t - lr > 0.5) { rate = fc / (t - lr); fc = 0; lr = t; }
-
-    // Status
-    document.getElementById('stSt').textContent = 'connected to FAKE ESP32 Demo';
-    document.getElementById('stRate').textContent = rate.toFixed(1) + ' Hz';
-    document.getElementById('stTemp').textContent = cal.tempADC.toFixed(0) + ' ADC';
-    let heaterDuty = cal.tempADC < 1100 ? 100 : cal.tempADC < 2050 ? Math.round((2100 - cal.tempADC) * 100 / (2100 - 1100)) : 0;
-    document.getElementById('stHeat').textContent = heaterDuty + '%';
-    if (cal.gamma !== null) {
-        document.getElementById('stGam').textContent = cal.gamma.toFixed(2);
-        let crEl = document.getElementById('stCR');
-        if (cal.fmag < 4) { crEl.textContent = 'FS < 4 N, weak check'; crEl.style.color = '#8a6d3b'; }
-        else if (0.25 <= cal.gamma && cal.gamma <= 2) { crEl.textContent = 'normal'; crEl.style.color = 'green'; }
-        else { crEl.textContent = 'possible interference/contact change'; crEl.style.color = 'red'; }
-    } else {
-        document.getElementById('stGam').textContent = '--';
-        document.getElementById('stCR').textContent = 'shear too small';
-        document.getElementById('stCR').style.color = 'gray';
-    }
-    document.getElementById('rawLine').textContent = 'Raw: ' + raw.map(v => v.toFixed(0)).join(', ');
-
-    let maxN = parseFloat(document.getElementById('nRange').value);
-    draw3DSurface(cal.fn9, maxN);
-    drawHeatmap(cal.fn9, maxN);
-    drawShear(cal.shear4, cal.fx, cal.fy, cal.fmag);
-    drawHistory();
-    updateTable(rawArr, filtered, cal);
-
-    requestAnimationFrame(mainLoop);
-    } catch(e) {
-        document.getElementById('rawLine').textContent = 'LOOP ERROR: ' + e.message;
-        document.getElementById('rawLine').style.color = 'red';
-        running = false;
-    }
+// === Main loop ===
+function loop(){
+if(!running)return;
+try{
+var now=performance.now()/1000,t=now-t0;
+var raw=gen(t),rawA=new Float64Array(raw),filt=doFilt(rawA),cl=doCal(filt);
+hT.push(t);hFN.push(cl.fr);hFx.push(cl.fx);hFy.push(cl.fy);
+if(hT.length>HIST_LEN){hT.shift();hFN.shift();hFx.shift();hFy.shift();}
+fc++;if(t-lr>.5){rate=fc/(t-lr);fc=0;lr=t;}
+document.getElementById('s1').textContent='connected to FAKE ESP32 Demo';
+document.getElementById('s2').textContent=rate.toFixed(1)+' Hz';
+document.getElementById('s3').textContent=cl.ta.toFixed(0)+' ADC';
+var hd=cl.ta<1100?100:cl.ta<2050?Math.round((2100-cl.ta)*100/(2100-1100)):0;
+document.getElementById('s4').textContent=hd+'%';
+if(cl.gm!==null){
+document.getElementById('s5').textContent=cl.gm.toFixed(2);
+var se=document.getElementById('s6');
+if(cl.fm<4){se.textContent='FS < 4 N, weak check';se.style.color='#8a6d3b';}
+else if(.25<=cl.gm&&cl.gm<=2){se.textContent='normal';se.style.color='green';}
+else{se.textContent='possible interference/contact change';se.style.color='red';}
+}else{document.getElementById('s5').textContent='--';document.getElementById('s6').textContent='shear too small';document.getElementById('s6').style.color='gray';}
+document.getElementById('rawL').textContent='Raw: '+raw.map(function(v){return v.toFixed(0);}).join(', ');
+var mx=parseFloat(document.getElementById('nR').value);
+draw3D(cl.fn9,mx);drawHm(cl.fn9,mx);drawSh(cl.s4,cl.fx,cl.fy,cl.fm);drawHi();updT(rawA,filt,cl);
+requestAnimationFrame(loop);
+}catch(e){document.getElementById('rawL').textContent='ERROR: '+e.message;document.getElementById('rawL').style.color='red';running=false;}
 }
 
-function doStart() {
-    running = true; t0 = performance.now() / 1000; fc = 0; lr = 0;
-    resetFilter(); histT = []; histFN = []; histFx = []; histFy = [];
-    document.getElementById('btnStart').style.display = 'none';
-    document.getElementById('btnStop').style.display = '';
-    requestAnimationFrame(mainLoop);
-}
-function doStop() {
-    running = false;
-    document.getElementById('btnStart').style.display = '';
-    document.getElementById('btnStop').style.display = 'none';
-    document.getElementById('stSt').textContent = 'disconnected';
-}
-function doZeroN() {
-    zeroNormal = true;
-    document.getElementById('stSt').textContent = 'normal-force zero applied';
-}
-function doZeroS() {
-    zeroShear = true;
-    document.getElementById('stSt').textContent = 'shear-force zero applied';
-}
-function doResetZ() {
-    zeroNormal = false; zeroShear = false;
-    normBaseline.fill(0); shearBaseline.fill(0);
-    document.getElementById('stSt').textContent = 'all zero baselines reset';
-}
+function doStart(){running=true;t0=performance.now()/1000;fc=0;lr=0;rF();hT=[];hFN=[];hFx=[];hFy=[];document.getElementById('btnS').style.display='none';document.getElementById('btnE').style.display='';requestAnimationFrame(loop);}
+function doStop(){running=false;document.getElementById('btnS').style.display='';document.getElementById('btnE').style.display='none';document.getElementById('s1').textContent='disconnected';}
+function doZN(){zN=true;document.getElementById('s1').textContent='normal-force zero applied';}
+function doZS(){zS=true;document.getElementById('s1').textContent='shear-force zero applied';}
+function doZR(){zN=false;zS=false;bN.fill(0);bS.fill(0);document.getElementById('s1').textContent='all zero baselines reset';}
 
-// Init
-try {
-    initTable();
-    setTimeout(doStart, 300);
-} catch(e) {
-    document.getElementById('rawLine').textContent = 'ERROR: ' + e.message + ' | ' + e.stack;
-    document.getElementById('rawLine').style.color = 'red';
-}
+initT();setTimeout(doStart,300);
 </script>
 </body>
 </html>
