@@ -347,8 +347,10 @@ var c=document.getElementById('cHi'),x=c.getContext('2d'),W=480,H=380,p={l:44,r:
 x.clearRect(0,0,W,H);x.fillStyle='#fafafa';x.fillRect(0,0,W,H);
 if(hT.length<2){x.fillStyle='#999';x.font='12px sans-serif';x.textAlign='center';x.fillText('近期力曲线',W/2,H/2);return;}
 var now=hT[hT.length-1],tm=now-8,tx=now,gW=W-p.l-p.r,gH=H-p.t-p.b;
-var ym=0;for(var i=0;i<hFN.length;i++){if(Math.abs(hFN[i])>ym)ym=Math.abs(hFN[i]);if(Math.abs(hFx[i])>ym)ym=Math.abs(hFx[i]);if(Math.abs(hFy[i])>ym)ym=Math.abs(hFy[i]);}
-ym=Math.max(1,ym*1.15);var yn=-ym*.1;
+var yMax=0,yMin=0;
+for(var i=0;i<hFN.length;i++){if(hFN[i]>yMax)yMax=hFN[i];if(hFN[i]<yMin)yMin=hFN[i];if(hFx[i]>yMax)yMax=hFx[i];if(hFx[i]<yMin)yMin=hFx[i];if(hFy[i]>yMax)yMax=hFy[i];if(hFy[i]<yMin)yMin=hFy[i];}
+var yRange=Math.max(1,Math.max(Math.abs(yMax),Math.abs(yMin))*1.15);
+var ym=yRange,yn=-yRange;
 
 x.strokeStyle='#e0e0e0';x.lineWidth=.5;
 for(var y=0;y<=5;y++){var yy=p.t+y/5*gH;x.beginPath();x.moveTo(p.l,yy);x.lineTo(W-p.r,yy);x.stroke();}
