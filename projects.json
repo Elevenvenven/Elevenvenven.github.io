@@ -110,7 +110,7 @@
     "link": "codex_mimo_proxy.html"
   },
   {
-    "image": "images/eskin_cover.jpg",
+    "image": "images/eskin_cover.png",
     "title": "触温一体多模态电子皮肤传感器",
     "description": "3×3 法向力表面图 + 2D 剪切力矢量 + 实时波形，基于 ESP32-S3 的多模态电子皮肤传感器 Web 演示",
     "link": "eskin_demo.html"
