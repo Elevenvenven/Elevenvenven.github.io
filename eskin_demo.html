@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bio-Skin Paper-style ESP32-S3 Monitor</title>
+<title>触温一体多模态电子皮肤传感器 - ESP32-S3 实时监测</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;background:#f0f0f0;color:#333;font-size:13px;line-height:1.4}
@@ -40,39 +40,39 @@ canvas{display:block;width:100%!important;height:auto!important}
 </head>
 <body>
 <div class="topbar">
-<h1>Bio-Skin Paper-style Real-time Calibration Monitor</h1>
+<h1>触温一体多模态电子皮肤传感器 - 实时校准监测</h1>
 <nav>
 <a href="index.html">首页</a>
-<a href="bioskin_demo.html" class="on">Demo</a>
+<a href="eskin_demo.html" class="on">演示</a>
 <a href="chip_verification_guide.html">芯片验证</a>
 <a href="codex_mimo_proxy.html">Codex×MIMO</a>
 </nav>
 </div>
 <div class="wrap">
 <div class="toolbar">
-<label>Port:</label>
-<select><option>FAKE ESP32 Demo - simulated serial output</option></select>
+<label>端口:</label>
+<select><option>模拟 ESP32 演示 - 串口模拟输出</option></select>
 <div class="sep"></div>
-<button class="pri" id="btnS" onclick="doStart()">Start</button>
-<button id="btnE" onclick="doStop()" style="display:none">Stop</button>
+<button class="pri" id="btnS" onclick="doStart()">启动</button>
+<button id="btnE" onclick="doStop()" style="display:none">停止</button>
 <div class="sep"></div>
-<button onclick="doZN()">Zero Normal</button>
-<button onclick="doZS()">Zero Shear</button>
-<button onclick="doZR()" class="dng">Reset Zero</button>
+<button onclick="doZN()">法向力归零</button>
+<button onclick="doZS()">剪切力归零</button>
+<button onclick="doZR()" class="dng">重置归零</button>
 <div class="sep"></div>
-<label>Normal z-range:</label>
+<label>法向力量程:</label>
 <select id="nR"><option value="3">3.00 N</option><option value="6" selected>6.00 N</option><option value="10">10.00 N</option></select>
-<label>Shear range:</label>
+<label>剪切力量程:</label>
 <select id="sR"><option value="5">5.00 N</option><option value="10" selected>10.00 N</option><option value="15">15.00 N</option></select>
 </div>
 <div class="status">
-<div>Status: <b id="s1">disconnected</b></div>
-<div>Rate: <b id="s2">-- Hz</b></div>
-<div>Filter: <b>MA15 + EMA</b></div>
-<div>Temperature: <b id="s3">--</b></div>
-<div>Heater duty est.: <b id="s4">--</b></div>
+<div>状态: <b id="s1">未连接</b></div>
+<div>采样率: <b id="s2">-- Hz</b></div>
+<div>滤波器: <b>MA15 + EMA</b></div>
+<div>温度: <b id="s3">--</b></div>
+<div>加热器占空比: <b id="s4">--</b></div>
 <div>γ=FN/FS: <b id="s5">--</b></div>
-<div>Cross-reference: <b id="s6">--</b></div>
+<div>交叉参考: <b id="s6">--</b></div>
 </div>
 <div class="toprow">
 <div class="plot"><canvas id="c3d" width="860" height="600"></canvas></div>
@@ -81,11 +81,11 @@ canvas{display:block;width:100%!important;height:auto!important}
 <div class="botrow">
 <div class="plot"><canvas id="cSh" width="420" height="400"></canvas></div>
 <div class="plot"><canvas id="cHi" width="480" height="380"></canvas></div>
-<div class="tbl-wrap"><table><thead><tr><th>Item</th><th>Raw ADC</th><th>Filtered</th><th>Calibrated/N</th></tr></thead><tbody id="tB"></tbody></table></div>
+<div class="tbl-wrap"><table><thead><tr><th>项目</th><th>原始 ADC</th><th>滤波后</th><th>校准值/N</th></tr></thead><tbody id="tB"></tbody></table></div>
 </div>
-<div class="raw" id="rawL">Raw serial line: waiting...</div>
+<div class="raw" id="rawL">原始串口数据: 等待中...</div>
 </div>
-<div class="foot">Bio-Skin Paper-style ESP32-S3 上位机 Web 版 · <a href="https://github.com/Elevenvenven">GitHub</a></div>
+<div class="foot">触温一体多模态电子皮肤传感器 ESP32-S3 上位机 Web 版 · <a href="https://github.com/Elevenvenven">GitHub</a></div>
 <script>
 "use strict";
 
@@ -96,7 +96,7 @@ var GRID_N=30, HIST_LEN=400;
 var NF_TO_POS=[1,3,5,7,9];
 var POS_C=[[0,2],[1,2],[2,2],[0,1],[1,1],[2,1],[0,0],[1,0],[2,0]]; // pos 1-9
 var SENSOR_XY=[[0,2],[2,2],[1,1],[0,0],[2,0]]; // NF1-5 actual positions
-var CH_NAMES=["NF1","NF2","NF3","NF4","NF5","SF1_x+","SF2_x-","SF3_y+","SF4_y-","Temperature_ADC","Standard"];
+var CH_NAMES=["NF1","NF2","NF3","NF4","NF5","SF1_x+","SF2_x-","SF3_y+","SF4_y-","温度_ADC","标准值"];
 var SDIR=["x+","x-","y+","y-"];
 
 // === State ===
@@ -237,9 +237,9 @@ x.fillText(fn9[i].toFixed(1),p[0],p[1]+14);
 
 // Title & axes
 x.font='bold 13px sans-serif';x.fillStyle='#333';x.textAlign='center';
-x.fillText('3\u00d73 Normal Force Surface Map',430,575);
+x.fillText('3\u00d73 \u6cd5\u5411\u529b\u8868\u9762\u56fe',430,575);
 x.font='11px sans-serif';x.fillStyle='#555';
-x.fillText('X position',430,590);
+x.fillText('X \u4f4d\u7f6e',430,590);
 
 // Colorbar
 var cbX=790,cbY=70,cbH=400;
@@ -251,7 +251,7 @@ x.strokeStyle='#999';x.lineWidth=.5;x.strokeRect(cbX,cbY,16,cbH);
 x.font='10px monospace';x.fillStyle='#555';x.textAlign='left';
 x.fillText('0 N',cbX+20,cbY+cbH);
 x.fillText(mx.toFixed(0)+' N',cbX+20,cbY+6);
-x.save();x.translate(cbX-10,cbY+cbH/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText('Normal / N',0,0);x.restore();
+x.save();x.translate(cbX-10,cbY+cbH/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText('法向力 / N',0,0);x.restore();
 }
 
 // 3D mouse
@@ -284,10 +284,10 @@ x.fillStyle='#333';x.beginPath();x.arc(px,py,3.5,0,2*Math.PI);x.fill();
 x.fillText(fn9[i].toFixed(1),px,py+15);
 }
 x.font='bold 13px sans-serif';x.fillStyle='#333';x.textBaseline='alphabetic';
-x.fillText('3\u00d73 Normal Force Heat Map',W/2,22);
+x.fillText('3\u00d73 \u6cd5\u5411\u529b\u70ed\u529b\u56fe',W/2,22);
 x.font='11px sans-serif';x.fillStyle='#555';
-x.fillText('X position',W/2,H-6);
-x.save();x.translate(14,H/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText('Y position',0,0);x.restore();
+x.fillText('X \u4f4d\u7f6e',W/2,H-6);
+x.save();x.translate(14,H/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText('Y \u4f4d\u7f6e',0,0);x.restore();
 var cbX=W-30,cbY=40,cbH=H-80;
 for(var y=0;y<cbH;y++){var v=(1-y/cbH)*mx,c2=cR(v,mx);x.fillStyle='rgb('+c2[0]+','+c2[1]+','+c2[2]+')';x.fillRect(cbX,cbY+y,12,1.5);}
 x.font='9px monospace';x.fillStyle='#555';x.textAlign='left';
@@ -336,16 +336,16 @@ x.closePath();x.fill();
 x.fillStyle='#000';x.beginPath();x.arc(cx,cy,3,0,2*Math.PI);x.fill();
 x.fillStyle='#b24735';x.font='bold 11px sans-serif';x.textAlign='left';
 var ang=fm>1e-9?Math.atan2(fy,fx)*180/Math.PI:0;
-x.fillText('F: '+fm.toFixed(2)+' N  Angle: '+ang.toFixed(0)+' deg',pad+4,H-6);
+x.fillText('F: '+fm.toFixed(2)+' N  角度: '+ang.toFixed(0)+'°',pad+4,H-6);
 x.font='bold 12px sans-serif';x.fillStyle='#333';x.textAlign='center';
-x.fillText('2D Shear Vector  |FS|='+fm.toFixed(2)+' N',cx,16);
+x.fillText('2D 剪切力矢量  |FS|='+fm.toFixed(2)+' N',cx,16);
 }
 
 // === History ===
 function drawHi(){
 var c=document.getElementById('cHi'),x=c.getContext('2d'),W=480,H=380,p={l:44,r:12,t:20,b:30};
 x.clearRect(0,0,W,H);x.fillStyle='#fafafa';x.fillRect(0,0,W,H);
-if(hT.length<2){x.fillStyle='#999';x.font='12px sans-serif';x.textAlign='center';x.fillText('Recent Force Traces',W/2,H/2);return;}
+if(hT.length<2){x.fillStyle='#999';x.font='12px sans-serif';x.textAlign='center';x.fillText('近期力曲线',W/2,H/2);return;}
 var now=hT[hT.length-1],tm=now-8,tx=now,gW=W-p.l-p.r,gH=H-p.t-p.b;
 var ym=0;for(var i=0;i<hFN.length;i++){if(Math.abs(hFN[i])>ym)ym=Math.abs(hFN[i]);if(Math.abs(hFx[i])>ym)ym=Math.abs(hFx[i]);if(Math.abs(hFy[i])>ym)ym=Math.abs(hFy[i]);}
 ym=Math.max(1,ym*1.15);var yn=-ym*.1;
@@ -367,10 +367,10 @@ x.fillStyle='#1f77b4';x.fillText('\u2500 FN_repr',p.l+16,p.t+14);
 x.fillStyle='#ff7f0e';x.fillText('\u2500 Fx',p.l+80,p.t+14);
 x.fillStyle='#2ca02c';x.fillText('\u2500 Fy',p.l+125,p.t+14);
 x.font='bold 12px sans-serif';x.fillStyle='#333';x.textAlign='center';
-x.fillText('Recent Force Traces',W/2,12);
+x.fillText('\u8fd1\u671f\u529b\u66f2\u7ebf',W/2,12);
 x.font='11px sans-serif';x.fillStyle='#555';
-x.fillText('Time before now / s',W/2,H-2);
-x.save();x.translate(10,p.t+gH/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText('Force / N',0,0);x.restore();
+x.fillText('\u65f6\u95f4 / s',W/2,H-2);
+x.save();x.translate(10,p.t+gH/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText('\u529b / N',0,0);x.restore();
 }
 
 // === Table ===
@@ -384,7 +384,7 @@ for(var j=0;j<labels.length;j++){var tr=document.createElement('tr');tr.innerHTM
 function updT(r,f,cl){
 var rows=document.getElementById('tB').children,idx=0;
 for(var i=0;i<11;i++){var tr=rows[idx++];tr.children[1].textContent=r[i].toFixed(0);tr.children[2].textContent=f[i].toFixed(2);
-if(i<5)tr.children[3].textContent='mapped to FN pos';else if(i<9)tr.children[3].textContent='FS '+SDIR[i-5];else if(i===9)tr.children[3].textContent=cl.ta.toFixed(0)+' ADC';else tr.children[3].textContent='standard';}
+if(i<5)tr.children[3].textContent='映射到 FN 位置';else if(i<9)tr.children[3].textContent='FS '+SDIR[i-5];else if(i===9)tr.children[3].textContent=cl.ta.toFixed(0)+' ADC';else tr.children[3].textContent='标准值';}
 for(var i=0;i<9;i++)rows[idx++].children[3].textContent=cl.fn9[i].toFixed(3);
 var ex=[cl.fx.toFixed(3),cl.fy.toFixed(3),cl.fm.toFixed(3),cl.fr.toFixed(3),cl.gm!==null?cl.gm.toFixed(3):'--'];
 for(var i=0;i<ex.length;i++)rows[idx++].children[3].textContent=ex[i];
@@ -399,7 +399,7 @@ var raw=gen(t),rawA=new Float64Array(raw),filt=doFilt(rawA),cl=doCal(filt);
 hT.push(t);hFN.push(cl.fr);hFx.push(cl.fx);hFy.push(cl.fy);
 if(hT.length>HIST_LEN){hT.shift();hFN.shift();hFx.shift();hFy.shift();}
 fc++;if(t-lr>.5){rate=fc/(t-lr);fc=0;lr=t;}
-document.getElementById('s1').textContent='connected to FAKE ESP32 Demo';
+document.getElementById('s1').textContent='已连接到模拟 ESP32 演示';
 document.getElementById('s2').textContent=rate.toFixed(1)+' Hz';
 document.getElementById('s3').textContent=cl.ta.toFixed(0)+' ADC';
 var hd=cl.ta<1100?100:cl.ta<2050?Math.round((2100-cl.ta)*100/(2100-1100)):0;
@@ -407,22 +407,22 @@ document.getElementById('s4').textContent=hd+'%';
 if(cl.gm!==null){
 document.getElementById('s5').textContent=cl.gm.toFixed(2);
 var se=document.getElementById('s6');
-if(cl.fm<4){se.textContent='FS < 4 N, weak check';se.style.color='#8a6d3b';}
-else if(.25<=cl.gm&&cl.gm<=2){se.textContent='normal';se.style.color='green';}
-else{se.textContent='possible interference/contact change';se.style.color='red';}
-}else{document.getElementById('s5').textContent='--';document.getElementById('s6').textContent='shear too small';document.getElementById('s6').style.color='gray';}
-document.getElementById('rawL').textContent='Raw: '+raw.map(function(v){return v.toFixed(0);}).join(', ');
+if(cl.fm<4){se.textContent='FS < 4 N，弱检测';se.style.color='#8a6d3b';}
+else if(.25<=cl.gm&&cl.gm<=2){se.textContent='正常';se.style.color='green';}
+else{se.textContent='可能干扰/接触变化';se.style.color='red';}
+}else{document.getElementById('s5').textContent='--';document.getElementById('s6').textContent='剪切力过小';document.getElementById('s6').style.color='gray';}
+document.getElementById('rawL').textContent='原始数据: '+raw.map(function(v){return v.toFixed(0);}).join(', ');
 var mx=parseFloat(document.getElementById('nR').value);
 draw3D(cl.fn9,mx);drawHm(cl.fn9,mx);drawSh(cl.s4,cl.fx,cl.fy,cl.fm);drawHi();updT(rawA,filt,cl);
 requestAnimationFrame(loop);
-}catch(e){document.getElementById('rawL').textContent='ERROR: '+e.message;document.getElementById('rawL').style.color='red';running=false;}
+}catch(e){document.getElementById('rawL').textContent='错误: '+e.message;document.getElementById('rawL').style.color='red';running=false;}
 }
 
 function doStart(){running=true;t0=performance.now()/1000;fc=0;lr=0;rF();hT=[];hFN=[];hFx=[];hFy=[];document.getElementById('btnS').style.display='none';document.getElementById('btnE').style.display='';requestAnimationFrame(loop);}
-function doStop(){running=false;document.getElementById('btnS').style.display='';document.getElementById('btnE').style.display='none';document.getElementById('s1').textContent='disconnected';}
-function doZN(){zN=true;document.getElementById('s1').textContent='normal-force zero applied';}
-function doZS(){zS=true;document.getElementById('s1').textContent='shear-force zero applied';}
-function doZR(){zN=false;zS=false;bN.fill(0);bS.fill(0);document.getElementById('s1').textContent='all zero baselines reset';}
+function doStop(){running=false;document.getElementById('btnS').style.display='';document.getElementById('btnE').style.display='none';document.getElementById('s1').textContent='未连接';}
+function doZN(){zN=true;document.getElementById('s1').textContent='法向力归零已应用';}
+function doZS(){zS=true;document.getElementById('s1').textContent='剪切力归零已应用';}
+function doZR(){zN=false;zS=false;bN.fill(0);bS.fill(0);document.getElementById('s1').textContent='所有归零基线已重置';}
 
 initT();setTimeout(doStart,300);
 </script>
