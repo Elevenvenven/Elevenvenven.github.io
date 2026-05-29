@@ -2,6 +2,7 @@
   {
     "image": "images/pkiler_cover.svg",
     "title": "pkiler",
+    "category": "Apps",
     "description": "AI PDF幻灯片解读器。macOS app：拖入任意PDF，AI自动解读每一页。三档解读粒度（简略/标准/详细），通俗模式，整体解读。支持小米MIMO视觉模型，可配置任意OpenAI兼容API。",
     "link": "https://github.com/Elevenvenven/pkiler",
     "tech_stack": [
@@ -24,54 +25,63 @@
   {
     "image": "images/Evolution-of-Coding-scaled.jpg",
     "title": "Algorithm",
+    "category": "Learning",
     "description": "我在记录我学习Algorithm过程中所遇到的问题和心得",
     "link": "https://github.com/Elevenvenven/Utokyo-test"
   },
   {
     "image": "images/Screenshot 2025-11-15 at 02.49.45.png",
     "title": "Computer Architecture",
+    "category": "Learning",
     "description": "我在记录我学习Computer Architecture过程中的问题和心得",
     "link": "https://github.com/Elevenvenven/Utokyo-test"
   },
   {
     "image": "images/blockchain.jpg",
     "title": "Virtual-Coin_system",
+    "category": "Interactive",
     "description": "虚拟货币原理交互式演示：区块链、哈希、挖矿、交易、双花攻击、共识机制",
     "link": "https://elevenvenven.github.io/virtual_coin.html"
   },
   {
     "image": "images/touch_real.jpg",
     "title": "Touch-real Project",
+    "category": "Research",
     "description": "复制现实纸质纸质资料就像复制电脑上的资料一样简单",
     "link": "https://github.com/Elevenvenven/Virtual-Coin_system"
   },
   {
     "image": "images/Screenshot 2025-11-21 at 02.18.29.png",
     "title": "統計的機械学習",
+    "category": "Learning",
     "description": "我在学习Sugiyama的統計的機械学習课程",
     "link": "https://github.com/Elevenvenven/Machine-learning/tree/Sugiyama"
   },
   {
     "image": "images/nanochat.png",
     "title": "NanoChat",
+    "category": "Research",
     "description": "我在参与NanoChat项目，“The best ChatGPT that $100 can buy”.",
     "link": "https://github.com/karpathy/nanochat"
   },
   {
     "image": "images/lego.jpeg",
     "title": "Teacher_everywhere",
+    "category": "Apps",
     "description": "一款OCR+大模型MacOS应用，帮助消化新知识，施工中",
     "link": "https://github.com/Elevenvenven/Teacher_Everywhere"
   },
   {
     "image": "images/llm.webp",
     "title": "LLM Fine-tuning Guide",
+    "category": "Articles",
     "description": "基于Colab的大模型微调课程，涵盖DeepSeek、LLaMA3、Qwen等模型的LoRA/QLoRA微调实战，使用Unsloth加速训练。",
     "link": "https://github.com/R6410418/Jackrong-llm-finetuning-guide"
   },
   {
     "image": "images/meng_agent.jpg",
     "title": "Meng Agent",
+    "category": "Apps",
     "description": "Meng Agent 是一个具备物理级执行能力的AI智能助手，能够直接操作浏览器、文件系统和外部API。它支持自动化网页浏览、数据采集、代码执行、文件处理等复杂任务，并通过记忆系统不断学习和优化。该Agent能理解自然语言指令，自主规划任务步骤，遇到问题时动态调整策略，真正实现「你动嘴，它动手」的智能体验。",
     "link": "https://github.com/Elevenvenven/Meng-Agent",
     "tech_stack": [
@@ -94,24 +104,28 @@
   {
     "image": "images/japanese.jpg",
     "title": "Japanese Quick Start",
+    "category": "Articles",
     "description": "日语快速入门手册（注音版），涵盖五十音图、基础语法、常用词汇和实用会话，附带振假名注音便于初学者阅读。",
     "link": "japanese_quick_start.html"
   },
   {
     "image": "images/chip_verification_cover.jpg",
     "title": "芯片验证从零入门",
+    "category": "Articles",
     "description": "用生活化比喻讲解芯片验证全流程——建筑验收、期末考试、监控摄像头，覆盖SystemVerilog/UVM/SVA/覆盖率，含15个章节+交互式折叠面板。",
     "link": "chip_verification_guide.html"
   },
   {
     "image": "images/codex_mimo.jpg",
     "title": "Codex × MIMO Proxy",
+    "category": "Apps",
     "description": "让 OpenAI Codex CLI 支持小米 MIMO 大模型的代理方案，实现 Responses API 到 ChatCompletions 的完整转换",
     "link": "codex_mimo_proxy.html"
   },
   {
     "image": "images/eskin_cover.png",
     "title": "触温一体多模态电子皮肤传感器",
+    "category": "Interactive",
     "description": "3×3 法向力表面图 + 2D 剪切力矢量 + 实时波形，基于 ESP32-S3 的多模态电子皮肤传感器 Web 演示",
     "link": "eskin_demo.html"
   }
