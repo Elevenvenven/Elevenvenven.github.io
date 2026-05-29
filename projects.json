@@ -1,6 +1,6 @@
 [
   {
-    "image": "https://raw.githubusercontent.com/Elevenvenven/pkiler/main/images/pkiler_showcase.png",
+    "image": "images/pkiler_cover.svg",
     "title": "pkiler",
     "description": "AI PDF幻灯片解读器。macOS app：拖入任意PDF，AI自动解读每一页。三档解读粒度（简略/标准/详细），通俗模式，整体解读。支持小米MIMO视觉模型，可配置任意OpenAI兼容API。",
     "link": "https://github.com/Elevenvenven/pkiler",
