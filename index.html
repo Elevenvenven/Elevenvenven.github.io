@@ -79,7 +79,7 @@
         h2 { 
             font-size: 2.2rem; 
             font-weight: 800; /* 优化: 标题加粗 */
-            letter-spacing: -0.5px; /* 优化: 字母间距 */
+            letter-spacing: 0;
         }
 
         p {
@@ -412,12 +412,11 @@
                 margin-bottom: 0.75rem;
             }
             
-            /* 确保文字不溢出 */
+            /* 确保文字不溢出，同时避免中英文混排被随意断开 */
             * {
-                word-wrap: break-word;
                 overflow-wrap: break-word;
-                -webkit-hyphens: auto;
-                hyphens: auto;
+                -webkit-hyphens: manual;
+                hyphens: manual;
             }
             
             /* 段落文字优化 */
@@ -704,7 +703,7 @@
             font-size: 1.2rem;
             font-weight: 800;
             color: var(--text-color, #1a1a1a);
-            letter-spacing: -0.5px;
+            letter-spacing: 0;
             line-height: 1;
         }
         .mit-logo:hover .bar {
@@ -766,6 +765,8 @@
                 radial-gradient(circle at 12% 8%, rgba(0, 122, 255, 0.12), transparent 34rem),
                 radial-gradient(circle at 88% 16%, rgba(22, 199, 132, 0.11), transparent 30rem),
                 linear-gradient(180deg, var(--bg-color), var(--bg-color));
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
         html.dark-mode body {
@@ -817,6 +818,15 @@
             text-transform: uppercase;
         }
 
+        .hero-greeting {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            font-size: clamp(1.35rem, 2.4vw, 2.25rem);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
         .hero-kicker::before,
         .section-kicker::before {
             content: "";
@@ -828,18 +838,19 @@
         }
 
         #hero h1 {
-            max-width: 920px;
-            margin-bottom: 24px;
-            font-size: clamp(3.6rem, 8vw, 7.8rem);
-            line-height: 0.9;
-            letter-spacing: -0.04em;
+            max-width: 860px;
+            margin-bottom: 22px;
+            font-size: clamp(4.8rem, 11vw, 9.4rem);
+            line-height: 0.96;
+            letter-spacing: 0;
+            text-wrap: balance;
         }
 
         #hero p {
-            max-width: 760px;
+            max-width: 680px;
             min-height: 0;
-            font-size: clamp(1.05rem, 2vw, 1.45rem);
-            line-height: 1.75;
+            font-size: clamp(1.05rem, 1.7vw, 1.28rem);
+            line-height: 1.68;
         }
 
         .hero-actions {
@@ -847,6 +858,10 @@
             flex-wrap: wrap;
             gap: 12px;
             margin-top: 28px;
+        }
+
+        .hero-actions .cta-button {
+            margin-top: 0;
         }
 
         .cta-button.secondary {
@@ -931,6 +946,8 @@
         .section-head p {
             max-width: 560px;
             margin-bottom: 0;
+            font-size: 1.04rem;
+            line-height: 1.7;
         }
 
         #about .container,
@@ -951,6 +968,16 @@
             text-align: left;
         }
 
+        .about-copy {
+            max-width: 720px;
+        }
+
+        .about-copy p {
+            max-width: 62ch;
+            font-size: 1.06rem;
+            line-height: 1.78;
+        }
+
         #about h2,
         #skills h2,
         #news h2,
@@ -959,8 +986,9 @@
         #contact h2,
         #donate h2 {
             font-size: clamp(2.2rem, 5vw, 4.6rem);
-            line-height: 0.95;
-            letter-spacing: -0.03em;
+            line-height: 1.08;
+            letter-spacing: 0;
+            text-wrap: balance;
         }
 
         .profile-pic {
@@ -995,6 +1023,15 @@
             position: relative;
             min-height: 176px;
             border-radius: var(--card-radius);
+        }
+
+        .news-item h3 {
+            line-height: 1.35;
+            text-wrap: balance;
+        }
+
+        .news-item p.description {
+            line-height: 1.72;
         }
 
         .news-type {
@@ -1095,12 +1132,23 @@
 
         .project-content {
             display: flex;
-            min-height: 260px;
+            min-height: 250px;
             flex-direction: column;
+        }
+
+        .project-content h3 {
+            line-height: 1.32;
+            text-wrap: balance;
         }
 
         .project-content p {
             flex: 1;
+            display: -webkit-box;
+            min-height: 6.2em;
+            overflow: hidden;
+            line-height: 1.55;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
         }
 
         .project-tags-preview {
@@ -1185,11 +1233,12 @@
             }
 
             #hero h1 {
-                font-size: clamp(3rem, 15vw, 4.8rem);
+                font-size: clamp(4rem, 20vw, 6rem);
             }
 
             #hero p {
                 font-size: 1rem;
+                line-height: 1.72;
             }
 
             .hero-shell {
@@ -1207,6 +1256,10 @@
             }
 
             .project-content {
+                min-height: 0;
+            }
+
+            .project-content p {
                 min-height: 0;
             }
 
@@ -1273,7 +1326,8 @@
             <div class="hero-shell">
                 <div class="hero-copy">
                     <span class="hero-kicker">HCI · AI · Computer Architecture</span>
-                    <h1>Hello, I'm 11_sum</h1>
+                    <span class="hero-greeting">Hello, I'm</span>
+                    <h1>11_sum</h1>
                     <p>A learner in computer science, currently exploring how intelligent systems, hardware thinking, and human interaction can fit together.</p>
                     <p>"The more you experience, the more open-minded you become."</p>
                     <div class="hero-actions">
@@ -1308,11 +1362,13 @@
         <section id="about">
             <div class="container">
                 <img src="images/11sum.jpg" alt="我的头像" class="profile-pic fade-in">
-                <h2 >About Me</h2>
-                <p >SCU (Sichuan University), EE Bachelor, 2025😎</p>
-                <p >Currently, as a master student in Information Science and Technology，UTokyo😋</p>
-                <p >Main research interests in HCI & CA & AI……🧐</p>
-                <p >When I have free time, I play Go/guitar, hike with classmates, and read novels……☺️</p>
+                <div class="about-copy fade-in">
+                    <h2 >About Me</h2>
+                    <p >SCU (Sichuan University), EE Bachelor, 2025.</p>
+                    <p >Currently, as a master student in Information Science and Technology, UTokyo.</p>
+                    <p >Main research interests in HCI, computer architecture, and AI.</p>
+                    <p >When I have free time, I play Go or guitar, hike with classmates, and read novels.</p>
+                </div>
             </div>
         </section>
         <section id="skills">
