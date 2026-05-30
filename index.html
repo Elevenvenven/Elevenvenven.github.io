@@ -1581,7 +1581,7 @@
             }
             
             // 使用 fetch API 异步加载 projects.json
-            fetch('projects.json')
+            fetch('projects.json?v=20260530-covers')
                 .then(response => response.json())
                 .then(projects => {
                     allProjects = projects;

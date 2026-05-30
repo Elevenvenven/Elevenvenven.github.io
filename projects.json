@@ -79,7 +79,7 @@
     "link": "https://github.com/R6410418/Jackrong-llm-finetuning-guide"
   },
   {
-    "image": "images/meng_agent.jpg",
+    "image": "images/meng_agent_cover_v2.png",
     "title": "Meng Agent",
     "category": "Apps",
     "description": "Meng Agent 是一个具备物理级执行能力的AI智能助手，能够直接操作浏览器、文件系统和外部API。它支持自动化网页浏览、数据采集、代码执行、文件处理等复杂任务，并通过记忆系统不断学习和优化。该Agent能理解自然语言指令，自主规划任务步骤，遇到问题时动态调整策略，真正实现「你动嘴，它动手」的智能体验。",
@@ -102,21 +102,21 @@
     "long_description": "Meng Agent 是一个具备物理级执行能力的AI智能助手，设计初衷是让AI能够真正\"动手\"完成复杂任务。\n\n核心架构：\n• 物理层执行器 - 直接操作系统、浏览器、文件系统\n• 记忆系统 - L0-L4分层记忆，持续学习积累\n• 任务规划器 - 自主分解复杂任务为可执行步骤\n• 错误恢复 - 遇到问题时动态调整策略\n\n应用场景：\n• 自动化数据采集与分析\n• 复杂多步骤任务执行\n• 智能浏览器操作\n• 代码编写与调试辅助\n\n技术亮点：\n• 基于GPT-4的大模型驱动\n• 完整的内存管理与状态持久化\n• 支持跨平台操作（Windows/macOS）\n• 模块化设计，易于扩展新功能"
   },
   {
-    "image": "images/japanese.jpg",
+    "image": "images/japanese_quick_start_cover_v2.png",
     "title": "Japanese Quick Start",
     "category": "Articles",
     "description": "日语快速入门手册（注音版），涵盖五十音图、基础语法、常用词汇和实用会话，附带振假名注音便于初学者阅读。",
     "link": "japanese_quick_start.html"
   },
   {
-    "image": "images/chip_verification_cover.jpg",
+    "image": "images/chip_verification_cover_v2.png",
     "title": "芯片验证从零入门",
     "category": "Articles",
     "description": "用生活化比喻讲解芯片验证全流程——建筑验收、期末考试、监控摄像头，覆盖SystemVerilog/UVM/SVA/覆盖率，含15个章节+交互式折叠面板。",
     "link": "chip_verification_guide.html"
   },
   {
-    "image": "images/codex_mimo.jpg",
+    "image": "images/codex_mimo_cover_v2.png",
     "title": "Codex × MIMO Proxy",
     "category": "Apps",
     "description": "让 OpenAI Codex CLI 支持小米 MIMO 大模型的代理方案，实现 Responses API 到 ChatCompletions 的完整转换",
