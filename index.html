@@ -1094,6 +1094,23 @@
             -webkit-line-clamp: 4;
         }
 
+        .project-card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .project-card-actions .project-link {
+            margin-top: 0;
+        }
+
+        .project-link-secondary {
+            color: var(--text-secondary);
+            font-weight: 650;
+        }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1411,7 +1428,10 @@
             <h2 class="project-detail-title" id="project-detail-title"></h2>
             <div class="project-detail-desc" id="project-detail-desc"></div>
             <div class="project-detail-features" id="project-detail-features"></div>
-            <a class="project-detail-link" id="project-detail-link" href="" target="_blank">View on GitHub →</a>
+            <div class="project-card-actions">
+                <a class="project-detail-link" id="project-detail-link" href="" target="_blank">Open Project →</a>
+                <a class="project-link project-link-secondary" id="project-detail-secondary-link" href="" target="_blank" style="display:none;">GitHub →</a>
+            </div>
         </div>
     </div>
 
@@ -1543,6 +1563,7 @@
                     project.description,
                     project.long_description,
                     project.link,
+                    project.secondary_link,
                     category,
                     ...(project.tech_stack || []),
                     ...(project.features || [])
@@ -1565,13 +1586,20 @@
                     const originalIndex = allProjects.indexOf(project);
                     const card = document.createElement('div');
                     card.className = `project-card ${visibleIndex < 3 ? 'featured-project' : ''} fade-in fade-in-delay-${(visibleIndex % 3) + 1}`;
+                    const primaryLabel = project.card_label || 'View Project →';
+                    const primaryLink = project.long_description
+                        ? `<a href="javascript:void(0)" class="project-link project-detail-btn" data-index="${originalIndex}">${primaryLabel}</a>`
+                        : `<a href="${project.link}" class="project-link" target="_blank">${primaryLabel}</a>`;
+                    const secondaryLink = project.secondary_link
+                        ? `<a href="${project.secondary_link}" class="project-link project-link-secondary" target="_blank">${project.secondary_label || 'GitHub →'}</a>`
+                        : '';
 
                     card.innerHTML = `
                         <img src="${project.image}" alt="${project.title}" loading="lazy">
                         <div class="project-content">
                             <h3>${project.title}</h3>
                             <p>${project.description}</p>
-                            ${project.long_description ? `<a href="javascript:void(0)" class="project-link project-detail-btn" data-index="${originalIndex}">View Project →</a>` : `<a href="${project.link}" class="project-link" target="_blank">View Project →</a>`}
+                            <div class="project-card-actions">${primaryLink}${secondaryLink}</div>
                         </div>
                     `;
                     projectGrid.appendChild(card);
@@ -1581,7 +1609,7 @@
             }
             
             // 使用 fetch API 异步加载 projects.json
-            fetch('projects.json?v=20260530-covers')
+            fetch('projects.json?v=20260602-pkiler')
                 .then(response => response.json())
                 .then(projects => {
                     allProjects = projects;
@@ -1606,7 +1634,17 @@
                             document.getElementById('project-detail-img').src = proj.image;
                             document.getElementById('project-detail-img').alt = proj.title;
                             document.getElementById('project-detail-title').textContent = proj.title;
-                            document.getElementById('project-detail-link').href = proj.link;
+                            const primaryDetailLink = document.getElementById('project-detail-link');
+                            primaryDetailLink.href = proj.link;
+                            primaryDetailLink.textContent = proj.detail_label || 'Open Project →';
+                            const secondaryDetailLink = document.getElementById('project-detail-secondary-link');
+                            if (proj.secondary_link) {
+                                secondaryDetailLink.href = proj.secondary_link;
+                                secondaryDetailLink.textContent = proj.secondary_label || 'GitHub →';
+                                secondaryDetailLink.style.display = 'inline-block';
+                            } else {
+                                secondaryDetailLink.style.display = 'none';
+                            }
                             // Description
                             const descEl = document.getElementById('project-detail-desc');
                             descEl.innerHTML = (proj.long_description || proj.description).replace(/\n/g, '<br>');

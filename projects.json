@@ -1,26 +1,33 @@
 [
   {
-    "image": "images/pkiler_cover.svg",
+    "image": "images/pkiler_hero.png",
     "title": "pkiler",
     "category": "Apps",
-    "description": "AI PDF幻灯片解读器。macOS app：拖入任意PDF，AI自动解读每一页。三档解读粒度（简略/标准/详细），通俗模式，整体解读。支持小米MIMO视觉模型，可配置任意OpenAI兼容API。",
-    "link": "https://github.com/Elevenvenven/pkiler",
+    "description": "开源 AI PDF 幻灯片解读器。把课程讲义、论文 slides 和技术报告拖进窗口，视觉模型逐页读图，输出简略/标准/详细三档讲解，并支持整体解读。",
+    "link": "pkiler.html",
+    "card_label": "Case Study →",
+    "detail_label": "Open case study →",
+    "secondary_link": "https://github.com/Elevenvenven/pkiler",
+    "secondary_label": "GitHub →",
     "tech_stack": [
       "Python",
       "Flask",
+      "SSE",
       "Xiaomi MIMO Vision",
       "pymupdf",
+      "OpenAI-compatible APIs",
       "macOS .app"
     ],
     "features": [
-      "拖放任意PDF即可阅读",
+      "拖放 PDF 后自动解析页面",
+      "视觉模型理解图表、公式和版式",
       "三档解读：简略/标准/详细",
-      "通俗模式：大白话解释复杂概念",
-      "整体解读：一键分析全部内容",
-      "暗色主题护眼",
-      "配置灵活，支持任意AI后端"
+      "通俗模式：把复杂概念翻成大白话",
+      "整体解读：一键梳理整份材料",
+      "SSE 流式输出，等待感更低",
+      "API key、base URL、模型名均可配置"
     ],
-    "long_description": "pkiler 是一个开源的AI PDF幻灯片解读器。\n\n核心功能：\n\n• 拖放PDF - 把任意PDF拖入窗口即可开始阅读\n• 三档解读 - 简略（一句话摘要）/ 标准（通俗解释）/ 详细（深入剖析）\n• 通俗模式 - 用大白话+生活例子解释，适合完全不懂的小白\n• 整体解读 - 一键分析全部PPT内容，输出完整讲解\n• 暗色主题 - 护眼舒适的暗色UI\n\n技术架构：\n• Flask Python后端 + HTML/JS前端\n• 通过SSE流式传输AI解读结果\n• pymupdf提取和转换PDF页面为图片\n• 小米MIMO视觉模型进行图文分析\n• 打包为macOS .app，双击即可运行\n\n配置：通过.env文件配置API Key和模型，不硬编码任何隐私信息。\n\n开源在GitHub：https://github.com/Elevenvenven/pkiler"
+    "long_description": "pkiler 是一个开源 AI PDF 幻灯片解读器，目标是把难读的课程 slides、论文报告和技术 PDF 变成可以逐页理解、分层追问、整体复盘的学习材料。\n\n核心体验：\n\n• 拖放 PDF - 把任意 PDF 拖入窗口即可开始阅读\n• 视觉解读 - 使用页面图片保留版式、图表、公式和上下文\n• 三档粒度 - 简略/标准/详细，适合预习、复习和深入阅读\n• 通俗模式 - 用更直白的语言解释复杂概念\n• 整体解读 - 一键梳理整份 slides 的主线和重点\n• 流式输出 - SSE 边生成边展示，降低等待感\n\n技术架构：\n• Flask Python 后端 + HTML/JS 前端\n• PyMuPDF 提取和转换 PDF 页面\n• 小米 MIMO 视觉模型进行图文分析\n• OpenAI 兼容接口，可替换不同模型后端\n• 可打包为 macOS .app，双击运行\n\n配置：通过 .env 配置 API Key、base URL 和模型名，不硬编码隐私信息。"
   },
   {
     "image": "images/Evolution-of-Coding-scaled.jpg",

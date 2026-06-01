@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pkiler | AI PDF Slide Reader</title>
+  <meta name="description" content="pkiler 是一个开源 AI PDF 幻灯片解读器，把课程、论文和技术报告的 PDF 转成分层、可追问、可整体理解的讲解。" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071016;
+      --panel: #0d1822;
+      --panel-2: #132333;
+      --text: #eef6fb;
+      --muted: #a8b8c7;
+      --line: rgba(184, 204, 219, 0.18);
+      --cyan: #38bdf8;
+      --green: #2dd4bf;
+      --amber: #f6bd43;
+      --rose: #fb7185;
+      --violet: #a78bfa;
+      --shadow: rgba(0, 0, 0, 0.34);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 16, 22, 0.82);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1180px;
+      min-height: 64px;
+      margin: 0 auto;
+      padding: 0 22px;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.24), rgba(45, 212, 191, 0.2));
+      color: #dff8ff;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a,
+    .button {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 750;
+      color: var(--text);
+    }
+
+    .button.primary {
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      color: #041016;
+      box-shadow: 0 12px 30px rgba(45, 212, 191, 0.22);
+    }
+
+    .hero {
+      position: relative;
+      min-height: min(760px, 86vh);
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(7, 16, 22, 0.95) 0%, rgba(7, 16, 22, 0.72) 44%, rgba(7, 16, 22, 0.24) 100%),
+        url("images/pkiler_hero.png") center right / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 150px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 110px 22px 74px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--green);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(4rem, 11vw, 8.8rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 720px;
+      margin: 28px 0 0;
+      color: #d8e7ef;
+      font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      max-width: 860px;
+      gap: 10px;
+      margin-top: 42px;
+    }
+
+    .metric {
+      min-height: 94px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(13, 24, 34, 0.76);
+      box-shadow: 0 18px 46px var(--shadow);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.45rem;
+      line-height: 1.1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    section {
+      padding: clamp(58px, 9vw, 104px) 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.65fr);
+      align-items: end;
+      gap: 36px;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(2.25rem, 5vw, 4.8rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .section-head p,
+    .wide-copy {
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.78;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 18px 50px var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 1.25rem;
+      line-height: 1.35;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .workflow {
+      counter-reset: step;
+    }
+
+    .workflow .card {
+      position: relative;
+      min-height: 220px;
+      padding-top: 68px;
+    }
+
+    .workflow .card::before {
+      counter-increment: step;
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      top: 20px;
+      left: 22px;
+      color: var(--amber);
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .node {
+      min-height: 132px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel-2);
+    }
+
+    .node strong {
+      display: block;
+      margin-bottom: 10px;
+      color: #f6fbff;
+    }
+
+    .node span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.94rem;
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .matrix th,
+    .matrix td {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.65;
+    }
+
+    .matrix th {
+      color: #f6fbff;
+      background: rgba(56, 189, 248, 0.1);
+    }
+
+    .matrix td {
+      color: var(--muted);
+    }
+
+    .matrix tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .showcase img {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 24px 70px var(--shadow);
+    }
+
+    .roadmap {
+      background: #09131c;
+    }
+
+    .accent-cyan {
+      border-top: 4px solid var(--cyan);
+    }
+
+    .accent-green {
+      border-top: 4px solid var(--green);
+    }
+
+    .accent-amber {
+      border-top: 4px solid var(--amber);
+    }
+
+    .accent-rose {
+      border-top: 4px solid var(--rose);
+    }
+
+    .accent-violet {
+      border-top: 4px solid var(--violet);
+    }
+
+    .mode-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mode-row {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 16px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .mode-row strong {
+      color: #f7fbff;
+    }
+
+    .mode-row span {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .cta-band {
+      padding: clamp(56px, 8vw, 88px) 22px;
+      background: linear-gradient(135deg, #0b1b27, #102821);
+    }
+
+    .cta-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: center;
+      padding: clamp(24px, 5vw, 42px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(7, 16, 22, 0.62);
+    }
+
+    .cta-panel p {
+      max-width: 780px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    footer {
+      padding: 28px 22px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        min-height: auto;
+        background-position: center;
+      }
+
+      .hero-inner {
+        padding-top: 84px;
+      }
+
+      .hero-metrics,
+      .grid.three,
+      .grid.two,
+      .grid.four,
+      .section-head,
+      .showcase,
+      .cta-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .architecture {
+        grid-template-columns: 1fr;
+      }
+
+      .mode-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 18px;
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+
+      .nav-links a {
+        flex: 1;
+      }
+
+      .hero-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .matrix {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html#projects" aria-label="Back to projects">
+        <span class="mark">p</span>
+        <span>pkiler</span>
+      </a>
+      <nav class="nav-links" aria-label="Project navigation">
+        <a href="#workflow">Workflow</a>
+        <a href="#modes">Modes</a>
+        <a href="#architecture">Architecture</a>
+        <a href="https://github.com/Elevenvenven/pkiler" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Open-source AI PDF slide reader</p>
+        <h1>pkiler</h1>
+        <p class="hero-lead">
+          把课程讲义、论文 slides 和技术报告拖进窗口，让视觉模型逐页读图、提炼重点、解释图表，再用你需要的深度输出讲解。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/Elevenvenven/pkiler" target="_blank" rel="noreferrer">Open GitHub</a>
+          <a class="button" href="index.html#projects">Back to projects</a>
+        </div>
+        <div class="hero-metrics" aria-label="Project highlights">
+          <div class="metric"><strong>PDF</strong><span>拖放导入，逐页转换为可理解的视觉上下文</span></div>
+          <div class="metric"><strong>3 tiers</strong><span>简略、标准、详细三种解释深度</span></div>
+          <div class="metric"><strong>SSE</strong><span>流式返回模型讲解，等待感更低</span></div>
+          <div class="metric"><strong>.app</strong><span>可打包为 macOS 桌面应用</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-head">
+        <h2>为难读的 slides 留一条路</h2>
+        <p>
+          很多 PDF 幻灯片不是为自学者设计的：图表密、符号多、上下文缺失。pkiler 的重点不是简单摘要，而是把“看不懂的一页”转成可以继续学习的解释入口。
+        </p>
+      </div>
+      <div class="wrap grid three">
+        <article class="card accent-cyan">
+          <h3>读图，而不是只读文字</h3>
+          <p>先把 PDF 页面转成图片，再交给视觉模型分析版式、图表、公式和文字之间的关系，避免传统文本抽取丢掉页面语义。</p>
+        </article>
+        <article class="card accent-green">
+          <h3>按理解程度切换深度</h3>
+          <p>同一页可以用一句话概括，也可以展开成通俗解释或深入剖析，适合预习、复习和补背景知识。</p>
+        </article>
+        <article class="card accent-amber">
+          <h3>从单页到整份材料</h3>
+          <p>既能逐页问“这一页在讲什么”，也能让模型通读整份 PPT，输出课程脉络、重点结论和易错点。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="wrap section-head">
+        <h2>阅读流程</h2>
+        <p>pkiler 把 PDF 阅读拆成四步：导入、解析、解释、回看。核心体验是让用户不用先理解材料，仍然能开始提问和建立结构。</p>
+      </div>
+      <div class="wrap grid four workflow">
+        <article class="card">
+          <h3>拖入 PDF</h3>
+          <p>把课程 slides、论文报告或技术文档拖进窗口，应用立即进入阅读状态。</p>
+        </article>
+        <article class="card">
+          <h3>页面图像化</h3>
+          <p>后端使用 PyMuPDF 提取页面并转换为图片，为视觉模型保留排版和图表信息。</p>
+        </article>
+        <article class="card">
+          <h3>AI 分层讲解</h3>
+          <p>通过 OpenAI 兼容接口调用视觉模型，按简略、标准、详细三档输出解释。</p>
+        </article>
+        <article class="card">
+          <h3>整体理解</h3>
+          <p>把每页解释连接起来，形成整份材料的学习路线、主题关系和关键 takeaway。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="modes">
+      <div class="wrap section-head">
+        <h2>解释模式</h2>
+        <p>pkiler 的模式不是“换个语气”这么简单，而是把同一页 slide 映射到不同学习阶段：扫一眼、真正理解、准备讲给别人听。</p>
+      </div>
+      <div class="wrap mode-stack">
+        <div class="mode-row">
+          <strong>Brief</strong>
+          <span>快速判断这一页值不值得细读，用一句话或几条短句抓住主题、结论和页面作用。</span>
+        </div>
+        <div class="mode-row">
+          <strong>Standard</strong>
+          <span>面向日常学习，把图表、术语和页内逻辑展开成通顺说明，适合跟着课程或论文 slides 往下读。</span>
+        </div>
+        <div class="mode-row">
+          <strong>Detailed</strong>
+          <span>深入解释背景、变量关系、实验含义和可能的推导路径，更适合复盘、组会准备和技术报告阅读。</span>
+        </div>
+        <div class="mode-row">
+          <strong>Plain language</strong>
+          <span>把模型输出约束成更直白的语言，优先建立直觉，再逐步回到专业术语。</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="wrap section-head">
+        <h2>架构</h2>
+        <p>它是一个轻量桌面应用：Python 后端负责 PDF 处理和模型请求，浏览器式前端负责交互，SSE 负责把模型输出持续推到界面。</p>
+      </div>
+      <div class="wrap architecture">
+        <div class="node"><strong>PDF input</strong><span>拖放文件，记录页数、缩略图和当前阅读状态。</span></div>
+        <div class="node"><strong>PyMuPDF</strong><span>把页面转换为图片，保留复杂 slide 的视觉结构。</span></div>
+        <div class="node"><strong>Flask API</strong><span>提供页面解释、整体解读、配置读取等本地接口。</span></div>
+        <div class="node"><strong>SSE stream</strong><span>模型边生成边展示，减少长文等待的割裂感。</span></div>
+        <div class="node"><strong>Vision model</strong><span>默认面向小米 MIMO，也支持 OpenAI 兼容后端。</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap showcase">
+        <div>
+          <h2>从工具到学习伙伴</h2>
+          <p class="wide-copy">
+            pkiler 更像一个坐在旁边的讲义助教。它不会只给出一段冷冰冰的摘要，而是把图里的关系、页内逻辑和整份材料的主线拆开说清楚。对于芯片、AI、论文组会、课程 slides 这类高密度材料，这个差别很大。
+          </p>
+        </div>
+        <img src="images/pkiler_hero.png" alt="pkiler interface concept showing PDF slides transformed into AI explanations" loading="lazy" />
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-head">
+        <h2>能力矩阵</h2>
+        <p>这不是一个“PDF 转文字”小工具，而是一套围绕学习体验组织起来的功能集合。</p>
+      </div>
+      <div class="wrap">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>能力</th>
+              <th>当前实现</th>
+              <th>用户价值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>逐页解读</td>
+              <td>把单页 PDF 转成图片并交给视觉模型分析。</td>
+              <td>适合卡在某一页时快速获得解释。</td>
+            </tr>
+            <tr>
+              <td>通俗模式</td>
+              <td>用更生活化的语言重写复杂概念。</td>
+              <td>帮助跨专业读者先建立直觉。</td>
+            </tr>
+            <tr>
+              <td>整体解读</td>
+              <td>汇总全套 slides，输出完整讲解。</td>
+              <td>适合预习、复盘和准备汇报。</td>
+            </tr>
+            <tr>
+              <td>可配置后端</td>
+              <td>通过环境变量配置 API key、base URL 和模型名。</td>
+              <td>同一套界面可以切换不同视觉模型。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="roadmap">
+      <div class="wrap section-head">
+        <h2>下一步</h2>
+        <p>如果继续演进，pkiler 可以从单机阅读器升级为真正的学习工作台。</p>
+      </div>
+      <div class="wrap grid three">
+        <article class="card accent-cyan">
+          <h3>学习记忆</h3>
+          <p>记录用户反复不懂的概念，把后续解释自动调到更合适的背景深度。</p>
+        </article>
+        <article class="card accent-green">
+          <h3>知识索引</h3>
+          <p>为整份 PDF 建立章节、关键词和公式索引，让用户可以按主题回看。</p>
+        </article>
+        <article class="card accent-rose">
+          <h3>导出讲义</h3>
+          <p>把逐页解释、整体总结和用户追问导出为 Markdown 或复习笔记。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-head">
+        <h2>本地、配置与边界</h2>
+        <p>pkiler 的定位是一个可以自己掌控的学习工具：本地负责文件解析和界面，模型请求通过你配置的后端发出。</p>
+      </div>
+      <div class="wrap grid three">
+        <article class="card accent-green">
+          <h3>配置不进代码</h3>
+          <p>API key、base URL、模型名通过环境变量或配置文件管理，避免把私密信息写死进仓库。</p>
+        </article>
+        <article class="card accent-violet">
+          <h3>模型后端可替换</h3>
+          <p>只要兼容 OpenAI 风格接口，就可以把 MIMO、私有代理或其他视觉模型接进同一套界面。</p>
+        </article>
+        <article class="card accent-amber">
+          <h3>明确处理边界</h3>
+          <p>PDF 页面会被转换为图片并发送给配置的模型服务；适合学习材料，不建议直接处理敏感文件。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap cta-panel">
+        <div>
+          <h2>开源、可改、可换模型</h2>
+          <p>pkiler 的价值在于它足够轻：本地跑界面和 PDF 处理，模型后端可以换。你可以把它改成论文阅读器、课程助教、组会工具，或者继续做成更完整的 macOS 学习应用。</p>
+        </div>
+        <a class="button primary" href="https://github.com/Elevenvenven/pkiler" target="_blank" rel="noreferrer">View repository</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> 11_sum. pkiler project page.</span>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
