@@ -116,6 +116,13 @@
     "link": "japanese_quick_start.html"
   },
   {
+    "image": "images/japanese.jpg",
+    "title": "Tae Kim 日语语法指南",
+    "category": "Articles",
+    "description": "Tae Kim《Japanese Grammar Guide》中文翻译，69 个页面覆盖从假名到高级语法，侧边栏导航、面包屑、隐藏答案交互、响应式布局。",
+    "link": "jpgramma/index.html"
+  },
+  {
     "image": "images/chip_verification_cover_v2.png",
     "title": "芯片验证从零入门",
     "category": "Articles",
