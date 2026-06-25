@@ -1252,7 +1252,6 @@
                     <li><a href="#hero" class="nav-link active" >Home</a></li>
                     <li><a href="#about" class="nav-link" >About Me</a></li>
                     <li><a href="#skills" class="nav-link" >Skills</a></li>
-                    <li><a href="#news" class="nav-link" >News</a></li>
                     <li><a href="#projects" class="nav-link" >Projects & Study</a></li>
                     <li><a href="#moments" class="nav-link" >My Moments</a></li>
                     <li><a href="#contact" class="nav-link" >Contact</a></li>
@@ -1330,20 +1329,7 @@
                 </div>
             </div>
         </section>
-        <section id="news">
-            <div class="container">
-                <div class="section-head">
-                    <div>
-                        <h2 >News</h2>
-                    </div>
-                    <p >Recent important events, project releases, and study progress.</p>
-                </div>
-                <div class="news-list" id="news-list">
-                    </div>
-                <button id="load-more-news-btn" class="cta-button" >Load More News</button>
-            </div>
-        </section>
-        
+
         <section id="projects">
             <div class="container">
                 <div class="section-head">
@@ -1480,67 +1466,7 @@
                 }
             });
             
-            // --- 3. (C) 新增: 加载新闻 (News) ---
-            const newsList = document.getElementById('news-list');
-            const loadMoreNewsBtn = document.getElementById('load-more-news-btn');
-            
-            let allNews = [];
-            const INITIAL_NEWS_SHOW = 5;
-            const NEWS_LOAD_MORE_COUNT = 5;
-            let currentNewsIndex = 0;
-
-            function createNewsItem(news, index) {
-                const item = document.createElement('div');
-                item.className = `news-item fade-in fade-in-delay-${(index % 3) + 1}`;
-                item.innerHTML = `
-                    <span class="news-type">${news.type || 'Update'}</span>
-                    <h3 class="news-title">${news.title}</h3>
-                    <p class="date">${news.date}</p>
-                    <p class="description">${news.description}</p>
-                `;
-                return item;
-            }
-
-            function renderNews(newsToRender) {
-                newsToRender.forEach((news, relativeIndex) => {
-                    const globalIndex = currentNewsIndex + relativeIndex;
-                    const item = createNewsItem(news, globalIndex);
-                    newsList.appendChild(item);
-                    if (fadeInObserver) {
-                        fadeInObserver.observe(item);
-                    }
-                });
-            }
-
-            function loadMoreNews() {
-                const newsToLoad = allNews.slice(currentNewsIndex, currentNewsIndex + NEWS_LOAD_MORE_COUNT);
-                renderNews(newsToLoad);
-                currentNewsIndex += NEWS_LOAD_MORE_COUNT;
-                if (currentNewsIndex >= allNews.length) {
-                    loadMoreNewsBtn.style.display = 'none';
-                }
-            }
-
-            // 使用 fetch API 异步加载 news.json
-            fetch('news.json')
-                .then(response => response.json())
-                .then(newsData => {
-                    allNews = newsData.sort((a, b) => new Date(b.date) - new Date(a.date)); // 按日期降序排序
-                    
-                    const initialNews = allNews.slice(0, INITIAL_NEWS_SHOW);
-                    renderNews(initialNews);
-                    currentNewsIndex = INITIAL_NEWS_SHOW;
-                    
-                    if (currentNewsIndex < allNews.length) {
-                        loadMoreNewsBtn.style.display = 'block';
-                        loadMoreNewsBtn.addEventListener('click', loadMoreNews);
-                    }
-                    
-                    registerFadeInElements(); // 重新注册动画
-                })
-                .catch(error => console.error('Error loading news:', error));
-            
-            // (A) 加载项目 (Projects) - 保持不变，但重新调用 registerFadeInElements
+            // (A) 加载项目 (Projects)
             const projectGrid = document.getElementById('project-grid');
             const projectSearch = document.getElementById('project-search');
             let allProjects = [];
