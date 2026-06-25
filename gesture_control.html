@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gesture Control | 手势控制电脑</title>
+  <meta name="description" content="用电脑内置摄像头识别手势，控制滚动、鼠标移动、点击和页面前进/后退。基于 MediaPipe + OpenCV 实现。" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071016;
+      --panel: #0d1822;
+      --panel-2: #132333;
+      --text: #eef6fb;
+      --muted: #a8b8c7;
+      --line: rgba(184, 204, 219, 0.18);
+      --cyan: #38bdf8;
+      --green: #2dd4bf;
+      --amber: #f6bd43;
+      --rose: #fb7185;
+      --violet: #a78bfa;
+      --shadow: rgba(0, 0, 0, 0.34);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 16, 22, 0.82);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1180px;
+      min-height: 64px;
+      margin: 0 auto;
+      padding: 0 22px;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.24), rgba(45, 212, 191, 0.2));
+      color: #dff8ff;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a,
+    .button {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-size: 0.895rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .nav-links a:hover { background: var(--panel); }
+
+    .page {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 48px 22px 120px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .tagline {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin: 0 0 32px;
+      line-height: 1.5;
+    }
+
+    .cover {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin: 48px 0 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-title:first-of-type { margin-top: 0; }
+
+    p, li {
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    ul, ol { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+
+    .gesture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .gesture-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+
+    .gesture-card .emoji {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .gesture-card .action {
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .gesture-card .desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    code, pre {
+      background: var(--panel-2);
+      border-radius: 4px;
+    }
+
+    code {
+      padding: 2px 6px;
+      font-size: 0.88em;
+    }
+
+    pre {
+      padding: 18px 20px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      line-height: 1.5;
+      font-size: 0.88rem;
+    }
+
+    pre code { background: none; padding: 0; }
+
+    .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      margin: 16px 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .github-link:hover { background: var(--panel-2); }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .tech-tag {
+      background: var(--panel-2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 48px 0;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 28px 16px 80px; }
+      .gesture-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="/" class="brand">
+        <span class="mark">*</span>
+        11_sum
+      </a>
+      <div class="nav-links">
+        <a href="/">← Home</a>
+        <a href="https://github.com/Elevenvenven/Gesture-Control" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="page">
+    <h1>Gesture Control</h1>
+    <p class="tagline">用电脑内置摄像头识别手势，零接触控制滚动、鼠标、点击和页面导航。基于 MediaPipe + OpenCV + PyAutoGUI 实现。</p>
+
+    <img class="cover" src="images/gesture_control_cover_v2.png" alt="Gesture Control 项目封面" loading="lazy" />
+
+    <div class="tech-tags">
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">MediaPipe</span>
+      <span class="tech-tag">OpenCV</span>
+      <span class="tech-tag">PyAutoGUI</span>
+      <span class="tech-tag">Computer Vision</span>
+    </div>
+
+    <a class="github-link" href="https://github.com/Elevenvenven/Gesture-Control" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      查看 GitHub 仓库
+    </a>
+
+    <h2 class="section-title">📋 支持的手势</h2>
+    <div class="gesture-grid">
+      <div class="gesture-card">
+        <span class="emoji">🤚⬆</span>
+        <span class="action">向上滚动</span>
+        <span class="desc">手掌向上滑动</span>
+      </div>
+      <div class="gesture-card">
+        <span class="emoji">🤚⬇</span>
+        <span class="action">向下滚动</span>
+        <span class="desc">手掌向下滑动</span>
+      </div>
+      <div class="gesture-card">
+        <span class="emoji">🖐⬅</span>
+        <span class="action">返回上一页</span>
+        <span class="desc">张开手掌向左滑</span>
+      </div>
+      <div class="gesture-card">
+        <span class="emoji">🖐➡</span>
+        <span class="action">前进下一页</span>
+        <span class="desc">张开手掌向右滑</span>
+      </div>
+      <div class="gesture-card">
+        <span class="emoji">☝️</span>
+        <span class="action">移动鼠标</span>
+        <span class="desc">只伸出食指</span>
+      </div>
+      <div class="gesture-card">
+        <span class="emoji">🤏</span>
+        <span class="action">点击</span>
+        <span class="desc">拇指和食指捏合</span>
+      </div>
+    </div>
+
+    <h2 class="section-title">🚀 快速开始</h2>
+    <pre><code># 克隆仓库
+git clone https://github.com/Elevenvenven/Gesture-Control.git
+cd Gesture-Control
+
+# 安装依赖
+pip install -r requirements.txt
+
+# 运行
+python gesture_scroll.py</code></pre>
+
+    <p>在这台 Mac 上，<code>--camera 0</code> 是手机连续互通摄像头，<code>--camera 1</code> 对应电脑内置 <strong>FaceTime HD Camera</strong>。</p>
+
+    <pre><code># 指定摄像头
+python gesture_scroll.py --camera 1</code></pre>
+
+    <h2 class="section-title">⚙️ 调参</h2>
+    <pre><code># 降低灵敏度
+python gesture_scroll.py --threshold 0.12 --cooldown 0.35
+
+# 加快响应
+python gesture_scroll.py --threshold 0.06 --frames 5</code></pre>
+
+    <h2 class="section-title">📦 技术栈</h2>
+    <ul>
+      <li><strong>MediaPipe Hands</strong> — 实时手部关键点检测</li>
+      <li><strong>OpenCV</strong> — 摄像头采集和画面叠加</li>
+      <li><strong>PyAutoGUI</strong> — 跨平台模拟滚动、鼠标移动和点击</li>
+      <li><strong>NumPy</strong> — 手势坐标计算</li>
+    </ul>
+
+    <p>代码逻辑分为手势识别（食指伸出、五指张开、捏合）和动作执行（滚动/导航/鼠标/点击）两层，通过滑动窗口检测连续帧的方向变化来避免误触，并为每个动作配置独立的冷却时间。</p>
+
+    <h2 class="section-title">🔧 macOS 权限</h2>
+    <p>第一次运行时，需要授予：</p>
+    <ul>
+      <li><strong>摄像头权限</strong> — 系统设置 → 隐私与安全性 → 摄像头</li>
+      <li><strong>辅助功能权限</strong> — 系统设置 → 隐私与安全性 → 辅助功能（允许终端/Codex 控制电脑）</li>
+    </ul>
+
+    <hr />
+
+    <p>项目完全开源，欢迎 Star、Fork 和 PR。</p>
+
+    <div class="footer-links">
+      <a class="button" href="https://github.com/Elevenvenven/Gesture-Control" target="_blank">GitHub 仓库</a>
+      <a class="button" href="/">← 返回主页</a>
+    </div>
+  </article>
+</body>
+</html>

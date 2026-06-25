@@ -142,5 +142,32 @@
     "category": "Interactive",
     "description": "3×3 法向力表面图 + 2D 剪切力矢量 + 实时波形，基于 ESP32-S3 的多模态电子皮肤传感器 Web 演示",
     "link": "eskin_demo.html"
+  },
+  {
+    "image": "images/gesture_control_cover_v2.png",
+    "title": "Gesture Control",
+    "category": "Apps",
+    "description": "用电脑内置摄像头识别手势，零接触控制滚动、鼠标移动、点击和页面前进/后退。基于 MediaPipe + OpenCV + PyAutoGUI 实现。",
+    "link": "gesture_control.html",
+    "card_label": "Learn More →",
+    "detail_label": "Open project →",
+    "secondary_link": "https://github.com/Elevenvenven/Gesture-Control",
+    "secondary_label": "GitHub →",
+    "tech_stack": [
+      "Python",
+      "MediaPipe Hands",
+      "OpenCV",
+      "PyAutoGUI",
+      "Computer Vision"
+    ],
+    "features": [
+      "手掌滑动控制页面滚动",
+      "张开手掌左右滑实现前进/后退",
+      "食指伸出移动鼠标",
+      "拇指+食指捏合实现点击",
+      "可调节灵敏度和冷却时间",
+      "跨平台支持 (macOS / Windows / Linux)"
+    ],
+    "long_description": "Gesture Control 是一个基于计算机视觉的手势控制工具，让你通过摄像头零接触操作电脑。\n\n核心体验：\n\n• 无需鼠标键盘 - 把手对着摄像头即可控制电脑\n• 自然手势 - 手掌滑动滚动、捏合点击、食指当鼠标\n• 网页导航 - 左右挥手像翻书一样前进后退\n• 实时反馈 - 摄像头窗口显示当前识别状态\n• 参数可调 - 灵敏度、冷却时间、检测阈值均可配置\n\n技术架构：\n• MediaPipe Hands 提供 21 个手部关键点实时检测\n• OpenCV 负责摄像头采集和可视化叠加\n• PyAutoGUI 执行系统级的滚动、点击和鼠标移动\n• 滑动窗口算法判断手势方向，避免误触发\n• 独立冷却时间控制每种动作的执行频率"
   }
 ]
