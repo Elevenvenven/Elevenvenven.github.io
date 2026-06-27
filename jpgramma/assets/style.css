@@ -314,6 +314,51 @@ body {
 /* === Remark text === */
 .remark { font-weight: 500; font-size: 0.8em; color: var(--muted); }
 
+/* === Sidebar Toggle Button === */
+#sidebar-toggle {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  z-index: 1001;
+  background: var(--nav-bg);
+  color: #fff;
+  border: none;
+  width: 28px;
+  height: 44px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 0 8px rgba(0,0,0,.2);
+  transition: left .3s, background .2s;
+  padding: 0;
+  line-height: 1;
+}
+#sidebar-toggle:hover { background: var(--brand-dark); }
+#sidebar-toggle .arrow { transition: transform .3s; display: inline-block; }
+
+/* full-width mode */
+body.sidebar-hidden .sidebar-col { display: none !important; }
+body.sidebar-hidden .content-col {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+body.sidebar-hidden #sidebar-toggle { left: 0; }
+body.sidebar-hidden #sidebar-toggle .arrow { transform: rotate(180deg); }
+body.sidebar-hidden .page-nav { max-width: 100%; }
+
+/* on lg+ screens when sidebar is visible, button aligns with sidebar edge */
+@media (min-width: 992px) {
+  #sidebar-toggle { left: calc(25% - 28px); }
+  body.sidebar-hidden #sidebar-toggle { left: 0; }
+}
+/* hide toggle on small screens (sidebar already hidden by Bootstrap) */
+@media (max-width: 991px) {
+  #sidebar-toggle { display: none; }
+}
+
 /* === Print === */
 @media print {
   .top-nav, .sidebar, .page-nav, .site-footer { display: none; }

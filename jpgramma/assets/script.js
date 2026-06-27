@@ -1,6 +1,46 @@
 // 日语语法指南 — Interactive Script
 document.addEventListener('DOMContentLoaded', function() {
 
+  // === Sidebar Toggle ===
+  (function() {
+    var sidebar = document.querySelector('.main-wrap .row > .col-lg-3');
+    var content = document.querySelector('.main-wrap .row > .col-lg-9');
+    if (!sidebar || !content) return;
+
+    // Mark columns for CSS targeting
+    sidebar.classList.add('sidebar-col');
+    content.classList.add('content-col');
+
+    // Create toggle button
+    var btn = document.createElement('button');
+    btn.id = 'sidebar-toggle';
+    btn.title = '隐藏/显示目录';
+    btn.innerHTML = '<span class="arrow">◀</span>';
+    document.body.appendChild(btn);
+
+    // Restore saved state
+    var hidden = localStorage.getItem('jpgramma-sidebar-hidden') === 'true';
+    function applyState(h) {
+      if (h) {
+        document.body.classList.add('sidebar-hidden');
+        btn.innerHTML = '<span class="arrow">▶</span>';
+        btn.title = '显示目录';
+      } else {
+        document.body.classList.remove('sidebar-hidden');
+        btn.innerHTML = '<span class="arrow">◀</span>';
+        btn.title = '隐藏目录';
+      }
+    }
+    applyState(hidden);
+
+    // Toggle on click
+    btn.addEventListener('click', function() {
+      var isHidden = document.body.classList.toggle('sidebar-hidden');
+      applyState(isHidden);
+      localStorage.setItem('jpgramma-sidebar-hidden', isHidden ? 'true' : 'false');
+    });
+  })();
+
   // === Toggle hidden answers ===
   document.querySelectorAll('.hidex').forEach(function(el) {
     el.style.cursor = 'pointer';
