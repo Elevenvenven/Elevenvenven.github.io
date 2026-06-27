@@ -7,26 +7,30 @@ document.addEventListener('DOMContentLoaded', function() {
     var content = document.querySelector('.main-wrap .row > .col-lg-9');
     if (!sidebar || !content) return;
 
-    // Mark columns for CSS targeting
     sidebar.classList.add('sidebar-col');
     content.classList.add('content-col');
 
-    // Create toggle button
     var btn = document.createElement('button');
     btn.id = 'sidebar-toggle';
-    btn.title = '隐藏/显示目录';
     btn.innerHTML = '<span class="arrow">◀</span>';
     document.body.appendChild(btn);
 
-    // Determine initial state
     var isDesktop = window.matchMedia('(min-width: 992px)').matches;
     var saved = localStorage.getItem('jpgramma-sidebar-hidden');
     var hidden;
     if (saved !== null) {
       hidden = saved === 'true';
     } else {
-      // default: visible on desktop, hidden on tablet
       hidden = !isDesktop;
+    }
+
+    function positionBtn() {
+      if (document.body.classList.contains('sidebar-hidden')) {
+        btn.style.left = '0';
+      } else {
+        var r = sidebar.getBoundingClientRect();
+        btn.style.left = Math.max(0, r.right - 28) + 'px';
+      }
     }
 
     function applyState(h) {
@@ -39,15 +43,17 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.innerHTML = '<span class="arrow">◀</span>';
         btn.title = '隐藏目录';
       }
+      positionBtn();
     }
     applyState(hidden);
 
-    // Toggle on click
     btn.addEventListener('click', function() {
       var isHidden = document.body.classList.toggle('sidebar-hidden');
       applyState(isHidden);
       localStorage.setItem('jpgramma-sidebar-hidden', isHidden ? 'true' : 'false');
     });
+
+    window.addEventListener('resize', positionBtn);
   })();
 
   // === Toggle hidden answers ===

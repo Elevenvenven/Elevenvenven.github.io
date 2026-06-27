@@ -331,10 +331,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 0 8px rgba(0,0,0,.2);
-  transition: left .3s, background .2s;
+  box-shadow: 2px 0 8px rgba(0,0,0,.15);
+  transition: background .2s;
   padding: 0;
   line-height: 1;
+  outline: none;
 }
 #sidebar-toggle:hover { background: var(--brand-dark); }
 #sidebar-toggle .arrow { transition: transform .3s; display: inline-block; }
@@ -354,8 +355,7 @@ body:not(.sidebar-hidden) .sidebar-col { display: block !important; }
 
 /* on md+ screens when sidebar is visible, button aligns with sidebar edge */
 @media (min-width: 768px) {
-  body:not(.sidebar-hidden) #sidebar-toggle { left: calc(25% - 28px); }
-  body.sidebar-hidden #sidebar-toggle { left: 0; }
+  /* button position handled by JS */
 }
 @media (min-width: 992px) {
   body:not(.sidebar-hidden) .sidebar-col { display: block !important; }
