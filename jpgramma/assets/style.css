@@ -314,31 +314,21 @@ body {
 /* === Remark text === */
 .remark { font-weight: 500; font-size: 0.8em; color: var(--muted); }
 
-/* === Sidebar Toggle Button === */
+/* === Sidebar Toggle Button (in top nav) === */
 #sidebar-toggle {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  z-index: 1001;
-  background: var(--nav-bg);
+  background: rgba(255,255,255,.15);
   color: #fff;
-  border: none;
-  width: 28px;
-  height: 44px;
-  border-radius: 0 6px 6px 0;
+  border: 1px solid rgba(255,255,255,.3);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 2px 0 8px rgba(0,0,0,.15);
-  transition: background .2s;
-  padding: 0;
-  line-height: 1;
+  line-height: 1.4;
+  margin-left: auto;
+  transition: background .2s, opacity .2s;
   outline: none;
 }
-#sidebar-toggle:hover { background: var(--brand-dark); }
-#sidebar-toggle .arrow { transition: transform .3s; display: inline-block; }
+#sidebar-toggle:hover { background: rgba(255,255,255,.25); }
 
 /* full-width mode */
 body.sidebar-hidden .sidebar-col { display: none !important; }
@@ -346,17 +336,11 @@ body.sidebar-hidden .content-col {
   flex: 0 0 100% !important;
   max-width: 100% !important;
 }
-body.sidebar-hidden #sidebar-toggle { left: 0; }
-body.sidebar-hidden #sidebar-toggle .arrow { transform: rotate(180deg); }
 body.sidebar-hidden .page-nav { max-width: 100%; }
 
 /* override Bootstrap d-none so toggle can show sidebar on tablets */
 body:not(.sidebar-hidden) .sidebar-col { display: block !important; }
 
-/* on md+ screens when sidebar is visible, button aligns with sidebar edge */
-@media (min-width: 768px) {
-  /* button position handled by JS */
-}
 @media (min-width: 992px) {
   body:not(.sidebar-hidden) .sidebar-col { display: block !important; }
 }
@@ -367,7 +351,7 @@ body:not(.sidebar-hidden) .sidebar-col { display: block !important; }
     max-width: 75% !important;
   }
 }
-/* only hide toggle on phones */
+/* on phones: hide toggle button, sidebar always hidden */
 @media (max-width: 767px) {
   #sidebar-toggle { display: none; }
   body:not(.sidebar-hidden) .sidebar-col { display: none !important; }

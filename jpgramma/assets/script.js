@@ -10,10 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
     sidebar.classList.add('sidebar-col');
     content.classList.add('content-col');
 
+    // Add toggle button to the top-nav bar — always visible
+    var navInner = document.querySelector('.top-nav .nav-inner');
+    if (!navInner) return;
+
     var btn = document.createElement('button');
     btn.id = 'sidebar-toggle';
-    btn.innerHTML = '<span class="arrow">◀</span>';
-    document.body.appendChild(btn);
+    btn.innerHTML = '☰';
+    btn.title = '隐藏目录';
+    navInner.appendChild(btn);
 
     var isDesktop = window.matchMedia('(min-width: 992px)').matches;
     var saved = localStorage.getItem('jpgramma-sidebar-hidden');
@@ -24,26 +29,18 @@ document.addEventListener('DOMContentLoaded', function() {
       hidden = !isDesktop;
     }
 
-    function positionBtn() {
-      if (document.body.classList.contains('sidebar-hidden')) {
-        btn.style.left = '0';
-      } else {
-        var r = sidebar.getBoundingClientRect();
-        btn.style.left = Math.max(0, r.right - 28) + 'px';
-      }
-    }
-
     function applyState(h) {
       if (h) {
         document.body.classList.add('sidebar-hidden');
-        btn.innerHTML = '<span class="arrow">▶</span>';
+        btn.innerHTML = '☰';
         btn.title = '显示目录';
+        btn.style.opacity = '0.6';
       } else {
         document.body.classList.remove('sidebar-hidden');
-        btn.innerHTML = '<span class="arrow">◀</span>';
+        btn.innerHTML = '☰';
         btn.title = '隐藏目录';
+        btn.style.opacity = '1';
       }
-      positionBtn();
     }
     applyState(hidden);
 
@@ -52,8 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
       applyState(isHidden);
       localStorage.setItem('jpgramma-sidebar-hidden', isHidden ? 'true' : 'false');
     });
-
-    window.addEventListener('resize', positionBtn);
   })();
 
   // === Toggle hidden answers ===
