@@ -18,8 +18,17 @@ document.addEventListener('DOMContentLoaded', function() {
     btn.innerHTML = '<span class="arrow">◀</span>';
     document.body.appendChild(btn);
 
-    // Restore saved state
-    var hidden = localStorage.getItem('jpgramma-sidebar-hidden') === 'true';
+    // Determine initial state
+    var isDesktop = window.matchMedia('(min-width: 992px)').matches;
+    var saved = localStorage.getItem('jpgramma-sidebar-hidden');
+    var hidden;
+    if (saved !== null) {
+      hidden = saved === 'true';
+    } else {
+      // default: visible on desktop, hidden on tablet
+      hidden = !isDesktop;
+    }
+
     function applyState(h) {
       if (h) {
         document.body.classList.add('sidebar-hidden');

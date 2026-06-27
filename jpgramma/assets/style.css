@@ -349,14 +349,28 @@ body.sidebar-hidden #sidebar-toggle { left: 0; }
 body.sidebar-hidden #sidebar-toggle .arrow { transform: rotate(180deg); }
 body.sidebar-hidden .page-nav { max-width: 100%; }
 
-/* on lg+ screens when sidebar is visible, button aligns with sidebar edge */
-@media (min-width: 992px) {
-  #sidebar-toggle { left: calc(25% - 28px); }
+/* override Bootstrap d-none so toggle can show sidebar on tablets */
+body:not(.sidebar-hidden) .sidebar-col { display: block !important; }
+
+/* on md+ screens when sidebar is visible, button aligns with sidebar edge */
+@media (min-width: 768px) {
+  body:not(.sidebar-hidden) #sidebar-toggle { left: calc(25% - 28px); }
   body.sidebar-hidden #sidebar-toggle { left: 0; }
 }
-/* hide toggle on small screens (sidebar already hidden by Bootstrap) */
-@media (max-width: 991px) {
+@media (min-width: 992px) {
+  body:not(.sidebar-hidden) .sidebar-col { display: block !important; }
+}
+/* tablet: sidebar hidden by default, toggle to show it side-by-side */
+@media (min-width: 768px) and (max-width: 991px) {
+  body:not(.sidebar-hidden) .content-col {
+    flex: 0 0 75% !important;
+    max-width: 75% !important;
+  }
+}
+/* only hide toggle on phones */
+@media (max-width: 767px) {
   #sidebar-toggle { display: none; }
+  body:not(.sidebar-hidden) .sidebar-col { display: none !important; }
 }
 
 /* === Print === */
