@@ -16,7 +16,57 @@
   --code-bg: #2d2d2d;
   --sidebar-bg: #f1f3f5;
   --nav-bg: #2196F3;
+  --footer-bg: #343a40;
+  --table-header-bg: #ffffdd;
+  --table-even-bg: #fafbfc;
+  --pre-bg: #f5f5f5;
 }
+
+[data-theme="dark"] {
+  --brand: #64b5f6;
+  --brand-dark: #90caf9;
+  --accent: #ff8a65;
+  --bg: #0d1117;
+  --paper: #161b22;
+  --ink: #e6edf3;
+  --muted: #8b949e;
+  --border: #30363d;
+  --green-box: #12261e;
+  --yellow-note: #2a2410;
+  --blue-popup: #1f6feb;
+  --code-bg: #161b22;
+  --sidebar-bg: #161b22;
+  --nav-bg: #1a3660;
+  --footer-bg: #0d1117;
+  --table-header-bg: #2a2410;
+  --table-even-bg: #161b22;
+  --pre-bg: #161b22;
+}
+
+[data-theme="dark"] .content pre,
+[data-theme="dark"] .content code { background: #0d1117; }
+
+[data-theme="dark"] .content tr:nth-child(even) { background: var(--table-even-bg); }
+
+[data-theme="dark"] .content th { background: var(--table-header-bg); }
+
+[data-theme="dark"] .content h2 { border-bottom-color: #30363d; }
+
+[data-theme="dark"] .sumbox .summary { color: #ff8a65; }
+
+[data-theme="dark"] .site-footer { background: var(--footer-bg); }
+
+[data-theme="dark"] .spoiler { background: #555; color: #555; }
+
+[data-theme="dark"] .page-nav a { background: var(--paper); }
+
+[data-theme="dark"] .toc-section li a { color: var(--ink); }
+
+[data-theme="dark"] .toc-section li a:hover { background: rgba(100,180,246,.1); }
+
+[data-theme="dark"] .toc-section li.active a { background: rgba(100,180,246,.15); color: var(--brand); }
+
+[data-theme="dark"] .popup { color: #fff; }
 
 html { font-size: 16px; scroll-behavior: smooth; }
 body {

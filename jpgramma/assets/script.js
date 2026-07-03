@@ -1,5 +1,39 @@
 // 日语语法指南 — Interactive Script
+
+// === Theme Toggle (runs immediately to avoid flash) ===
+(function() {
+  function applyTheme(t) {
+    document.documentElement.dataset.theme = t;
+  }
+  var saved = localStorage.getItem('jpgramma-theme');
+  if (!saved) {
+    saved = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  }
+  applyTheme(saved);
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
+
+  // === Theme Toggle Button ===
+  (function() {
+    var navInner = document.querySelector('.top-nav .nav-inner');
+    if (!navInner) return;
+    var btn = document.createElement('button');
+    btn.id = 'theme-toggle';
+    btn.title = '切换日/夜模式';
+    btn.style.cssText = 'background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:0.25rem 0.6rem;border-radius:4px;cursor:pointer;font-size:1rem;line-height:1.4;margin-left:0.5rem;transition:background .2s;outline:none';
+    function setIcon(t) { btn.textContent = t === 'dark' ? '☀️' : '🌙'; }
+    setIcon(document.documentElement.dataset.theme || 'light');
+    btn.addEventListener('mouseenter', function() { btn.style.background = 'rgba(255,255,255,.25)'; });
+    btn.addEventListener('mouseleave', function() { btn.style.background = 'rgba(255,255,255,.15)'; });
+    btn.addEventListener('click', function() {
+      var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      setIcon(next);
+      localStorage.setItem('jpgramma-theme', next);
+    });
+    navInner.appendChild(btn);
+  })();
 
   // === Sidebar Toggle ===
   (function() {
