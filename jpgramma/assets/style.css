@@ -26,31 +26,31 @@
   --brand: #64b5f6;
   --brand-dark: #90caf9;
   --accent: #ff8a65;
-  --bg: #0d1117;
-  --paper: #161b22;
+  --bg: #000;
+  --paper: #0a0a0a;
   --ink: #e6edf3;
   --muted: #8b949e;
-  --border: #30363d;
-  --green-box: #12261e;
-  --yellow-note: #2a2410;
+  --border: #1a1a1a;
+  --green-box: #0a1a10;
+  --yellow-note: #1a1808;
   --blue-popup: #1f6feb;
-  --code-bg: #161b22;
-  --sidebar-bg: #161b22;
-  --nav-bg: #1a3660;
-  --footer-bg: #0d1117;
-  --table-header-bg: #2a2410;
-  --table-even-bg: #161b22;
-  --pre-bg: #161b22;
+  --code-bg: #0a0a0a;
+  --sidebar-bg: #000;
+  --nav-bg: #0d1a30;
+  --footer-bg: #000;
+  --table-header-bg: #1a1808;
+  --table-even-bg: #0a0a0a;
+  --pre-bg: #0a0a0a;
 }
 
 [data-theme="dark"] .content pre,
-[data-theme="dark"] .content code { background: #0d1117; }
+[data-theme="dark"] .content code { background: #000; }
 
 [data-theme="dark"] .content tr:nth-child(even) { background: var(--table-even-bg); }
 
 [data-theme="dark"] .content th { background: var(--table-header-bg); }
 
-[data-theme="dark"] .content h2 { border-bottom-color: #30363d; }
+[data-theme="dark"] .content h2 { border-bottom-color: #1a1a1a; }
 
 [data-theme="dark"] .sumbox .summary { color: #ff8a65; }
 
