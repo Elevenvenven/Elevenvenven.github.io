@@ -576,60 +576,126 @@
 
 
 <script>
-  const NAMESPACE = '11sum-tokyo2026';
-  const VOTE_KEY = 'votes';
-  const STORAGE_KEY = 'voted_11sum_tokyo2026';
-  const API_BASE = 'https://api.countapi.xyz';
+  (function() {
+    var STORAGE_KEY = 'voted_11sum_tokyo2026';
+    var LOCAL_TOTAL_KEY = 'total_votes_11sum';
+    var COUNTER_URLS = [
+      'https://api.countapi.xyz/hit/11sum-tokyo2026/votes',
+      'https://countapi.xyz/hit/11sum-tokyo2026/votes'
+    ];
 
-  const btn1 = document.getElementById('vote-btn');
-  const btn2 = document.getElementById('vote-btn-2');
-  const label1 = document.getElementById('vote-label');
-  const label2 = document.getElementById('vote-label-2');
-  const count1 = document.getElementById('vote-count');
-  const count2 = document.getElementById('vote-count-2');
-  const hint = document.getElementById('vote-hint');
-  const allButtons = [btn1, btn2];
-  const allLabels = [label1, label2];
-  const allCounts = [count1, count2];
+    var btn1 = document.getElementById('vote-btn');
+    var btn2 = document.getElementById('vote-btn-2');
+    var label1 = document.getElementById('vote-label');
+    var label2 = document.getElementById('vote-label-2');
+    var count1 = document.getElementById('vote-count');
+    var count2 = document.getElementById('vote-count-2');
+    var hint = document.getElementById('vote-hint');
+    var allButtons = [btn1, btn2];
+    var allLabels = [label1, label2];
+    var allCounts = [count1, count2];
 
-  function updateUI(voted, total) {
-    const countText = total + ' 票';
-    allButtons.forEach(b => { b.disabled = voted; });
-    allLabels.forEach(l => { l.textContent = voted ? '✅ 已投票' : '🗳️ 为我投票'; });
-    allCounts.forEach(c => { c.textContent = countText; });
-    if (hint) hint.textContent = voted ? '感谢你的支持！❤️' : '每个设备只能投一票哦～';
-  }
+    var serverCount = null;  // null = not yet loaded
+    var hasVoted = localStorage.getItem(STORAGE_KEY) === '1';
+    var localExtra = parseInt(localStorage.getItem(LOCAL_TOTAL_KEY) || '0');
 
-  async function loadCount() {
-    try {
-      const resp = await fetch(API_BASE + '/get/' + NAMESPACE + '/' + VOTE_KEY);
-      const data = await resp.json();
-      const total = data.value || 0;
-      const voted = localStorage.getItem(STORAGE_KEY) === '1';
-      updateUI(voted, total);
-    } catch (e) {
-      // CountAPI may return 404 if key doesn't exist yet — that's fine
-      updateUI(false, 0);
+    function getDisplayTotal() {
+      if (serverCount !== null) {
+        return serverCount + (hasVoted ? 0 : 0);
+      }
+      return localExtra;
     }
-  }
 
-  async function castVote() {
-    if (localStorage.getItem(STORAGE_KEY) === '1') return;
-    try {
-      const resp = await fetch(API_BASE + '/hit/' + NAMESPACE + '/' + VOTE_KEY, { method: 'GET' });
-      const data = await resp.json();
-      const total = data.value;
-      localStorage.setItem(STORAGE_KEY, '1');
-      updateUI(true, total);
-    } catch (e) {
-      // On error, still update locally so user sees feedback
-      const current = parseInt(count1.textContent) || 0;
-      localStorage.setItem(STORAGE_KEY, '1');
-      updateUI(true, current + 1);
+    function updateUI() {
+      var total = getDisplayTotal();
+      var countText = total + ' 票';
+      for (var i = 0; i < allButtons.length; i++) {
+        allButtons[i].disabled = hasVoted;
+      }
+      for (var i = 0; i < allLabels.length; i++) {
+        allLabels[i].textContent = hasVoted ? '✅ 已投票' : '🗳️ 为我投票';
+      }
+      for (var i = 0; i < allCounts.length; i++) {
+        allCounts[i].textContent = countText;
+      }
+      if (hint) {
+        hint.textContent = hasVoted ? '感谢你的支持！❤️' : '每个设备只能投一票哦～';
+      }
     }
-  }
 
-  loadCount();
+    function fetchCount(url, onSuccess) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.timeout = 4000;
+      xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            if (typeof data.value === 'number') {
+              onSuccess(data.value);
+            }
+          } catch(e) {}
+        }
+      };
+      xhr.onerror = function() {};
+      xhr.ontimeout = function() {};
+      xhr.send();
+    }
+
+    function loadServerCount() {
+      // Try first URL
+      fetchCount(COUNTER_URLS[0], function(val) {
+        serverCount = val;
+        updateUI();
+      });
+      // Also try second URL after a short delay as backup
+      setTimeout(function() {
+        if (serverCount === null) {
+          fetchCount(COUNTER_URLS[1], function(val) {
+            if (serverCount === null) {
+              serverCount = val;
+              updateUI();
+            }
+          });
+        }
+      }, 1500);
+    }
+
+    window.castVote = function() {
+      if (hasVoted) return;
+
+      hasVoted = true;
+      localStorage.setItem(STORAGE_KEY, '1');
+      localExtra += 1;
+      localStorage.setItem(LOCAL_TOTAL_KEY, localExtra);
+
+      // Try to hit the counter API
+      for (var i = 0; i < COUNTER_URLS.length; i++) {
+        (function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', url, true);
+          xhr.timeout = 3000;
+          xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              try {
+                var data = JSON.parse(xhr.responseText);
+                if (typeof data.value === 'number') {
+                  serverCount = data.value;
+                }
+              } catch(e) {}
+            }
+            updateUI();
+          };
+          xhr.send();
+        })(COUNTER_URLS[i]);
+      }
+      updateUI();
+    };
+
+    // Init — show local count immediately, then update from server
+    updateUI();
+    loadServerCount();
+  })();
 </script>
 </body>
 </html>
