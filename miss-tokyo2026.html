@@ -582,7 +582,7 @@
   //    创建 Redis → 复制 REST URL 和 Token
   // ============================================
   var UPSTASH_URL = 'https://fleet-serval-158065.upstash.io';
-  var UPSTASH_TOKEN = '********';
+  var UPSTASH_TOKEN = 'gQAAAAAAAmlxAAIgcDI4YWZiZGE1YjBjZjM0NDg4ODBjOGMyMGIyYTEzZTQwZg';
 
   (function() {
     var STORAGE_KEY = 'voted_11sum_tokyo2026';
@@ -626,10 +626,15 @@
       }
     }
 
+    function parseCount(data) {
+      // Upstash Redis 返回 "33"（字符串），null 表示 key 不存在
+      if (!data || data.result === null || data.result === undefined) return 0;
+      return parseInt(data.result, 10) || 0;
+    }
+
     function loadServerCount() {
       api('get').then(function(data) {
-        serverCount = parseInt(data.result) || 0;
-        // 如果已投票但服务器上是初始值，用本地缓存
+        serverCount = parseCount(data);
         updateUI();
       }).catch(function() {
         updateUI();
@@ -643,7 +648,7 @@
       localStorage.setItem(STORAGE_KEY, '1');
 
       api('incr').then(function(data) {
-        serverCount = parseInt(data.result) || (serverCount !== null ? serverCount + 1 : 1);
+        serverCount = parseCount(data);
         updateUI();
       }).catch(function() {
         if (serverCount !== null && typeof serverCount === 'number') serverCount += 1;
