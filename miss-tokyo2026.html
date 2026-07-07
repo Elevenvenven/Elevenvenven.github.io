@@ -167,31 +167,59 @@
     }
     .vote-btn {
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      min-height: 48px;
-      padding: 0 28px;
-      border-radius: 999px;
+      justify-content: center;
+      gap: 4px;
+      min-width: 220px;
+      min-height: 60px;
+      padding: 14px 28px;
+      border-radius: 16px;
       background: linear-gradient(135deg, #ec4899, #a855f7);
       color: #fff;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.1rem;
       text-decoration: none;
+      border: none;
+      cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 4px 24px rgba(236,72,153,0.28);
+      font-family: inherit;
     }
-    .vote-btn:hover {
+    .vote-btn:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 6px 32px rgba(236,72,153,0.4);
+    }
+    .vote-btn:active:not(:disabled) {
+      transform: scale(0.96);
+    }
+    .vote-btn:disabled {
+      cursor: default;
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 4px 24px rgba(16,185,129,0.28);
+      animation: vote-pop 0.5s ease;
+    }
+    .vote-count {
+      font-size: 0.85rem;
+      font-weight: 400;
+      opacity: 0.9;
     }
     .vote-btn.ghost {
       background: var(--panel);
       border: 1px solid var(--line);
       box-shadow: none;
+      min-height: 48px;
+      flex-direction: row;
+      border-radius: 999px;
     }
     .vote-btn.ghost:hover {
       background: var(--panel-2);
       box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    @keyframes vote-pop {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.08); }
+      100% { transform: scale(1); }
     }
 
     /* ── Sections ── */
@@ -382,7 +410,7 @@
     </a>
     <div class="nav-links">
       <a href="/">🏠 Home</a>
-      <a href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">🗳️ 投票</a>
+      <a href="#vote-section">🗳️ 投票</a>
     </div>
   </div>
 </nav>
@@ -398,9 +426,10 @@
     <span class="highlight">一个工科男生的 Miss 竞选挑战</span>
   </p>
   <div class="vote-bar">
-    <a class="vote-btn" href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">
-      🗳️ 为我投票
-    </a>
+    <button class="vote-btn" id="vote-btn" onclick="castVote()">
+      <span id="vote-label">🗳️ 为我投票</span>
+      <span class="vote-count" id="vote-count">加载中…</span>
+    </button>
     <a class="vote-btn ghost" href="#about">
       👇 了解更多
     </a>
@@ -492,6 +521,18 @@
   </div>
 </div>
 
+<!-- ═══ Vote Counter ═══ -->
+<div class="page-wrap section" id="vote-section">
+  <h2 class="section-title"><span class="emj">🗳️</span> 投票支持</h2>
+  <div style="text-align:center; padding:12px 0;">
+    <button class="vote-btn" id="vote-btn-2" onclick="castVote()" style="min-width:260px; min-height:72px; font-size:1.2rem;">
+      <span id="vote-label-2">🗳️ 为我投票</span>
+      <span class="vote-count" id="vote-count-2">加载中…</span>
+    </button>
+    <p style="margin-top:16px; color:var(--muted); font-size:0.85rem;" id="vote-hint">每个设备只能投一票哦～</p>
+  </div>
+</div>
+
 <!-- ═══ Gallery ═══ -->
 <div class="page-wrap section">
   <h2 class="section-title"><span class="emj">📸</span> 照片</h2>
@@ -512,14 +553,6 @@
         <div class="cc-val">@11sum</div>
       </div>
     </a>
-    <!-- 投票页 -->
-    <a class="contact-card" href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">
-      <span class="cc-icon">🗳️</span>
-      <div>
-        <div class="cc-label">MISCOLLE · 官方投票页面</div>
-        <div class="cc-val">ミス＆ミスター東大 2026</div>
-      </div>
-    </a>
   </div>
 
   <p style="margin-top:28px; text-align:center; color:var(--muted); font-size:0.95rem; line-height:1.7;">
@@ -533,7 +566,6 @@
 <footer class="site-footer">
   <div class="footer-links">
     <a href="/">← 回到首页</a>
-    <a href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">🗳️ 投票页面</a>
     <a href="https://github.com/Elevenvenven" target="_blank" rel="noopener">GitHub</a>
   </div>
   <div class="footer-note">
@@ -542,5 +574,62 @@
   </div>
 </footer>
 
+
+<script>
+  const NAMESPACE = '11sum-tokyo2026';
+  const VOTE_KEY = 'votes';
+  const STORAGE_KEY = 'voted_11sum_tokyo2026';
+  const API_BASE = 'https://api.countapi.xyz';
+
+  const btn1 = document.getElementById('vote-btn');
+  const btn2 = document.getElementById('vote-btn-2');
+  const label1 = document.getElementById('vote-label');
+  const label2 = document.getElementById('vote-label-2');
+  const count1 = document.getElementById('vote-count');
+  const count2 = document.getElementById('vote-count-2');
+  const hint = document.getElementById('vote-hint');
+  const allButtons = [btn1, btn2];
+  const allLabels = [label1, label2];
+  const allCounts = [count1, count2];
+
+  function updateUI(voted, total) {
+    const countText = total + ' 票';
+    allButtons.forEach(b => { b.disabled = voted; });
+    allLabels.forEach(l => { l.textContent = voted ? '✅ 已投票' : '🗳️ 为我投票'; });
+    allCounts.forEach(c => { c.textContent = countText; });
+    if (hint) hint.textContent = voted ? '感谢你的支持！❤️' : '每个设备只能投一票哦～';
+  }
+
+  async function loadCount() {
+    try {
+      const resp = await fetch(API_BASE + '/get/' + NAMESPACE + '/' + VOTE_KEY);
+      const data = await resp.json();
+      const total = data.value || 0;
+      const voted = localStorage.getItem(STORAGE_KEY) === '1';
+      updateUI(voted, total);
+    } catch (e) {
+      // CountAPI may return 404 if key doesn't exist yet — that's fine
+      updateUI(false, 0);
+    }
+  }
+
+  async function castVote() {
+    if (localStorage.getItem(STORAGE_KEY) === '1') return;
+    try {
+      const resp = await fetch(API_BASE + '/hit/' + NAMESPACE + '/' + VOTE_KEY, { method: 'GET' });
+      const data = await resp.json();
+      const total = data.value;
+      localStorage.setItem(STORAGE_KEY, '1');
+      updateUI(true, total);
+    } catch (e) {
+      // On error, still update locally so user sees feedback
+      const current = parseInt(count1.textContent) || 0;
+      localStorage.setItem(STORAGE_KEY, '1');
+      updateUI(true, current + 1);
+    }
+  }
+
+  loadCount();
+</script>
 </body>
 </html>
