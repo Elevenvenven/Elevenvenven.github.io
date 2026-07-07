@@ -7,7 +7,7 @@
   <meta name="description" content="东京大学情报理工研究科研究生 11sum 参战 Miss 東大 2026。一个工科男生的反差挑战——打破标签，活成自己的样子。" />
   <meta property="og:title" content="11sum | ミス＆ミスター東大コンテスト2026" />
   <meta property="og:description" content="东大情报理工男生 × Miss 竞选。代码之外，也想留下一段离谱又热血的回忆。" />
-  <meta property="og:image" content="https://elevenvenven.github.io/images/11sum.jpg" />
+  <meta property="og:image" content="https://elevenvenven.github.io/images/11sum_campaign.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <style>
@@ -52,7 +52,6 @@
       background: rgba(7, 16, 22, 0.82);
       backdrop-filter: blur(18px);
     }
-
     .nav-inner {
       display: flex;
       align-items: center;
@@ -63,7 +62,6 @@
       padding: 0 22px;
       gap: 18px;
     }
-
     .brand {
       display: inline-flex;
       align-items: center;
@@ -71,7 +69,6 @@
       text-decoration: none;
       font-weight: 800;
     }
-
     .mark {
       display: grid;
       place-items: center;
@@ -79,302 +76,13 @@
       height: 34px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(135deg, rgba(244, 114, 182, 0.3), rgba(167, 139, 250, 0.22));
+      background: linear-gradient(135deg, rgba(244,114,182,0.3), rgba(167,139,250,0.22));
       color: #fce7f3;
       font-weight: 900;
       font-size: 0.85rem;
     }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
+    .nav-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .nav-links a {
-      display: inline-flex;
-      min-height: 40px;
-      align-items: center;
-      justify-content: center;
-      padding: 0 14px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      text-decoration: none;
-      font-size: 0.895rem;
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .nav-links a:hover { background: var(--panel); }
-
-    /* ── Hero ── */
-    .hero {
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 60px 22px 48px;
-      text-align: center;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      padding: 5px 16px;
-      border: 1px solid var(--pink);
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--pink);
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .hero-photo {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 3px solid var(--line);
-      object-fit: cover;
-      margin-bottom: 28px;
-      box-shadow: 0 0 60px rgba(244, 114, 182, 0.12);
-    }
-
-    .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      margin: 0 0 4px;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-    }
-
-    .hero .ruby {
-      font-size: 1rem;
-      color: var(--muted);
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      margin-bottom: 8px;
-    }
-
-    .hero .tagline {
-      font-size: 1.1rem;
-      color: var(--muted);
-      margin: 8px 0 0;
-    }
-
-    .hero .highlight {
-      background: linear-gradient(135deg, var(--pink), var(--violet));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 800;
-    }
-
-    /* ── Vote CTA Bar ── */
-    .vote-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin: 32px 0 0;
-    }
-
-    .vote-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 48px;
-      padding: 0 24px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ec4899, #a855f7);
-      color: #fff;
-      font-weight: 700;
-      font-size: 1rem;
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 24px rgba(236, 72, 153, 0.28);
-    }
-
-    .vote-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 32px rgba(236, 72, 153, 0.4);
-    }
-
-    .vote-btn.secondary {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: none;
-    }
-
-    .vote-btn.secondary:hover {
-      background: var(--panel-2);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    }
-
-    /* ── Page Body ── */
-    .page {
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 0 22px 80px;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      margin: 56px 0 20px;
-      letter-spacing: -0.01em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title .emoji { font-size: 1.3rem; }
-
-    /* ── Profile Grid ── */
-    .profile-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 10px;
-    }
-
-    .profile-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 18px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-
-    .profile-item .key {
-      font-size: 0.82rem;
-      color: var(--muted);
-      min-width: 56px;
-    }
-
-    .profile-item .val {
-      font-weight: 600;
-    }
-
-    /* ── Story ── */
-    .story-block {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 28px 26px;
-      margin: 16px 0;
-    }
-
-    .story-block p {
-      color: var(--muted);
-      margin: 0 0 12px;
-      line-height: 1.8;
-    }
-
-    .story-block p:last-child { margin-bottom: 0; }
-
-    .story-block .quote {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--text);
-      border-left: 3px solid var(--pink);
-      padding-left: 16px;
-      margin: 16px 0;
-    }
-
-    /* ── Stats / Cards ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px;
-    }
-
-    .info-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px 20px;
-      text-align: center;
-    }
-
-    .info-card .icon {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-    }
-
-    .info-card .title {
-      font-weight: 700;
-    }
-
-    .info-card .desc {
-      font-size: 0.86rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    /* ── Social Links ── */
-    .social-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .social-card {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 20px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .social-card:hover { background: var(--panel-2); border-color: var(--pink); }
-
-    .social-card .s-icon {
-      width: 22px;
-      height: 22px;
-      opacity: 0.85;
-    }
-
-    /* ── Gallery ── */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px;
-      margin: 16px 0;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      transition: transform 0.25s;
-    }
-
-    .gallery img:hover { transform: scale(1.02); }
-
-    /* ── Footer ── */
-    .site-footer {
-      border-top: 1px solid var(--line);
-      padding: 32px 22px;
-      text-align: center;
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .footer-links a,
-    .footer-links .button {
       display: inline-flex;
       min-height: 40px;
       align-items: center;
@@ -386,9 +94,264 @@
       font-size: 0.895rem;
       transition: background 0.2s;
     }
+    .nav-links a:hover { background: var(--panel); }
 
+    /* ── Page wrapper — unified max-width ── */
+    .page-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 64px 0 40px;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 5px 18px;
+      border: 1px solid var(--pink);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--pink);
+      margin-bottom: 28px;
+    }
+    .hero-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 3px solid var(--line);
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 28px;
+      box-shadow: 0 0 80px rgba(244,114,182,0.14);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      margin: 0 0 4px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .hero .ruby {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .hero .tagline {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 10px 0 0;
+      line-height: 1.7;
+    }
+    .hero .highlight {
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+    }
+
+    /* ── Vote CTA ── */
+    .vote-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 32px 0 0;
+    }
+    .vote-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 0 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(236,72,153,0.28);
+    }
+    .vote-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 32px rgba(236,72,153,0.4);
+    }
+    .vote-btn.ghost {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+    .vote-btn.ghost:hover {
+      background: var(--panel-2);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+
+    /* ── Sections ── */
+    .section { padding: 24px 0 36px; }
+    .section-title {
+      font-size: 1.35rem;
+      margin: 0 0 20px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title .emj { font-size: 1.2rem; }
+
+    /* ── Profile ── */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .profile-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .profile-item .key {
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      min-width: 56px;
+    }
+    .profile-item .val {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* ── Story ── */
+    .story-block {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 28px 28px;
+    }
+    .story-block p {
+      color: var(--muted);
+      margin: 0 0 12px;
+      line-height: 1.85;
+    }
+    .story-block p:last-child { margin-bottom: 0; }
+    .story-block .quote {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      border-left: 3px solid var(--pink);
+      padding-left: 18px;
+      margin: 20px 0;
+    }
+
+    /* ── Cards 2×2 ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .info-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .info-card .icon { font-size: 2rem; margin-bottom: 10px; }
+    .info-card .title { font-weight: 700; font-size: 1rem; }
+    .info-card .desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* ── Gallery ── */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      transition: transform 0.25s;
+    }
+    .gallery img:hover { transform: scale(1.02); }
+    .gallery img:only-child,
+    .gallery img:first-child:nth-last-child(1) {
+      grid-column: 1 / -1;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ── Contact ── */
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .contact-card:hover { background: var(--panel-2); border-color: var(--pink); }
+    .contact-card .cc-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .contact-card .cc-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .contact-card .cc-val {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+      padding: 32px 22px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .footer-links a {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-size: 0.895rem;
+      transition: background 0.2s;
+    }
     .footer-links a:hover { background: var(--panel); }
-
     .footer-note {
       font-size: 0.82rem;
       color: var(--muted);
@@ -396,12 +359,15 @@
 
     /* ── Responsive ── */
     @media (max-width: 600px) {
-      .hero { padding: 36px 18px 32px; }
-      .hero-photo { width: 140px; height: 140px; }
-      .page { padding: 0 18px 60px; }
+      .hero { padding: 40px 0 28px; }
+      .hero-photo { width: 150px; height: 150px; }
       .profile-grid { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: 1fr; }
       .vote-bar { flex-direction: column; }
       .vote-btn { width: 100%; justify-content: center; }
+      .gallery img:only-child,
+      .gallery img:first-child:nth-last-child(1) { max-width: 100%; }
     }
   </style>
 </head>
@@ -416,15 +382,15 @@
     </a>
     <div class="nav-links">
       <a href="/">🏠 Home</a>
-      <a href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">🗳️ 投票页面</a>
+      <a href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">🗳️ 投票</a>
     </div>
   </div>
 </nav>
 
 <!-- ═══ Hero ═══ -->
-<section class="hero">
-  <div class="hero-badge">ENTRY 11sum · Miss 東大 2026</div>
-  <img class="hero-photo" src="images/11sum.jpg" alt="11sum" />
+<section class="page-wrap hero">
+  <div class="hero-badge">ENTRY 11sum · ミス＆ミスター東大 2026</div>
+  <img class="hero-photo" src="images/11sum_campaign.png" alt="11sum" />
   <div class="ruby">Eleven Sum</div>
   <h1>11sum</h1>
   <p class="tagline">
@@ -435,19 +401,15 @@
     <a class="vote-btn" href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">
       🗳️ 为我投票
     </a>
-    <a class="vote-btn secondary" href="#about">
+    <a class="vote-btn ghost" href="#about">
       👇 了解更多
     </a>
   </div>
 </section>
 
-<!-- ═══ Page Content ═══ -->
-<div class="page">
-
-  <!-- ── About ── -->
-  <h2 class="section-title" id="about">
-    <span class="emoji">👋</span> 关于我
-  </h2>
+<!-- ═══ About ═══ -->
+<div class="page-wrap section" id="about">
+  <h2 class="section-title"><span class="emj">👋</span> 关于我</h2>
   <div class="profile-grid">
     <div class="profile-item">
       <span class="key">🏫 大学</span>
@@ -458,10 +420,6 @@
       <span class="val">情報理工学系研究科</span>
     </div>
     <div class="profile-item">
-      <span class="key">💻 日常</span>
-      <span class="val">代码 · 论文 · 实验室</span>
-    </div>
-    <div class="profile-item">
       <span class="key">🏷️ 参赛名</span>
       <span class="val">11sum</span>
     </div>
@@ -470,32 +428,35 @@
       <span class="val">ミス＆ミスター東大 2026</span>
     </div>
     <div class="profile-item">
+      <span class="key">💻 日常</span>
+      <span class="val">代码 · 论文 · 实验室</span>
+    </div>
+    <div class="profile-item">
       <span class="key">🔑 关键词</span>
       <span class="val">工科男 · 反差 · 打破标签</span>
     </div>
   </div>
+</div>
 
-  <!-- ── Story ── -->
-  <h2 class="section-title">
-    <span class="emoji">💭</span> 为什么要参加 Miss 竞选？
-  </h2>
-
+<!-- ═══ Story ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">💭</span> 为什么要参加 Miss 竞选？</h2>
   <div class="story-block">
     <p>研究室的师兄说：「<strong>你疯了。</strong>」</p>
     <p>我说：「<strong>正因为不像我，所以才要去做。</strong>」</p>
     <div class="quote">
       如果一辈子只做「合理」的事，那也太无聊了吧？
     </div>
-    <p>每天都在和算法、论文、代码打交道。日子过得太「工科」了 —— 直到某天看到ミスコン的报名通知，脑海里突然冒出一个念头：</p>
+    <p>每天都在和算法、论文、代码打交道。日子过得太「工科」了 — 直到某天看到ミスコン的报名通知，脑子里突然冒出一个念头：</p>
     <p><strong>「今しかできないことに挑戦したい！」</strong></p>
     <p>（想在只有现在才能做的事情上，拼一次。）</p>
     <p>于是就这样，一个情报理工的男生，闯进了 Miss 竞选的舞台。</p>
   </div>
+</div>
 
-  <!-- ── Contrast Cards ── -->
-  <h2 class="section-title">
-    <span class="emoji">🔄</span> 反差日常
-  </h2>
+<!-- ═══ Contrast ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">🔄</span> 反差日常</h2>
   <div class="card-grid">
     <div class="info-card">
       <div class="icon">💻</div>
@@ -508,7 +469,7 @@
       <div class="desc">但拍照摆 pose 目前进度 5%</div>
     </div>
     <div class="info-card">
-      <div class="icon">🎮</div>
+      <div class="icon">🎤</div>
       <div class="title">实验室里侃侃而谈</div>
       <div class="desc">一面对镜头就当场僵住</div>
     </div>
@@ -518,61 +479,62 @@
       <div class="desc">第一次认真研究穿搭这件事</div>
     </div>
   </div>
+</div>
 
-  <!-- ── Message ── -->
-  <h2 class="section-title">
-    <span class="emoji">💬</span> 我想说的是
-  </h2>
-
+<!-- ═══ Message ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">💬</span> 我想说的是</h2>
   <div class="story-block">
     <p>不需要符合谁的期待。</p>
     <p>女生可以学计算机，男生可以参加 Miss 竞选。</p>
     <p><strong>标签是别人贴的，人生是自己过的。</strong></p>
     <p>不管最后结果如何，能在东大留下这么一段「离谱又热血的回忆」—— 这件事本身就值得。</p>
   </div>
+</div>
 
-  <!-- ── Gallery ── -->
-  <h2 class="section-title">
-    <span class="emoji">📸</span> 照片
-  </h2>
+<!-- ═══ Gallery ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">📸</span> 照片</h2>
   <div class="gallery">
-    <img src="images/11sum.jpg" alt="11sum" loading="lazy" />
-    <!-- 可以继续添加更多照片 -->
+    <img src="images/11sum_campaign.png" alt="11sum" loading="lazy" />
+  </div>
+</div>
+
+<!-- ═══ Contact ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">📮</span> 联系 & 投票</h2>
+  <div style="display:grid; gap:10px;">
+    <!-- 小红书 — 主力联系方式 -->
+    <a class="contact-card" href="https://www.xiaohongshu.com/user/profile/你的小红书ID" target="_blank" rel="noopener">
+      <span class="cc-icon">📕</span>
+      <div>
+        <div class="cc-label">小红书 · 日常更新 & 私信</div>
+        <div class="cc-val">@11sum</div>
+      </div>
+    </a>
+    <!-- 投票页 -->
+    <a class="contact-card" href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">
+      <span class="cc-icon">🗳️</span>
+      <div>
+        <div class="cc-label">MISCOLLE · 官方投票页面</div>
+        <div class="cc-val">ミス＆ミスター東大 2026</div>
+      </div>
+    </a>
   </div>
 
-  <!-- ── Social & Vote ── -->
-  <h2 class="section-title">
-    <span class="emoji">🔗</span> 关注 & 投票
-  </h2>
-  <div class="social-grid">
-    <a class="social-card" href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">
-      🗳️ 投票页面
-    </a>
-    <a class="social-card" href="https://x.com/ut_2026_miss2" target="_blank" rel="noopener">
-      🐦 X (Twitter)
-    </a>
-    <a class="social-card" href="https://www.instagram.com/todai_miss2_2026" target="_blank" rel="noopener">
-      📷 Instagram
-    </a>
-    <a class="social-card" href="https://www.tiktok.com/@ut_2026_miss2" target="_blank" rel="noopener">
-      🎵 TikTok
-    </a>
-  </div>
-
-  <p style="margin-top:32px; text-align:center; color:var(--muted); font-size:0.95rem;">
+  <p style="margin-top:28px; text-align:center; color:var(--muted); font-size:0.95rem; line-height:1.7;">
     如果你也觉得这件事有点意思 ——<br />
     请给我投一票 🗳️，或者在校园里遇见时给我一个加油的眼神 👊<br />
     <strong style="color:var(--text);">応援よろしくお願いします！！</strong>
   </p>
-
 </div>
 
 <!-- ═══ Footer ═══ -->
 <footer class="site-footer">
   <div class="footer-links">
     <a href="/">← 回到首页</a>
-    <a class="button" href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">🗳️ 投票页面</a>
-    <a class="button" href="https://github.com/Elevenvenven" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://miscolle.com/tokyo2026/profile/f2" target="_blank" rel="noopener">🗳️ 投票页面</a>
+    <a href="https://github.com/Elevenvenven" target="_blank" rel="noopener">GitHub</a>
   </div>
   <div class="footer-note">
     11sum · 東京大学 情報理工学系研究科 · ミス＆ミスター東大コンテスト2026<br />
