@@ -396,8 +396,8 @@
       .vote-btn { width: 100%; justify-content: center; }
       .gallery img:only-child,
       .gallery img:first-child:nth-last-child(1) { max-width: 100%; }
-      .loading-logo .symbol { height: 50px; }
-      .loading-logo .bar { width: 10px; }
+      .loading-logo .symbol { height: 40px; }
+      .loading-logo .bar { width: 8px; }
       .loading-logo .text { font-size: 2rem; }
     }
 
@@ -418,9 +418,13 @@
     }
     .loading-logo {
       display: flex;
-      flex-direction: column;
       align-items: center;
       gap: 16px;
+    }
+    .loading-logo .text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
     .loading-logo .symbol {
       display: flex;
@@ -453,7 +457,6 @@
       letter-spacing: 4px;
       color: var(--muted);
       text-transform: uppercase;
-      margin-top: -8px;
     }
     @keyframes barGrow {
       from { transform: scaleY(0); }
@@ -472,8 +475,10 @@
       <div class="bar"></div>
       <div class="bar"></div>
     </div>
-    <div class="text">11sum</div>
-    <div class="sub-text">Miss 東大 2026</div>
+    <div class="text-group">
+      <div class="text">11sum</div>
+      <div class="sub-text">Miss 東大 2026</div>
+    </div>
   </div>
 </div>
 
