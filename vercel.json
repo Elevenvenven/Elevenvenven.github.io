@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/vote.js": {
-      "maxDuration": 10
-    }
-  }
-}
