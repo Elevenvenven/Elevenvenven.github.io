@@ -307,21 +307,19 @@
     /* ── Gallery ── */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
     }
     .gallery img {
       width: 100%;
-      border-radius: var(--radius);
+      aspect-ratio: 1 / 1;
+      border-radius: 6px;
       border: 1px solid var(--line);
       object-fit: cover;
       transition: transform 0.25s;
+      cursor: pointer;
     }
-    .gallery img:hover { transform: scale(1.03); }
-    .gallery img.portrait { aspect-ratio: 3 / 4; }
-    .gallery img.landscape { aspect-ratio: 4 / 3; }
-    /* Masonry-like: occasional span */
-    .gallery img:nth-child(3n+1):nth-last-child(n+3) { grid-row: span 1; }
+    .gallery img:hover { transform: scale(1.04); z-index: 1; }
 
     /* ── Contact ── */
     .contact-card {
@@ -388,7 +386,7 @@
       .hero-photo { width: 150px; height: 150px; }
       .profile-grid { grid-template-columns: 1fr; }
       .card-grid { grid-template-columns: 1fr; }
-      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .gallery { grid-template-columns: repeat(2, 1fr); gap: 6px; }
       .vote-bar { flex-direction: column; }
       .vote-btn { width: 100%; justify-content: center; }
       .loading-logo .symbol { height: 40px; }
@@ -613,13 +611,14 @@
 <div class="page-wrap section">
   <h2 class="section-title"><span class="emj">📸</span> 照片</h2>
   <div class="gallery">
-    <img src="images/gallery/gallery_01.jpg" alt="11sum" loading="lazy" class="portrait" />
+    <img src="images/gallery/gallery_01.jpg" alt="11sum" loading="lazy" />
     <img src="images/gallery/gallery_02.jpg" alt="11sum" loading="lazy" />
-    <img src="images/gallery/gallery_03.png" alt="11sum" loading="lazy" class="portrait" />
+    <img src="images/gallery/gallery_03.png" alt="11sum" loading="lazy" />
     <img src="images/gallery/gallery_04.png" alt="11sum" loading="lazy" />
-    <img src="images/gallery/gallery_05.png" alt="11sum" loading="lazy" class="portrait" />
+    <img src="images/gallery/gallery_05.png" alt="11sum" loading="lazy" />
     <img src="images/gallery/gallery_06.png" alt="11sum" loading="lazy" />
-    <img src="images/gallery/gallery_07.png" alt="11sum" loading="lazy" class="portrait" />
+    <img src="images/gallery/gallery_07.png" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_08.png" alt="11sum" loading="lazy" />
   </div>
 </div>
 
