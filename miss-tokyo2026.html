@@ -307,24 +307,21 @@
     /* ── Gallery ── */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
     }
     .gallery img {
       width: 100%;
       border-radius: var(--radius);
       border: 1px solid var(--line);
-      aspect-ratio: 4 / 5;
       object-fit: cover;
       transition: transform 0.25s;
     }
-    .gallery img:hover { transform: scale(1.02); }
-    .gallery img:only-child,
-    .gallery img:first-child:nth-last-child(1) {
-      grid-column: 1 / -1;
-      max-width: 400px;
-      margin: 0 auto;
-    }
+    .gallery img:hover { transform: scale(1.03); }
+    .gallery img.portrait { aspect-ratio: 3 / 4; }
+    .gallery img.landscape { aspect-ratio: 4 / 3; }
+    /* Masonry-like: occasional span */
+    .gallery img:nth-child(3n+1):nth-last-child(n+3) { grid-row: span 1; }
 
     /* ── Contact ── */
     .contact-card {
@@ -391,11 +388,9 @@
       .hero-photo { width: 150px; height: 150px; }
       .profile-grid { grid-template-columns: 1fr; }
       .card-grid { grid-template-columns: 1fr; }
-      .gallery { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
       .vote-bar { flex-direction: column; }
       .vote-btn { width: 100%; justify-content: center; }
-      .gallery img:only-child,
-      .gallery img:first-child:nth-last-child(1) { max-width: 100%; }
       .loading-logo .symbol { height: 40px; }
       .loading-logo .bar { width: 8px; }
       .loading-logo .text { font-size: 2rem; }
@@ -618,7 +613,13 @@
 <div class="page-wrap section">
   <h2 class="section-title"><span class="emj">📸</span> 照片</h2>
   <div class="gallery">
-    <img src="images/11sum_campaign.png" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_01.jpg" alt="11sum" loading="lazy" class="portrait" />
+    <img src="images/gallery/gallery_02.jpg" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_03.png" alt="11sum" loading="lazy" class="portrait" />
+    <img src="images/gallery/gallery_04.png" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_05.png" alt="11sum" loading="lazy" class="portrait" />
+    <img src="images/gallery/gallery_06.png" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_07.png" alt="11sum" loading="lazy" class="portrait" />
   </div>
 </div>
 
