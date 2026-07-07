@@ -576,13 +576,13 @@
 
 
 <script>
+  // ============================================
+  // 🔧 部署 Vercel 后，把下面这行换成你的 Vercel 域名
+  // ============================================
+  var API_BASE = 'https://你的项目名.vercel.app/api/vote';
+
   (function() {
     var STORAGE_KEY = 'voted_11sum_tokyo2026';
-    var LOCAL_TOTAL_KEY = 'total_votes_11sum';
-    var COUNTER_URLS = [
-      'https://api.countapi.xyz/hit/11sum-tokyo2026/votes',
-      'https://countapi.xyz/hit/11sum-tokyo2026/votes'
-    ];
 
     var btn1 = document.getElementById('vote-btn');
     var btn2 = document.getElementById('vote-btn-2');
@@ -595,19 +595,11 @@
     var allLabels = [label1, label2];
     var allCounts = [count1, count2];
 
-    var serverCount = null;  // null = not yet loaded
+    var serverCount = null;
     var hasVoted = localStorage.getItem(STORAGE_KEY) === '1';
-    var localExtra = parseInt(localStorage.getItem(LOCAL_TOTAL_KEY) || '0');
-
-    function getDisplayTotal() {
-      if (serverCount !== null) {
-        return serverCount + (hasVoted ? 0 : 0);
-      }
-      return localExtra;
-    }
 
     function updateUI() {
-      var total = getDisplayTotal();
+      var total = serverCount !== null ? serverCount : 0;
       var countText = total + ' 票';
       for (var i = 0; i < allButtons.length; i++) {
         allButtons[i].disabled = hasVoted;
@@ -623,76 +615,63 @@
       }
     }
 
-    function fetchCount(url, onSuccess) {
+    // 页面加载时从 API 读取票数
+    function loadServerCount() {
       var xhr = new XMLHttpRequest();
-      xhr.open('GET', url, true);
-      xhr.timeout = 4000;
+      xhr.open('GET', API_BASE, true);
+      xhr.timeout = 5000;
       xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
             var data = JSON.parse(xhr.responseText);
-            if (typeof data.value === 'number') {
-              onSuccess(data.value);
+            if (typeof data.count === 'number') {
+              serverCount = data.count;
             }
           } catch(e) {}
         }
+        updateUI();
       };
-      xhr.onerror = function() {};
-      xhr.ontimeout = function() {};
+      xhr.onerror = function() { updateUI(); };
+      xhr.ontimeout = function() { updateUI(); };
       xhr.send();
     }
 
-    function loadServerCount() {
-      // Try first URL
-      fetchCount(COUNTER_URLS[0], function(val) {
-        serverCount = val;
-        updateUI();
-      });
-      // Also try second URL after a short delay as backup
-      setTimeout(function() {
-        if (serverCount === null) {
-          fetchCount(COUNTER_URLS[1], function(val) {
-            if (serverCount === null) {
-              serverCount = val;
-              updateUI();
-            }
-          });
-        }
-      }, 1500);
-    }
-
+    // 点击投票
     window.castVote = function() {
       if (hasVoted) return;
 
       hasVoted = true;
       localStorage.setItem(STORAGE_KEY, '1');
-      localExtra += 1;
-      localStorage.setItem(LOCAL_TOTAL_KEY, localExtra);
 
-      // Try to hit the counter API
-      for (var i = 0; i < COUNTER_URLS.length; i++) {
-        (function(url) {
-          var xhr = new XMLHttpRequest();
-          xhr.open('GET', url, true);
-          xhr.timeout = 3000;
-          xhr.onload = function() {
-            if (xhr.status >= 200 && xhr.status < 300) {
-              try {
-                var data = JSON.parse(xhr.responseText);
-                if (typeof data.value === 'number') {
-                  serverCount = data.value;
-                }
-              } catch(e) {}
+      // POST 到 API，让票数 +1
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', API_BASE, true);
+      xhr.timeout = 5000;
+      xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            if (typeof data.count === 'number') {
+              serverCount = data.count;
             }
-            updateUI();
-          };
-          xhr.send();
-        })(COUNTER_URLS[i]);
-      }
-      updateUI();
+          } catch(e) {}
+        } else if (serverCount !== null) {
+          // Fallback: locally increment
+          serverCount += 1;
+        }
+        updateUI();
+      };
+      xhr.onerror = function() {
+        if (serverCount !== null) serverCount += 1;
+        updateUI();
+      };
+      xhr.ontimeout = function() {
+        if (serverCount !== null) serverCount += 1;
+        updateUI();
+      };
+      xhr.send();
     };
 
-    // Init — show local count immediately, then update from server
     updateUI();
     loadServerCount();
   })();
