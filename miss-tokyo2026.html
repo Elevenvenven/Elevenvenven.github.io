@@ -576,12 +576,15 @@
 
 
 <script>
-  // ============================================
-  // 🔧 部署 Vercel 后，把下面这行换成你的 Vercel 域名
-  // ============================================
-  var API_BASE = 'https://你的项目名.vercel.app/api/vote';
-
   (function() {
+    // ============ 模拟投票数配置 ============
+    var BASE_VOTES = 33;           // 起始票数
+    var MIN_PER_DAY = 10;          // 每天最少增长
+    var MAX_PER_DAY = 17;          // 每天最多增长
+    var START_DATE = '2026-07-01'; // 竞选开始日期
+    var MAX_DAYS = 20;             // 20 天后停止增长
+    // =======================================
+
     var STORAGE_KEY = 'voted_11sum_tokyo2026';
 
     var btn1 = document.getElementById('vote-btn');
@@ -595,11 +598,41 @@
     var allLabels = [label1, label2];
     var allCounts = [count1, count2];
 
-    var serverCount = null;
+    // 基于日期种子的伪随机数（保证同一天所有人看到相同数值）
+    function seededRandom(seed) {
+      var x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    }
+
+    // 计算模拟总票数
+    function getSimulatedVotes() {
+      var now = new Date();
+      var start = new Date(START_DATE);
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var startDay = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+      var dayDiff = Math.floor((today - startDay) / (1000 * 60 * 60 * 24));
+      if (dayDiff < 0) dayDiff = 0;
+      if (dayDiff > MAX_DAYS) dayDiff = MAX_DAYS;
+
+      var total = BASE_VOTES;
+      for (var d = 0; d < dayDiff; d++) {
+        var seed = startDay.getTime() / (1000 * 60 * 60 * 24) + d;
+        var r = seededRandom(seed);
+        total += Math.floor(r * (MAX_PER_DAY - MIN_PER_DAY + 1)) + MIN_PER_DAY;
+      }
+      return total;
+    }
+
+    var simulatedVotes = getSimulatedVotes();
     var hasVoted = localStorage.getItem(STORAGE_KEY) === '1';
+    var localVote = hasVoted ? 1 : 0;
+
+    function getTotal() {
+      return simulatedVotes + localVote;
+    }
 
     function updateUI() {
-      var total = serverCount !== null ? serverCount : 0;
+      var total = getTotal();
       var countText = total + ' 票';
       for (var i = 0; i < allButtons.length; i++) {
         allButtons[i].disabled = hasVoted;
@@ -615,65 +648,15 @@
       }
     }
 
-    // 页面加载时从 API 读取票数
-    function loadServerCount() {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', API_BASE, true);
-      xhr.timeout = 5000;
-      xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          try {
-            var data = JSON.parse(xhr.responseText);
-            if (typeof data.count === 'number') {
-              serverCount = data.count;
-            }
-          } catch(e) {}
-        }
-        updateUI();
-      };
-      xhr.onerror = function() { updateUI(); };
-      xhr.ontimeout = function() { updateUI(); };
-      xhr.send();
-    }
-
-    // 点击投票
     window.castVote = function() {
       if (hasVoted) return;
-
       hasVoted = true;
+      localVote = 1;
       localStorage.setItem(STORAGE_KEY, '1');
-
-      // POST 到 API，让票数 +1
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', API_BASE, true);
-      xhr.timeout = 5000;
-      xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          try {
-            var data = JSON.parse(xhr.responseText);
-            if (typeof data.count === 'number') {
-              serverCount = data.count;
-            }
-          } catch(e) {}
-        } else if (serverCount !== null) {
-          // Fallback: locally increment
-          serverCount += 1;
-        }
-        updateUI();
-      };
-      xhr.onerror = function() {
-        if (serverCount !== null) serverCount += 1;
-        updateUI();
-      };
-      xhr.ontimeout = function() {
-        if (serverCount !== null) serverCount += 1;
-        updateUI();
-      };
-      xhr.send();
+      updateUI();
     };
 
     updateUI();
-    loadServerCount();
   })();
 </script>
 </body>
