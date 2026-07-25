@@ -4,7 +4,7 @@
     "title": "Boost Control Lab",
     "category": "Interactive",
     "description": "STM32G431 Boost 数字电源交互实验室：搭建 PWM、ADC、PI/PID 与保护链路，调节参数并观察软启动、扰动和故障响应。",
-    "link": "boost-control-lab/",
+    "link": "boost-pid-lab/",
     "card_label": "Open Lab →",
     "detail_label": "Open interactive lab →",
     "secondary_link": "https://github.com/Elevenvenven/boost-control-lab",
