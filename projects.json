@@ -1,5 +1,33 @@
 [
   {
+    "image": "images/boost-control-lab-cover.png",
+    "title": "Boost Control Lab",
+    "category": "Interactive",
+    "description": "STM32G431 Boost 数字电源交互实验室：搭建 PWM、ADC、PI/PID 与保护链路，调节参数并观察软启动、扰动和故障响应。",
+    "link": "boost-control-lab/",
+    "card_label": "Open Lab →",
+    "detail_label": "Open interactive lab →",
+    "secondary_link": "https://github.com/Elevenvenven/boost-control-lab",
+    "secondary_label": "GitHub →",
+    "tech_stack": [
+      "STM32G431",
+      "Embedded C",
+      "Boost Converter",
+      "PI/PID",
+      "Next.js",
+      "GitHub Pages"
+    ],
+    "features": [
+      "开环、P、PI、PID 四种控制模式",
+      "实时调节 Kp、Ki、Kd、输入电压和负载",
+      "注入负载突加与输入跌落扰动",
+      "观察输出电压、占空比、误差和输入电流曲线",
+      "练习 PWM、ADC、反馈闭环和硬件保护链路",
+      "内置 STM32G431 控制代码浏览与完整代码包下载"
+    ],
+    "long_description": "Boost Control Lab 是面向 STM32G431 数字电源入门和比赛备赛的交互练习台。它把 Boost 变换器的控制链路拆成 PWM 定时器、ADC 采样、反馈闭环、PI/PID 控制和硬件保护几个可操作模块，并用实时曲线展示参数变化对系统动态性能的影响。\n\n推荐练习顺序：\n\n• 使用默认 PI 参数启动，观察软启动过程和稳态跟踪\n• 切换到 P 控制，比较负载下的稳态误差\n• 分别提高 Kp、Ki，观察响应速度、过冲与振荡\n• 启用 PID 并调节 Kd，理解微分项对快速变化的抑制\n• 注入负载突加和输入跌落，检查闭环恢复能力\n• 主动触发保护条件，练习故障锁存和清除流程\n\n页面同时提供可下载的 STM32G431 Boost 控制示例，包含 ADC 采样、PWM 更新、软启动、PI/PID、抗积分饱和和保护状态机。"
+  },
+  {
     "image": "images/pkiler_hero.png",
     "title": "pkiler",
     "category": "Apps",
