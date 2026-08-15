@@ -8,11 +8,6 @@
     <meta property="og:description" content="Projects, study notes, research interests, life moments, and recent updates from 11_sum." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://elevenvenven.github.io/" />
-    <meta property="og:image" content="https://elevenvenven.github.io/images/og-portfolio-v2.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://elevenvenven.github.io/images/og-portfolio-v2.png" />
     <meta name="theme-color" content="#f3f1ea" />
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1221,6 +1216,22 @@
 </head>
 <body>
 
+    <div class="loading-screen" id="loading-screen" aria-hidden="true">
+        <div class="mit-logo loading-logo" style="position:relative;">
+            <div class="symbol">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px;">
+                <div class="text">11_sum</div>
+                <div class="sub-text">Developer &amp; Learner</div>
+            </div>
+            <div class="bottom-line"></div>
+        </div>
+    </div>
+
     <header class="navbar">
         <div class="container">
             <a href="#hero" class="mit-logo">
@@ -1251,56 +1262,38 @@
         <section id="hero">
             <div class="hero-shell">
                 <div class="hero-copy">
-                    <span class="eyebrow">Engineer · Researcher · Builder</span>
-                    <h1>I make complex systems <span>feel tangible.</span></h1>
-                    <p class="hero-intro">Hi, I'm 11_sum — an EE graduate moving into Information Science at UTokyo. I explore how hardware, intelligence, and human interaction meet in useful, understandable things.</p>
+                    <h1>Hello, I'm 11_sum</h1>
+                    <p class="hero-intro">A learner in computer science, who studies, plays, researches, and sleeps 😴.</p>
+                    <p class="hero-note">"The more you experience, the more open-mind you will be.🥸"</p>
+                    <p class="hero-note">Much more content coming soon……</p>
                     <div class="hero-actions">
-                        <a href="#projects" class="cta-button">Explore selected work</a>
-                        <a href="#about" class="cta-button secondary">A little about me</a>
-                    </div>
-                    <div class="hero-meta" aria-label="Current profile details">
-                        <span>Based between Chengdu & Tokyo</span>
-                        <span>Open to research conversations</span>
+                        <a href="#projects" class="cta-button">View My Projects & Study 😼</a>
                     </div>
                 </div>
-                <aside class="hero-stage" aria-label="Current research focus">
+                <aside class="hero-stage" aria-hidden="true">
                     <div class="stage-grid" aria-hidden="true"></div>
-                    <div class="stage-mark" aria-hidden="true">11</div>
                     <div class="stage-orbit" aria-hidden="true"></div>
                     <div class="stage-blue" aria-hidden="true"></div>
-                    <div class="stage-copy">
-                        <span class="hero-status">Currently exploring</span>
-                        <strong>Interfaces between bits, atoms & people.</strong>
-                        <div class="stage-tags" aria-label="Research interests">
-                            <span>HCI</span><span>CA</span><span>AI</span><span>Embedded</span>
-                        </div>
-                    </div>
                 </aside>
             </div>
         </section>
                 
         <section id="about">
             <div class="container">
-                <div class="section-head">
+                <div class="section-head section-head--single">
                     <div class="section-title-wrap">
-                        <span class="section-kicker">01 / About</span>
-                        <h2>Curious by default.</h2>
+                        <h2>About Me</h2>
                     </div>
-                    <p>I learn by building, testing, and turning abstract ideas into experiences people can actually use.</p>
                 </div>
                 <div class="about-layout">
                     <div class="portrait-frame fade-in">
-                        <img src="images/11sum.jpg" alt="Portrait of 11_sum" class="profile-pic">
-                        <div class="portrait-caption"><span>11_sum</span><span>2026</span></div>
+                        <img src="images/11sum.jpg" alt="我的头像" class="profile-pic">
                     </div>
                     <div class="about-copy fade-in">
-                        <p class="about-lead">From electrical engineering to the space where computation meets people.</p>
-                        <div class="about-facts">
-                            <div class="about-fact"><span>Education</span><p>Sichuan University · B.Eng. in Electrical Engineering, 2021–2025</p></div>
-                            <div class="about-fact"><span>Next</span><p>Information Science and Technology at the University of Tokyo, from 2026</p></div>
-                            <div class="about-fact"><span>Research</span><p>Human–Computer Interaction, Computer Architecture, AI, and embedded systems</p></div>
-                            <div class="about-fact"><span>Off-screen</span><p>Go, guitar, hiking with friends, novels, and a very healthy amount of sleep</p></div>
-                        </div>
+                        <p>SCU (Sichuan University), EE Bachelor, 2021-2025😎</p>
+                        <p>2026 - x student in Information Science and Technology，UTokyo🥸</p>
+                        <p>Main research interests in HCI & CA & AI……🧐</p>
+                        <p>When I have free time, I play Go/guitar, hike with classmates, and read novels……☺️</p>
                     </div>
                 </div>
             </div>
@@ -1310,20 +1303,11 @@
             <div class="container">
                 <div class="section-head">
                     <div class="section-title-wrap">
-                        <span class="section-kicker">02 / Work</span>
-                        <h2>Projects & experiments.</h2>
+                        <h2>Projects & Study</h2>
                     </div>
-                    <p>A living archive of software experiments, research notes, interactive demos, and learning records.</p>
+                    <p>Software experiments, research notes, interactive demos, and learning records.</p>
                 </div>
                 <div class="project-tools" aria-label="Project search">
-                    <div class="project-filters" role="group" aria-label="Filter projects by category">
-                        <button class="project-filter active" type="button" data-project-filter="All" aria-pressed="true">All</button>
-                        <button class="project-filter" type="button" data-project-filter="Interactive" aria-pressed="false">Interactive</button>
-                        <button class="project-filter" type="button" data-project-filter="Apps" aria-pressed="false">Apps</button>
-                        <button class="project-filter" type="button" data-project-filter="Research" aria-pressed="false">Research</button>
-                        <button class="project-filter" type="button" data-project-filter="Learning" aria-pressed="false">Learning</button>
-                        <button class="project-filter" type="button" data-project-filter="Articles" aria-pressed="false">Articles</button>
-                    </div>
                     <input class="project-search" id="project-search" type="search" placeholder="Search projects, topics, or tech stack..." autocomplete="off">
                 </div>
                 <div class="project-grid" id="project-grid">
@@ -1335,10 +1319,9 @@
             <div class="container">
                 <div class="section-head">
                     <div class="section-title-wrap">
-                        <span class="section-kicker">03 / Moments</span>
-                        <h2>Life, between builds.</h2>
+                        <h2>My Moments</h2>
                     </div>
-                    <p class="subtitle">A few fragments of life away from the computer — places, people, food, and ordinary days worth keeping.</p>
+                    <p class="subtitle">A few fragments of life, recording time away from the computer.</p>
                 </div>
                 <div class="gallery-grid" id="gallery-grid">
                     </div>
@@ -1350,9 +1333,8 @@
         <section id="donate">
             <div class="container fade-in">
                 <div class="donate-copy">
-                    <span class="section-kicker">Support the experiments</span>
-                    <h2>Buy me a coffee.</h2>
-                    <p>If something here helped, sparked an idea, or saved you a little time, you can keep the next experiment caffeinated.</p>
+                    <h2>Buy Me a Coffee ☕</h2>
+                    <p>If you find my work helpful, feel free to support me!</p>
                 </div>
                 <div class="donate-cards">
                     <div class="donate-card">
@@ -1370,13 +1352,13 @@
         <section id="contact">
             <div class="container fade-in">
                 <div class="contact-copy">
-                    <span class="section-kicker" style="color:rgba(255,255,255,.72)">04 / Contact</span>
-                    <h2>Let's make something click.</h2>
-                    <p>Have a research question, an unusual project, or simply want to compare notes? I'd love to hear from you.</p>
+                    <h2>Contact Me</h2>
+                    <p>You can find me through the methods below. Looking forward to communicating with you!</p>
                 </div>
                 <ul class="social-links">
                     <li><a href="mailto:elevensumm@gmail.com" title="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a></li>
                     <li><a href="https://github.com/Elevenvenven?tab=repositories" title="GitHub" target="_blank"><svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+                    <li><a href="#" title="LinkedIn" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
                 </ul>
             </div>
         </section>
@@ -1468,9 +1450,7 @@
             // (A) 加载项目 (Projects)
             const projectGrid = document.getElementById('project-grid');
             const projectSearch = document.getElementById('project-search');
-            const projectFilterButtons = document.querySelectorAll('.project-filter');
             let allProjects = [];
-            let activeProjectCategory = 'All';
 
             function getProjectCategory(project) {
                 if (project.category) return project.category;
@@ -1497,8 +1477,7 @@
                 ].filter(Boolean).join(' ').toLowerCase();
 
                 const queryMatch = !query || haystack.includes(query);
-                const categoryMatch = activeProjectCategory === 'All' || category === activeProjectCategory;
-                return queryMatch && categoryMatch;
+                return queryMatch;
             }
 
             function renderProjectCards(projects) {
@@ -1513,11 +1492,6 @@
                 visibleProjects.forEach((project, visibleIndex) => {
                     const originalIndex = allProjects.indexOf(project);
                     const card = document.createElement('div');
-                    const category = getProjectCategory(project);
-                    const projectNumber = String(originalIndex + 1).padStart(2, '0');
-                    const projectTags = (project.tech_stack || []).slice(0, 3)
-                        .map(tag => `<span>${tag}</span>`)
-                        .join('');
                     card.className = `project-card ${visibleIndex < 2 ? 'featured-project' : ''} fade-in fade-in-delay-${(visibleIndex % 3) + 1}`;
                     const primaryLabel = project.card_label || 'View Project →';
                     const primaryLink = project.long_description
@@ -1530,13 +1504,10 @@
                     card.innerHTML = `
                         <div class="project-media">
                             <img src="${project.image}" alt="${project.title}" loading="lazy">
-                            <span class="project-number">${projectNumber}</span>
                         </div>
                         <div class="project-content">
-                            <span class="project-category">${category}</span>
                             <h3>${project.title}</h3>
                             <p>${project.description}</p>
-                            ${projectTags ? `<div class="project-tags">${projectTags}</div>` : ''}
                             <div class="project-card-actions">${primaryLink}${secondaryLink}</div>
                         </div>
                     `;
@@ -1559,18 +1530,6 @@
                     if (projectSearch) {
                         projectSearch.addEventListener('input', () => renderProjectCards(allProjects));
                     }
-
-                    projectFilterButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            activeProjectCategory = button.dataset.projectFilter || 'All';
-                            projectFilterButtons.forEach(item => {
-                                const isActive = item === button;
-                                item.classList.toggle('active', isActive);
-                                item.setAttribute('aria-pressed', String(isActive));
-                            });
-                            renderProjectCards(allProjects);
-                        });
-                    });
 
                     // Project Detail Modal Logic (must be inside .then() to access projects)
                     const pdModal = document.getElementById('project-detail-modal');
@@ -1646,10 +1605,6 @@
                 item.dataset.index = index;
                 item.innerHTML = `
                     <img src="${moment.img}" alt="${moment.alt}">
-                    <div class="moment-caption">
-                        <strong>${moment.description || moment.alt}</strong>
-                        <span>${moment.date}</span>
-                    </div>
                 `;
                 item.addEventListener('click', () => openModal(index));
                 return item;
