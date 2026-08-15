@@ -27,7 +27,7 @@
             --shadow-color: rgba(0, 0, 0, 0.08);
             --gradient: linear-gradient(45deg, var(--primary-color), #00aaff);
             --nav-bg: rgba(255, 255, 255, 0.95);
-            
+
             --gallery-gap: 3px; 
             --gallery-item-height: 300px;
             --gallery-item-basis: 250px;
@@ -1214,7 +1214,7 @@
     </style>
     <link rel="stylesheet" href="visual-refresh.css?v=20260815">
 </head>
-<body>
+<body class="visual-v2">
 
     <div class="loading-screen" id="loading-screen" aria-hidden="true">
         <div class="mit-logo loading-logo" style="position:relative;">
@@ -1262,19 +1262,18 @@
         <section id="hero">
             <div class="hero-shell">
                 <div class="hero-copy">
-                    <h1>Hello, I'm 11_sum</h1>
-                    <p class="hero-intro">A learner in computer science, who studies, plays, researches, and sleeps 😴.</p>
-                    <p class="hero-note">"The more you experience, the more open-mind you will be.🥸"</p>
-                    <p class="hero-note">Much more content coming soon……</p>
-                    <div class="hero-actions">
-                        <a href="#projects" class="cta-button">View My Projects & Study 😼</a>
+                    <div class="hero-title">
+                        <h1>Hello, I'm 11_sum</h1>
+                    </div>
+                    <div class="hero-details">
+                        <p class="hero-intro">A learner in computer science, who studies, plays, researches, and sleeps 😴.</p>
+                        <p class="hero-note">"The more you experience, the more open-mind you will be.🥸"</p>
+                        <p class="hero-note">Much more content coming soon……</p>
+                        <div class="hero-actions">
+                            <a href="#projects" class="cta-button">View My Projects & Study 😼</a>
+                        </div>
                     </div>
                 </div>
-                <aside class="hero-stage" aria-hidden="true">
-                    <div class="stage-grid" aria-hidden="true"></div>
-                    <div class="stage-orbit" aria-hidden="true"></div>
-                    <div class="stage-blue" aria-hidden="true"></div>
-                </aside>
             </div>
         </section>
                 
@@ -1308,7 +1307,7 @@
                     <p>Software experiments, research notes, interactive demos, and learning records.</p>
                 </div>
                 <div class="project-tools" aria-label="Project search">
-                    <input class="project-search" id="project-search" type="search" placeholder="Search projects, topics, or tech stack..." autocomplete="off">
+                    <input class="project-search" id="project-search" type="search" placeholder="Search projects, topics, or tech stack..." aria-label="Search projects, topics, or tech stack" autocomplete="off">
                 </div>
                 <div class="project-grid" id="project-grid">
                     </div>
@@ -1330,47 +1329,49 @@
         </section>
         
 
-        <section id="donate">
-            <div class="container fade-in">
-                <div class="donate-copy">
-                    <h2>Buy Me a Coffee ☕</h2>
-                    <p>If you find my work helpful, feel free to support me!</p>
-                </div>
-                <div class="donate-cards">
-                    <div class="donate-card">
-                        <img src="images/wechat_qrcode.jpg" alt="WeChat Pay QR Code" />
-                        <span>微信支付</span>
+        <div class="closing-grid container">
+            <section id="donate">
+                <div class="container fade-in">
+                    <div class="donate-copy">
+                        <h2>Buy Me a Coffee ☕</h2>
+                        <p>If you find my work helpful, feel free to support me!</p>
                     </div>
-                    <div class="donate-card">
-                        <img src="images/alipay_qrcode.jpg" alt="Alipay QR Code" />
-                        <span>支付宝</span>
+                    <div class="donate-cards">
+                        <div class="donate-card">
+                            <img src="images/wechat_qrcode.jpg" alt="WeChat Pay QR Code" />
+                            <span>微信支付</span>
+                        </div>
+                        <div class="donate-card">
+                            <img src="images/alipay_qrcode.jpg" alt="Alipay QR Code" />
+                            <span>支付宝</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <section id="contact">
-            <div class="container fade-in">
-                <div class="contact-copy">
-                    <h2>Contact Me</h2>
-                    <p>You can find me through the methods below. Looking forward to communicating with you!</p>
+            </section>
+
+            <section id="contact">
+                <div class="container fade-in">
+                    <div class="contact-copy">
+                        <h2>Contact Me</h2>
+                        <p>You can find me through the methods below. Looking forward to communicating with you!</p>
+                    </div>
+                    <ul class="social-links">
+                        <li><a href="mailto:elevensumm@gmail.com" title="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a></li>
+                        <li><a href="https://github.com/Elevenvenven?tab=repositories" title="GitHub" target="_blank"><svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+                        <li><a href="#" title="LinkedIn" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
+                    </ul>
                 </div>
-                <ul class="social-links">
-                    <li><a href="mailto:elevensumm@gmail.com" title="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a></li>
-                    <li><a href="https://github.com/Elevenvenven?tab=repositories" title="GitHub" target="_blank"><svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
-                    <li><a href="#" title="LinkedIn" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
-                </ul>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
     <footer>
         <p >&copy; 2025-2026 11_sum. All Rights Reserved.</p>
     </footer>
 
-    <div id="moment-modal" class="modal">
+    <div id="moment-modal" class="modal" role="dialog" aria-modal="true" aria-label="Moment preview" aria-hidden="true">
         <div class="modal-content">
-            <span class="modal-close">&times;</span>
+            <button class="modal-close" type="button" aria-label="Close moment preview">&times;</button>
             <div class="modal-body">
                 <img src="" alt="" id="modal-image">
                 <div class="modal-info">
@@ -1378,15 +1379,15 @@
                     <p class="modal-description" id="modal-description"></p>
                 </div>
             </div>
-            <button class="modal-nav-btn modal-prev" id="modal-prev">&#10094;</button> 
-            <button class="modal-nav-btn modal-next" id="modal-next">&#10095;</button> 
+            <button class="modal-nav-btn modal-prev" id="modal-prev" type="button" aria-label="Previous moment">&#10094;</button>
+            <button class="modal-nav-btn modal-next" id="modal-next" type="button" aria-label="Next moment">&#10095;</button>
         </div>
     </div>
 
     <!-- Project Detail Modal -->
-    <div id="project-detail-modal" class="project-detail-modal">
+    <div id="project-detail-modal" class="project-detail-modal" role="dialog" aria-modal="true" aria-labelledby="project-detail-title" aria-hidden="true">
         <div class="project-detail-content">
-            <span class="project-detail-close" id="project-detail-close">&times;</span>
+            <button class="project-detail-close" id="project-detail-close" type="button" aria-label="Close project details">&times;</button>
             <img class="project-detail-img" id="project-detail-img" src="" alt="">
             <h2 class="project-detail-title" id="project-detail-title"></h2>
             <div class="project-detail-desc" id="project-detail-desc"></div>
@@ -1400,6 +1401,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('load', function() {
+                window.setTimeout(function() {
+                    const loadingScreen = document.getElementById('loading-screen');
+                    if (loadingScreen) loadingScreen.classList.add('hidden');
+                }, 450);
+            });
             
             // --- 新增: 语言包定义 (i18n Translation Dictionary) ---
             
@@ -1408,18 +1415,45 @@
             // --- 1. 移动端菜单切换 (无修改) ---
             const menuToggle = document.getElementById('mobile-menu');
             const navMenu = document.getElementById('nav-menu');
+            function closeNavMenu(returnFocus = false) {
+                navMenu.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.setAttribute('aria-label', 'Open navigation');
+                if (returnFocus) menuToggle.focus();
+            }
             menuToggle.addEventListener('click', () => {
                 const isOpen = navMenu.classList.toggle('active');
                 menuToggle.setAttribute('aria-expanded', String(isOpen));
+                menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
             });
             document.querySelectorAll('#nav-menu li a').forEach(link => {
                 link.addEventListener('click', () => {
                     if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        menuToggle.setAttribute('aria-expanded', 'false');
+                        closeNavMenu();
                     }
                 });
             });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+                    closeNavMenu(true);
+                }
+            });
+
+            function keepFocusInside(event, container) {
+                if (event.key !== 'Tab') return;
+                const focusable = Array.from(container.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'))
+                    .filter(element => element.offsetParent !== null);
+                if (!focusable.length) return;
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            }
 
             // --- 2. 导航栏高亮 (更新: 包含 news 栏目) ---
             const sections = document.querySelectorAll('section');
@@ -1534,6 +1568,13 @@
                     // Project Detail Modal Logic (must be inside .then() to access projects)
                     const pdModal = document.getElementById('project-detail-modal');
                     const pdClose = document.getElementById('project-detail-close');
+                    let pdLastFocus = null;
+                    function closeProjectModal() {
+                        pdModal.classList.remove('active');
+                        pdModal.setAttribute('aria-hidden', 'true');
+                        document.body.style.overflow = '';
+                        if (pdLastFocus) pdLastFocus.focus();
+                    }
                     document.addEventListener('click', function(e) {
                         const btn = e.target.closest('.project-detail-btn');
                         if (btn) {
@@ -1560,12 +1601,19 @@
                             // Features
                             const featEl = document.getElementById('project-detail-features');
                             featEl.innerHTML = (proj.features || []).map(f => `<div class="project-detail-feature"><span class="project-detail-feature-icon">✦</span>${f}</div>`).join('');
+                            pdLastFocus = btn;
                             pdModal.classList.add('active');
+                            pdModal.setAttribute('aria-hidden', 'false');
                             document.body.style.overflow = 'hidden';
+                            pdClose.focus();
                         }
                     });
-                    pdClose.addEventListener('click', () => { pdModal.classList.remove('active'); document.body.style.overflow = ''; });
-                    pdModal.addEventListener('click', (e) => { if (e.target === pdModal) { pdModal.classList.remove('active'); document.body.style.overflow = ''; } });
+                    pdClose.addEventListener('click', closeProjectModal);
+                    pdModal.addEventListener('click', (e) => { if (e.target === pdModal) closeProjectModal(); });
+                    pdModal.addEventListener('keydown', (event) => {
+                        if (event.key === 'Escape') closeProjectModal();
+                        else keepFocusInside(event, pdModal);
+                    });
                 })
                 .catch(error => console.error('Error loading projects:', error));
 
@@ -1576,6 +1624,7 @@
             const LOAD_MORE_COUNT = 10;
             let currentMomentIndex = 0; 
             let currentModalMomentIndex = 0; 
+            let lastMomentTrigger = null;
             const galleryGrid = document.getElementById('gallery-grid');
             const loadMoreBtn = document.getElementById('load-more-btn');
             
@@ -1603,10 +1652,19 @@
                 const item = document.createElement('div');
                 item.className = 'gallery-item fade-in'; // 添加 fade-in
                 item.dataset.index = index;
+                item.tabIndex = 0;
+                item.setAttribute('role', 'button');
+                item.setAttribute('aria-label', moment.alt);
                 item.innerHTML = `
                     <img src="${moment.img}" alt="${moment.alt}">
                 `;
-                item.addEventListener('click', () => openModal(index));
+                item.addEventListener('click', () => openModal(index, item));
+                item.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openModal(index, item);
+                    }
+                });
                 return item;
             }
 
@@ -1632,11 +1690,14 @@
                 }
             }
 
-            function openModal(index) {
+            function openModal(index, trigger) {
                 currentModalMomentIndex = index;
+                lastMomentTrigger = trigger;
                 updateModalContent();
                 momentModal.style.display = 'flex';
+                momentModal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
+                modalCloseBtn.focus();
             }
 
         
@@ -1653,7 +1714,9 @@
 
             function closeModal() {
                 momentModal.style.display = 'none';
+                momentModal.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = 'auto';
+                if (lastMomentTrigger) lastMomentTrigger.focus();
             }
             modalCloseBtn.addEventListener('click', closeModal);
             momentModal.addEventListener('click', (e) => {
@@ -1678,6 +1741,7 @@
                     if (e.key === 'ArrowLeft') modalPrevBtn.click();
                     else if (e.key === 'ArrowRight') modalNextBtn.click();
                     else if (e.key === 'Escape') closeModal();
+                    else keepFocusInside(e, momentModal);
                 }
             });
 
@@ -1725,8 +1789,7 @@
                 btn.addEventListener('click', () => {
                     toggleTheme();
                     if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        menuToggle.setAttribute('aria-expanded', 'false');
+                        closeNavMenu();
                     }
                 });
             });
