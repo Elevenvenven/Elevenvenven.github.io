@@ -18,13 +18,13 @@
         /* --- 1. CSS Variables --- */
         :root {
             --bg-color: #f0f2f5;
-            --primary-color: #007aff;
+            --primary-color: #53699d;
             --secondary-color: #ffffff;
             --text-color: #000000;
             --text-secondary: #555555;
             --border-color: #e0e0e0;
             --shadow-color: rgba(0, 0, 0, 0.08);
-            --gradient: linear-gradient(45deg, var(--primary-color), #00aaff);
+            --gradient: linear-gradient(45deg, var(--primary-color), #7d91a8);
             --nav-bg: rgba(255, 255, 255, 0.95);
             
             --gallery-gap: 3px; 
@@ -33,15 +33,15 @@
         }
 
         html.dark-mode {
-            --bg-color: #000000;
-            --primary-color: #007aff;
-            --secondary-color: #1c1c1e;
-            --text-color: #ffffff;
-            --text-secondary: #8e8e93;
-            --border-color: #333333;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --gradient: linear-gradient(45deg, var(--primary-color), #00c6ff);
-            --nav-bg: rgba(20, 20, 20, 0.7);
+            --bg-color: #0e131b;
+            --primary-color: #5d72a8;
+            --secondary-color: #181e28;
+            --text-color: #f5f6f8;
+            --text-secondary: #a0a7b2;
+            --border-color: #2b3340;
+            --shadow-color: rgba(0, 0, 0, 0.24);
+            --gradient: linear-gradient(45deg, var(--primary-color), #7d92aa);
+            --nav-bg: rgba(15, 20, 28, 0.82);
         }
 
         /* --- 2. 全局重置与基础样式 --- */
@@ -153,13 +153,13 @@
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+            box-shadow: 0 6px 18px rgba(58, 76, 122, 0.18);
             transition: all 0.3s ease;
         }
         .cta-button:hover {
             transform: translateY(-3px);
-            filter: brightness(1.1);
-            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
+            filter: brightness(1.04);
+            box-shadow: 0 8px 24px rgba(58, 76, 122, 0.24);
         }
         
         /* --- 9b. (新增) 新闻列表样式 --- */
@@ -250,7 +250,7 @@
             background-color: var(--primary-color);
             color: #ffffff;
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(58, 76, 122, 0.2);
         }
         /* 暗黑模式微调 */
         html.dark-mode .skill-tag {
@@ -635,7 +635,7 @@
 
         /* Hero gradient text */
         .hero h1 {
-            background: linear-gradient(135deg, var(--primary-color), #00aaff);
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -667,7 +667,7 @@
 
     
         [data-theme="dark"] .navbar {
-            background-color: rgba(20, 20, 20, 0.7);
+            background-color: rgba(15, 20, 28, 0.82);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
         }
@@ -689,7 +689,7 @@
         }
         .mit-logo .bar {
             width: 3px;
-            background: var(--primary-color, #007aff);
+            background: var(--primary-color, #53699d);
             border-radius: 1px;
             transition: transform 0.3s ease;
         }
@@ -708,7 +708,7 @@
             animation: barPulse 0.6s ease infinite;
         }
         .mit-logo:hover .text {
-            color: var(--primary-color, #007aff);
+            color: var(--primary-color, #53699d);
             transition: color 0.3s ease;
         }
         @keyframes barPulse {
@@ -738,7 +738,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary-color, #007aff);
+            background: var(--primary-color, #53699d);
             animation: lineExpand 2s ease infinite;
             animation-delay: 1s;
         }
@@ -759,8 +759,8 @@
 
         body {
             background:
-                radial-gradient(circle at 12% 8%, rgba(0, 122, 255, 0.12), transparent 34rem),
-                radial-gradient(circle at 88% 16%, rgba(22, 199, 132, 0.11), transparent 30rem),
+                radial-gradient(circle at 12% 8%, rgba(83, 105, 157, 0.08), transparent 34rem),
+                radial-gradient(circle at 88% 16%, rgba(92, 130, 113, 0.08), transparent 30rem),
                 linear-gradient(180deg, var(--bg-color), var(--bg-color));
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
@@ -768,9 +768,9 @@
 
         html.dark-mode body {
             background:
-                radial-gradient(circle at 12% 8%, rgba(0, 122, 255, 0.22), transparent 34rem),
-                radial-gradient(circle at 88% 16%, rgba(22, 199, 132, 0.14), transparent 30rem),
-                linear-gradient(180deg, #05070b, #0a0d12 58%, #05070b);
+                radial-gradient(circle at 12% 8%, rgba(93, 114, 168, 0.14), transparent 34rem),
+                radial-gradient(circle at 88% 16%, rgba(92, 130, 113, 0.08), transparent 30rem),
+                linear-gradient(180deg, #0a0f16, #101620 58%, #0a0f16);
         }
 
         .navbar {
@@ -864,7 +864,7 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: linear-gradient(135deg, rgba(0, 122, 255, 0.18), transparent 45%, rgba(22, 199, 132, 0.12));
+            background: linear-gradient(135deg, rgba(93, 114, 168, 0.13), transparent 45%, rgba(92, 130, 113, 0.08));
         }
 
         .status-card,
