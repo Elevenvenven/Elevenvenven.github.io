@@ -17,16 +17,16 @@
     <style>
         /* --- 1. CSS Variables --- */
         :root {
-            --bg-color: #f6f4f1;
-            --primary-color: #3d63c8;
+            --bg-color: #f2f7f5;
+            --primary-color: #087c75;
             --secondary-color: #ffffff;
-            --text-color: #171520;
-            --text-secondary: #5c5866;
-            --border-color: #e5dfe2;
-            --shadow-color: rgba(36, 28, 50, 0.08);
-            --gradient: linear-gradient(45deg, var(--primary-color), #ad4f6c);
-            --cta-gradient: linear-gradient(135deg, #3d63c8, #7849c6);
-            --nav-bg: rgba(255, 252, 249, 0.93);
+            --text-color: #102321;
+            --text-secondary: #536663;
+            --border-color: #d8e5e1;
+            --shadow-color: rgba(18, 64, 58, 0.08);
+            --gradient: linear-gradient(45deg, var(--primary-color), #287e9b);
+            --cta-gradient: linear-gradient(135deg, #087c75, #287e9b);
+            --nav-bg: rgba(248, 253, 251, 0.93);
             
             --gallery-gap: 3px; 
             --gallery-item-height: 300px;
@@ -34,16 +34,16 @@
         }
 
         html.dark-mode {
-            --bg-color: #131326;
-            --primary-color: #456be0;
-            --secondary-color: #20213a;
-            --text-color: #fff8f6;
-            --text-secondary: #bbc0d1;
-            --border-color: #3a3b5b;
-            --shadow-color: rgba(8, 8, 24, 0.26);
-            --gradient: linear-gradient(45deg, #456be0, #b64d70);
-            --cta-gradient: linear-gradient(135deg, #456be0, #8050d0);
-            --nav-bg: rgba(19, 19, 38, 0.84);
+            --bg-color: #0d1c20;
+            --primary-color: #087c75;
+            --secondary-color: #142a2e;
+            --text-color: #f4fbf9;
+            --text-secondary: #a9c0bc;
+            --border-color: #294449;
+            --shadow-color: rgba(0, 10, 12, 0.28);
+            --gradient: linear-gradient(45deg, #087c75, #287e9b);
+            --cta-gradient: linear-gradient(135deg, #087c75, #287e9b);
+            --nav-bg: rgba(13, 28, 32, 0.84);
         }
 
         /* --- 2. 全局重置与基础样式 --- */
@@ -155,13 +155,13 @@
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 8px 24px rgba(68, 80, 214, 0.3);
+            box-shadow: 0 8px 24px rgba(18, 126, 122, 0.28);
             transition: all 0.3s ease;
         }
         .cta-button:hover {
             transform: translateY(-3px);
             filter: brightness(1.08);
-            box-shadow: 0 11px 30px rgba(68, 80, 214, 0.42);
+            box-shadow: 0 11px 30px rgba(18, 126, 122, 0.38);
         }
         
         /* --- 9b. (新增) 新闻列表样式 --- */
@@ -252,7 +252,7 @@
             background-color: var(--primary-color);
             color: #ffffff;
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 5px 16px rgba(68, 80, 214, 0.3);
+            box-shadow: 0 5px 16px rgba(18, 126, 122, 0.28);
         }
         /* 暗黑模式微调 */
         html.dark-mode .skill-tag {
@@ -669,7 +669,7 @@
 
     
         [data-theme="dark"] .navbar {
-            background-color: rgba(19, 19, 38, 0.84);
+            background-color: rgba(13, 28, 32, 0.84);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
         }
@@ -691,7 +691,7 @@
         }
         .mit-logo .bar {
             width: 3px;
-            background: var(--primary-color, #3d63c8);
+            background: var(--primary-color, #087c75);
             border-radius: 1px;
             transition: transform 0.3s ease;
         }
@@ -710,7 +710,7 @@
             animation: barPulse 0.6s ease infinite;
         }
         .mit-logo:hover .text {
-            color: var(--primary-color, #3d63c8);
+            color: var(--primary-color, #087c75);
             transition: color 0.3s ease;
         }
         @keyframes barPulse {
@@ -740,7 +740,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary-color, #3d63c8);
+            background: var(--primary-color, #087c75);
             animation: lineExpand 2s ease infinite;
             animation-delay: 1s;
         }
@@ -761,8 +761,8 @@
 
         body {
             background:
-                radial-gradient(circle at 12% 8%, rgba(61, 99, 200, 0.12), transparent 34rem),
-                radial-gradient(circle at 88% 16%, rgba(232, 93, 90, 0.12), transparent 30rem),
+                radial-gradient(circle at 12% 8%, rgba(43, 211, 174, 0.1), transparent 34rem),
+                radial-gradient(circle at 88% 16%, rgba(54, 145, 200, 0.1), transparent 30rem),
                 linear-gradient(180deg, var(--bg-color), var(--bg-color));
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
@@ -770,9 +770,9 @@
 
         html.dark-mode body {
             background:
-                radial-gradient(circle at 12% 8%, rgba(69, 107, 224, 0.25), transparent 34rem),
-                radial-gradient(circle at 88% 16%, rgba(244, 112, 82, 0.18), transparent 30rem),
-                linear-gradient(180deg, #111225, #1b1932 58%, #111225);
+                radial-gradient(circle at 12% 8%, rgba(43, 211, 174, 0.22), transparent 34rem),
+                radial-gradient(circle at 88% 16%, rgba(54, 145, 200, 0.18), transparent 30rem),
+                linear-gradient(180deg, #0b1a1e, #112b30 58%, #0b1a1e);
         }
 
         .navbar {
@@ -866,7 +866,7 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: linear-gradient(135deg, rgba(69, 107, 224, 0.2), transparent 45%, rgba(244, 112, 82, 0.14));
+            background: linear-gradient(135deg, rgba(43, 211, 174, 0.18), transparent 45%, rgba(54, 145, 200, 0.14));
         }
 
         .status-card,
