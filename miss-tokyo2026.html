@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>11sum | ミス＆ミスター東大コンテスト2026</title>
+  <meta name="description" content="东京大学情报理工研究科研究生 11sum 参战 Miss 東大 2026。一个工科男生的反差挑战——打破标签，活成自己的样子。" />
+  <meta property="og:title" content="11sum | ミス＆ミスター東大コンテスト2026" />
+  <meta property="og:description" content="东大情报理工男生 × Miss 竞选。代码之外，也想留下一段离谱又热血的回忆。" />
+  <meta property="og:image" content="https://elevenvenven.github.io/images/11sum_campaign.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071016;
+      --panel: #0d1822;
+      --panel-2: #132333;
+      --text: #eef6fb;
+      --muted: #a8b8c7;
+      --line: rgba(184, 204, 219, 0.18);
+      --cyan: #38bdf8;
+      --green: #2dd4bf;
+      --amber: #f6bd43;
+      --rose: #fb7185;
+      --violet: #a78bfa;
+      --pink: #f472b6;
+      --shadow: rgba(0, 0, 0, 0.34);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+      line-height: 1.7;
+    }
+
+    a { color: inherit; }
+
+    /* ── Nav ── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 16, 22, 0.82);
+      backdrop-filter: blur(18px);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1180px;
+      min-height: 64px;
+      margin: 0 auto;
+      padding: 0 22px;
+      gap: 18px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+    .mark {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 3px;
+      width: 34px;
+      height: 34px;
+      padding-bottom: 6px;
+    }
+    .mark .mbar {
+      width: 4px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, var(--pink), var(--violet));
+    }
+    .mark .mbar:nth-child(1) { height: 50%; }
+    .mark .mbar:nth-child(2) { height: 100%; }
+    .mark .mbar:nth-child(3) { height: 70%; }
+    .mark .mbar:nth-child(4) { height: 40%; }
+    .nav-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-size: 0.895rem;
+      transition: background 0.2s;
+    }
+    .nav-links a:hover { background: var(--panel); }
+
+    /* ── Page wrapper — unified max-width ── */
+    .page-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 64px 0 40px;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 5px 18px;
+      border: 1px solid var(--pink);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--pink);
+      margin-bottom: 28px;
+    }
+    .hero-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 3px solid var(--line);
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 28px;
+      box-shadow: 0 0 80px rgba(244,114,182,0.14);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      margin: 0 0 4px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .hero .ruby {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .hero .tagline {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 10px 0 0;
+      line-height: 1.7;
+    }
+    .hero .highlight {
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+    }
+
+    /* ── Vote CTA ── */
+    .vote-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 32px 0 0;
+    }
+    .vote-btn {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-width: 220px;
+      min-height: 60px;
+      padding: 14px 28px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(236,72,153,0.28);
+      font-family: inherit;
+    }
+    .vote-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 32px rgba(236,72,153,0.4);
+    }
+    .vote-btn:active:not(:disabled) {
+      transform: scale(0.96);
+    }
+    .vote-btn:disabled {
+      cursor: default;
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 4px 24px rgba(16,185,129,0.28);
+      animation: vote-pop 0.5s ease;
+    }
+    .vote-count {
+      font-size: 0.85rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+    .vote-btn.ghost {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: none;
+      min-height: 48px;
+      flex-direction: row;
+      border-radius: 999px;
+    }
+    .vote-btn.ghost:hover {
+      background: var(--panel-2);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    @keyframes vote-pop {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    /* ── Sections ── */
+    .section { padding: 24px 0 36px; }
+    .section-title {
+      font-size: 1.35rem;
+      margin: 0 0 20px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title .emj { font-size: 1.2rem; }
+
+    /* ── Profile ── */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .profile-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .profile-item .key {
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      min-width: 56px;
+    }
+    .profile-item .val {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* ── Story ── */
+    .story-block {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 28px 28px;
+    }
+    .story-block p {
+      color: var(--muted);
+      margin: 0 0 12px;
+      line-height: 1.85;
+    }
+    .story-block p:last-child { margin-bottom: 0; }
+    .story-block .quote {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      border-left: 3px solid var(--pink);
+      padding-left: 18px;
+      margin: 20px 0;
+    }
+
+    /* ── Cards 2×2 ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .info-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .info-card .icon { font-size: 2rem; margin-bottom: 10px; }
+    .info-card .title { font-weight: 700; font-size: 1rem; }
+    .info-card .desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* ── Gallery ── */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      object-fit: cover;
+      transition: transform 0.25s;
+      cursor: pointer;
+    }
+    .gallery img:hover { transform: scale(1.04); z-index: 1; }
+
+    /* ── Contact ── */
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .contact-card:hover { background: var(--panel-2); border-color: var(--pink); }
+    .contact-card .cc-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .contact-card .cc-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .contact-card .cc-val {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+      padding: 32px 22px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .footer-links a {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-size: 0.895rem;
+      transition: background 0.2s;
+    }
+    .footer-links a:hover { background: var(--panel); }
+    .footer-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .hero { padding: 40px 0 28px; }
+      .hero-photo { width: 150px; height: 150px; }
+      .profile-grid { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+      .vote-bar { flex-direction: column; }
+      .vote-btn { width: 100%; justify-content: center; }
+      .loading-logo .symbol { height: 40px; }
+      .loading-logo .bar { width: 8px; }
+      .loading-logo .text { font-size: 2rem; }
+    }
+
+    /* ── Loading Screen ── */
+    .loading-screen {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease;
+    }
+    .loading-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .loading-logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .loading-logo .text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .loading-logo .symbol {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      height: 60px;
+    }
+    .loading-logo .bar {
+      width: 6px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--pink), var(--violet));
+      animation: barGrow 2.4s ease infinite;
+    }
+    .loading-logo .bar:nth-child(1) { height: 100%; animation-delay: 0.1s; }
+    .loading-logo .bar:nth-child(2) { height: 85%;  animation-delay: 0.3s; }
+    .loading-logo .bar:nth-child(3) { height: 70%;  animation-delay: 0.5s; }
+    .loading-logo .bar:nth-child(4) { height: 55%;  animation-delay: 0.7s; }
+    .loading-logo .text {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .loading-logo .sub-text {
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    @keyframes barGrow {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ Loading Screen ═══ -->
+<div class="loading-screen" id="loading-screen">
+  <div class="loading-logo">
+    <div class="symbol">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <div class="text-group">
+      <div class="text">11sum</div>
+      <div class="sub-text">Miss 東大 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Nav ═══ -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="brand">
+      <span class="mark"><span class="mbar"></span><span class="mbar"></span><span class="mbar"></span><span class="mbar"></span></span>
+      <span>11sum</span>
+    </a>
+    <div class="nav-links">
+      <a href="/">🏠 Home</a>
+      <a href="#vote-section">🗳️ 投票</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ Hero ═══ -->
+<section class="page-wrap hero">
+  <div class="hero-badge">ENTRY 11sum · ミス＆ミスター東大 2026</div>
+  <img class="hero-photo" src="images/11sum_campaign.png" alt="11sum" />
+  <div class="ruby">Eleven Sum</div>
+  <h1>11sum</h1>
+  <p class="tagline">
+    東京大学 <span style="color:var(--cyan);">情報理工学系研究科</span> 研究生<br />
+    <span class="highlight">一个工科男生的 Miss 竞选挑战</span>
+  </p>
+  <div class="vote-bar">
+    <button class="vote-btn" id="vote-btn" onclick="castVote()">
+      <span id="vote-label">🗳️ 为我投票</span>
+      <span class="vote-count" id="vote-count">… 票</span>
+    </button>
+    <a class="vote-btn ghost" href="#about">
+      👇 了解更多
+    </a>
+  </div>
+</section>
+
+<!-- ═══ About ═══ -->
+<div class="page-wrap section" id="about">
+  <h2 class="section-title"><span class="emj">👋</span> 关于我</h2>
+  <div class="profile-grid">
+    <div class="profile-item">
+      <span class="key">🏫 大学</span>
+      <span class="val">東京大学</span>
+    </div>
+    <div class="profile-item">
+      <span class="key">🎓 所属</span>
+      <span class="val">情報理工学系研究科</span>
+    </div>
+    <div class="profile-item">
+      <span class="key">🏷️ 参赛名</span>
+      <span class="val">11sum</span>
+    </div>
+    <div class="profile-item">
+      <span class="key">🏆 赛事</span>
+      <span class="val">ミス＆ミスター東大 2026</span>
+    </div>
+    <div class="profile-item">
+      <span class="key">💻 日常</span>
+      <span class="val">代码 · 论文 · 实验室</span>
+    </div>
+    <div class="profile-item">
+      <span class="key">🔑 关键词</span>
+      <span class="val">工科男 · 反差 · 打破标签</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Story ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">💭</span> 为什么要参加 Miss 竞选？</h2>
+  <div class="story-block">
+    <p>研究室的师兄说：「<strong>你疯了。</strong>」</p>
+    <p>我说：「<strong>正因为不像我，所以才要去做。</strong>」</p>
+    <div class="quote">
+      如果一辈子只做「合理」的事，那也太无聊了吧？
+    </div>
+    <p>每天都在和算法、论文、代码打交道。日子过得太「工科」了 — 直到某天看到ミスコン的报名通知，脑子里突然冒出一个念头：</p>
+    <p><strong>「今しかできないことに挑戦したい！」</strong></p>
+    <p>（想在只有现在才能做的事情上，拼一次。）</p>
+    <p>于是就这样，一个情报理工的男生，闯进了 Miss 竞选的舞台。</p>
+  </div>
+</div>
+
+<!-- ═══ Contrast ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">🔄</span> 反差日常</h2>
+  <div class="card-grid">
+    <div class="info-card">
+      <div class="icon">💻</div>
+      <div class="title">写得了代码</div>
+      <div class="desc">但至今没搞懂精华和防晒的区别</div>
+    </div>
+    <div class="info-card">
+      <div class="icon">📊</div>
+      <div class="title">读得懂论文</div>
+      <div class="desc">但拍照摆 pose 目前进度 5%</div>
+    </div>
+    <div class="info-card">
+      <div class="icon">🎤</div>
+      <div class="title">实验室里侃侃而谈</div>
+      <div class="desc">一面对镜头就当场僵住</div>
+    </div>
+    <div class="info-card">
+      <div class="icon">👔</div>
+      <div class="title">衣橱 90% 优衣库</div>
+      <div class="desc">第一次认真研究穿搭这件事</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Message ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">💬</span> 我想说的是</h2>
+  <div class="story-block">
+    <p>不需要符合谁的期待。</p>
+    <p>女生可以学计算机，男生可以参加 Miss 竞选。</p>
+    <p><strong>标签是别人贴的，人生是自己过的。</strong></p>
+    <p>不管最后结果如何，能在东大留下这么一段「离谱又热血的回忆」—— 这件事本身就值得。</p>
+  </div>
+</div>
+
+<!-- ═══ Vote Counter ═══ -->
+<div class="page-wrap section" id="vote-section">
+  <h2 class="section-title"><span class="emj">🗳️</span> 投票支持</h2>
+  <div style="text-align:center; padding:12px 0;">
+    <button class="vote-btn" id="vote-btn-2" onclick="castVote()" style="min-width:260px; min-height:72px; font-size:1.2rem;">
+      <span id="vote-label-2">🗳️ 为我投票</span>
+      <span class="vote-count" id="vote-count-2">… 票</span>
+    </button>
+    <p style="margin-top:16px; color:var(--muted); font-size:0.85rem;" id="vote-hint">每个设备只能投一票哦～</p>
+  </div>
+</div>
+
+<!-- ═══ Gallery ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">📸</span> 照片</h2>
+  <div class="gallery">
+    <img src="images/gallery/gallery_01.jpg" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_02.jpg" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_03.png" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_04.png" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_05.png" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_06.png" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_07.png" alt="11sum" loading="lazy" />
+    <img src="images/gallery/gallery_08.png" alt="11sum" loading="lazy" />
+  </div>
+</div>
+
+<!-- ═══ Contact ═══ -->
+<div class="page-wrap section">
+  <h2 class="section-title"><span class="emj">📮</span> 联系 & 投票</h2>
+  <div style="display:grid; gap:10px;">
+    <!-- 小红书 — 主力联系方式 -->
+    <a class="contact-card" href="https://xhslink.com/m/Fh5tYPMUQh" target="_blank" rel="noopener">
+      <span class="cc-icon">📕</span>
+      <div>
+        <div class="cc-label">小红书 · 日常更新 & 私信</div>
+        <div class="cc-val">@本乡湾渔民</div>
+      </div>
+    </a>
+  </div>
+
+  <p style="margin-top:28px; text-align:center; color:var(--muted); font-size:0.95rem; line-height:1.7;">
+    如果你也觉得这件事有点意思 ——<br />
+    请给我投一票 🗳️，或者在校园里遇见时给我一个加油的眼神 👊<br />
+    <strong style="color:var(--text);">応援よろしくお願いします！！</strong>
+  </p>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="/">← 回到首页</a>
+    <a href="https://github.com/Elevenvenven" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <div class="footer-note">
+    11sum · 東京大学 情報理工学系研究科 · ミス＆ミスター東大コンテスト2026<br />
+    © 2026 — 标签是别人贴的，人生是自己过的。
+  </div>
+</footer>
+
+
+<script>
+  // ============================================
+  // 🔧 替换成你的 Upstash Redis REST 信息
+  //    去 https://console.upstash.com 注册（免费）
+  //    创建 Redis → 复制 REST URL 和 Token
+  // ============================================
+  var UPSTASH_URL = 'https://fleet-serval-158065.upstash.io';
+  var UPSTASH_TOKEN = 'gQAAAAAAAmlxAAIgcDI4YWZiZGE1YjBjZjM0NDg4ODBjOGMyMGIyYTEzZTQwZg';
+
+  // ── Loading Screen ──
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var ls = document.getElementById('loading-screen');
+      if (ls) ls.classList.add('hidden');
+    }, 600);
+  });
+
+  (function() {
+    var STORAGE_KEY = 'voted_11sum_tokyo2026';
+    var VOTE_KEY = 'votes';
+
+    var btn1 = document.getElementById('vote-btn');
+    var btn2 = document.getElementById('vote-btn-2');
+    var label1 = document.getElementById('vote-label');
+    var label2 = document.getElementById('vote-label-2');
+    var count1 = document.getElementById('vote-count');
+    var count2 = document.getElementById('vote-count-2');
+    var hint = document.getElementById('vote-hint');
+    var allButtons = [btn1, btn2];
+    var allLabels = [label1, label2];
+    var allCounts = [count1, count2];
+
+    var serverCount = null;
+    var hasVoted = localStorage.getItem(STORAGE_KEY) === '1';
+
+    function api(method) {
+      var url = UPSTASH_URL + '/' + method + '/' + VOTE_KEY;
+      return fetch(url, {
+        headers: { 'Authorization': 'Bearer ' + UPSTASH_TOKEN }
+      }).then(function(r) { return r.json(); });
+    }
+
+    function updateUI() {
+      var total = serverCount !== null ? serverCount : '…';
+      var countText = (typeof total === 'number' ? total + ' 票' : total);
+      for (var i = 0; i < allButtons.length; i++) {
+        allButtons[i].disabled = hasVoted;
+      }
+      for (var i = 0; i < allLabels.length; i++) {
+        allLabels[i].textContent = hasVoted ? '✅ 已投票' : '🗳️ 为我投票';
+      }
+      for (var i = 0; i < allCounts.length; i++) {
+        allCounts[i].textContent = countText;
+      }
+      if (hint) {
+        hint.textContent = hasVoted ? '感谢你的支持！❤️' : '每个设备只能投一票哦～';
+      }
+    }
+
+    function parseCount(data) {
+      // Upstash Redis 返回 "33"（字符串），null 表示 key 不存在
+      if (!data || data.result === null || data.result === undefined) return 0;
+      return parseInt(data.result, 10) || 0;
+    }
+
+    function loadServerCount() {
+      api('get').then(function(data) {
+        serverCount = parseCount(data);
+        updateUI();
+      }).catch(function() {
+        updateUI();
+      });
+    }
+
+    window.castVote = function() {
+      if (hasVoted) return;
+
+      hasVoted = true;
+      localStorage.setItem(STORAGE_KEY, '1');
+
+      api('incr').then(function(data) {
+        serverCount = parseCount(data);
+        updateUI();
+      }).catch(function() {
+        if (serverCount !== null && typeof serverCount === 'number') serverCount += 1;
+        updateUI();
+      });
+    };
+
+    updateUI();
+    loadServerCount();
+  })();
+</script>
+</body>
+</html>

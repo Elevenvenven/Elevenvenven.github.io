@@ -1,0 +1,201 @@
+[
+  {
+    "image": "images/boost-control-lab-cover.png",
+    "title": "Boost Control Lab",
+    "category": "Interactive",
+    "description": "STM32G431 Boost 数字电源交互实验室：搭建 PWM、ADC、PI/PID 与保护链路，调节参数并观察软启动、扰动和故障响应。",
+    "link": "boost-pid-lab/",
+    "card_label": "Open Lab →",
+    "detail_label": "Open interactive lab →",
+    "secondary_link": "https://github.com/Elevenvenven/boost-control-lab",
+    "secondary_label": "GitHub →",
+    "tech_stack": [
+      "STM32G431",
+      "Embedded C",
+      "Boost Converter",
+      "PI/PID",
+      "Next.js",
+      "GitHub Pages"
+    ],
+    "features": [
+      "开环、P、PI、PID 四种控制模式",
+      "实时调节 Kp、Ki、Kd、输入电压和负载",
+      "注入负载突加与输入跌落扰动",
+      "观察输出电压、占空比、误差和输入电流曲线",
+      "练习 PWM、ADC、反馈闭环和硬件保护链路",
+      "内置 STM32G431 控制代码浏览与完整代码包下载"
+    ],
+    "long_description": "Boost Control Lab 是面向 STM32G431 数字电源入门和比赛备赛的交互练习台。它把 Boost 变换器的控制链路拆成 PWM 定时器、ADC 采样、反馈闭环、PI/PID 控制和硬件保护几个可操作模块，并用实时曲线展示参数变化对系统动态性能的影响。\n\n推荐练习顺序：\n\n• 使用默认 PI 参数启动，观察软启动过程和稳态跟踪\n• 切换到 P 控制，比较负载下的稳态误差\n• 分别提高 Kp、Ki，观察响应速度、过冲与振荡\n• 启用 PID 并调节 Kd，理解微分项对快速变化的抑制\n• 注入负载突加和输入跌落，检查闭环恢复能力\n• 主动触发保护条件，练习故障锁存和清除流程\n\n页面同时提供可下载的 STM32G431 Boost 控制示例，包含 ADC 采样、PWM 更新、软启动、PI/PID、抗积分饱和和保护状态机。"
+  },
+  {
+    "image": "images/pkiler_hero.png",
+    "title": "pkiler",
+    "category": "Apps",
+    "description": "开源 AI PDF 幻灯片解读器。把课程讲义、论文 slides 和技术报告拖进窗口，视觉模型逐页读图，输出简略/标准/详细三档讲解，并支持整体解读。",
+    "link": "pkiler.html",
+    "card_label": "Case Study →",
+    "detail_label": "Open case study →",
+    "secondary_link": "https://github.com/Elevenvenven/pkiler",
+    "secondary_label": "GitHub →",
+    "tech_stack": [
+      "Python",
+      "Flask",
+      "SSE",
+      "Xiaomi MIMO Vision",
+      "pymupdf",
+      "OpenAI-compatible APIs",
+      "macOS .app"
+    ],
+    "features": [
+      "拖放 PDF 后自动解析页面",
+      "视觉模型理解图表、公式和版式",
+      "三档解读：简略/标准/详细",
+      "通俗模式：把复杂概念翻成大白话",
+      "整体解读：一键梳理整份材料",
+      "SSE 流式输出，等待感更低",
+      "API key、base URL、模型名均可配置"
+    ],
+    "long_description": "pkiler 是一个开源 AI PDF 幻灯片解读器，目标是把难读的课程 slides、论文报告和技术 PDF 变成可以逐页理解、分层追问、整体复盘的学习材料。\n\n核心体验：\n\n• 拖放 PDF - 把任意 PDF 拖入窗口即可开始阅读\n• 视觉解读 - 使用页面图片保留版式、图表、公式和上下文\n• 三档粒度 - 简略/标准/详细，适合预习、复习和深入阅读\n• 通俗模式 - 用更直白的语言解释复杂概念\n• 整体解读 - 一键梳理整份 slides 的主线和重点\n• 流式输出 - SSE 边生成边展示，降低等待感\n\n技术架构：\n• Flask Python 后端 + HTML/JS 前端\n• PyMuPDF 提取和转换 PDF 页面\n• 小米 MIMO 视觉模型进行图文分析\n• OpenAI 兼容接口，可替换不同模型后端\n• 可打包为 macOS .app，双击运行\n\n配置：通过 .env 配置 API Key、base URL 和模型名，不硬编码隐私信息。"
+  },
+  {
+    "image": "images/Evolution-of-Coding-scaled.jpg",
+    "title": "Algorithm",
+    "category": "Learning",
+    "description": "我在记录我学习Algorithm过程中所遇到的问题和心得",
+    "link": "https://github.com/Elevenvenven/Utokyo-test"
+  },
+  {
+    "image": "images/Screenshot 2025-11-15 at 02.49.45.png",
+    "title": "Computer Architecture",
+    "category": "Learning",
+    "description": "我在记录我学习Computer Architecture过程中的问题和心得",
+    "link": "https://github.com/Elevenvenven/Utokyo-test"
+  },
+  {
+    "image": "images/blockchain.jpg",
+    "title": "Virtual-Coin_system",
+    "category": "Interactive",
+    "description": "虚拟货币原理交互式演示：区块链、哈希、挖矿、交易、双花攻击、共识机制",
+    "link": "https://elevenvenven.github.io/virtual_coin.html"
+  },
+  {
+    "image": "images/touch_real.jpg",
+    "title": "Touch-real Project",
+    "category": "Research",
+    "description": "复制现实纸质纸质资料就像复制电脑上的资料一样简单",
+    "link": "https://github.com/Elevenvenven/Virtual-Coin_system"
+  },
+  {
+    "image": "images/Screenshot 2025-11-21 at 02.18.29.png",
+    "title": "統計的機械学習",
+    "category": "Learning",
+    "description": "我在学习Sugiyama的統計的機械学習课程",
+    "link": "https://github.com/Elevenvenven/Machine-learning/tree/Sugiyama"
+  },
+  {
+    "image": "images/nanochat.png",
+    "title": "NanoChat",
+    "category": "Research",
+    "description": "我在参与NanoChat项目，“The best ChatGPT that $100 can buy”.",
+    "link": "https://github.com/karpathy/nanochat"
+  },
+  {
+    "image": "images/lego.jpeg",
+    "title": "Teacher_everywhere",
+    "category": "Apps",
+    "description": "一款OCR+大模型MacOS应用，帮助消化新知识，施工中",
+    "link": "https://github.com/Elevenvenven/Teacher_Everywhere"
+  },
+  {
+    "image": "images/llm.webp",
+    "title": "LLM Fine-tuning Guide",
+    "category": "Articles",
+    "description": "基于Colab的大模型微调课程，涵盖DeepSeek、LLaMA3、Qwen等模型的LoRA/QLoRA微调实战，使用Unsloth加速训练。",
+    "link": "https://github.com/R6410418/Jackrong-llm-finetuning-guide"
+  },
+  {
+    "image": "images/meng_agent_cover_v2.png",
+    "title": "Meng Agent",
+    "category": "Apps",
+    "description": "Meng Agent 是一个具备物理级执行能力的AI智能助手，能够直接操作浏览器、文件系统和外部API。它支持自动化网页浏览、数据采集、代码执行、文件处理等复杂任务，并通过记忆系统不断学习和优化。该Agent能理解自然语言指令，自主规划任务步骤，遇到问题时动态调整策略，真正实现「你动嘴，它动手」的智能体验。",
+    "link": "https://github.com/Elevenvenven/Meng-Agent",
+    "tech_stack": [
+      "Python",
+      "OpenAI API",
+      "Browser Automation",
+      "File I/O",
+      "Memory System"
+    ],
+    "features": [
+      "物理级执行能力（浏览器、文件系统、API）",
+      "自动化网页浏览与数据采集",
+      "代码执行与文件处理",
+      "记忆系统持续学习优化",
+      "自然语言理解与任务规划",
+      "动态策略调整与错误恢复"
+    ],
+    "long_description": "Meng Agent 是一个具备物理级执行能力的AI智能助手，设计初衷是让AI能够真正\"动手\"完成复杂任务。\n\n核心架构：\n• 物理层执行器 - 直接操作系统、浏览器、文件系统\n• 记忆系统 - L0-L4分层记忆，持续学习积累\n• 任务规划器 - 自主分解复杂任务为可执行步骤\n• 错误恢复 - 遇到问题时动态调整策略\n\n应用场景：\n• 自动化数据采集与分析\n• 复杂多步骤任务执行\n• 智能浏览器操作\n• 代码编写与调试辅助\n\n技术亮点：\n• 基于GPT-4的大模型驱动\n• 完整的内存管理与状态持久化\n• 支持跨平台操作（Windows/macOS）\n• 模块化设计，易于扩展新功能"
+  },
+  {
+    "image": "images/japanese_quick_start_cover_v2.png",
+    "title": "Japanese Quick Start",
+    "category": "Articles",
+    "description": "五十音之后的日语速成指南，加入 7 日学习路线、句型替换练习、旅行会话和快速自测，适合从会读假名推进到能开口表达。",
+    "link": "japanese_quick_start.html"
+  },
+  {
+    "image": "images/japanese.jpg",
+    "title": "Tae Kim 日语语法指南",
+    "category": "Articles",
+    "description": "Tae Kim《Japanese Grammar Guide》中文翻译，69 个页面覆盖从假名到高级语法，侧边栏导航、面包屑、隐藏答案交互、响应式布局。",
+    "link": "jpgramma/index.html"
+  },
+  {
+    "image": "images/chip_verification_cover_v2.png",
+    "title": "芯片验证从零入门",
+    "category": "Articles",
+    "description": "用生活化比喻讲解芯片验证全流程——建筑验收、期末考试、监控摄像头，覆盖SystemVerilog/UVM/SVA/覆盖率，含15个章节+交互式折叠面板。",
+    "link": "chip_verification_guide.html"
+  },
+  {
+    "image": "images/codex_mimo_cover_v2.png",
+    "title": "Codex × MIMO Proxy",
+    "category": "Apps",
+    "description": "让 OpenAI Codex CLI 支持小米 MIMO 大模型的代理方案，实现 Responses API 到 ChatCompletions 的完整转换",
+    "link": "codex_mimo_proxy.html"
+  },
+  {
+    "image": "images/eskin_cover.png",
+    "title": "触温一体多模态电子皮肤传感器",
+    "category": "Interactive",
+    "description": "3×3 法向力表面图 + 2D 剪切力矢量 + 实时波形，基于 ESP32-S3 的多模态电子皮肤传感器 Web 演示",
+    "link": "eskin_demo.html"
+  },
+  {
+    "image": "images/gesture_control_cover_v2.png",
+    "title": "Gesture Control",
+    "category": "Apps",
+    "description": "用电脑内置摄像头识别手势，零接触控制滚动、鼠标移动、点击和页面前进/后退。基于 MediaPipe + OpenCV + PyAutoGUI 实现。",
+    "link": "gesture_control.html",
+    "card_label": "Learn More →",
+    "detail_label": "Open project →",
+    "secondary_link": "https://github.com/Elevenvenven/gesture-control",
+    "secondary_label": "GitHub →",
+    "tech_stack": [
+      "Python",
+      "MediaPipe Hands",
+      "OpenCV",
+      "PyAutoGUI",
+      "Computer Vision"
+    ],
+    "features": [
+      "手掌滑动控制页面滚动",
+      "张开手掌左右滑实现前进/后退",
+      "食指伸出移动鼠标",
+      "拇指+食指捏合实现点击",
+      "可调节灵敏度和冷却时间",
+      "跨平台支持 (macOS / Windows / Linux)"
+    ],
+    "long_description": "Gesture Control 是一个基于计算机视觉的手势控制工具，让你通过摄像头零接触操作电脑。\n\n核心体验：\n\n• 无需鼠标键盘 - 把手对着摄像头即可控制电脑\n• 自然手势 - 手掌滑动滚动、捏合点击、食指当鼠标\n• 网页导航 - 左右挥手像翻书一样前进后退\n• 实时反馈 - 摄像头窗口显示当前识别状态\n• 参数可调 - 灵敏度、冷却时间、检测阈值均可配置\n\n技术架构：\n• MediaPipe Hands 提供 21 个手部关键点实时检测\n• OpenCV 负责摄像头采集和可视化叠加\n• PyAutoGUI 执行系统级的滚动、点击和鼠标移动\n• 滑动窗口算法判断手势方向，避免误触发\n• 独立冷却时间控制每种动作的执行频率"
+  }
+]
