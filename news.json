@@ -1,44 +1,9 @@
 [
   {
     "date": "2026-08-26",
-    "title": "Participated in the 2026 Huawei Terminal Hardware Elite Challenge Finals",
-    "description": "Joined my teammates in the finals, working through hands-on soldering, circuit measurement, and hardware debugging.",
-    "type": "Competition"
-  },
-  {
-    "date": "2026-05-24",
-    "title": "pkiler - Open-Source AI PDF Slide Reader (AI幻灯片解读器)",
-    "description": "macOS app: drag-drop any PDF, AI explains every slide. Configurable AI backend, three explanation tiers, plain-language mode, dark theme. Supports MIMO vision models. 开源可配置的AI幻灯片解读器。",
-    "type": "Project"
-  },
-  {
-    "date": "2026-05-23",
-    "title": "Published Chip Verification Guide (芯片验证从零入门)",
-    "description": "用生活化比喻讲解芯片验证全流程——覆盖SystemVerilog、UVM、SVA、Coverage，含15个交互式章节",
-    "type": "Study"
-  },
-  {
-    "date": "2026-05-21",
-    "title": "Published Japanese Quick Start Guide",
-    "description": "Created a comprehensive Japanese learning guide with furigana annotations, covering hiragana, katakana, basic grammar and vocabulary.",
-    "type": "Study"
-  },
-  {
-    "date": "2025-11-24",
-    "title": "Read S. Weinberg's \"Four Golden Lessons\"",
-    "description": "Great article with many insights as a researcher.",
-    "type": "Study"
-  },
-  {
-    "date": "2025-11-16",
-    "title": "Deployed Multilingual Website",
-    "description": "Completed Chinese, English, and Japanese language switching, plus added the News section.",
-    "type": "website"
-  },
-  {
-    "date": "2025-11-13",
-    "title": "Deployed Personal Website",
-    "description": "Come chat and hang out with me!",
-    "type": "website"
+    "title": "2026 Huawei Terminal Hardware Elite Challenge Finals",
+    "description": "和队友一起参加总决赛，在现场完成焊接、测量与硬件调试。点击查看完整图文记录。",
+    "type": "Competition",
+    "link": "huawei-hardware-finals.html"
   }
 ]
