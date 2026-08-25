@@ -1,5 +1,41 @@
 [
   {
+    "img": "images/huawei-hardware-finals-team.jpg",
+    "alt": "Team portrait at the 2026 Huawei Terminal Hardware Elite Challenge Finals",
+    "date": "2026-08-26",
+    "description": "Team portrait at the 2026 Huawei Terminal Hardware Elite Challenge Finals"
+  },
+  {
+    "img": "images/huawei-hardware-finals-venue.jpg",
+    "alt": "Team at the electronic competition venue",
+    "date": "2026-08-26",
+    "description": "At the 2026 Huawei Terminal Hardware Elite Challenge Finals"
+  },
+  {
+    "img": "images/huawei-hardware-finals-debugging.jpg",
+    "alt": "Debugging a circuit board with a multimeter",
+    "date": "2026-08-26",
+    "description": "Hands-on circuit measurement and debugging during the finals"
+  },
+  {
+    "img": "images/huawei-hardware-finals-soldering.jpg",
+    "alt": "Soldering a circuit board during the competition",
+    "date": "2026-08-26",
+    "description": "Soldering and hardware bring-up during the finals"
+  },
+  {
+    "img": "images/huawei-hardware-finals-group.jpg",
+    "alt": "Finalists at the 2026 Huawei Terminal Hardware Elite Challenge",
+    "date": "2026-08-26",
+    "description": "Finalists at the 2026 Huawei Terminal Hardware Elite Challenge"
+  },
+  {
+    "img": "images/huawei-hardware-finals-library.jpg",
+    "alt": "Team photo inside the competition venue",
+    "date": "2026-08-26",
+    "description": "A team moment between rounds"
+  },
+  {
     "img": "images/WechatIMG698 1.jpg",
     "alt": "Daily Snapshot",
     "date": "2025-11-14",

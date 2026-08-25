@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-08-26",
+    "title": "Participated in the 2026 Huawei Terminal Hardware Elite Challenge Finals",
+    "description": "Joined my teammates in the finals, working through hands-on soldering, circuit measurement, and hardware debugging.",
+    "type": "Competition"
+  },
+  {
     "date": "2026-05-24",
     "title": "pkiler - Open-Source AI PDF Slide Reader (AI幻灯片解读器)",
     "description": "macOS app: drag-drop any PDF, AI explains every slide. Configurable AI backend, three explanation tiers, plain-language mode, dark theme. Supports MIMO vision models. 开源可配置的AI幻灯片解读器。",
