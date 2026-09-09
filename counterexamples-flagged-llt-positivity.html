@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counterexamples to Atom Positivity for Flagged LLT Polynomials | 11_sum</title>
+    <meta name="description" content="A family of counterexamples to the Demazure-atom positivity conjecture for ordinary flagged LLT polynomials with standard compatible permutations.">
+    <meta property="og:title" content="Counterexamples to Atom Positivity for Flagged LLT Polynomials">
+    <meta property="og:description" content="A research note by Yoncheng Hu, Zihao Huang, and Yue Zhou.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://elevenvenven.github.io/counterexamples-flagged-llt-positivity.html">
+    <meta property="article:published_time" content="2026-09-09">
+    <link rel="canonical" href="https://elevenvenven.github.io/counterexamples-flagged-llt-positivity.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Noto+Sans+SC:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 0.98 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-color: #f2f7f5;
+            --primary-color: #087c75;
+            --primary-soft: rgba(8, 124, 117, 0.1);
+            --secondary-color: #ffffff;
+            --text-color: #102321;
+            --text-secondary: #536663;
+            --border-color: #d8e5e1;
+            --shadow-color: rgba(18, 64, 58, 0.09);
+        }
+
+        html.dark-mode {
+            --bg-color: #0d1c20;
+            --primary-color: #39c3b8;
+            --primary-soft: rgba(57, 195, 184, 0.12);
+            --secondary-color: #142a2e;
+            --text-color: #f4fbf9;
+            --text-secondary: #a9c0bc;
+            --border-color: #294449;
+            --shadow-color: rgba(0, 10, 12, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            min-height: 100vh;
+            color: var(--text-color);
+            background:
+                radial-gradient(circle at 10% 5%, rgba(43, 211, 174, 0.1), transparent 34rem),
+                radial-gradient(circle at 90% 14%, rgba(54, 145, 200, 0.09), transparent 30rem),
+                var(--bg-color);
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            line-height: 1.75;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        html.dark-mode body {
+            background:
+                radial-gradient(circle at 10% 5%, rgba(43, 211, 174, 0.18), transparent 34rem),
+                radial-gradient(circle at 90% 14%, rgba(54, 145, 200, 0.14), transparent 30rem),
+                var(--bg-color);
+        }
+
+        a { color: var(--primary-color); }
+
+        .container {
+            width: min(100% - 40px, 1180px);
+            margin: 0 auto;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            background: color-mix(in srgb, var(--secondary-color) 78%, transparent);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .navbar ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .navbar li { margin-left: 25px; }
+
+        .navbar li a {
+            color: var(--text-color);
+            font-size: 1rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .navbar li a:hover,
+        .navbar li a.active { color: var(--primary-color); }
+
+        #theme-toggle {
+            padding: 0 5px;
+            border: 0;
+            color: var(--text-color);
+            background: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mit-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .mit-logo .symbol {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 24px;
+        }
+
+        .mit-logo .bar {
+            width: 3px;
+            border-radius: 1px;
+            background: var(--primary-color);
+        }
+
+        .mit-logo .bar:nth-child(1) { height: 50%; }
+        .mit-logo .bar:nth-child(2) { height: 100%; }
+        .mit-logo .bar:nth-child(3) { height: 70%; }
+        .mit-logo .bar:nth-child(4) { height: 40%; }
+
+        .mit-logo .text {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .menu-toggle {
+            display: none;
+            color: var(--text-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .article-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 820px) 220px;
+            gap: 64px;
+            align-items: start;
+            padding: clamp(64px, 9vw, 110px) 0 100px;
+        }
+
+        .article-head { margin-bottom: 48px; }
+
+        .eyebrow {
+            margin-bottom: 14px;
+            color: var(--primary-color);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin-bottom: 22px;
+            font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+            line-height: 1.08;
+            letter-spacing: -0.035em;
+            text-wrap: balance;
+        }
+
+        .authors {
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-size: 1.04rem;
+            font-weight: 600;
+        }
+
+        .author-note,
+        .article-status {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .abstract,
+        .theorem,
+        .acknowledgment {
+            margin: 34px 0;
+            padding: 24px 26px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background: color-mix(in srgb, var(--secondary-color) 90%, transparent);
+            box-shadow: 0 14px 45px var(--shadow-color);
+        }
+
+        .abstract strong,
+        .theorem strong,
+        .acknowledgment strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .article-body section { margin-top: 52px; }
+
+        h2 {
+            margin-bottom: 18px;
+            font-size: clamp(1.45rem, 3vw, 2rem);
+            line-height: 1.25;
+        }
+
+        h3 {
+            margin: 30px 0 12px;
+            font-size: 1.15rem;
+        }
+
+        p + p { margin-top: 16px; }
+
+        .math-display {
+            overflow-x: auto;
+            margin: 22px 0;
+            padding: 18px 20px;
+            border-left: 3px solid var(--primary-color);
+            border-radius: 0 12px 12px 0;
+            background: var(--primary-soft);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .theorem .math-display {
+            margin-right: -8px;
+            margin-left: -8px;
+            border-left: 0;
+            background: transparent;
+        }
+
+        .article-aside {
+            position: sticky;
+            top: 102px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            color: var(--text-secondary);
+            background: color-mix(in srgb, var(--secondary-color) 90%, transparent);
+            font-size: 0.86rem;
+        }
+
+        .article-aside strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .article-aside a {
+            display: inline-block;
+            margin-top: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .references {
+            padding-left: 24px;
+            color: var(--text-secondary);
+        }
+
+        .references li { padding-left: 6px; }
+
+        footer {
+            padding: 24px 20px 42px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 920px) {
+            .article-shell { grid-template-columns: minmax(0, 1fr); }
+            .article-aside { position: static; order: -1; }
+        }
+
+        @media (max-width: 768px) {
+            .container { width: min(100% - 30px, 1180px); }
+            .navbar .container { position: relative; }
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                border-bottom: 1px solid var(--border-color);
+                background: var(--secondary-color);
+                box-shadow: 0 8px 20px var(--shadow-color);
+            }
+            .navbar ul.active { display: flex; }
+            .navbar li { width: 100%; margin: 0; text-align: center; }
+            .navbar li a,
+            .navbar li #theme-toggle {
+                display: block;
+                width: 100%;
+                padding: 15px;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .menu-toggle { display: block; }
+            .article-shell { gap: 28px; padding-top: 48px; }
+            .abstract,
+            .theorem,
+            .acknowledgment { padding: 20px; }
+            .math-display { padding: 14px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html#hero" class="mit-logo" aria-label="11_sum home">
+                <div class="symbol" aria-hidden="true">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <span class="text">11_sum</span>
+            </a>
+            <nav aria-label="Main navigation">
+                <div class="menu-toggle" id="mobile-menu" aria-label="Open navigation" role="button" tabindex="0">&#9776;</div>
+                <ul id="nav-menu">
+                    <li><a href="index.html#hero">Home</a></li>
+                    <li><a href="index.html#about">About Me</a></li>
+                    <li><a href="index.html#news" class="active">News</a></li>
+                    <li><a href="index.html#projects">Projects &amp; Study</a></li>
+                    <li><a href="index.html#moments">My Moments</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><button id="theme-toggle" aria-label="Toggle color theme">🌙</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container article-shell">
+        <article class="article-body">
+            <header class="article-head">
+                <p class="eyebrow">Research note · September 9, 2026</p>
+                <h1>Counterexamples to Atom Positivity for Flagged LLT Polynomials</h1>
+                <p class="authors">Yoncheng Hu, Zihao Huang<sup>*</sup>, Yue Zhou</p>
+                <p class="author-note"><sup>*</sup>Corresponding author</p>
+                <div class="abstract">
+                    <strong>Abstract</strong>
+                    <p>We find a family of counterexamples to the Demazure-atom positivity conjecture for ordinary flagged LLT polynomials with standard compatible permutations.</p>
+                </div>
+            </header>
+
+            <section id="flagged-llt-counterexamples">
+                <h2>1. Counterexamples to Conjecture 6.6.1</h2>
+                <p>For \(s \ge 2\), let \(n=s+6\) and \([n]=\{1,\ldots,n\}\). Define</p>
+                <div class="math-display">
+                    \[
+                    \boldsymbol{\nu}_s :=
+                    (\underbrace{(1),\ldots,(1)}_{s\text{ times}},(1,1),(1,1),(1,1)),
+                    \]
+                    \[
+                    \sigma_s := (s+2,s+4,s+6,1,\ldots,s,s+1,s+3,s+5),
+                    \]
+                    \[
+                    \lambda_s := \mathbf{1}_{[n]}+\mathbf{1}_{\{1,2,4\}}
+                    -\mathbf{1}_{\{s+3,s+5,s+6\}}.
+                    \]
+                </div>
+
+                <p>For \(U\subseteq[n]\), \(\mathbf{1}_U\) denotes the \(0,1\)-vector whose \(u\)-th coordinate is \(1\) exactly when \(u\in U\). Let</p>
+                <div class="math-display">
+                    \[
+                    \mathcal{E}_s:=\{(i,j):1\le i&lt;j\le n,\ j-i&lt;s+3\}.
+                    \]
+                </div>
+
+                <p>A subset \(S\subseteq[n]\) is <em>column-closed</em> if \(i\in S\) implies \(i+s+3\in S\) for \(i=1,2,3\). For \(r\in\mathbb{N}\), define</p>
+                <div class="math-display">
+                    \[
+                    H_r(t)=\sum_{\substack{|S|=r\\S\text{ column-closed}}}t^{-\omega(S)},
+                    \qquad
+                    \omega(S)=\#\{(i,j)\in\mathcal{E}_s:i\in S,\ j\notin S\}.
+                    \]
+                </div>
+
+                <div class="theorem">
+                    <strong>Theorem 1.1</strong>
+                    <p>The data above are ordinary and standard compatible, and</p>
+                    <div class="math-display">
+                        \[
+                        t^{-\binom{n}{2}+6}
+                        \left\langle \mathcal{A}_{\lambda_s}\right\rangle
+                        \mathcal{G}_{\boldsymbol{\nu}_s,\sigma_s}[x_1,\ldots,x_n;t]
+                        =H_3(t)-H_2(t)-t^{-3s-3}.
+                        \]
+                    </div>
+                    <p>Moreover,</p>
+                    <div class="math-display">
+                        \[
+                        \deg H_2(t^{-1})\le 2s+2,
+                        \qquad
+                        \deg H_3(t^{-1})\le\max(3s,2s+4)&lt;3s+3.
+                        \]
+                    </div>
+                    <p>Consequently, the lowest nonzero term of
+                        \(\left\langle\mathcal{A}_{\lambda_s}\right\rangle
+                        \mathcal{G}_{\boldsymbol{\nu}_s,\sigma_s}\)
+                        is \(-t^{(s^2+5s+12)/2}\). Hence
+                        \(\mathcal{G}_{\boldsymbol{\nu}_s,\sigma_s}\) is not atom-positive.</p>
+                </div>
+
+                <h3>Conventions</h3>
+                <p>We use the same definition of the Demazure atom \(\mathcal{A}_\lambda\) as in Blasiak et al., equation (37), together with their combinatorial formula for specialized flagged LLT polynomials:</p>
+                <div class="math-display">
+                    \[
+                    \mathcal{G}_{\boldsymbol{\nu},\sigma}[x_1,\ldots,x_n;t]
+                    =\sum_{T\text{ flagged semistandard}} t^{\operatorname{inv}(T)}x^T.
+                    \]
+                </div>
+            </section>
+
+            <section id="opposite-demazure-counterexample">
+                <h2>2. A Counterexample to \(F_\kappa\)-Positivity</h2>
+                <p>Conjecture 6.6.1 is equivalent to Proposition 6.6.5(a) of Blasiak et al. When \(\mathbf{r}=(1^\ell)\), \(\boldsymbol{\eta}=(d^\ell)\), and \(\sigma=\mathrm{id}\), that proposition asserts that opposite Demazure characters are \(F_\kappa\)-positive.</p>
+
+                <p>Consider</p>
+                <div class="math-display">
+                    \[
+                    n=14,\qquad
+                    \lambda=(1,1,1,1,1,1,1,1,1,1,1,1,1,1),
+                    \]
+                    \[
+                    \mu=(0,0,1,2,0,1,2,0,1,2,0,1,2,2).
+                    \]
+                </div>
+
+                <p>Then</p>
+                <div class="math-display">
+                    \[
+                    [t^{-10}]\left\langle F_\lambda(x;t)\right\rangle
+                    \bigl(w_0D_\mu(x)\bigr)=-1,
+                    \]
+                </div>
+                <p>where \(w_0\) is the longest permutation in \(S_n\). For this example, the nonsymmetric Hall-Littlewood polynomials and Demazure characters follow equations (168) and (36), respectively, in the cited paper.</p>
+            </section>
+
+            <section id="acknowledgment">
+                <div class="acknowledgment">
+                    <strong>Tooling contribution</strong>
+                    <p>11sum assisted with the setup of the AI4Math toolchain used in this work and provided related technical support.</p>
+                </div>
+            </section>
+
+            <section id="references">
+                <h2>References</h2>
+                <ol class="references">
+                    <li>J. Blasiak, M. Haiman, J. Morse, A. Pun, and G. H. Seelinger, <em>Flagged LLT polynomials, nonsymmetric plethysm, and nonsymmetric Macdonald polynomials</em>, arXiv:2506.09015v2 (2025). <a href="https://arxiv.org/abs/2506.09015v2" target="_blank" rel="noopener noreferrer">arXiv</a>.</li>
+                </ol>
+            </section>
+        </article>
+
+        <aside class="article-aside" aria-label="Article status">
+            <strong>Current note</strong>
+            <p>This page presents the counterexamples currently obtained for the atom-positivity problem.</p>
+            <a href="index.html#news">← Back to News</a>
+        </aside>
+    </main>
+
+    <footer>© 2026 11_sum</footer>
+
+    <script>
+        const menuToggle = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        function toggleMenu() {
+            navMenu.classList.toggle('active');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuToggle.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleMenu();
+            }
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navMenu.classList.remove('active'));
+        });
+
+        const htmlEl = document.documentElement;
+        const themeToggle = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme === 'dark-mode') {
+            htmlEl.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = htmlEl.classList.toggle('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark-mode' : 'light-mode');
+            themeToggle.textContent = isDark ? '☀️' : '🌙';
+            navMenu.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
