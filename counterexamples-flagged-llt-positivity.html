@@ -285,11 +285,24 @@
         }
 
         .references {
-            padding-left: 24px;
+            padding-left: 0;
             color: var(--text-secondary);
+            list-style: none;
+            counter-reset: reference;
         }
 
-        .references li { padding-left: 6px; }
+        .references li {
+            position: relative;
+            padding-left: 34px;
+            counter-increment: reference;
+        }
+
+        .references li::before {
+            position: absolute;
+            left: 0;
+            content: "[" counter(reference) "]";
+            color: var(--text-color);
+        }
 
         footer {
             padding: 24px 20px 42px;
@@ -369,55 +382,60 @@
                 <p class="eyebrow">Research note · September 9, 2026</p>
                 <h1>Counterexamples to Atom Positivity for Flagged LLT Polynomials</h1>
                 <p class="authors">Yoncheng Hu, Zihao Huang<sup>*</sup>, Yue Zhou</p>
-                <p class="author-note"><sup>*</sup>Corresponding author</p>
+                <p class="author-note">Date: September 9, 2026.<br><sup>*</sup> is the corresponding author.</p>
                 <div class="abstract">
                     <strong>Abstract</strong>
-                    <p>We find a family of counterexamples to the Demazure-atom positivity conjecture for ordinary flagged LLT polynomials with standard compatible permutations.</p>
+                    <p>In this note, we find a family of counterexamples to the Demazure-atom positivity conjecture of ordinary flagged LLT polynomials with standard compatible permutations.</p>
                 </div>
             </header>
 
             <section id="flagged-llt-counterexamples">
-                <h2>1. Counterexamples to Conjecture 6.6.1</h2>
-                <p>For \(s \ge 2\), let \(n=s+6\) and \([n]=\{1,\ldots,n\}\). Define</p>
+                <h2>1. Counterexamples to [1, Conjecture 6.6.1]</h2>
+                <p>We first introduce some notation used below. For \(s \ge 2\), let \(n=s+6\) and \([n]=\{1,\ldots,n\}\). Let</p>
                 <div class="math-display">
                     \[
-                    \boldsymbol{\nu}_s :=
-                    (\underbrace{(1),\ldots,(1)}_{s\text{ times}},(1,1),(1,1),(1,1)),
+                    \begin{aligned}
+                    \boldsymbol{\nu}_s &:=
+                    (\underbrace{(1),\ldots,(1)}_{s\text{ times}},(1,1),(1,1),(1,1)),\\
+                    \sigma_s &:= (s+2,s+4,s+6,1,\ldots,s,s+1,s+3,s+5).
+                    \end{aligned}
+                    \tag{1.1}
                     \]
-                    \[
-                    \sigma_s := (s+2,s+4,s+6,1,\ldots,s,s+1,s+3,s+5),
-                    \]
+                </div>
+                <p>and</p>
+                <div class="math-display">
                     \[
                     \lambda_s := \mathbf{1}_{[n]}+\mathbf{1}_{\{1,2,4\}}
                     -\mathbf{1}_{\{s+3,s+5,s+6\}}.
                     \]
                 </div>
 
-                <p>For \(U\subseteq[n]\), \(\mathbf{1}_U\) denotes the \(0,1\)-vector whose \(u\)-th coordinate is \(1\) exactly when \(u\in U\). Let</p>
+                <p>Here, for \(U\subseteq[n]\), \(\mathbf{1}_U\) is the \(0,1\)-vector whose \(u\)-th coordinate is \(1\) if and only if \(u\in U\). Let</p>
                 <div class="math-display">
                     \[
                     \mathcal{E}_s:=\{(i,j):1\le i&lt;j\le n,\ j-i&lt;s+3\}.
                     \]
                 </div>
 
-                <p>A subset \(S\subseteq[n]\) is <em>column-closed</em> if \(i\in S\) implies \(i+s+3\in S\) for \(i=1,2,3\). For \(r\in\mathbb{N}\), define</p>
+                <p>We say \(S\subseteq[n]\) is <em>column-closed</em> if \(i\in S\) implies \(i+s+3\in S\) for \(i=1,2,3\). For \(r\in\mathbb{N}\), define</p>
                 <div class="math-display">
                     \[
                     H_r(t)=\sum_{\substack{|S|=r\\S\text{ column-closed}}}t^{-\omega(S)},
-                    \qquad
-                    \omega(S)=\#\{(i,j)\in\mathcal{E}_s:i\in S,\ j\notin S\}.
+                    \tag{1.2}
                     \]
                 </div>
+                <p>where \(\omega(S)=\#\{(i,j)\in\mathcal{E}_s:i\in S,\ j\notin S\}\).</p>
 
                 <div class="theorem">
-                    <strong>Theorem 1.1</strong>
-                    <p>The data above are ordinary and standard compatible, and</p>
+                    <strong>Theorem 1.1.</strong>
+                    <p>The data (1.1) are ordinary and standard compatible, and</p>
                     <div class="math-display">
                         \[
                         t^{-\binom{n}{2}+6}
                         \left\langle \mathcal{A}_{\lambda_s}\right\rangle
                         \mathcal{G}_{\boldsymbol{\nu}_s,\sigma_s}[x_1,\ldots,x_n;t]
                         =H_3(t)-H_2(t)-t^{-3s-3}.
+                        \tag{1.3}
                         \]
                     </div>
                     <p>Moreover,</p>
@@ -426,30 +444,26 @@
                         \deg H_2(t^{-1})\le 2s+2,
                         \qquad
                         \deg H_3(t^{-1})\le\max(3s,2s+4)&lt;3s+3.
+                        \tag{1.4}
                         \]
                     </div>
-                    <p>Consequently, the lowest nonzero term of
-                        \(\left\langle\mathcal{A}_{\lambda_s}\right\rangle
-                        \mathcal{G}_{\boldsymbol{\nu}_s,\sigma_s}\)
-                        is \(-t^{(s^2+5s+12)/2}\). Hence
-                        \(\mathcal{G}_{\boldsymbol{\nu}_s,\sigma_s}\) is not atom-positive.</p>
+                    <p>Consequently, the lowest nonzero term of \(\left\langle\mathcal{A}_{\lambda_s}\right\rangle\mathcal{G}_s\) is \(-t^{(s^2+5s+12)/2}\), so \(\mathcal{G}_s\) is not atom-positive.</p>
                 </div>
 
-                <h3>Conventions</h3>
-                <p>We use the same definition of the Demazure atom \(\mathcal{A}_\lambda\) as in Blasiak et al., equation (37), together with their combinatorial formula for specialized flagged LLT polynomials:</p>
+                <p><strong>Remark 1.2.</strong> In this note, we follow the same definition for the Demazure atom \(\mathcal{A}_\lambda\) as in [1, eq. (37)], together with the next combinatorial formula [1, Corollary 6.4.11] for the specialized flagged LLT polynomials.</p>
                 <div class="math-display">
                     \[
                     \mathcal{G}_{\boldsymbol{\nu},\sigma}[x_1,\ldots,x_n;t]
                     =\sum_{T\text{ flagged semistandard}} t^{\operatorname{inv}(T)}x^T.
+                    \tag{1.5}
                     \]
                 </div>
             </section>
 
             <section id="opposite-demazure-counterexample">
-                <h2>2. A Counterexample to \(F_\kappa\)-Positivity</h2>
-                <p>Conjecture 6.6.1 is equivalent to Proposition 6.6.5(a) of Blasiak et al. When \(\mathbf{r}=(1^\ell)\), \(\boldsymbol{\eta}=(d^\ell)\), and \(\sigma=\mathrm{id}\), that proposition asserts that opposite Demazure characters are \(F_\kappa\)-positive.</p>
+                <h2>2. A counterexample to the \(F_\kappa\)-positivity of the opposite Demazure character</h2>
+                <p>The statement of [1, Conjecture 6.6.1] is equivalent to that of [1, Proposition 6.6.5(a)]. When \(\mathbf{r}=(1^\ell)\), \(\boldsymbol{\eta}=(d^\ell)\), and \(\sigma=\mathrm{id}\), Proposition 6.6.5(a) of [1] asserts that the opposite Demazure characters are \(F_\kappa\)-positive. We give a counterexample below. Let</p>
 
-                <p>Consider</p>
                 <div class="math-display">
                     \[
                     n=14,\qquad
@@ -467,7 +481,8 @@
                     \bigl(w_0D_\mu(x)\bigr)=-1,
                     \]
                 </div>
-                <p>where \(w_0\) is the longest permutation in \(S_n\). For this example, the nonsymmetric Hall-Littlewood polynomials and Demazure characters follow equations (168) and (36), respectively, in the cited paper.</p>
+                <p>where \(w_0\) is the longest permutation in \(S_n\).</p>
+                <p><strong>Remark 2.1.</strong> For this example, we use the definitions of nonsymmetric Hall-Littlewood polynomials and Demazure characters given in [1, eqs. (168) and (36)], respectively.</p>
             </section>
 
             <section id="acknowledgment">
@@ -480,7 +495,7 @@
             <section id="references">
                 <h2>References</h2>
                 <ol class="references">
-                    <li>J. Blasiak, M. Haiman, J. Morse, A. Pun, and G. H. Seelinger, <em>Flagged LLT polynomials, nonsymmetric plethysm, and nonsymmetric Macdonald polynomials</em>, arXiv:2506.09015v2 (2025). <a href="https://arxiv.org/abs/2506.09015v2" target="_blank" rel="noopener noreferrer">arXiv</a>.</li>
+                    <li>J. Blasiak, M. Haiman, J. Morse, A. Pun, and G. H. Seelinger, <em>Flagged LLT polynomials, nonsymmetric plethysm, and nonsymmetric Macdonald polynomials</em>, arXiv:2506.09015v2 (2025), <a href="https://arxiv.org/abs/2506.09015v2" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2506.09015v2</a>.</li>
                     <li><strong>工作中的感想：</strong>开源数学，<a href="https://zhuanlan.zhihu.com/p/2080949766058415202" target="_blank" rel="noopener noreferrer">《数学开源宣言》</a>，知乎。</li>
                 </ol>
             </section>
