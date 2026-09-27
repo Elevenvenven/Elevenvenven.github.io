@@ -853,8 +853,37 @@
             margin-top: 28px;
         }
 
-        .hero-actions .cta-button {
-            margin-top: 0;
+        .hero-project-link {
+            display: inline-block;
+            max-width: 100%;
+            padding: 6px 0 8px;
+            color: var(--text-color);
+            background: transparent;
+            border-bottom: 2px solid var(--primary-color);
+            font-size: clamp(1rem, 1.4vw, 1.125rem);
+            font-weight: 700;
+            line-height: 1.5;
+            text-decoration: none;
+            transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .hero-project-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .hero-project-link:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 5px;
+        }
+
+        html.dark-mode .hero-project-link {
+            border-color: #2bd3ae;
+        }
+
+        html.dark-mode .hero-project-link:hover,
+        html.dark-mode .hero-project-link:focus-visible {
+            color: #2bd3ae;
         }
 
         .cta-button.secondary {
@@ -1291,7 +1320,7 @@
                     <p>"The more you experience, the more open-mind you will be.🥸"</p>
                     <p>Much more content coming soon……</p>
                     <div class="hero-actions">
-                        <a href="#projects" class="cta-button">View My Projects & Study 😼</a>
+                        <a href="#projects" class="hero-project-link">View My Projects & Study 😼</a>
                     </div>
                 </div>
             </div>
