@@ -116,6 +116,9 @@
         .navbar ul li a:hover, .navbar ul li a.active { color: var(--primary-color); }
         #theme-toggle { background: none; border: none; color: var(--text-color); font-size: 1.5rem; cursor: pointer; padding: 0 5px; transition: color 0.3s ease, transform 0.3s ease; }
         #theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
+        .journal-entry-link { display: inline-flex; align-items: center; gap: 5px; }
+        footer .journal-entry-link { color: var(--text-secondary); font-size: 0.82rem; padding: 5px 10px; }
+        footer .journal-entry-link:hover { color: var(--primary-color); }
 
         
         /* --- 4. 英雄/主页 (Hero) (修改: 添加 data-key) --- */
@@ -1306,6 +1309,7 @@
                     <li><a href="#projects" class="nav-link" >Projects & Study</a></li>
                     <li><a href="#moments" class="nav-link" >My Moments</a></li>
                     <li><a href="#contact" class="nav-link" >Contact</a></li>
+                    <li><a href="https://eleven-private-journal.elevensumm.chatgpt.site" class="journal-entry-link" title="私人日记，仅本人登录后可访问" rel="noreferrer"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="13" height="13"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Diary</a></li>
                     <li><button id="theme-toggle">🌙</button></li>
                     
                 </ul>
@@ -1411,6 +1415,7 @@
 
     <footer>
         <p >&copy; 2025-2026 11_sum. All Rights Reserved.</p>
+        <a class="journal-entry-link" href="https://eleven-private-journal.elevensumm.chatgpt.site" title="使用本人的 ChatGPT 账号登录，日记仅自己可见" rel="noreferrer"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="13" height="13"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>私人日记</a>
     </footer>
 
     <div id="moment-modal" class="modal">
