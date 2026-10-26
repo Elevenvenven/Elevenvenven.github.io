@@ -1,5 +1,21 @@
 [
   {
+    "image": "images/research-notes-cover.svg",
+    "title": "研究心得",
+    "category": "Learning",
+    "description": "从选题到发表，梳理新颖性与有用性、文献调研、论文与段落结构，以及幻灯片和答辩准备。把问题、证据与表达连起来。",
+    "link": "research-notes.html",
+    "card_label": "阅读研究心得 →",
+    "tech_stack": [
+      "Research",
+      "Study",
+      "研究方法",
+      "文献调研",
+      "论文写作",
+      "学术发表"
+    ]
+  },
+  {
     "image": "images/boost-control-lab-cover.png",
     "title": "Boost Control Lab",
     "category": "Interactive",

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+<title id="title">研究心得</title><desc id="desc">问题、证据与表达相互连接的研究笔记封面</desc>
+<defs><pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#dceae5" stroke-width="1"/></pattern></defs>
+<path fill="#edf5f1" d="M0 0h1200v680H0z"/><path fill="url(#grid)" d="M0 0h1200v680H0z"/>
+<path fill="#fff" stroke="#cbdfd7" stroke-width="2" d="M74 67h1052v546H74z"/>
+<path stroke="#087c75" stroke-width="5" d="M115 120h62"/>
+<text x="198" y="127" font-family="Arial,sans-serif" font-size="23" letter-spacing="5" fill="#087c75">STUDY / RESEARCH NOTES</text>
+<text x="114" y="270" font-family="'Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="80" font-weight="700" fill="#143b34">研究心得</text>
+<text x="116" y="333" font-family="'Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="29" fill="#56736a">把问题、证据与表达连起来</text>
+<g font-family="'Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="28" text-anchor="middle"><path d="M298 469H903" stroke="#a9c9be" stroke-width="2"/>
+<circle cx="298" cy="469" r="66" fill="#e2f0e9" stroke="#8ebbaa" stroke-width="2"/><text x="298" y="480" fill="#087c75">问题</text>
+<circle cx="600" cy="469" r="66" fill="#087c75"/><text x="600" y="480" fill="#fff">证据</text>
+<circle cx="903" cy="469" r="66" fill="#e2f0e9" stroke="#8ebbaa" stroke-width="2"/><text x="903" y="480" fill="#087c75">表达</text></g>
+<text x="1036" y="574" text-anchor="end" font-family="Arial,sans-serif" font-size="21" letter-spacing="2" fill="#56736a">11_sum.</text>
+</svg>
