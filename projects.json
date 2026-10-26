@@ -158,6 +158,13 @@
     "link": "chip_verification_guide.html"
   },
   {
+    "image": "images/cuda_intro_cover.png",
+    "title": "CUDA 通俗入门",
+    "category": "Articles",
+    "description": "东京大学并行与分布式编程课程 CUDA 一讲的学习笔记：用“阅卷中心”的比喻讲清楚线程、block、warp、shared memory、atomic 与 barrier，含 5 张图解和 block 大小交互计算器。",
+    "link": "cuda_intro.html"
+  },
+  {
     "image": "images/codex_mimo_cover_v2.png",
     "title": "Codex × MIMO Proxy",
     "category": "Apps",
