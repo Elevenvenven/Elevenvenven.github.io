@@ -47,11 +47,31 @@ button:hover{border-color:var(--accent)}
 .job strong{display:block;color:var(--accent);font:700 clamp(23px,4vw,34px)/1.3 Consolas,monospace;margin:2px 0}
 .job.bad strong{color:var(--error)}
 #summary{background:var(--wash);padding:10px 13px;border-radius:9px;margin-top:12px;min-height:3em}
-.steps{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
-.steps section{min-width:0;border-top:2px solid var(--line);padding-top:9px}
-.steps p{color:var(--sub);margin-top:5px}
 footer{font-size:14px;color:var(--sub);padding:23px 0}
-@media(max-width:690px){.hero{grid-template-columns:minmax(0,1fr)}.hero img{max-width:430px}.steps{grid-template-columns:1fr}.jobs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){.hero{grid-template-columns:minmax(0,1fr)}.hero img{max-width:430px}.jobs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.section-nav{display:flex;flex-wrap:wrap;gap:8px;padding:13px 0 0}
+.section-nav a{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:5px 10px;text-decoration:none;font-size:14px}
+.section-nav a:hover{border-color:var(--accent)}
+.topics{display:grid;gap:12px;margin-top:15px}
+.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.topics article{background:var(--slot);border:1px solid var(--line);border-radius:9px;padding:12px 14px;min-width:0}
+.topics p,.workflow p,.comparison dd{color:var(--sub);margin-top:5px}
+.note{border-left:3px solid var(--accent);padding:5px 12px;margin:13px 0 0;color:var(--sub)}
+.comparison{margin:13px 0 0}
+.comparison div{display:grid;grid-template-columns:minmax(100px,.28fr) minmax(0,1fr);gap:12px;border-top:1px solid var(--line);padding:10px 0}
+.comparison dt{font-weight:700}.comparison dd{margin:0}
+.workflow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;counter-reset:steps;list-style:none;margin:15px 0 0;padding:0}
+.workflow li{counter-increment:steps;padding:12px 14px;border-top:2px solid var(--line);background:var(--slot);border-radius:0 0 9px 9px}
+.workflow h3::before{content:counter(steps) " ";color:var(--accent);margin-right:4px}
+.schedule-figure{margin:18px 0 0}.schedule-figure figcaption{font-weight:700}
+.schedule-table{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed;margin-top:6px}
+.schedule-table th,.schedule-table td{text-align:center;padding:6px 2px;border:1px solid var(--line)}
+.schedule-table th{background:var(--slot)}
+.schedule-table [data-state=busy]{background:var(--wash);color:var(--accent);font-weight:700}
+.schedule-table [data-state=error]{background:var(--errbg);color:var(--error)}
+.schedule-table [data-state=idle]{color:var(--sub)}
+@media(max-width:690px){.two,.three,.workflow{grid-template-columns:minmax(0,1fr)}.comparison div{grid-template-columns:minmax(0,1fr);gap:3px}.schedule-table{font-size:12px}}
 </style>
 </head>
 <body>
@@ -66,10 +86,14 @@ footer{font-size:14px;color:var(--sub);padding:23px 0}
   </div>
   <img src="images/fpga-fault-recovery-cover.png" alt="示意图展示原先分配到失效通道的乘法任务改由其余通道完成" width="1200" height="720">
 </section>
+<nav class="section-nav" aria-label="本页目录">
+  <a href="#demo">分时计算示意</a><a href="#faults">故障模型</a><a href="#strategies">修复方式</a>
+  <a href="#validation">验收流程</a><a href="#workloads">实验应用</a><a href="#metrics">如何比较</a>
+</nav>
 <section class="panel" id="demo">
   <span class="label">交互示意</span>
   <h2>少一路，能算完吗？</h2>
-  <p class="intro">四个乘法任务默认各占一路。关掉任意几路，再比较原分配和分时调度。这个简化模型展示任务重排的原理。</p>
+  <p class="intro">四个乘法任务默认各占一路。默认 #2 已失效，任务 3 的输出变成 0。切换「按可用通道重排」，看哪一路接手任务 3，以及哪个任务排到了第二批。也可以关掉其它通道试试。</p>
   <div class="controls">
     <div class="slots" id="slots" role="group" aria-label="选择失效通道"></div>
     <div class="modes" role="group" aria-label="调度方式">
@@ -79,14 +103,59 @@ footer{font-size:14px;color:var(--sub);padding:23px 0}
   </div>
   <div id="jobs" class="jobs"></div>
   <p id="summary" aria-live="polite"></p>
+  <figure class="schedule-figure">
+    <figcaption>每一批由谁执行</figcaption>
+    <table class="schedule-table" id="schedule" aria-label="通道与批次的任务分配"><thead><tr></tr></thead><tbody></tbody></table>
+    <p class="intro" id="schedule-note" hidden>当前通道均失效，没有可执行的批次。</p>
+  </figure>
+  <p class="note">这是一个简化模型。批数描述示意中的执行顺序，实际电路还要考虑流水线、存储访问及目标时钟。</p>
   <noscript><p>开启 JavaScript 后可切换失效通道。四路同时计算时，各任务分别占一路。剩余通道可以分批执行这些任务。</p></noscript>
 </section>
-<section class="panel">
-  <h2>我在实验中看什么</h2>
-  <div class="steps">
-    <section><h3>故障会怎样暴露</h3><p>比较正常和注入故障时的输出，观察程序是否会继续跑完却给出错误结果。</p></section>
-    <section><h3>电路能改到什么程度</h3><p>比较在剩余区域重新放置电路、切换备用电路、以及调整并行度和数据路径。</p></section>
-    <section><h3>能否在板上恢复</h3><p>检查候选设计的功能、资源和时序，再用实际应用的输出核对。也记录恢复功能需要付出的计算周期。</p></section>
+<section class="panel" id="faults">
+  <h2>硬件会怎么坏</h2>
+  <p class="intro">同一份 RTL 描述的是电路应该做什么。失效资源改变的是这份设计在 FPGA 上还能怎样实现。我的实验用两种可控方法把这两件事区分开。</p>
+  <div class="topics two">
+    <article><h3>计算单元失效</h3><p>让指定乘法器给出错误结果，例如把输出固定为零。其余电路继续运行，可以观察到程序照常结束、结果却发生偏差的情况。</p></article>
+    <article><h3>一片逻辑区域不可用</h3><p>在布局时禁用指定区域内的站点。布线和时序检查照常进行，用来判断原设计能否挪进剩余区域。区域边界由实验设定。</p></article>
+  </div>
+  <p class="note">故障由实验台注入或用布局约束模拟。功能、布局和时序的检查基于实际设计，候选电路最终还要在 ZCU104 上运行。</p>
+</section>
+<section class="panel" id="strategies">
+  <h2>从重载配置到重排计算</h2>
+  <p class="intro">损伤范围越大，设计可能需要改动得越深。比较修法时，我关注它允许改变什么，以及它需要什么资源。</p>
+  <dl class="comparison">
+    <div><dt>重载原配置</dt><dd>重新写入原来的配置。对能靠重载消除的配置故障，这一步就能恢复。持续失效的资源仍会影响依赖它的电路。</dd></div>
+    <div><dt>重新布局</dt><dd>把同一电路放到其它健康站点。它仍需要原来的逻辑和算术资源，也要满足目标时钟。</dd></div>
+    <div><dt>切换备用电路</dt><dd>直接加载预先准备的设计。例如，用逻辑实现乘法可以绕开失效的乘法模块，也可能占用更多通用逻辑。</dd></div>
+    <div><dt>重构数据路径</dt><dd>减少同时执行的通道数，把原先并行的运算分批交给健康单元。运算顺序可以变，应用需要的输出保持一致。</dd></div>
+  </dl>
+</section>
+<section class="panel" id="validation">
+  <h2>怎样验收一次修复</h2>
+  <p class="intro">诊断逐步变成约束。候选设计要做原来的计算，只使用健康资源，在目标时钟下运行，并在应用中给出正确输出。</p>
+  <ol class="workflow">
+    <li><h3>描述损伤</h3><p>收集自检或板上测试的输出，确定故障的计算单元及可用区域。把结果转成修复时的资源约束。</p></li>
+    <li><h3>提出候选 RTL</h3><p>把原设计、功能规格和资源约束交给语言模型。它可以调整并行度、共享算术单元或改变数据流。当候选没过检查，错误位置、资源缺口或时序报告可帮助下一次修改。</p></li>
+    <li><h3>检查功能、资源和时序</h3><p>用仿真输出比对参考结果，核对候选没有依赖故障单元，再完成布局布线并检查目标时钟能否达到。</p></li>
+    <li><h3>加载并运行应用</h3><p>在板子上运行与故障前相同的任务，核对实际输出。验收后再比较每次推理、绘图或指令测试用了多少周期。</p></li>
+  </ol>
+  <p class="note">一次验收回答的是「这个候选是否通过这组测试」。不同的故障条件、输入和时钟约束都需要重新检查。</p>
+</section>
+<section class="panel" id="workloads">
+  <h2>同一套问题，放进四种应用</h2>
+  <div class="topics two">
+    <article><h3>卷积滤波器</h3><p>检查故障前后的像素结果，从一个计算链短、方便逐元素检查的应用开始。</p></article>
+    <article><h3>图像分类加速器</h3><p>核对完整的输出分数。这个任务能观察并行通道缩减后，功能是否保留，以及每张图片要多花多少周期。</p></article>
+    <article><h3>RISC‑V 处理器</h3><p>用指令结果和应用输出来检查修复。例如，一幅由串口字符画出的图能把个别算术错误变成可见的图案差异。</p></article>
+    <article><h3>可编程逻辑上的语言模型</h3><p>先测算术单元，再比较整模型的生成结果。前者定位某个运算，后者检查该运算放回整条推理路径后会怎样影响输出。</p></article>
+  </div>
+</section>
+<section class="panel" id="metrics">
+  <h2>读结果时，我把三笔账分开</h2>
+  <div class="topics three">
+    <article><h3>恢复成功</h3><p>是否得到通过全部验收的设计。比较两种修法时，要看失败的轮次是否也计入分母。</p></article>
+    <article><h3>恢复后速度</h3><p>在功能正确的设计之间，比较同一任务的周期和资源。交互示意里的「批数」只说明分时执行的代价。</p></article>
+    <article><h3>修复过程成本</h3><p>记录从看到故障到得到可用电路之间的搜索、编译和上板时间。若提前准备候选，也要另外记下准备成本。</p></article>
   </div>
 </section>
 </main>
@@ -98,6 +167,10 @@ const original=document.querySelector('#original');
 const reshuffle=document.querySelector('#reshuffle');
 const results=document.querySelector('#jobs');
 const status=document.querySelector('#summary');
+const schedule=document.querySelector('#schedule');
+const rows=schedule.querySelector('tbody');
+const headings=schedule.querySelector('thead tr');
+const scheduleNote=document.querySelector('#schedule-note');
 let remap=false;
 const channels=jobs.map((_,i)=>{
   const button=document.createElement('button');
@@ -110,8 +183,44 @@ const channels=jobs.map((_,i)=>{
   document.querySelector('#slots').append(button);
   return button;
 });
+
+function plan(live){
+  const slots=remap?live:channels.map((_,i)=>i);
+  if(!slots.length) return [];
+  return jobs.map(([a,b],i)=>{
+    const channel=slots[i%slots.length];
+    return {a,b,channel,batch:Math.floor(i/slots.length)+1,task:i+1,failed:inactive.has(channel)};
+  });
+}
+
+function table(assignment,batches){
+  schedule.hidden=batches===0;
+  scheduleNote.hidden=batches!==0;
+  headings.replaceChildren();
+  for(const name of ['通道',...Array.from({length:batches},(_,i)=>'第 '+(i+1)+' 批')]){
+    const th=document.createElement('th');
+    th.scope='col';th.textContent=name;headings.append(th);
+  }
+  rows.replaceChildren();
+  channels.forEach((_,i)=>{
+    const row=document.createElement('tr');
+    const heading=document.createElement('th');
+    heading.scope='row';heading.textContent='#'+i;row.append(heading);
+    for(let batch=1;batch<=batches;batch++){
+      const task=assignment.find(r=>r.channel===i&&r.batch===batch);
+      const td=document.createElement('td');
+      td.dataset.state=inactive.has(i)?'error':task?'busy':'idle';
+      td.textContent=task?'任务 '+task.task+(task.failed?' → 0':''):inactive.has(i)?'失效':'空闲';
+      row.append(td);
+    }
+    rows.append(row);
+  });
+}
+
 function render(){
   const live=channels.map((_,i)=>i).filter(i=>!inactive.has(i));
+  const assignment=plan(live);
+  const batches=assignment.length?assignment.at(-1).batch:0;
   channels.forEach((button,i)=>{
     const dead=inactive.has(i);
     button.setAttribute('aria-pressed',String(dead));
@@ -121,23 +230,22 @@ function render(){
   reshuffle.setAttribute('aria-pressed',String(remap));
   results.replaceChildren();
   jobs.forEach(([a,b],i)=>{
-    const channel=remap?live[i%live.length]:i;
-    const failed=remap?live.length===0:inactive.has(i);
-    const value=failed?(remap?'—':'0'):String(a*b);
-    const round=remap?Math.floor(i/live.length)+1:1;
+    const slot=assignment[i];
+    const failed=!slot||slot.failed;
     const cell=document.createElement('article');
     cell.className='job'+(failed?' bad':'');
     const expr=document.createElement('span');
-    expr.textContent=a+' × '+b+'，参考 '+(a*b);
+    expr.textContent='任务 '+(i+1)+' · '+a+' × '+b+'，参考 '+(a*b);
     const output=document.createElement('strong');
-    output.textContent=value;
-    const schedule=document.createElement('span');
-    schedule.textContent=failed?(remap?'等待可用通道':'#'+i+' 失效'):'#'+channel+' · 第 '+round+' 批';
-    cell.append(expr,output,schedule);
+    output.textContent=slot?(slot.failed?'0':String(a*b)):'—';
+    const caption=document.createElement('span');
+    caption.textContent=!slot?'等待可用通道':slot.failed?'#'+slot.channel+' 失效':'#'+slot.channel+' · 第 '+slot.batch+' 批';
+    cell.append(expr,output,caption);
     results.append(cell);
   });
+  table(assignment,batches);
   if(remap) status.textContent=live.length
-    ? '用 '+live.length+' 路分 '+Math.ceil(jobs.length/live.length)+' 批完成，四个结果都正确。'
+    ? '用 '+live.length+' 路分 '+batches+' 批完成，四个结果都正确。'
     : '四路均失效，示意中的乘法任务无法执行。';
   else status.textContent=inactive.size
     ? '原分配仍把 '+inactive.size+' 个任务交给失效通道，因此出现 '+inactive.size+' 个错误结果。'
