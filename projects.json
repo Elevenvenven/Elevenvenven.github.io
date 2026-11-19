@@ -3,7 +3,7 @@
     "image": "images/fpga-fault-recovery-cover.png",
     "title": "FPGA 自愈实验",
     "category": "Research",
-    "description": "在 ZCU104 上研究资源损失后的电路恢复。查看两种故障模型、可对照的修法和板上验收流程，再动手用分时调度绕开失效通道。",
+    "description": "在 ZCU104 上研究资源损失后的电路恢复。查看滤波器、CNN、RISC‑V 和语言模型的论文实测结果，也可以动手重排失效通道。",
     "link": "fpga-fault-recovery.html",
     "card_label": "查看项目 →",
     "tech_stack": [
