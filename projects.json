@@ -1,5 +1,21 @@
 [
   {
+    "image": "images/fpga-fault-recovery-cover.png",
+    "title": "FPGA 自愈实验",
+    "category": "Research",
+    "description": "如果有几路计算单元坏了，剩下的硬件还能完成同一组任务吗？了解 FPGA 的故障注入、结构重构与板上验证，动手试试分时调度。",
+    "link": "fpga-fault-recovery.html",
+    "card_label": "查看项目 →",
+    "tech_stack": [
+      "FPGA",
+      "RTL",
+      "ZCU104",
+      "Fault Injection",
+      "硬件自愈",
+      "可重构计算"
+    ]
+  },
+  {
     "image": "images/research-notes-cover.svg",
     "title": "研究心得",
     "category": "Learning",

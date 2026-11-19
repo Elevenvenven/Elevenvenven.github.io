@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FPGA 自愈实验 · 11_sum</title>
+<meta name="description" content="探索可重构硬件的故障恢复。在交互示意里关闭计算单元，观察重新安排任务如何恢复输出。">
+<link rel="canonical" href="https://elevenvenven.github.io/fpga-fault-recovery.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FPGA 自愈实验">
+<meta property="og:description" content="关闭几路乘法器，看看剩下的计算单元怎样做完同一组任务。">
+<meta property="og:url" content="https://elevenvenven.github.io/fpga-fault-recovery.html">
+<meta property="og:image" content="https://elevenvenven.github.io/images/fpga-fault-recovery-cover.png">
+<script>try { if (localStorage.getItem('theme') === 'dark-mode') document.documentElement.classList.add('dark-mode'); } catch {}</script>
+<style>
+:root{color-scheme:light;--page:#f3f7f7;--paper:#fff;--ink:#142a33;--sub:#526873;--line:#d6e1e3;--accent:#03706c;--wash:#e6f3f0;--error:#922e37;--errbg:#fce9e9;--slot:#f5f9fa;font-family:Inter,"Microsoft YaHei UI","Noto Sans SC",system-ui,sans-serif}
+:root.dark-mode{color-scheme:dark;--page:#101a21;--paper:#14232c;--ink:#eef6f8;--sub:#adc2ca;--line:#354a57;--accent:#83dcc5;--wash:#203c3c;--error:#ffa4a5;--errbg:#402832;--slot:#1c303a}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--page);line-height:1.65}
+a{color:var(--accent);text-underline-offset:.23em}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+header,main,footer{width:min(1020px,calc(100% - 40px));margin:auto}
+header{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:19px 0}
+header a{font-weight:650;text-decoration:none}
+header span{font-size:13px;color:var(--sub)}
+h1,h2,h3,p{margin:0}
+h1{font-size:clamp(30px,6.2vw,62px);line-height:1.15;letter-spacing:-.04em}
+h2{font-size:clamp(23px,3.8vw,31px);line-height:1.36}
+h3{font-size:18px;line-height:1.45}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:clamp(16px,4vw,44px);align-items:center;padding:clamp(21px,4.3vw,46px);border-radius:18px;background:var(--paper);border:1px solid var(--line)}
+.hero img{display:block;width:100%;height:auto;border-radius:13px}
+.label{display:block;text-transform:uppercase;color:var(--accent);font:700 13px/1.5 Consolas,monospace;letter-spacing:.055em;margin-bottom:9px}
+.lead{color:var(--sub);margin-top:12px}
+.hero a{display:inline-block;margin-top:15px;font-weight:650}
+.panel{background:var(--paper);margin-top:18px;padding:clamp(15px,3vw,27px);border-radius:15px;border:1px solid var(--line);min-width:0}
+.intro{color:var(--sub);margin-top:5px}
+.controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:16px 0 13px}
+.slots,.modes{display:flex;gap:6px;flex-wrap:wrap}
+button{padding:7px 12px;font:inherit;color:var(--ink);background:var(--slot);border:1px solid var(--line);border-radius:8px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.slots button[aria-pressed=true]{background:var(--errbg);color:var(--error);border-color:var(--error)}
+.modes button[aria-pressed=true]{background:var(--wash);color:var(--accent);border-color:var(--accent);font-weight:650}
+.jobs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.job{padding:10px;border:1px solid var(--line);border-radius:9px;background:var(--slot);min-width:0}
+.job span{display:block;color:var(--sub);font-size:13px}
+.job strong{display:block;color:var(--accent);font:700 clamp(23px,4vw,34px)/1.3 Consolas,monospace;margin:2px 0}
+.job.bad strong{color:var(--error)}
+#summary{background:var(--wash);padding:10px 13px;border-radius:9px;margin-top:12px;min-height:3em}
+.steps{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.steps section{min-width:0;border-top:2px solid var(--line);padding-top:9px}
+.steps p{color:var(--sub);margin-top:5px}
+footer{font-size:14px;color:var(--sub);padding:23px 0}
+@media(max-width:690px){.hero{grid-template-columns:minmax(0,1fr)}.hero img{max-width:430px}.steps{grid-template-columns:1fr}.jobs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header><a href="./#projects">← Projects &amp; Study</a><span>11_sum</span></header>
+<main>
+<section class="hero">
+  <div>
+    <span class="label">FPGA / Fault recovery</span>
+    <h1>FPGA 自愈实验</h1>
+    <p class="lead">如果一部分计算单元用不了了，能否用剩下的硬件算出原本的结果？我用可控故障研究 FPGA 电路怎样检测错误、调整结构，并用板上输出来检验恢复。</p>
+    <a href="#demo">试试关闭一路乘法器 ↓</a>
+  </div>
+  <img src="images/fpga-fault-recovery-cover.png" alt="示意图展示原先分配到失效通道的乘法任务改由其余通道完成" width="1200" height="720">
+</section>
+<section class="panel" id="demo">
+  <span class="label">交互示意</span>
+  <h2>少一路，能算完吗？</h2>
+  <p class="intro">四个乘法任务默认各占一路。关掉任意几路，再比较原分配和分时调度。这个简化模型展示任务重排的原理。</p>
+  <div class="controls">
+    <div class="slots" id="slots" role="group" aria-label="选择失效通道"></div>
+    <div class="modes" role="group" aria-label="调度方式">
+      <button type="button" id="original" aria-pressed="true">原分配</button>
+      <button type="button" id="reshuffle" aria-pressed="false">按可用通道重排</button>
+    </div>
+  </div>
+  <div id="jobs" class="jobs"></div>
+  <p id="summary" aria-live="polite"></p>
+  <noscript><p>开启 JavaScript 后可切换失效通道。四路同时计算时，各任务分别占一路。剩余通道可以分批执行这些任务。</p></noscript>
+</section>
+<section class="panel">
+  <h2>我在实验中看什么</h2>
+  <div class="steps">
+    <section><h3>故障会怎样暴露</h3><p>比较正常和注入故障时的输出，观察程序是否会继续跑完却给出错误结果。</p></section>
+    <section><h3>电路能改到什么程度</h3><p>比较在剩余区域重新放置电路、切换备用电路、以及调整并行度和数据路径。</p></section>
+    <section><h3>能否在板上恢复</h3><p>检查候选设计的功能、资源和时序，再用实际应用的输出核对。也记录恢复功能需要付出的计算周期。</p></section>
+  </div>
+</section>
+</main>
+<footer><a href="./#projects">返回项目列表</a></footer>
+<script>
+const jobs=[[3,5],[7,2],[4,6],[9,3]];
+const inactive=new Set([2]);
+const original=document.querySelector('#original');
+const reshuffle=document.querySelector('#reshuffle');
+const results=document.querySelector('#jobs');
+const status=document.querySelector('#summary');
+let remap=false;
+const channels=jobs.map((_,i)=>{
+  const button=document.createElement('button');
+  button.type='button';
+  button.addEventListener('click',()=>{
+    if(inactive.has(i)) inactive.delete(i);
+    else inactive.add(i);
+    render();
+  });
+  document.querySelector('#slots').append(button);
+  return button;
+});
+function render(){
+  const live=channels.map((_,i)=>i).filter(i=>!inactive.has(i));
+  channels.forEach((button,i)=>{
+    const dead=inactive.has(i);
+    button.setAttribute('aria-pressed',String(dead));
+    button.textContent='#'+i+(dead?' 已关闭':' 正常');
+  });
+  original.setAttribute('aria-pressed',String(!remap));
+  reshuffle.setAttribute('aria-pressed',String(remap));
+  results.replaceChildren();
+  jobs.forEach(([a,b],i)=>{
+    const channel=remap?live[i%live.length]:i;
+    const failed=remap?live.length===0:inactive.has(i);
+    const value=failed?(remap?'—':'0'):String(a*b);
+    const round=remap?Math.floor(i/live.length)+1:1;
+    const cell=document.createElement('article');
+    cell.className='job'+(failed?' bad':'');
+    const expr=document.createElement('span');
+    expr.textContent=a+' × '+b+'，参考 '+(a*b);
+    const output=document.createElement('strong');
+    output.textContent=value;
+    const schedule=document.createElement('span');
+    schedule.textContent=failed?(remap?'等待可用通道':'#'+i+' 失效'):'#'+channel+' · 第 '+round+' 批';
+    cell.append(expr,output,schedule);
+    results.append(cell);
+  });
+  if(remap) status.textContent=live.length
+    ? '用 '+live.length+' 路分 '+Math.ceil(jobs.length/live.length)+' 批完成，四个结果都正确。'
+    : '四路均失效，示意中的乘法任务无法执行。';
+  else status.textContent=inactive.size
+    ? '原分配仍把 '+inactive.size+' 个任务交给失效通道，因此出现 '+inactive.size+' 个错误结果。'
+    : '四路正常，一批完成四个任务。';
+}
+original.addEventListener('click',()=>{remap=false;render();});
+reshuffle.addEventListener('click',()=>{remap=true;render();});
+render();
+</script>
+</body>
+</html>
