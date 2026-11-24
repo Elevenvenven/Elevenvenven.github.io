@@ -577,87 +577,125 @@
         }
         .donate-card img {
             width: 220px;
-            height: auto;
-            border-radius: 12px;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 226px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1.5px solid var(--border-color);
+            box-shadow: 0 8px 24px var(--shadow-color);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
         .donate-card img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px var(--shadow-color);
         }
-        .donate-card span {
-            font-size: 1rem;
+        .donate-card > span {
+            font-size: 0.95rem;
             color: var(--text-secondary);
-            font-weight: 500;
+            font-weight: 600;
         }
         .paypay-box {
             width: 220px;
-            min-height: 220px;
-            padding: 20px 16px;
-            border-radius: 12px;
-            border: 2px solid var(--border-color);
+            height: 226px;
+            border-radius: 14px;
+            border: 1.5px solid var(--border-color);
             background: var(--secondary-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px var(--shadow-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .paypay-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(255, 0, 51, 0.14);
+            border-color: rgba(255, 0, 51, 0.45);
+        }
+        .paypay-header {
+            background: linear-gradient(135deg, #ff1744, #e6002e);
+            color: #ffffff;
+            padding: 16px 18px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 1.08rem;
+            letter-spacing: 0.01em;
+        }
+        .paypay-mark {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.88rem;
+        }
+        .paypay-body {
+            flex: 1;
+            padding: 16px 16px 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            justify-content: space-between;
         }
-        .paypay-box:hover {
-            transform: scale(1.04);
-            box-shadow: 0 8px 25px rgba(255, 0, 51, 0.16);
-            border-color: #ff0033;
-        }
-        .paypay-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 14px;
-            border-radius: 999px;
-            background: #ff0033;
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 1.05rem;
-            letter-spacing: 0.02em;
+        .paypay-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
         }
         .paypay-id {
             font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-            font-size: 1.08rem;
+            font-size: 1.06rem;
             font-weight: 700;
             color: var(--text-color);
-            padding: 7px 12px;
-            border-radius: 8px;
-            background: var(--bg-color);
-            border: 1px dashed var(--border-color);
-            user-select: all;
             letter-spacing: 0.03em;
+            user-select: all;
+            margin: 2px 0 4px;
         }
         .paypay-copy-btn {
-            border: none;
-            border-radius: 999px;
-            padding: 7px 16px;
-            background: #ff0033;
-            color: #ffffff;
-            font-size: 0.84rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 23, 68, 0.25);
+            background: rgba(255, 23, 68, 0.08);
+            color: #d90429;
+            font-size: 0.82rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.15s ease, opacity 0.2s ease, background-color 0.2s ease;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.12s ease;
+        }
+        html.dark-mode .paypay-copy-btn {
+            background: rgba(255, 59, 92, 0.14);
+            border-color: rgba(255, 92, 120, 0.32);
+            color: #ff7a92;
         }
         .paypay-copy-btn:hover {
-            opacity: 0.92;
-            transform: translateY(-1px);
+            background: #ff1744;
+            border-color: #ff1744;
+            color: #ffffff;
+        }
+        .paypay-copy-btn:active {
+            transform: scale(0.98);
         }
         .paypay-copy-btn.copied {
-            background: #10b981;
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #ffffff;
         }
         .paypay-hint {
-            margin: 0;
-            font-size: 0.76rem;
-            line-height: 1.45;
+            margin: 6px 0 0;
+            font-size: 0.72rem;
+            line-height: 1.35;
             color: var(--text-secondary);
             text-align: center;
         }
@@ -1459,18 +1497,27 @@
                 <div class="donate-cards">
                     <div class="donate-card">
                         <img src="images/wechat_qrcode.jpg" alt="WeChat Pay QR Code" />
-                        <span>微信支付</span>
+                        <span>WeChat Pay</span>
                     </div>
                     <div class="donate-card">
                         <img src="images/alipay_qrcode.jpg" alt="Alipay QR Code" />
-                        <span>支付宝</span>
+                        <span>Alipay</span>
                     </div>
                     <div class="donate-card">
                         <div class="paypay-box">
-                            <div class="paypay-logo">PayPay</div>
-                            <code class="paypay-id" id="paypay-id-text">a1264854903</code>
-                            <button type="button" class="paypay-copy-btn" id="paypay-copy-btn" onclick="copyPayPayId(this)">复制 PayPay ID</button>
-                            <p class="paypay-hint">在 PayPay 中搜索 ID 转账<br>PayPayアプリでID検索</p>
+                            <div class="paypay-header">
+                                <span class="paypay-mark" aria-hidden="true">P</span>
+                                <span>PayPay</span>
+                            </div>
+                            <div class="paypay-body">
+                                <div class="paypay-label">PayPay ID</div>
+                                <code class="paypay-id" id="paypay-id-text">a1264854903</code>
+                                <button type="button" class="paypay-copy-btn" id="paypay-copy-btn" onclick="copyPayPayId(this)">
+                                    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                    <span>Copy ID</span>
+                                </button>
+                                <p class="paypay-hint">Search ID in PayPay app</p>
+                            </div>
                         </div>
                         <span>PayPay</span>
                     </div>
@@ -1529,11 +1576,12 @@
     <script>
         function copyPayPayId(btn) {
             const id = 'a1264854903';
+            const label = btn.querySelector('span');
             const done = () => {
-                btn.textContent = '✓ 已复制 ID';
+                if (label) label.textContent = 'Copied!';
                 btn.classList.add('copied');
                 setTimeout(() => {
-                    btn.textContent = '复制 PayPay ID';
+                    if (label) label.textContent = 'Copy ID';
                     btn.classList.remove('copied');
                 }, 2000);
             };
