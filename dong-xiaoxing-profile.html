@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>东小杏 · 角色介绍与目击档案 · 11_sum</title>
-  <meta name="description" content="东小杏角色档案：东京大学情报理工学系研究科所属、导师门本淳一郎、常出没于工学部2号馆与理学部1号馆、喜欢吃薯饼，据第一目击者称是在本乡校区银杏树底下捡到的真实人物。">
+  <meta name="description" content="东小杏（東小杏 / Dong Xiaoxing）角色档案：东京大学情报理工学系研究科所属、导师门本淳一郎、常出没于工学部2号馆与理学部1号馆、喜欢吃薯饼，据第一目击者称是在本乡校区银杏树底下捡到的真实人物。">
   <link rel="canonical" href="https://elevenvenven.github.io/dong-xiaoxing-profile.html">
-  <meta property="og:title" content="东小杏 · 角色介绍与目击档案">
-  <meta property="og:description" content="出身不明、身高体重不明、过往经历不明，但是真实存在的人物——东小杏的本乡校区目击档案。">
+  <meta property="og:title" content="东小杏 · Character Profile / キャラ紹介">
+  <meta property="og:description" content="你好，我叫东小杏！东京大学本乡校区真实存在的角色档案（中 / 日 / EN）。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://elevenvenven.github.io/dong-xiaoxing-profile.html">
   <meta property="og:image" content="https://elevenvenven.github.io/images/dong-xiaoxing/cover.png">
@@ -15,7 +15,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
   <script>try{if(localStorage.getItem('theme')==='dark-mode')document.documentElement.classList.add('dark-mode')}catch{}</script>
   <style>
     :root {
@@ -32,12 +32,14 @@
       --utokyo-pale: #e6f4ff;
       --stamp-bg: #f6efe4;
       --stamp-ink: #8a5a2b;
-      --blush: #f48686;
+      --blush-bg: #fff0f2;
+      --blush-ink: #c83254;
+      --blush-border: #f28ba2;
       --border: #2b211e;
       --border-soft: #e6dac0;
       --shadow-hard: 5px 5px 0 #2b211e;
       --shadow-gold: 6px 6px 0 #f5bc18;
-      font-family: 'Noto Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+      font-family: 'Noto Sans SC', 'Noto Sans JP', 'Hiragino Sans', 'Microsoft YaHei', system-ui, sans-serif;
     }
 
     :root.dark-mode {
@@ -54,7 +56,9 @@
       --utokyo-pale: #1b2f45;
       --stamp-bg: #2a2835;
       --stamp-ink: #f2be78;
-      --blush: #f29494;
+      --blush-bg: #361f29;
+      --blush-ink: #ff9cb2;
+      --blush-border: #8c3d52;
       --border: #3d465e;
       --border-soft: #2f374c;
       --shadow-hard: 5px 5px 0 #0b0e14;
@@ -96,6 +100,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      flex-wrap: wrap;
     }
     .brand {
       display: inline-flex;
@@ -128,7 +133,7 @@
       border-radius: 999px;
       border: 2px solid var(--border);
       background: var(--surface);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 700;
       text-decoration: none;
       box-shadow: 2px 2px 0 var(--border);
@@ -139,6 +144,30 @@
       transform: translate(-1px, -1px);
       box-shadow: 3px 3px 0 var(--border);
       background: var(--ginkgo-pale);
+    }
+    .lang-switch {
+      display: inline-flex;
+      padding: 3px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      box-shadow: 2px 2px 0 var(--border);
+      gap: 2px;
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--muted);
+      transition: all 0.16s ease;
+    }
+    .lang-btn:hover { color: var(--ink); }
+    .lang-btn.active {
+      background: var(--utokyo-blue);
+      color: #ffffff;
     }
 
     /* Main Container */
@@ -189,13 +218,8 @@
       border-radius: 16px;
       display: block;
     }
-    .portrait-frame.full-bleed {
-      padding: 0;
-    }
-    .portrait-frame.full-bleed img {
-      object-fit: cover;
-      border-radius: 0;
-    }
+    .portrait-frame.full-bleed { padding: 0; }
+    .portrait-frame.full-bleed img { object-fit: cover; border-radius: 0; }
     .mood-switcher {
       display: inline-flex;
       gap: 6px;
@@ -237,7 +261,6 @@
       letter-spacing: 0.03em;
     }
     .comic-badge.gold { background: var(--ginkgo-pale); }
-    .comic-badge.blue { background: var(--utokyo-pale); }
     .comic-badge.real {
       background: #dcfce7;
       color: #14532d;
@@ -257,7 +280,7 @@
       letter-spacing: -0.02em;
     }
     .ruby-name {
-      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      font-family: 'Fredoka', 'Noto Sans SC', 'Noto Sans JP', sans-serif;
       font-size: 0.96rem;
       font-weight: 600;
       color: var(--muted);
@@ -362,7 +385,7 @@
       white-space: nowrap;
     }
     .d-val {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 800;
       text-align: right;
       color: var(--ink);
@@ -370,20 +393,29 @@
     .unknown-stamp {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
       padding: 3px 11px;
       border-radius: 8px;
       border: 1.5px dashed var(--stamp-ink);
       background: var(--stamp-bg);
       color: var(--stamp-ink);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
+    }
+    .polite-stamp {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 10px;
+      border: 1.5px solid var(--blush-border);
+      background: var(--blush-bg);
+      color: var(--blush-ink);
+      font-size: 0.86rem;
+      font-weight: 800;
     }
     .real-badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
       padding: 3px 11px;
       border-radius: 8px;
       background: var(--ginkgo-pale);
@@ -419,13 +451,13 @@
       border-left: 4px solid var(--ginkgo);
       background: var(--surface-soft);
       border-radius: 0 14px 14px 0;
-      font-size: 1.03rem;
+      font-size: 1.02rem;
       font-weight: 700;
       line-height: 1.85;
     }
     .witness-meta {
       margin: 0;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       color: var(--muted);
       font-weight: 600;
     }
@@ -444,53 +476,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-
-    /* Field Notes / Traits */
-    .traits-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-    .trait-card {
-      background: var(--surface);
-      border: 2px solid var(--border);
-      border-radius: 18px;
-      padding: 18px 20px;
-      box-shadow: 3px 3px 0 var(--border);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .trait-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      border: 2px solid var(--border);
-      background: var(--paper-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      overflow: hidden;
-      font-size: 1.6rem;
-    }
-    .trait-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 2px;
-    }
-    .trait-card h3 {
-      margin: 0 0 3px;
-      font-size: 0.98rem;
-      font-weight: 800;
-    }
-    .trait-card p {
-      margin: 0;
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.55;
     }
 
     /* Personality 5-Card Grid */
@@ -553,29 +538,68 @@
       font-size: 0.72rem;
       font-weight: 800;
     }
-    .quote-bubble-card p {
-      margin: 0;
-    }
+    .quote-bubble-card p { margin: 0; }
 
-    /* Props & Outfits Chips */
+    /* Field Notes / Traits */
+    .traits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .trait-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 3px 3px 0 var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .trait-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 2px solid var(--border);
+      background: var(--paper-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      font-size: 1.5rem;
+    }
+    .trait-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+    }
+    .trait-card h3 {
+      margin: 0 0 3px;
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+    .trait-card p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
     .chip-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 7px;
       margin-top: 8px;
     }
     .chip {
-      padding: 4px 12px;
+      padding: 3px 11px;
       border-radius: 999px;
       background: var(--paper-bg);
       border: 1.5px solid var(--border-soft);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--ink);
-    }
-
-    @media (max-width: 760px) {
-      .quotes-grid { grid-template-columns: 1fr; }
     }
 
     /* CTA Bar */
@@ -593,7 +617,7 @@
       padding: 12px 24px;
       border-radius: 999px;
       border: 2.5px solid var(--border);
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       font-weight: 900;
       text-decoration: none;
       box-shadow: 4px 4px 0 var(--border);
@@ -603,14 +627,8 @@
       transform: translate(-1px, -2px);
       box-shadow: 5px 6px 0 var(--border);
     }
-    .cta-btn.primary {
-      background: var(--utokyo-blue);
-      color: #ffffff;
-    }
-    .cta-btn.gold {
-      background: linear-gradient(135deg, #ffe27a, #f5bc18);
-      color: #2b211e;
-    }
+    .cta-btn.primary { background: var(--utokyo-blue); color: #ffffff; }
+    .cta-btn.gold { background: linear-gradient(135deg, #ffe27a, #f5bc18); color: #2b211e; }
 
     /* Footer */
     .footer {
@@ -638,7 +656,7 @@
       }
       .badge-row, .quick-pills { justify-content: center; }
       .speech-bubble::before, .speech-bubble::after { display: none; }
-      .dossier-grid, .traits-grid { grid-template-columns: 1fr; }
+      .dossier-grid, .traits-grid, .quotes-grid { grid-template-columns: 1fr; }
       .dossier-item.wide { grid-column: auto; }
       .witness-card { grid-template-columns: 1fr; justify-items: center; }
       .witness-photo { transform: none; }
@@ -655,230 +673,478 @@
         <span>11_sum.</span>
       </a>
       <div class="bar-actions">
-        <a class="nav-btn" href="story-of-dong-xiaoxing.html">← Story of 东小杏</a>
+        <a class="nav-btn" href="story-of-dong-xiaoxing.html" data-i18n="navBack">← Story of 东小杏</a>
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+          <button type="button" class="lang-btn active" data-lang="zh">中</button>
+          <button type="button" class="lang-btn" data-lang="ja">日</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+        </div>
         <button type="button" class="nav-btn" id="theme-toggle" aria-pressed="false">🌙 夜间</button>
       </div>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="profile-hero" aria-label="东小杏角色档案总览">
+    <section class="profile-hero" aria-label="Character Profile">
       <div class="portrait-box">
         <div class="portrait-frame" id="portrait-frame">
-          <img id="portrait-img" src="images/dong-xiaoxing/mascot-wave.png" alt="东小杏立绘">
+          <img id="portrait-img" src="images/dong-xiaoxing/mascot-wave.png" alt="Dong Xiaoxing">
         </div>
-        <div class="mood-switcher" role="group" aria-label="切换东小杏立绘">
-          <button type="button" class="mood-btn active" data-src="images/dong-xiaoxing/mascot-wave.png" data-bleed="false">元气</button>
-          <button type="button" class="mood-btn" data-src="images/dong-xiaoxing/avatar-smirk.png" data-bleed="true">偷笑</button>
-          <button type="button" class="mood-btn" data-src="images/dong-xiaoxing/avatar-glasses.png" data-bleed="true">眼镜</button>
+        <div class="mood-switcher" role="group" aria-label="Switch portrait">
+          <button type="button" class="mood-btn active" data-src="images/dong-xiaoxing/mascot-wave.png" data-bleed="false" data-i18n="moodWave">元气</button>
+          <button type="button" class="mood-btn" data-src="images/dong-xiaoxing/avatar-smirk.png" data-bleed="true" data-i18n="moodSmirk">偷笑</button>
+          <button type="button" class="mood-btn" data-src="images/dong-xiaoxing/avatar-glasses.png" data-bleed="true" data-i18n="moodGlasses">眼镜</button>
         </div>
       </div>
 
       <div>
         <div class="badge-row">
-          <span class="comic-badge gold">CHARACTER FILE · 角色介绍</span>
-          <span class="comic-badge real">✓ 真实存在的人物</span>
+          <span class="comic-badge gold" data-i18n="badgeFile">CHARACTER FILE · 角色介绍</span>
+          <span class="comic-badge real" data-i18n="badgeReal">✓ 真实存在的人物</span>
         </div>
-        <h1>东小杏</h1>
+        <h1 data-i18n="nameMain">东小杏</h1>
         <div class="ruby-name">Dong Xiaoxing · 東小杏</div>
-        <div class="speech-bubble">你好，我叫东小杏！</div>
+        <div class="speech-bubble" data-i18n="greeting">你好，我叫东小杏！</div>
         <div class="quick-pills">
-          <span class="quick-pill">女</span>
-          <span class="quick-pill">情报理工学系研究科</span>
-          <span class="quick-pill">喜欢薯饼</span>
-          <span class="quick-pill">本乡校区出没</span>
+          <span class="quick-pill" data-i18n="pillGender">女</span>
+          <span class="quick-pill" data-i18n="pillDept">情报理工学系研究科</span>
+          <span class="quick-pill" data-i18n="pillFood">喜欢薯饼</span>
+          <span class="quick-pill" data-i18n="pillPlace">本乡校区出没</span>
         </div>
       </div>
     </section>
 
     <div class="sec-head">
       <span class="sec-tag">FILE 01</span>
-      <h2>基本档案</h2>
+      <h2 data-i18n="sec1">基本档案</h2>
     </div>
-    <section class="dossier-grid" aria-label="基本档案信息">
+    <section class="dossier-grid" aria-label="Basic Profile">
       <div class="dossier-item">
-        <span class="d-key">性别</span>
-        <span class="d-val">女</span>
+        <span class="d-key" data-i18n="kGender">性别</span>
+        <span class="d-val" data-i18n="vGender">女</span>
       </div>
       <div class="dossier-item">
-        <span class="d-key">存在确认</span>
-        <span class="d-val"><span class="real-badge">真实存在的人物</span></span>
+        <span class="d-key" data-i18n="kExistence">存在确认</span>
+        <span class="d-val"><span class="real-badge" data-i18n="vExistence">真实存在的人物</span></span>
       </div>
       <div class="dossier-item">
-        <span class="d-key">所属</span>
-        <span class="d-val">东京大学 情报理工学系研究科</span>
+        <span class="d-key" data-i18n="kAffil">所属</span>
+        <span class="d-val" data-i18n="vAffil">东京大学 情报理工学系研究科</span>
       </div>
       <div class="dossier-item">
-        <span class="d-key">导师</span>
-        <span class="d-val">门本淳一郎（門本 淳一郎）</span>
+        <span class="d-key" data-i18n="kAdvisor">导师</span>
+        <span class="d-val" data-i18n="vAdvisor">门本淳一郎（門本 淳一郎）</span>
       </div>
       <div class="dossier-item wide">
-        <span class="d-key">常出没地</span>
-        <span class="d-val">工学部 2 号馆 / 理学部 1 号馆</span>
+        <span class="d-key" data-i18n="kHaunts">常出没地</span>
+        <span class="d-val" data-i18n="vHaunts">工学部 2 号馆 / 理学部 1 号馆</span>
       </div>
       <div class="dossier-item">
-        <span class="d-key">名字由来</span>
-        <span class="d-val">「东」取自东大，「杏」取自银杏发卡</span>
+        <span class="d-key" data-i18n="kNameOrigin">名字由来</span>
+        <span class="d-val" data-i18n="vNameOrigin">「东」取自东大，「杏」取自银杏发卡</span>
       </div>
       <div class="dossier-item">
-        <span class="d-key">喜欢的食物</span>
-        <span class="d-val">薯饼</span>
+        <span class="d-key" data-i18n="kFood">喜欢的食物</span>
+        <span class="d-val" data-i18n="vFood">薯饼</span>
       </div>
       <div class="dossier-item">
-        <span class="d-key">出身</span>
-        <span class="d-val"><span class="unknown-stamp">不明</span></span>
+        <span class="d-key" data-i18n="kOrigin">出身</span>
+        <span class="d-val"><span class="unknown-stamp" data-i18n="vUnknown">不明</span></span>
       </div>
       <div class="dossier-item">
-        <span class="d-key">身高 / 体重</span>
-        <span class="d-val"><span class="unknown-stamp">不明</span></span>
+        <span class="d-key" data-i18n="kPast">过往经历</span>
+        <span class="d-val"><span class="unknown-stamp" data-i18n="vUnknown">不明</span></span>
       </div>
       <div class="dossier-item wide">
-        <span class="d-key">过往经历</span>
-        <span class="d-val"><span class="unknown-stamp">不明</span></span>
+        <span class="d-key" data-i18n="kMeasurements">身高 / 体重</span>
+        <span class="d-val"><span class="polite-stamp" data-i18n="vMeasurements">打听女孩子的这类信息是很不礼貌的！</span></span>
       </div>
     </section>
 
     <div class="sec-head">
       <span class="sec-tag">FILE 02</span>
-      <h2>第一目击记录</h2>
+      <h2 data-i18n="sec2">第一目击记录</h2>
     </div>
-    <section class="witness-card" aria-label="第一目击记录">
+    <section class="witness-card" aria-label="First-Witness Report">
       <div>
         <div class="witness-eyebrow">FIELD SIGHTING REPORT · HONGO CAMPUS</div>
-        <blockquote class="witness-quote">
+        <blockquote class="witness-quote" data-i18n="witnessQuote">
           「据第一目击者——也就是本漫画的执笔者（同为情报理工学系研究科的石佚同学）所说，东小杏是有一天在本乡校区的银杏树底下捡到的。」
         </blockquote>
-        <p class="witness-meta">目击地点：东京大学 本乡校区 银杏树下 · 状态：目前已自然融入研究室日常</p>
+        <p class="witness-meta" data-i18n="witnessMeta">目击地点：东京大学 本乡校区 银杏树下 · 状态：目前已自然融入研究室日常</p>
       </div>
       <div class="witness-photo">
-        <img src="images/dong-xiaoxing/hongo-autumn.png" alt="本乡校区银杏树下的东小杏">
+        <img src="images/dong-xiaoxing/hongo-autumn.png" alt="Dong Xiaoxing under Hongo ginkgo trees">
       </div>
     </section>
 
     <div class="sec-head">
       <span class="sec-tag">FILE 03</span>
-      <h2>性格反差图鉴</h2>
+      <h2 data-i18n="sec3">性格反差图鉴</h2>
     </div>
-    <section class="persona-grid" aria-label="性格特征">
+    <section class="persona-grid" aria-label="Personality">
       <div class="persona-card">
-        <img src="images/dong-xiaoxing/mascot-wave.png" alt="元气甜妹东小杏">
+        <img src="images/dong-xiaoxing/mascot-wave.png" alt="">
         <div>
-          <h3>元气甜妹</h3>
-          <p>爱笑，见到熟人就会远远挥着团子手跑过来打招呼。</p>
+          <h3 data-i18n="p1t">元气甜妹</h3>
+          <p data-i18n="p1d">爱笑，见到熟人就会远远挥着团子手跑过来打招呼。</p>
         </div>
       </div>
       <div class="persona-card">
-        <img src="images/dong-xiaoxing/mascot-scheme.png" alt="憋坏偷笑东小杏">
+        <img src="images/dong-xiaoxing/mascot-scheme.png" alt="">
         <div>
-          <h3>嘻嘻哈哈 · 偶尔有点坏</h3>
-          <p>憋着鬼主意时会捂嘴偷笑，嘴角悄悄露出一颗小虎牙。</p>
+          <h3 data-i18n="p2t">嘻嘻哈哈 · 偶尔有点坏</h3>
+          <p data-i18n="p2d">憋着鬼主意时会捂嘴偷笑，嘴角悄悄露出一颗小虎牙。</p>
         </div>
       </div>
       <div class="persona-card">
-        <img src="images/dong-xiaoxing/mascot-proud.png" alt="叉腰得意东小杏">
+        <img src="images/dong-xiaoxing/mascot-proud.png" alt="">
         <div>
-          <h3>骄傲自负</h3>
-          <p>实验或时序跑通时嘴角压不住，还要努力装作意料之中。</p>
+          <h3 data-i18n="p3t">骄傲自负</h3>
+          <p data-i18n="p3d">实验或时序跑通时嘴角压不住，还要努力装作意料之中。</p>
         </div>
       </div>
       <div class="persona-card">
-        <img src="images/dong-xiaoxing/mascot-fpga.png" alt="认真调板东小杏">
+        <img src="images/dong-xiaoxing/mascot-fpga.png" alt="">
         <div>
-          <h3>研究时很严肃</h3>
-          <p>探头一碰到 FPGA 板子就安静下来，盯着波形一拍一拍地查。</p>
+          <h3 data-i18n="p4t">研究时很严肃</h3>
+          <p data-i18n="p4d">探头一碰到 FPGA 板子就安静下来，盯着波形一拍一拍地查。</p>
         </div>
       </div>
       <div class="persona-card">
-        <img src="images/dong-xiaoxing/mascot-sleepy.png" alt="熬夜抱杯东小杏">
+        <img src="images/dong-xiaoxing/mascot-sleepy.png" alt="">
         <div>
-          <h3>熬夜嘴硬</h3>
-          <p>嘴上说「我昨天真的很早就睡了」，头顶的小尖角已经出卖了她。</p>
+          <h3 data-i18n="p5t">熬夜嘴硬</h3>
+          <p data-i18n="p5d">嘴上说「我昨天真的很早就睡了」，头顶的小尖角已经出卖了她。</p>
         </div>
       </div>
     </section>
 
     <div class="sec-head">
       <span class="sec-tag">FILE 04</span>
-      <h2>代表台词</h2>
+      <h2 data-i18n="sec4">代表台词</h2>
     </div>
-    <section class="quotes-grid" aria-label="代表台词">
+    <section class="quotes-grid" aria-label="Signature Lines">
       <div class="quote-bubble-card">
-        <span class="quote-tag">得意</span>
-        <p>「我就说能过时序吧。」</p>
+        <span class="quote-tag" data-i18n="q1tag">得意</span>
+        <p data-i18n="q1text">「我就说能过时序吧。」</p>
       </div>
       <div class="quote-bubble-card">
-        <span class="quote-tag">认真</span>
-        <p>「等一下。把刚才复位那一拍的波形放大。」</p>
+        <span class="quote-tag" data-i18n="q2tag">认真</span>
+        <p data-i18n="q2text">「等一下。把刚才复位那一拍的波形放大。」</p>
       </div>
       <div class="quote-bubble-card">
-        <span class="quote-tag">憋坏</span>
-        <p>「嘘，先别告诉师兄，我想看他发现以后是什么表情。」</p>
+        <span class="quote-tag" data-i18n="q3tag">憋坏</span>
+        <p data-i18n="q3text">「嘘，先别告诉师兄，我想看他发现以后是什么表情。」</p>
       </div>
       <div class="quote-bubble-card">
-        <span class="quote-tag">组会</span>
-        <p>「我们从这里往后看一拍。」</p>
+        <span class="quote-tag" data-i18n="q4tag">组会</span>
+        <p data-i18n="q4text">「我们从这里往后看一拍。」</p>
       </div>
     </section>
 
     <div class="sec-head">
       <span class="sec-tag">FILE 05</span>
-      <h2>外形、穿搭与常用道具</h2>
+      <h2 data-i18n="sec5">外形、穿搭与常用道具</h2>
     </div>
-    <section class="traits-grid" aria-label="外形与道具">
+    <section class="traits-grid" aria-label="Appearance and Gear">
       <div class="trait-card">
-        <div class="trait-icon"><img src="images/dong-xiaoxing/mascot-ginkgo.png" alt="双银杏发卡"></div>
+        <div class="trait-icon"><img src="images/dong-xiaoxing/mascot-ginkgo.png" alt=""></div>
         <div>
-          <h3>银杏三瓣刘海 &amp; 耳下双银杏发卡</h3>
-          <p>黑发低侧马尾、额前两道 V 形分叉的银杏三瓣刘海；耳下马尾根部夹着无白底东大黄蓝双银杏（黄 4 瓣、蓝 2 瓣），配黑圆点眼、粉腮红与一颗小虎牙。</p>
+          <h3 data-i18n="t1t">银杏三瓣刘海 &amp; 耳下双银杏发卡</h3>
+          <p data-i18n="t1d">黑发低侧马尾、额前两道 V 形分叉的银杏三瓣刘海；耳下马尾根部夹着无白底东大黄蓝双银杏（黄 4 瓣、蓝 2 瓣），配黑圆点眼、粉腮红与一颗小虎牙。</p>
         </div>
       </div>
       <div class="trait-card">
-        <div class="trait-icon"><img src="images/dong-xiaoxing/mascot-sleepy.png" alt="熬夜尖角"></div>
+        <div class="trait-icon"><img src="images/dong-xiaoxing/mascot-sleepy.png" alt=""></div>
         <div>
-          <h3>状态开关 · 熬夜尖角</h3>
-          <p>平时头顶圆润光滑，只有没睡好时才会冒出粉白条纹小尖角；认真讨论或看论文时会戴上暖棕色细框圆眼镜。</p>
+          <h3 data-i18n="t2t">状态开关 · 熬夜尖角</h3>
+          <p data-i18n="t2d">平时头顶圆润光滑，只有没睡好时才会冒出粉白条纹小尖角；认真讨论或看论文时会戴上暖棕色细框圆眼镜。</p>
         </div>
       </div>
       <div class="trait-card">
         <div class="trait-icon">🧥</div>
         <div>
-          <h3>常见穿搭</h3>
-          <p>日常穿奶油色开衫外套 + 蓝衬衫蓝领带 + 深灰百褶短裙；正式场合换深蓝小西装；秋季外出常穿浅蓝色牛角扣外套配斜挎小包。</p>
+          <h3 data-i18n="t3t">常见穿搭</h3>
+          <p data-i18n="t3d">日常穿奶油色开衫外套 + 蓝衬衫蓝领带 + 深灰百褶短裙；正式场合换深蓝小西装；秋季外出常穿浅蓝色牛角扣外套配斜挎小包。</p>
         </div>
       </div>
       <div class="trait-card">
         <div class="trait-icon">🛠️</div>
         <div>
-          <h3>常备道具</h3>
+          <h3 data-i18n="t4t">常备道具</h3>
           <div class="chip-group">
-            <span class="chip">FPGA 板</span>
-            <span class="chip">示波器探头</span>
-            <span class="chip">咖啡杯</span>
-            <span class="chip">笔记本</span>
-            <span class="chip">翻页笔</span>
-            <span class="chip">暖棕圆框眼镜</span>
+            <span class="chip" data-i18n="prop1">FPGA 板</span>
+            <span class="chip" data-i18n="prop2">示波器探头</span>
+            <span class="chip" data-i18n="prop3">咖啡杯</span>
+            <span class="chip" data-i18n="prop4">笔记本</span>
+            <span class="chip" data-i18n="prop5">翻页笔</span>
+            <span class="chip" data-i18n="prop6">暖棕圆框眼镜</span>
           </div>
         </div>
       </div>
     </section>
 
     <div class="cta-row">
-      <a class="cta-btn primary" href="story-of-dong-xiaoxing.html">📖 阅读周更漫画 · Story of 东小杏</a>
+      <a class="cta-btn primary" href="story-of-dong-xiaoxing.html" data-i18n="ctaComic">📖 阅读周更漫画 · Story of 东小杏</a>
       <a class="cta-btn gold" href="./#donate">☕ Buy Me a Coffee · Donate →</a>
     </div>
 
     <footer class="footer">
-      <span>11_sum · 东小杏角色档案</span>
-      <a href="./#projects">返回 Projects &amp; Study ↗</a>
+      <span data-i18n="footerLeft">11_sum · 东小杏角色档案</span>
+      <a href="./#projects" data-i18n="footerRight">返回 Projects &amp; Study ↗</a>
     </footer>
   </main>
 
   <script>
-    // Sync theme with site
+    const I18N = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: '东小杏 · 角色介绍与目击档案 · 11_sum',
+        navBack: '← Story of 东小杏',
+        themeDark: '🌙 夜间',
+        themeLight: '☀️ 日间',
+        moodWave: '元气',
+        moodSmirk: '偷笑',
+        moodGlasses: '眼镜',
+        badgeFile: 'CHARACTER FILE · 角色介绍',
+        badgeReal: '✓ 真实存在的人物',
+        nameMain: '东小杏',
+        greeting: '你好，我叫东小杏！',
+        pillGender: '女',
+        pillDept: '情报理工学系研究科',
+        pillFood: '喜欢薯饼',
+        pillPlace: '本乡校区出没',
+        sec1: '基本档案',
+        kGender: '性别',
+        vGender: '女',
+        kExistence: '存在确认',
+        vExistence: '真实存在的人物',
+        kAffil: '所属',
+        vAffil: '东京大学 情报理工学系研究科',
+        kAdvisor: '导师',
+        vAdvisor: '门本淳一郎（門本 淳一郎）',
+        kHaunts: '常出没地',
+        vHaunts: '工学部 2 号馆 / 理学部 1 号馆',
+        kNameOrigin: '名字由来',
+        vNameOrigin: '「东」取自东大，「杏」取自银杏发卡',
+        kFood: '喜欢的食物',
+        vFood: '薯饼',
+        kOrigin: '出身',
+        kPast: '过往经历',
+        vUnknown: '不明',
+        kMeasurements: '身高 / 体重',
+        vMeasurements: '打听女孩子的这类信息是很不礼貌的！',
+        sec2: '第一目击记录',
+        witnessQuote: '「据第一目击者——也就是本漫画的执笔者（同为情报理工学系研究科的石佚同学）所说，东小杏是有一天在本乡校区的银杏树底下捡到的。」',
+        witnessMeta: '目击地点：东京大学 本乡校区 银杏树下 · 状态：目前已自然融入研究室日常',
+        sec3: '性格反差图鉴',
+        p1t: '元气甜妹',
+        p1d: '爱笑，见到熟人就会远远挥着团子手跑过来打招呼。',
+        p2t: '嘻嘻哈哈 · 偶尔有点坏',
+        p2d: '憋着鬼主意时会捂嘴偷笑，嘴角悄悄露出一颗小虎牙。',
+        p3t: '骄傲自负',
+        p3d: '实验或时序跑通时嘴角压不住，还要努力装作意料之中。',
+        p4t: '研究时很严肃',
+        p4d: '探头一碰到 FPGA 板子就安静下来，盯着波形一拍一拍地查。',
+        p5t: '熬夜嘴硬',
+        p5d: '嘴上说「我昨天真的很早就睡了」，头顶的小尖角已经出卖了她。',
+        sec4: '代表台词',
+        q1tag: '得意',
+        q1text: '「我就说能过时序吧。」',
+        q2tag: '认真',
+        q2text: '「等一下。把刚才复位那一拍的波形放大。」',
+        q3tag: '憋坏',
+        q3text: '「嘘，先别告诉师兄，我想看他发现以后是什么表情。」',
+        q4tag: '组会',
+        q4text: '「我们从这里往后看一拍。」',
+        sec5: '外形、穿搭与常用道具',
+        t1t: '银杏三瓣刘海 & 耳下双银杏发卡',
+        t1d: '黑发低侧马尾、额前两道 V 形分叉的银杏三瓣刘海；耳下马尾根部夹着无白底东大黄蓝双银杏（黄 4 瓣、蓝 2 瓣），配黑圆点眼、粉腮红与一颗小虎牙。',
+        t2t: '状态开关 · 熬夜尖角',
+        t2d: '平时头顶圆润光滑，只有没睡好时才会冒出粉白条纹小尖角；认真讨论或看论文时会戴上暖棕色细框圆眼镜。',
+        t3t: '常见穿搭',
+        t3d: '日常穿奶油色开衫外套 + 蓝衬衫蓝领带 + 深灰百褶短裙；正式场合换深蓝小西装；秋季外出常穿浅蓝色牛角扣外套配斜挎小包。',
+        t4t: '常备道具',
+        prop1: 'FPGA 板',
+        prop2: '示波器探头',
+        prop3: '咖啡杯',
+        prop4: '笔记本',
+        prop5: '翻页笔',
+        prop6: '暖棕圆框眼镜',
+        ctaComic: '📖 阅读周更漫画 · Story of 东小杏',
+        footerLeft: '11_sum · 东小杏角色档案',
+        footerRight: '返回 Projects & Study ↗'
+      },
+      ja: {
+        htmlLang: 'ja',
+        pageTitle: '東小杏 · キャラクター紹介＆目撃ファイル · 11_sum',
+        navBack: '← Story of 東小杏',
+        themeDark: '🌙 ダーク',
+        themeLight: '☀️ ライト',
+        moodWave: '元気',
+        moodSmirk: 'ニヤリ',
+        moodGlasses: 'メガネ',
+        badgeFile: 'CHARACTER FILE · キャラ紹介',
+        badgeReal: '✓ 実在する人物',
+        nameMain: '東小杏',
+        greeting: 'こんにちは、東小杏です！',
+        pillGender: '女性',
+        pillDept: '情報理工学系研究科',
+        pillFood: 'ハッシュポテト好き',
+        pillPlace: '本郷キャンパス出没',
+        sec1: '基本プロフィール',
+        kGender: '性別',
+        vGender: '女性',
+        kExistence: '実在確認',
+        vExistence: '実在する人物',
+        kAffil: '所属',
+        vAffil: '東京大学 情報理工学系研究科',
+        kAdvisor: '指導教員',
+        vAdvisor: '門本 淳一郎',
+        kHaunts: 'よく出没する場所',
+        vHaunts: '工学部2号館 / 理学部1号館',
+        kNameOrigin: '名前の由来',
+        vNameOrigin: '「東」は東大、「杏」はイチョウのヘアピンから',
+        kFood: '好きな食べ物',
+        vFood: 'ハッシュドポテト',
+        kOrigin: '出身',
+        kPast: '過去の経歴',
+        vUnknown: '不明',
+        kMeasurements: '身長 / 体重',
+        vMeasurements: '女の子のそういう情報を聞くのはとても失礼ですよ！',
+        sec2: '第一目撃記録',
+        witnessQuote: '「第一目撃者——すなわち本漫画の執筆者（同じ情報理工学系研究科の石佚さん）によると、ある日、本郷キャンパスのイチョウの木の下で拾われたとのこと。」',
+        witnessMeta: '目撃場所：東京大学 本郷キャンパス イチョウ並木付近 · 現状：研究室の日常にすっかり馴染んでいる',
+        sec3: '性格ギャップ図鑑',
+        p1t: '元気な甘めガール',
+        p1d: 'よく笑い、知り合いを見つけると丸い手を大きく振って駆け寄ってくる。',
+        p2t: 'おちゃめでちょっぴり小悪魔',
+        p2d: 'いたずらを企むときは口元を隠してニヤリ。小さな八重歯がちらりとのぞく。',
+        p3t: '自信満々・ドヤ顔',
+        p3d: '実験やタイミング検証が通ると口角が抑えきれず、涼しい顔を装いつつドヤる。',
+        p4t: '研究中は超真剣',
+        p4d: 'プローブが FPGA ボードに触れた瞬間スイッチが入り、波形を1クロックずつ睨みつける。',
+        p5t: '徹夜バレバレ',
+        p5d: '「昨日は本当に早く寝たよ？」と言い張るが、頭のてっぺんに生えた小さなツノがすべてを語っている。',
+        sec4: '代表的なセリフ',
+        q1tag: 'ドヤ顔',
+        q1text: '「ほら、タイミング通るって言ったでしょ。」',
+        q2tag: '真剣',
+        q2text: '「ちょっと待って。さっきのリセットの1クロック、波形を拡大して。」',
+        q3tag: 'いたずら',
+        q3text: '「しーっ、先輩にはまだ内緒。気づいたときの顔が見たいんだもん。」',
+        q4tag: 'ゼミ',
+        q4text: '「ここから1サイクル先を見てみよう。」',
+        sec5: '見た目・コーデ・愛用アイテム',
+        t1t: '三つ葉イチョウ前髪 & 耳下イチョウヘアピン',
+        t1d: '黒の低めサイドポニーに、V字スリット入りの三つ葉イチョウ前髪。耳下の結び目に白地なしの東大黄青イチョウ（黄4葉・青2葉）、黒ドット目と小さな八重歯が目印。',
+        t2t: '状態スイッチ · 徹夜ツノ',
+        t2d: '普段の頭頂部はまん丸だが、寝不足のときだけピンク縞の小さなツノが出現。論文読みや議論のときは暖色ブラウンの丸メガネをかけることも。',
+        t3t: 'いつものコーデ',
+        t3d: '普段はクリーム色のカーディガン＋水色シャツ＆青いネクタイ＋濃灰プリーツスカート。式典はネイビーブレザー、秋のお出かけは水色ダッフルコート＋ポシェット。',
+        t4t: '愛用アイテム',
+        prop1: 'FPGA ボード',
+        prop2: 'オシロプローブ',
+        prop3: 'マグカップ',
+        prop4: 'ノート',
+        prop5: 'レーザーポインター',
+        prop6: '茶縁丸メガネ',
+        ctaComic: '📖 毎週連載を読む · Story of 東小杏',
+        footerLeft: '11_sum · 東小杏 キャラクターファイル',
+        footerRight: 'Projects & Study へ戻る ↗'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'Dong Xiaoxing · Character Profile & Sighting File · 11_sum',
+        navBack: '← Story of Dong Xiaoxing',
+        themeDark: '🌙 Dark',
+        themeLight: '☀️ Light',
+        moodWave: 'Cheerful',
+        moodSmirk: 'Smirk',
+        moodGlasses: 'Glasses',
+        badgeFile: 'CHARACTER FILE · Profile',
+        badgeReal: '✓ Confirmed Real Person',
+        nameMain: 'Dong Xiaoxing',
+        greeting: "Hi! I'm Dong Xiaoxing!",
+        pillGender: 'Female',
+        pillDept: 'Graduate School of IST',
+        pillFood: 'Hash Brown Lover',
+        pillPlace: 'Hongo Campus',
+        sec1: 'Basic Profile',
+        kGender: 'Gender',
+        vGender: 'Female',
+        kExistence: 'Status',
+        vExistence: 'A Real Person',
+        kAffil: 'Affiliation',
+        vAffil: 'Graduate School of IST, UTokyo',
+        kAdvisor: 'Advisor',
+        vAdvisor: 'Prof. Junichiro Kadomoto',
+        kHaunts: 'Frequent Sightings',
+        vHaunts: 'Engineering Bldg. 2 / Science Bldg. 1',
+        kNameOrigin: 'Name Origin',
+        vNameOrigin: '"Dong" for UTokyo, "Xiaoxing" for her ginkgo clip',
+        kFood: 'Favorite Food',
+        vFood: 'Hash Browns',
+        kOrigin: 'Origin',
+        kPast: 'Background',
+        vUnknown: 'Unknown',
+        kMeasurements: 'Height / Weight',
+        vMeasurements: "It's very impolite to ask a girl about that!",
+        sec2: 'First-Witness Report',
+        witnessQuote: '"According to the first eyewitness — the comic\'s author (Yi Shi, a fellow graduate student in IST) — Dong Xiaoxing was simply found one day beneath a ginkgo tree on Hongo Campus."',
+        witnessMeta: 'Location: Beneath a ginkgo tree, Hongo Campus, UTokyo · Status: Seamlessly blended into lab life',
+        sec3: 'Personality Contrasts',
+        p1t: 'Bright & Cheerful',
+        p1d: 'Always smiling — spots a familiar face from afar and runs over waving her tiny mitten hands.',
+        p2t: 'Playfully Mischievous',
+        p2d: 'Hides a cheeky smirk behind her hand whenever she has a sneaky idea, letting one tiny fang peek out.',
+        p3t: 'Adorably Smug',
+        p3d: 'Cannot keep a straight face when an experiment or timing check passes, yet tries to act like she expected it all along.',
+        p4t: 'Laser-Focused Researcher',
+        p4d: 'The instant an oscilloscope probe touches an FPGA board, she goes quiet and inspects waveforms cycle by cycle.',
+        p5t: 'In-Denial Night Owl',
+        p5d: 'Insists "I went to bed super early last night," while the little striped horn on her head gives her away immediately.',
+        sec4: 'Signature Lines',
+        q1tag: 'Smug',
+        q1text: '"Told you it would meet timing."',
+        q2tag: 'Focused',
+        q2text: '"Hold on. Zoom in on the waveform right at that reset cycle."',
+        q3tag: 'Mischievous',
+        q3text: '"Shhh, don\'t tell senpai yet — I want to see his face when he notices."',
+        q4tag: 'Lab Meeting',
+        q4text: '"Let\'s look one clock cycle forward from here."',
+        sec5: 'Appearance, Outfits & Gear',
+        t1t: '3-Lobed Ginkgo Bangs & Double Ginkgo Clip',
+        t1d: 'Charcoal-black low side ponytail with 3-lobed ginkgo bangs; clipped below the ear is a frameless yellow-and-blue UTokyo double ginkgo (4 yellow lobes, 2 blue lobes), paired with dot eyes, pink blush, and a tiny fang.',
+        t2t: 'State Switch · Sleep-Deprivation Horn',
+        t2d: 'Smooth rounded head normally — a tiny peach-and-cream striped horn sprouts ONLY when she stays up late. Occasionally wears warm-brown thin round glasses for serious study.',
+        t3t: 'Wardrobe',
+        t3d: 'Daily cream cardigan, sky-blue shirt, blue tie, and dark gray pleated skirt; switches to a navy blazer for formal events, or a light-blue duffle coat with a mini crossbody bag in autumn.',
+        t4t: 'Signature Gear',
+        prop1: 'FPGA Board',
+        prop2: 'Scope Probe',
+        prop3: 'Coffee Mug',
+        prop4: 'Notebook',
+        prop5: 'Slide Clicker',
+        prop6: 'Round Glasses',
+        ctaComic: '📖 Read Weekly Comic · Story of Dong Xiaoxing',
+        footerLeft: '11_sum · Dong Xiaoxing Profile',
+        footerRight: 'Back to Projects & Study ↗'
+      }
+    };
+
+    let currentLang = 'zh';
+    try {
+      const saved = localStorage.getItem('dx_lang');
+      if (saved && I18N[saved]) currentLang = saved;
+    } catch {}
+
     const themeBtn = document.getElementById('theme-toggle');
     function syncTheme() {
       const dark = document.documentElement.classList.contains('dark-mode');
-      themeBtn.textContent = dark ? '☀️ 日间' : '🌙 夜间';
+      const dict = I18N[currentLang];
+      themeBtn.textContent = dark ? dict.themeLight : dict.themeDark;
       themeBtn.setAttribute('aria-pressed', String(dark));
     }
     themeBtn.addEventListener('click', () => {
@@ -888,9 +1154,30 @@
       } catch {}
       syncTheme();
     });
-    syncTheme();
 
-    // Interactive portrait mood switcher
+    function applyLang(lang) {
+      if (!I18N[lang]) return;
+      currentLang = lang;
+      const dict = I18N[lang];
+      document.documentElement.lang = dict.htmlLang;
+      document.title = dict.pageTitle;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      try { localStorage.setItem('dx_lang', lang); } catch {}
+      syncTheme();
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    applyLang(currentLang);
+
+    // Interactive portrait switcher
     const frame = document.getElementById('portrait-frame');
     const img = document.getElementById('portrait-img');
     document.querySelectorAll('.mood-btn').forEach(btn => {

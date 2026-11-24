@@ -15,7 +15,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
   <script>try{if(localStorage.getItem('theme')==='dark-mode')document.documentElement.classList.add('dark-mode')}catch{}</script>
   <style>
     :root {
@@ -37,7 +37,7 @@
       --shadow-hard: 5px 5px 0 #2b211e;
       --shadow-gold: 6px 6px 0 #f5bc18;
       --shadow-soft: 0 12px 28px rgba(43, 33, 30, 0.08);
-      font-family: 'Noto Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+      font-family: 'Noto Sans SC', 'Noto Sans JP', 'Hiragino Sans', 'Microsoft YaHei', system-ui, sans-serif;
     }
 
     :root.dark-mode {
@@ -95,14 +95,15 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 9px;
       text-decoration: none;
-      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      font-family: 'Fredoka', 'Noto Sans SC', 'Noto Sans JP', sans-serif;
       font-weight: 700;
       font-size: 1.15rem;
       letter-spacing: -0.02em;
@@ -120,6 +121,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
     .nav-btn {
       display: inline-flex;
@@ -144,6 +146,30 @@
     .nav-btn:active {
       transform: translate(1px, 1px);
       box-shadow: 1px 1px 0 var(--border);
+    }
+    .lang-switch {
+      display: inline-flex;
+      padding: 3px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      box-shadow: 2px 2px 0 var(--border);
+      gap: 2px;
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--muted);
+      transition: all 0.16s ease;
+    }
+    .lang-btn:hover { color: var(--ink); }
+    .lang-btn.active {
+      background: var(--utokyo-blue);
+      color: #ffffff;
     }
     .reading-line {
       height: 3.5px;
@@ -766,8 +792,13 @@
         <span>11_sum.</span>
       </a>
       <div class="bar-actions">
-        <a class="nav-btn" href="dong-xiaoxing-profile.html">角色介绍</a>
+        <a class="nav-btn" href="dong-xiaoxing-profile.html" data-i18n="navProfile">角色介绍</a>
         <a class="nav-btn" href="./#projects">← Projects &amp; Study</a>
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+          <button type="button" class="lang-btn active" data-lang="zh">中</button>
+          <button type="button" class="lang-btn" data-lang="ja">日</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+        </div>
         <button type="button" class="nav-btn" id="theme-toggle" aria-pressed="false">🌙 夜间</button>
       </div>
     </div>
@@ -795,10 +826,10 @@
           <span class="comic-badge blue">UTokyo · 本郷キャンパス</span>
         </div>
         <h1><span class="title-accent" id="series-title">Story of 东小杏</span></h1>
-        <div class="speech-bubble" id="series-quote">你好，我叫东小杏！</div>
-        <p class="hero-sub" id="series-subtitle">東小杏の日常四コマ · 东京大学本乡校区周更连载</p>
+        <div class="speech-bubble" id="series-quote" data-i18n="greeting">你好，我叫东小杏！</div>
+        <p class="hero-sub" id="series-subtitle" data-i18n="subtitle">東小杏の日常四コマ · 东京大学本乡校区周更连载</p>
         <div style="margin-top:14px;">
-          <a class="nav-btn" href="dong-xiaoxing-profile.html" style="background:var(--utokyo-pale);">📋 查看东小杏角色档案 →</a>
+          <a class="nav-btn" href="dong-xiaoxing-profile.html" style="background:var(--utokyo-pale);" data-i18n="profileCta">📋 查看东小杏角色档案 →</a>
         </div>
       </div>
     </section>
@@ -806,9 +837,9 @@
     <section class="toolbar" aria-label="章节与阅读模式">
       <div class="episode-tabs" id="episode-tabs"></div>
       <div class="mode-group" role="group" aria-label="阅读模式切换">
-        <button type="button" class="mode-btn active" data-mode="scroll">竖向连读</button>
-        <button type="button" class="mode-btn" data-mode="book">单页翻书</button>
-        <button type="button" class="mode-btn" data-mode="grid">三页并排</button>
+        <button type="button" class="mode-btn active" data-mode="scroll" data-i18n="modeScroll">竖向连读</button>
+        <button type="button" class="mode-btn" data-mode="book" data-i18n="modeBook">单页翻书</button>
+        <button type="button" class="mode-btn" data-mode="grid" data-i18n="modeGrid">三页并排</button>
       </div>
     </section>
 
@@ -818,8 +849,8 @@
       <div class="next-left">
         <img src="images/dong-xiaoxing/mascot-ginkgo.png" alt="捧着银杏叶的东小杏">
         <div>
-          <h3>下周继续更新 · Next Episode</h3>
-          <p id="next-hint">EP.02 正在绘制构思中，下周见！</p>
+          <h3 data-i18n="nextTitle">下周继续更新 · Next Episode</h3>
+          <p id="next-hint" data-i18n="nextHint">EP.02 正在绘制构思中，下周见！</p>
         </div>
       </div>
       <span class="next-pill">Weekly 4-Koma</span>
@@ -830,8 +861,8 @@
     </div>
 
     <footer class="footer">
-      <span>11_sum · Story of 东小杏</span>
-      <a href="./#projects">返回 Projects &amp; Study ↗</a>
+      <span data-i18n="footerLeft">11_sum · Story of 东小杏</span>
+      <a href="./#projects" data-i18n="footerRight">返回 Projects &amp; Study ↗</a>
     </footer>
   </main>
 
@@ -846,11 +877,93 @@
   </div>
 
   <script>
+    const STORY_I18N = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: 'Story of 东小杏 · 周更四格漫画 · 11_sum',
+        navProfile: '角色介绍',
+        themeDark: '🌙 夜间',
+        themeLight: '☀️ 日间',
+        schedule: 'Weekly · 每周更新',
+        title: 'Story of 东小杏',
+        greeting: '你好，我叫东小杏！',
+        subtitle: '東小杏の日常四コマ · 东京大学本乡校区周更连载',
+        profileCta: '📋 查看东小杏角色档案 →',
+        modeScroll: '竖向连读',
+        modeBook: '单页翻书',
+        modeGrid: '三页并排',
+        nextTitle: '下周继续更新 · Next Episode',
+        nextHint: 'EP.02 正在绘制构思中，下周见！',
+        cheer: '给这一话撒银杏叶',
+        prevPage: '◀ 上一页',
+        nextPage: '下一页 ▶',
+        upcomingPill: '下周预告',
+        footerLeft: '11_sum · Story of 东小杏',
+        footerRight: '返回 Projects & Study ↗',
+        loadError: '连载加载失败，请刷新重试。'
+      },
+      ja: {
+        htmlLang: 'ja',
+        pageTitle: 'Story of 東小杏 · 毎週四コマ漫画 · 11_sum',
+        navProfile: 'キャラ紹介',
+        themeDark: '🌙 ダーク',
+        themeLight: '☀️ ライト',
+        schedule: 'Weekly · 毎週更新',
+        title: 'Story of 東小杏',
+        greeting: 'こんにちは、東小杏です！',
+        subtitle: '東小杏の日常四コマ · 東京大学本郷キャンパス毎週連載',
+        profileCta: '📋 東小杏のプロフィールを見る →',
+        modeScroll: '縦スクロール',
+        modeBook: '1ページめくり',
+        modeGrid: '3ページ一覧',
+        nextTitle: '来週も更新 · Next Episode',
+        nextHint: 'EP.02 制作中、また来週！',
+        cheer: 'イチョウを贈る',
+        prevPage: '◀ 前のページ',
+        nextPage: '次のページ ▶',
+        upcomingPill: '次回予告',
+        footerLeft: '11_sum · Story of 東小杏',
+        footerRight: 'Projects & Study へ戻る ↗',
+        loadError: 'エピソードの読み込みに失敗しました。再読み込みしてください。'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'Story of Dong Xiaoxing · Weekly 4-Koma · 11_sum',
+        navProfile: 'Profile',
+        themeDark: '🌙 Dark',
+        themeLight: '☀️ Light',
+        schedule: 'Weekly · New Episode Every Week',
+        title: 'Story of Dong Xiaoxing',
+        greeting: "Hi! I'm Dong Xiaoxing!",
+        subtitle: 'Weekly 4-Koma Manga · Hongo Campus, UTokyo',
+        profileCta: '📋 View Character Profile →',
+        modeScroll: 'Vertical',
+        modeBook: 'Flip Book',
+        modeGrid: '3-Up Grid',
+        nextTitle: 'Next Episode Coming Soon',
+        nextHint: 'EP.02 is in the works — see you next week!',
+        cheer: 'Toss a Ginkgo Leaf',
+        prevPage: '◀ Prev',
+        nextPage: 'Next ▶',
+        upcomingPill: 'Next Week',
+        footerLeft: '11_sum · Story of Dong Xiaoxing',
+        footerRight: 'Back to Projects & Study ↗',
+        loadError: 'Failed to load episodes. Please refresh.'
+      }
+    };
+
+    let currentLang = 'zh';
+    try {
+      const saved = localStorage.getItem('dx_lang');
+      if (saved && STORY_I18N[saved]) currentLang = saved;
+    } catch {}
+
     // Sync theme with homepage ('theme' = 'dark-mode' | 'light-mode')
     const themeBtn = document.getElementById('theme-toggle');
     function syncTheme() {
       const dark = document.documentElement.classList.contains('dark-mode');
-      themeBtn.textContent = dark ? '☀️ 日间' : '🌙 夜间';
+      const d = STORY_I18N[currentLang];
+      themeBtn.textContent = dark ? d.themeLight : d.themeDark;
       themeBtn.setAttribute('aria-pressed', String(dark));
     }
     themeBtn.addEventListener('click', () => {
@@ -860,7 +973,36 @@
       } catch {}
       syncTheme();
     });
-    syncTheme();
+
+    function applyStoryLang(lang) {
+      if (!STORY_I18N[lang]) return;
+      currentLang = lang;
+      const d = STORY_I18N[lang];
+      document.documentElement.lang = d.htmlLang;
+      document.title = d.pageTitle;
+      document.getElementById('series-schedule').textContent = d.schedule;
+      document.getElementById('series-title').textContent = d.title;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.dataset.i18n;
+        if (d[k] !== undefined) el.textContent = d[k];
+      });
+      document.querySelectorAll('.ep-title-sub').forEach(el => {
+        const txt = lang === 'en' ? (el.dataset.en || '') : (lang === 'zh' ? (el.dataset.zh || '') : '');
+        el.textContent = txt;
+        el.style.display = txt ? '' : 'none';
+      });
+      document.querySelectorAll('.cheer-label').forEach(el => { el.textContent = d.cheer; });
+      document.querySelectorAll('.book-prev').forEach(el => { el.textContent = d.prevPage; });
+      document.querySelectorAll('.book-next').forEach(el => { el.textContent = d.nextPage; });
+      document.querySelectorAll('.upcoming-label').forEach(el => { el.textContent = d.upcomingPill; });
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      try { localStorage.setItem('dx_lang', lang); } catch {}
+      syncTheme();
+    }
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.addEventListener('click', () => applyStoryLang(b.dataset.lang));
+    });
+    applyStoryLang(currentLang);
 
     // Reading progress bar
     const readingLine = document.getElementById('reading-line');
@@ -943,15 +1085,12 @@
     });
 
     // Load weekly episodes JSON
-    fetch('dong-xiaoxing-stories.json?v=20261124-ep01-v4')
+    fetch('dong-xiaoxing-stories.json?v=20261125-ep01-v5')
       .then(r => r.json())
       .then(data => {
         if (data.series) {
-          document.getElementById('series-title').textContent = data.series.title;
-          document.getElementById('series-subtitle').textContent = data.series.subtitle;
-          document.getElementById('series-schedule').textContent = data.series.schedule;
-          document.getElementById('series-quote').textContent = data.series.quote.replace(/^[「『]|[」』]$/g, '');
-          if (data.series.next_episode_hint) document.getElementById('next-hint').textContent = data.series.next_episode_hint;
+          // Preserve current selected language on top of JSON defaults
+          applyStoryLang(currentLang);
         }
 
         const tabs = document.getElementById('episode-tabs');
@@ -979,7 +1118,7 @@
               <div class="ep-title-wrap">
                 <span class="ep-num-chip">${ep.number}</span>
                 <h2 class="ep-title">${ep.title}</h2>
-                ${ep.title_zh ? `<span class="ep-title-sub">${ep.title_zh}</span>` : ''}
+                ${(ep.title_zh || ep.title_en) ? `<span class="ep-title-sub" data-zh="${ep.title_zh || ''}" data-en="${ep.title_en || ''}">${ep.title_zh || ''}</span>` : ''}
               </div>
               <div class="ep-meta">
                 ${tagsHtml}
@@ -994,7 +1133,7 @@
             </div>
             <div class="cheer-bar">
               <button type="button" class="cheer-btn">
-                <span>给这一话撒银杏叶</span>
+                <span class="cheer-label">给这一话撒银杏叶</span>
                 <span class="cheer-count">0</span>
               </button>
             </div>
@@ -1066,12 +1205,13 @@
         const nextNum = 'EP.' + String(data.episodes.length + 1).padStart(2, '0');
         const up = document.createElement('span');
         up.className = 'ep-pill upcoming';
-        up.textContent = `${nextNum} · 下周预告`;
+        up.innerHTML = `${nextNum} · <span class="upcoming-label">下周预告</span>`;
         tabs.appendChild(up);
+        applyStoryLang(currentLang);
       })
       .catch(err => {
         document.getElementById('episodes-container').innerHTML =
-          '<p style="color:var(--muted);text-align:center">连载加载失败，请刷新重试。</p>';
+          `<p style="color:var(--muted);text-align:center">${STORY_I18N[currentLang].loadError}</p>`;
         console.error(err);
       });
   </script>
