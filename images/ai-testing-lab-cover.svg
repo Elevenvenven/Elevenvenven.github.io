@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">AI Testing 交互实验室</title>
+  <desc id="desc">DeepGauge 神经元边界覆盖率与 DeepHunter 覆盖率引导模糊测试交互实验室封面</desc>
+  <defs>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#dceae5" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="680" fill="#edf5f1"/>
+  <rect width="1200" height="680" fill="url(#grid)"/>
+  <rect x="74" y="67" width="1052" height="546" rx="14" fill="#ffffff" stroke="#cbdfd7" stroke-width="2"/>
+  <path stroke="#087c75" stroke-width="5" d="M118 122h60"/>
+  <text x="196" y="130" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700" letter-spacing="4" fill="#087c75">UTOKYO · TRUSTWORTHY AI · INTERACTIVE LAB</text>
+
+  <text x="118" y="232" font-family="'Noto Sans SC','Microsoft YaHei',Inter,sans-serif" font-size="68" font-weight="800" fill="#102f2c">AI Testing 交互实验室</text>
+  <text x="120" y="286" font-family="'Noto Sans SC','Microsoft YaHei',Inter,sans-serif" font-size="27" fill="#536b66">DeepGauge 神经元边界覆盖率 × DeepHunter 蜕变变异与模糊测试</text>
+
+  <!-- Visual diagram panel -->
+  <rect x="118" y="334" width="964" height="202" rx="12" fill="#f5faf8" stroke="#d4e4df" stroke-width="1.5"/>
+
+  <!-- Left: NBC Neuron Boundary Track -->
+  <text x="150" y="372" font-family="Consolas,monospace" font-size="17" font-weight="700" fill="#087c75">DEEPGAUGE · NBCov(T)</text>
+  <rect x="150" y="394" width="416" height="40" rx="20" fill="#ffffff" stroke="#cbdfd7" stroke-width="1.5"/>
+  <!-- Lower corner -->
+  <rect x="152" y="396" width="84" height="36" rx="18" fill="#ece7fb"/>
+  <!-- Major function region -->
+  <rect x="244" y="396" width="228" height="36" fill="#e1f3ef"/>
+  <!-- Upper corner -->
+  <rect x="480" y="396" width="84" height="36" rx="18" fill="#fcefd6"/>
+  <!-- Boundary markers -->
+  <line x1="244" y1="388" x2="244" y2="440" stroke="#6d54c4" stroke-width="2.5"/>
+  <line x1="472" y1="388" x2="472" y2="440" stroke="#c27a0e" stroke-width="2.5"/>
+  <!-- Sample dots -->
+  <circle cx="192" cy="414" r="9" fill="#6d54c4"/>
+  <circle cx="318" cy="414" r="7" fill="#087c75" opacity="0.65"/>
+  <circle cx="394" cy="414" r="7" fill="#087c75" opacity="0.65"/>
+  <circle cx="524" cy="414" r="9" fill="#c27a0e"/>
+  <text x="192" y="468" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#6d54c4">LowerCorner</text>
+  <text x="358" y="468" text-anchor="middle" font-family="Consolas,monospace" font-size="14" fill="#536b66">[low_n, high_n]</text>
+  <text x="524" y="468" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#c27a0e">UpperCorner</text>
+  <text x="150" y="508" font-family="Consolas,monospace" font-size="16" fill="#102f2c">4,694 neurons · LeNet-5</text>
+
+  <!-- Arrow bridge -->
+  <path d="M594 434h46" stroke="#087c75" stroke-width="3" stroke-dasharray="6 4"/>
+  <polygon points="648,434 636,426 636,442" fill="#087c75"/>
+
+  <!-- Right: DeepHunter Fuzzing Loop -->
+  <text x="676" y="372" font-family="Consolas,monospace" font-size="17" font-weight="700" fill="#087c75">DEEPHUNTER · FUZZ LOOP</text>
+  <rect x="676" y="394" width="112" height="54" rx="10" fill="#e1f3ef" stroke="#087c75" stroke-width="1.5"/>
+  <text x="732" y="418" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#087c75">Queue Q</text>
+  <text x="732" y="438" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" fill="#536b66">种子池</text>
+
+  <path d="M788 421h24" stroke="#536b66" stroke-width="2"/>
+  <polygon points="818,421 809,415 809,427" fill="#536b66"/>
+
+  <rect x="818" y="394" width="112" height="54" rx="10" fill="#ffffff" stroke="#087c75" stroke-width="1.5"/>
+  <text x="874" y="418" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#102f2c">Alg 2</text>
+  <text x="874" y="438" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" fill="#536b66">蜕变变异</text>
+
+  <path d="M930 421h22" stroke="#536b66" stroke-width="2"/>
+  <polygon points="958,421 949,415 949,427" fill="#536b66"/>
+
+  <rect x="958" y="394" width="96" height="54" rx="10" fill="#087c75"/>
+  <text x="1006" y="418" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#ffffff">DNN</text>
+  <text x="1006" y="438" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#d9f5ef">+NBC / F</text>
+
+  <!-- Feedback arc back to Queue Q -->
+  <path d="M1006 448v34H732v-28" fill="none" stroke="#087c75" stroke-width="2.2"/>
+  <polygon points="732,448 726,458 738,458" fill="#087c75"/>
+  <text x="869" y="508" text-anchor="middle" font-family="Consolas,monospace" font-size="14" fill="#087c75">isCoverageGain(cov) → Q.append(s')</text>
+
+  <!-- Signature -->
+  <g transform="translate(972,562)">
+    <rect x="0" y="10" width="3.5" height="11" rx="1" fill="#087c75"/>
+    <rect x="6" y="0" width="3.5" height="21" rx="1" fill="#087c75"/>
+    <rect x="12" y="6" width="3.5" height="15" rx="1" fill="#087c75"/>
+    <rect x="18" y="12" width="3.5" height="9" rx="1" fill="#087c75"/>
+    <text x="30" y="19" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="800" fill="#102f2c">11_sum</text>
+  </g>
+</svg>

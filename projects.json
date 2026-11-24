@@ -1,5 +1,30 @@
 [
   {
+    "image": "images/ai-testing-lab-cover.svg",
+    "title": "AI Testing 交互实验室",
+    "category": "Interactive",
+    "description": "东京大学 Trustworthy AI 课程交互演示：对比传统规则与 LeNet-5 激活模式，动手玩 DeepGauge 神经元边界覆盖率（NBC）、DeepHunter 8 种蜕变变异与覆盖率引导模糊测试闭环。",
+    "link": "ai-testing-lab.html",
+    "card_label": "Open Lab →",
+    "detail_label": "Open interactive lab →",
+    "tech_stack": [
+      "DeepGauge",
+      "DeepHunter",
+      "AI Testing",
+      "PyTorch",
+      "LeNet-5",
+      "Interactive Lab"
+    ],
+    "features": [
+      "传统像素阈值规则 vs LeNet-5 激活模式交互对照（支持手绘与亮度偏移）",
+      "DeepGauge 神经元边界覆盖率（NBC / SNAC / KMNC）与 Pre/Post-ReLU 实时实验",
+      "完整复刻 DeepHunter Algorithm 2 与 all_utils.py 的 8 种图像蜕变变异算子",
+      "L₀ / L∞ 双阈值与单次仿射上限（has_Affine）实时校验和连续变异轨迹",
+      "DeepHunter Algorithm 1 覆盖率引导 vs 纯随机模糊测试闭环动态对比曲线",
+      "收录两篇论文实测数据全景与核心术语速查表"
+    ]
+  },
+  {
     "image": "images/fpga-fault-recovery-cover.png",
     "title": "FPGA 自愈实验",
     "category": "Research",
