@@ -628,6 +628,37 @@
       white-space: nowrap;
     }
 
+    /* Donate CTA Bar */
+    .donate-cta {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+    }
+    .donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 26px;
+      border-radius: 999px;
+      border: 2.5px solid var(--border);
+      background: linear-gradient(135deg, #ffe27a, #f5bc18);
+      color: #2b211e;
+      font-size: 0.96rem;
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow: 4px 4px 0 var(--border);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.2s;
+    }
+    .donate-btn:hover {
+      transform: translate(-1px, -2px);
+      box-shadow: 5px 6px 0 var(--border);
+      filter: brightness(1.03);
+    }
+    .donate-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--border);
+    }
+
     /* Footer */
     .footer {
       margin-top: 44px;
@@ -789,6 +820,10 @@
       </div>
       <span class="next-pill">Weekly 4-Koma</span>
     </section>
+
+    <div class="donate-cta">
+      <a class="donate-btn" href="./#donate">☕ 请东小杏喝杯咖啡 · Donate →</a>
+    </div>
 
     <footer class="footer">
       <span>11_sum · Story of 东小杏</span>
