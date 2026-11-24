@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Testing 交互实验室 | 11_sum</title>
-  <meta name="description" content="东京大学 Trustworthy AI 课程交互演示：动手体验传统软件 vs AI 模型差异、DeepGauge 神经元边界覆盖率（NBC）、DeepHunter 蜕变变异与覆盖率引导模糊测试。" />
+  <title>AI Testing 通俗交互实验室 | 11_sum</title>
+  <meta name="description" content="用生活化比喻和可动手实验，通俗讲懂 AI 模型测试：传统代码覆盖率为什么失灵、DeepGauge 神经元体温区间（NBC）、DeepHunter 换马甲变异与覆盖率引导刷题闭环。" />
   <link rel="canonical" href="https://elevenvenven.github.io/ai-testing-lab.html" />
-  <meta property="og:title" content="AI Testing 交互实验室 | 11_sum" />
-  <meta property="og:description" content="动手体验 DeepGauge 神经元覆盖率、DeepHunter 蜕变变异与覆盖率引导模糊测试闭环。" />
+  <meta property="og:title" content="AI Testing 通俗交互实验室 | 11_sum" />
+  <meta property="og:description" content="用“神经元体温计 + 驾校教练出题机”的比喻，动手玩懂 DeepGauge 与 DeepHunter。" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://elevenvenven.github.io/ai-testing-lab.html" />
   <meta property="og:image" content="https://elevenvenven.github.io/images/ai-testing-lab-cover.svg" />
@@ -38,6 +38,7 @@
       --shadow: rgba(18, 64, 58, 0.08);
       --code-bg: #0f1f22;
       --code-text: #d7ebe7;
+      --inline-bg: rgba(8, 124, 117, 0.09);
       --amber: #c27a0e;
       --amber-bg: #fcefd6;
       --violet: #6d54c4;
@@ -67,6 +68,7 @@
       --shadow: rgba(0, 10, 12, 0.34);
       --code-bg: #091418;
       --code-text: #d7ebe7;
+      --inline-bg: rgba(43, 211, 174, 0.12);
       --amber: #f0b44a;
       --amber-bg: #3a2d14;
       --violet: #a995f0;
@@ -90,7 +92,7 @@
         radial-gradient(circle at 10% 6%, rgba(8, 124, 117, 0.09), transparent 34rem),
         radial-gradient(circle at 90% 14%, rgba(40, 126, 155, 0.09), transparent 30rem),
         linear-gradient(180deg, var(--bg), var(--bg));
-      line-height: 1.72;
+      line-height: 1.78;
       -webkit-font-smoothing: antialiased;
       transition: background-color 0.25s ease, color 0.25s ease;
     }
@@ -105,12 +107,20 @@
     a { color: var(--accent); text-underline-offset: 4px; }
     button, input, select { font: inherit; }
     button { cursor: pointer; }
-    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
       outline: 2.5px solid var(--accent);
       outline-offset: 3px;
     }
+    :not(pre) > code {
+      font-family: var(--font-mono);
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: var(--inline-bg);
+      color: var(--ink);
+      font-size: 0.87em;
+    }
 
-    /* ---- Top Navbar (exact 11_sum / cuda_intro.html format) ---- */
+    /* ---- Top Navbar (11_sum unified header) ---- */
     .navbar {
       position: sticky;
       top: 0;
@@ -169,7 +179,6 @@
       color: var(--ink);
       font-size: 1.2rem;
       font-weight: 800;
-      letter-spacing: 0;
       line-height: 1;
       transition: color 0.25s ease;
     }
@@ -202,7 +211,7 @@
       display: inline-grid;
       place-items: center;
       cursor: pointer;
-      transition: color 0.25s ease, transform 0.25s ease, background 0.2s ease;
+      transition: color 0.25s ease, transform 0.2s ease, background 0.2s ease;
     }
     #theme-toggle:hover { background: var(--wash); transform: scale(1.08); }
 
@@ -224,12 +233,74 @@
       transition: width 0.08s linear;
     }
 
-    /* ---- Story Head & Pill TOC (cuda_intro.html style) ---- */
+    /* ---- Main Container ---- */
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    /* ---- Hero & TOC ---- */
+    .hero {
+      padding: clamp(38px, 6vw, 68px) 0 24px;
+    }
+
+    .hero-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: clamp(26px, 4.5vw, 46px);
+      box-shadow: 0 18px 50px var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 4.8vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.16;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+    .hero h1 .sub {
+      display: block;
+      margin-top: 8px;
+      font-size: clamp(1.02rem, 2vw, 1.38rem);
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 820px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+
     .toc-pills {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 22px 0 24px;
+      margin: 18px 0 22px;
     }
     .toc-pills a {
       padding: 6px 14px;
@@ -248,113 +319,152 @@
       background: var(--wash);
     }
 
-    /* ---- Layout Containers ---- */
-    .wrap {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 22px;
+    /* 3-step big picture strip */
+    .story-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
     }
-
-    /* ---- Hero ---- */
-    .hero {
-      padding: clamp(44px, 7vw, 76px) 0 32px;
-    }
-
-    .hero-card {
-      position: relative;
-      overflow: hidden;
-      background: var(--paper);
+    .story-card {
+      padding: 16px 18px;
+      border-radius: 14px;
       border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: clamp(26px, 4.5vw, 48px);
-      box-shadow: 0 18px 50px var(--shadow);
+      background: var(--slot);
     }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+    .story-card .step-pill {
+      display: inline-block;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.73rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 16px;
+      background: var(--wash);
+      padding: 2px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
     }
-    .eyebrow::before {
-      content: "";
-      width: 26px;
-      height: 2px;
-      background: var(--accent);
+    .story-card h3 {
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
-
-    .hero h1 {
-      font-size: clamp(2.1rem, 4.6vw, 3.6rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.035em;
-      margin-bottom: 14px;
-    }
-
-    .hero h1 .sub {
-      display: block;
-      margin-top: 8px;
-      font-size: clamp(1.05rem, 2vw, 1.45rem);
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: -0.01em;
-    }
-
-    .hero-lead {
-      max-width: 780px;
-      font-size: 1.04rem;
+    .story-card p {
+      font-size: 0.88rem;
       color: var(--muted);
-      line-height: 1.85;
-      margin-bottom: 24px;
+      line-height: 1.65;
     }
 
-    .hero-actions {
+    /* ---- Signature 11_sum Callouts (cuda_intro.html style) ---- */
+    .analogy, .plain-talk, .tip, .warn {
+      margin: 16px 0;
+      padding: 15px 19px;
+      border: 1px solid var(--line);
+      border-left-width: 4px;
+      border-radius: 0 13px 13px 0;
+      background: var(--slot);
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.78;
+    }
+    .analogy strong, .plain-talk strong, .tip strong, .warn strong { color: var(--ink); }
+    .analogy p + p, .plain-talk p + p { margin-top: 6px; }
+    .analogy { border-left-color: var(--accent); }
+    .plain-talk { border-left-color: var(--blue); }
+    .tip { border-left-color: var(--amber); background: color-mix(in srgb, var(--amber-bg) 35%, var(--paper)); }
+    .warn { border-left-color: var(--red); background: color-mix(in srgb, var(--red-bg) 32%, var(--paper)); }
+    .analogy::before, .plain-talk::before, .tip::before, .warn::before {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 800;
+      font-size: 0.83rem;
+      letter-spacing: 0.03em;
+    }
+    .analogy::before { content: "🏫 生活类比"; color: var(--accent); }
+    .plain-talk::before { content: "💬 大白话"; color: var(--blue); }
+    .tip::before { content: "💡 一句话记住"; color: var(--amber); }
+    .warn::before { content: "⚠️ 容易踩的坑"; color: var(--red); }
+
+    /* Try-this guide bar */
+    .try-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 30px;
+      align-items: center;
+      gap: 8px 16px;
+      padding: 11px 15px;
+      margin: 14px 0 18px;
+      border-radius: 11px;
+      background: var(--wash);
+      border: 1px dashed var(--accent);
+      font-size: 0.88rem;
+      color: var(--ink);
+    }
+    .try-bar b {
+      color: var(--accent);
+      font-weight: 800;
     }
 
+    /* Collapsible deep-dive (keeps page clean for beginners) */
+    details.deep-dive {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--slot);
+      overflow: hidden;
+    }
+    details.deep-dive summary {
+      padding: 12px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--accent);
+      list-style: none;
+      user-select: none;
+    }
+    details.deep-dive summary::-webkit-details-marker { display: none; }
+    details.deep-dive summary::before {
+      content: "▶";
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 0.72rem;
+      transition: transform 0.2s ease;
+    }
+    details.deep-dive[open] summary::before { transform: rotate(90deg); }
+    details.deep-dive .dd-body {
+      padding: 12px 16px 14px;
+      border-top: 1px solid var(--line);
+      font-size: 0.87rem;
+      color: var(--muted);
+    }
+
+    /* ---- Buttons & Badges ---- */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
-      min-height: 40px;
-      padding: 8px 16px;
+      gap: 6px;
+      min-height: 39px;
+      padding: 7px 14px;
       border-radius: 10px;
       border: 1px solid var(--line);
-      background: var(--slot);
+      background: var(--paper);
       color: var(--ink);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
       text-decoration: none;
       transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
     }
-    .btn:hover {
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
+    .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
     .btn.primary {
       background: var(--accent);
       border-color: var(--accent);
       color: #ffffff;
     }
     html.dark-mode .btn.primary { color: #06211d; }
-    .btn.primary:hover {
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
-    }
+    .btn.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
     .btn.small {
       min-height: 34px;
-      padding: 5px 12px;
-      font-size: 0.83rem;
+      padding: 5px 11px;
+      font-size: 0.82rem;
       border-radius: 8px;
     }
     .btn.active, .btn[aria-pressed="true"] {
@@ -362,48 +472,29 @@
       border-color: var(--accent);
       color: var(--accent);
     }
-    .btn:disabled {
-      opacity: 0.42;
-      cursor: not-allowed;
-      transform: none;
-    }
+    .btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; }
 
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .stat-tile {
-      padding: 15px 16px;
-      border-radius: 12px;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
       border: 1px solid var(--line);
       background: var(--slot);
-    }
-    .stat-tile strong {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: clamp(1.35rem, 2.3vw, 1.85rem);
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1.2;
-      font-variant-numeric: tabular-nums;
-    }
-    .stat-tile span {
-      display: block;
-      margin-top: 5px;
-      font-size: 0.86rem;
-      font-weight: 600;
-      color: var(--ink);
-    }
-    .stat-tile small {
-      display: block;
-      margin-top: 2px;
-      font-size: 0.77rem;
       color: var(--muted);
+      white-space: nowrap;
     }
+    .badge.teal { background: var(--wash); border-color: var(--accent); color: var(--accent); }
+    .badge.amber { background: var(--amber-bg); border-color: var(--amber); color: var(--amber); }
+    .badge.violet { background: var(--violet-bg); border-color: var(--violet); color: var(--violet); }
+    .badge.red { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+    .badge.green { background: var(--green-bg); border-color: var(--green); color: var(--green); }
 
-    /* ---- Lab Panels ---- */
+    /* ---- Section Panels ---- */
     .lab-section {
       margin-top: 26px;
       background: var(--paper);
@@ -420,8 +511,8 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 14px;
-      margin-bottom: 22px;
-      padding-bottom: 18px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
       border-bottom: 1px solid var(--line);
     }
 
@@ -430,76 +521,31 @@
       font-family: var(--font-mono);
       font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .sec-head h2 {
-      font-size: clamp(1.45rem, 2.8vw, 2rem);
+      font-size: clamp(1.45rem, 2.8vw, 1.95rem);
       font-weight: 800;
       line-height: 1.25;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
     }
 
     .sec-desc {
-      max-width: 780px;
+      max-width: 800px;
       color: var(--muted);
       font-size: 0.96rem;
       margin-top: 6px;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 600;
-      border: 1px solid var(--line);
-      background: var(--slot);
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .badge.teal { background: var(--wash); border-color: var(--accent); color: var(--accent); }
-    .badge.amber { background: var(--amber-bg); border-color: var(--amber); color: var(--amber); }
-    .badge.violet { background: var(--violet-bg); border-color: var(--violet); color: var(--violet); }
-    .badge.red { background: var(--red-bg); border-color: var(--red); color: var(--red); }
-    .badge.green { background: var(--green-bg); border-color: var(--green); color: var(--green); }
-
-    /* Callouts (11_sum cuda_intro style) */
-    .callout {
-      margin-top: 18px;
-      padding: 15px 18px;
-      border: 1px solid var(--line);
-      border-left: 4px solid var(--accent);
-      border-radius: 0 12px 12px 0;
-      background: var(--slot);
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
-    .callout strong { color: var(--ink); }
-    .callout.amber { border-left-color: var(--amber); background: color-mix(in srgb, var(--amber-bg) 42%, var(--paper)); }
-    .callout.blue { border-left-color: var(--blue); }
-    .callout-title {
-      display: block;
-      font-weight: 700;
-      font-size: 0.82rem;
-      color: var(--accent);
-      margin-bottom: 4px;
-      letter-spacing: 0.03em;
-    }
-    .callout.amber .callout-title { color: var(--amber); }
-    .callout.blue .callout-title { color: var(--blue); }
-
-    /* ---- Section 1: Traditional vs AI ---- */
+    /* ---- Section 01: Traditional vs AI ---- */
     .compare-grid {
       display: grid;
-      grid-template-columns: minmax(250px, 310px) minmax(0, 1fr);
-      gap: 20px;
+      grid-template-columns: minmax(250px, 300px) minmax(0, 1fr);
+      gap: 18px;
       align-items: start;
     }
 
@@ -507,15 +553,15 @@
       background: var(--slot);
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 18px;
+      padding: 16px;
     }
 
     .canvas-frame {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      margin: 12px 0 14px;
+      gap: 8px;
+      margin: 12px 0;
     }
 
     canvas.pixel-canvas {
@@ -524,19 +570,16 @@
       border: 1.5px solid var(--line);
       background: #090d0f;
       cursor: crosshair;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
     }
 
     .preset-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    .slider-block {
-      margin-top: 10px;
-    }
+    .slider-block { margin-top: 10px; }
     .slider-block label {
       display: flex;
       justify-content: space-between;
@@ -549,25 +592,22 @@
       font-weight: 600;
       color: var(--ink);
     }
-    .slider-block input[type="range"] {
-      width: 100%;
-      accent-color: var(--accent);
-    }
+    .slider-block input[type="range"] { width: 100%; accent-color: var(--accent); }
 
     .dual-engine {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      gap: 15px;
     }
 
     .engine-card {
       background: var(--slot);
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 18px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 11px;
     }
 
     .engine-head {
@@ -575,136 +615,93 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
+      flex-wrap: wrap;
     }
-    .engine-head h3 {
-      font-size: 1rem;
-      font-weight: 700;
-    }
+    .engine-head h3 { font-size: 0.98rem; font-weight: 700; }
 
     .code-mini {
       background: var(--code-bg);
       color: var(--code-text);
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 11px 13px;
       font-family: var(--font-mono);
       font-size: 0.78rem;
       line-height: 1.65;
       overflow-x: auto;
     }
-    .code-line {
-      display: block;
-      padding: 1px 6px;
-      border-radius: 4px;
-      transition: background 0.2s ease;
-    }
-    .code-line.hit {
-      background: rgba(43, 211, 174, 0.22);
-      color: #ffffff;
-    }
-    .code-line.hit-warn {
-      background: rgba(240, 180, 74, 0.25);
-      color: #ffe3a8;
-    }
+    .code-line { display: block; padding: 1px 6px; border-radius: 4px; }
+    .code-line.hit { background: rgba(43, 211, 174, 0.24); color: #ffffff; }
 
     .meter-bar {
-      height: 10px;
+      height: 11px;
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: 999px;
       overflow: hidden;
       position: relative;
     }
-    .meter-fill {
-      height: 100%;
-      background: var(--accent);
-      transition: width 0.2s ease, background 0.2s ease;
-    }
-    .meter-mark {
-      position: absolute;
-      top: -2px;
-      bottom: -2px;
-      width: 2px;
-      background: var(--red);
-    }
+    .meter-fill { height: 100%; background: var(--accent); transition: width 0.2s ease, background 0.2s ease; }
+    .meter-mark { position: absolute; top: -2px; bottom: -2px; width: 2.5px; background: var(--red); }
 
     .verdict-box {
       padding: 11px 13px;
       border-radius: 10px;
       border: 1px solid var(--line);
       background: var(--paper);
-      font-size: 0.86rem;
+      font-size: 0.87rem;
+      line-height: 1.55;
     }
-    .verdict-box strong {
-      font-family: var(--font-mono);
-      font-size: 0.94rem;
-    }
+    .verdict-box strong { font-size: 0.93rem; }
 
     .svg-net {
       width: 100%;
-      height: 146px;
+      height: 144px;
       display: block;
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: 10px;
     }
 
-    /* ---- Section 2: DeepGauge NBC Lab ---- */
-    .arch-strip {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-    .layer-chip {
-      background: var(--slot);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 10px 12px;
-    }
-    .layer-chip .lname {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-    .layer-chip .lshape {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-    .layer-chip .lcnt {
-      font-family: var(--font-mono);
-      font-size: 1rem;
-      font-weight: 700;
-      margin-top: 4px;
-    }
-
+    /* ---- Section 02: DeepGauge NBC Lab ---- */
     .lab-toolbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
-      padding: 14px 16px;
+      padding: 13px 15px;
       background: var(--slot);
       border: 1px solid var(--line);
       border-radius: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
+    .toolbar-group { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
 
-    .toolbar-group {
+    .legend-bar {
       display: flex;
-      align-items: center;
       flex-wrap: wrap;
-      gap: 6px;
+      align-items: center;
+      gap: 10px 18px;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      color: var(--muted);
     }
+    .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+    .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+    .swatch.violet { background: var(--violet); }
+    .swatch.wash { background: var(--wash); border: 1.5px solid var(--accent); }
+    .swatch.amber { background: var(--amber); }
 
     .metric-strip {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .metric-box {
       padding: 12px 14px;
@@ -716,22 +713,17 @@
     .metric-box.amber { border-left-color: var(--amber); }
     .metric-box.violet { border-left-color: var(--violet); }
     .metric-box.blue { border-left-color: var(--blue); }
-    .metric-box span {
-      display: block;
-      font-size: 0.77rem;
-      color: var(--muted);
-    }
+    .metric-box span { display: block; font-size: 0.78rem; color: var(--muted); }
     .metric-box strong {
       display: block;
       font-family: var(--font-mono);
-      font-size: 1.35rem;
+      font-size: 1.32rem;
       font-variant-numeric: tabular-nums;
       margin-top: 2px;
     }
     .metric-box small {
       display: block;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       color: var(--muted);
       margin-top: 2px;
     }
@@ -741,7 +733,6 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 9px;
     }
-
     .neuron-card {
       padding: 10px 11px;
       border-radius: 10px;
@@ -750,19 +741,10 @@
       cursor: pointer;
       transition: border-color 0.2s ease, transform 0.15s ease;
     }
-    .neuron-card:hover, .neuron-card.selected {
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-    .neuron-card.hit-upper {
-      box-shadow: inset 0 0 0 1px var(--amber);
-    }
-    .neuron-card.hit-lower {
-      box-shadow: inset 0 0 0 1px var(--violet);
-    }
-    .neuron-card.hit-both {
-      box-shadow: inset 0 0 0 1.5px var(--accent);
-    }
+    .neuron-card:hover, .neuron-card.selected { border-color: var(--accent); transform: translateY(-1px); }
+    .neuron-card.hit-upper { box-shadow: inset 0 0 0 1px var(--amber); }
+    .neuron-card.hit-lower { box-shadow: inset 0 0 0 1px var(--violet); }
+    .neuron-card.hit-both { box-shadow: inset 0 0 0 1.5px var(--accent); }
 
     .n-top {
       display: flex;
@@ -770,17 +752,17 @@
       justify-content: space-between;
       font-family: var(--font-mono);
       font-size: 0.73rem;
-      margin-bottom: 7px;
+      margin-bottom: 6px;
     }
     .n-id { font-weight: 700; color: var(--ink); }
     .n-flags { display: flex; gap: 3px; }
     .n-flag {
-      width: 17px;
+      padding: 0 5px;
       height: 17px;
       border-radius: 4px;
       display: inline-grid;
       place-items: center;
-      font-size: 0.66rem;
+      font-size: 0.65rem;
       font-weight: 700;
       border: 1px solid var(--line);
       color: var(--muted);
@@ -799,17 +781,15 @@
     }
     .n-major {
       position: absolute;
-      top: 0;
-      bottom: 0;
+      top: 0; bottom: 0;
       background: var(--wash);
-      border-left: 1.5px solid var(--violet);
-      border-right: 1.5px solid var(--amber);
+      border-left: 2px solid var(--violet);
+      border-right: 2px solid var(--amber);
     }
     .n-dot {
       position: absolute;
       top: 2px;
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--accent);
       transform: translateX(-50%);
@@ -828,7 +808,7 @@
     }
 
     .inspector-bar {
-      margin-top: 14px;
+      margin-top: 12px;
       padding: 12px 15px;
       border-radius: 10px;
       border: 1px solid var(--line);
@@ -838,19 +818,30 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
-      font-size: 0.85rem;
-    }
-    .inspector-bar code {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--ink);
+      font-size: 0.86rem;
     }
 
-    /* ---- Section 3: DeepHunter Metamorphic Mutation Sandbox ---- */
+    .arch-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .layer-chip {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px 10px;
+    }
+    .layer-chip .lname { font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; color: var(--accent); }
+    .layer-chip .lshape { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
+    .layer-chip .lcnt { font-family: var(--font-mono); font-size: 0.96rem; font-weight: 700; margin-top: 2px; }
+
+    /* ---- Section 03: Metamorphic Mutation Sandbox ---- */
     .mut-layout {
       display: grid;
-      grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
-      gap: 20px;
+      grid-template-columns: minmax(290px, 355px) minmax(0, 1fr);
+      gap: 18px;
       align-items: start;
     }
 
@@ -858,7 +849,7 @@
       background: var(--slot);
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 18px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -868,12 +859,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      color: var(--muted);
+      color: var(--ink);
       margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      gap: 6px;
     }
 
     .mut-btn-grid {
@@ -881,14 +871,26 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
     }
+    .mut-btn-grid .btn {
+      flex-direction: column;
+      gap: 1px;
+      padding: 6px 8px;
+      min-height: 44px;
+      font-size: 0.81rem;
+    }
+    .mut-btn-grid .btn small {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
 
     .canvas-stage {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 13px;
     }
-
     .stage-card {
       background: var(--slot);
       border: 1px solid var(--line);
@@ -898,64 +900,55 @@
     }
     .stage-card canvas {
       width: 100%;
-      max-width: 132px;
+      max-width: 128px;
       aspect-ratio: 1;
       height: auto;
-      margin: 6px auto 6px;
+      margin: 6px auto;
       display: block;
     }
-    .stage-card .sc-title {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .stage-card .sc-sub {
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
+    .stage-card .sc-title { font-size: 0.8rem; font-weight: 700; color: var(--ink); }
+    .stage-card .sc-sub { font-size: 0.72rem; color: var(--muted); }
 
     .eq-panel {
       background: var(--slot);
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 14px 16px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-
+    .eq-plain {
+      margin-top: 8px;
+      padding: 9px 12px;
+      border-radius: 9px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      font-size: 0.86rem;
+      color: var(--ink);
+    }
     .eq-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
+      gap: 9px;
       margin-top: 10px;
     }
     .eq-cell {
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: 9px;
-      padding: 9px 11px;
+      padding: 8px 11px;
     }
-    .eq-cell span {
-      display: block;
-      font-size: 0.73rem;
-      color: var(--muted);
-    }
-    .eq-cell strong {
-      display: block;
-      margin-top: 2px;
-      font-family: var(--font-mono);
-      font-size: 1.02rem;
-    }
+    .eq-cell span { display: block; font-size: 0.74rem; color: var(--muted); }
+    .eq-cell strong { display: block; margin-top: 2px; font-family: var(--font-mono); font-size: 1rem; }
 
     .trace-log {
       background: var(--code-bg);
       color: var(--code-text);
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 11px 13px;
       font-family: var(--font-mono);
       font-size: 0.75rem;
       line-height: 1.6;
-      max-height: 130px;
+      max-height: 120px;
       overflow-y: auto;
     }
     .trace-ok { color: #67e8c6; }
@@ -966,7 +959,7 @@
       align-items: center;
       gap: 8px;
       overflow-x: auto;
-      padding: 10px 2px 4px;
+      padding: 8px 2px 4px;
     }
     .trail-item {
       flex: 0 0 auto;
@@ -977,31 +970,16 @@
       text-align: center;
       min-width: 78px;
     }
-    .trail-item canvas {
-      display: block;
-      margin: 0 auto 4px;
-      image-rendering: pixelated;
-      border-radius: 5px;
-      background: #090d0f;
-    }
-    .trail-item small {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.67rem;
-      color: var(--muted);
-    }
-    .trail-arrow {
-      color: var(--accent);
-      font-family: var(--font-mono);
-      font-weight: 700;
-    }
+    .trail-item canvas { display: block; margin: 0 auto 4px; image-rendering: pixelated; border-radius: 5px; background: #090d0f; }
+    .trail-item small { display: block; font-size: 0.69rem; color: var(--muted); }
+    .trail-arrow { color: var(--accent); font-family: var(--font-mono); font-weight: 700; }
 
-    /* ---- Section 4: Algorithm 1 Fuzzing Loop ---- */
+    /* ---- Section 04: Algorithm 1 Loop ---- */
     .loop-diagram {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .loop-node {
       background: var(--slot);
@@ -1010,50 +988,23 @@
       padding: 11px 12px;
       transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
     }
-    .loop-node.lit {
-      border-color: var(--accent);
-      background: var(--wash);
-      transform: translateY(-2px);
-    }
-    .loop-node strong {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--accent);
-    }
-    .loop-node span {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 3px;
-      line-height: 1.45;
-    }
+    .loop-node.lit { border-color: var(--accent); background: var(--wash); transform: translateY(-2px); }
+    .loop-node strong { display: block; font-size: 0.84rem; color: var(--accent); }
+    .loop-node span { display: block; font-size: 0.79rem; color: var(--muted); margin-top: 4px; line-height: 1.48; }
 
     .fuzz-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
-      gap: 16px;
+      gap: 15px;
       align-items: start;
     }
-
-    .chart-box {
+    .chart-box, .queue-box {
       background: var(--slot);
       border: 1px solid var(--line);
       border-radius: 13px;
       padding: 14px;
     }
-    .chart-box svg {
-      width: 100%;
-      height: 225px;
-      display: block;
-    }
-
-    .queue-box {
-      background: var(--slot);
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      padding: 14px;
-    }
+    .chart-box svg { width: 100%; height: 225px; display: block; }
     .queue-chips {
       display: flex;
       flex-wrap: wrap;
@@ -1065,7 +1016,7 @@
     .seed-chip {
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      padding: 3px 7px;
+      padding: 3px 8px;
       border-radius: 6px;
       border: 1px solid var(--line);
       background: var(--paper);
@@ -1074,15 +1025,9 @@
     .seed-chip.d1 { border-color: var(--accent); background: var(--wash); color: var(--accent); }
     .seed-chip.d2 { border-color: var(--blue); background: var(--blue-bg); color: var(--blue); }
     .seed-chip.d3 { border-color: var(--violet); background: var(--violet-bg); color: var(--violet); }
-    .seed-chip.bug { border-color: var(--red); background: var(--red-bg); color: var(--red); }
 
-    /* ---- Section 5: Benchmarks & Tabs ---- */
-    .tab-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
+    /* ---- Section 05: Benchmarks & Tabs ---- */
+    .tab-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
     .tab-pane { display: none; }
     .tab-pane.active { display: block; }
 
@@ -1093,24 +1038,9 @@
       background: var(--paper);
       margin-top: 12px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.87rem;
-      min-width: 560px;
-    }
-    th, td {
-      padding: 11px 14px;
-      text-align: left;
-      border-bottom: 1px solid var(--line);
-      vertical-align: middle;
-    }
-    thead th {
-      background: var(--slot);
-      font-weight: 700;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 560px; }
+    th, td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    thead th { background: var(--slot); font-weight: 700; font-size: 0.81rem; color: var(--muted); }
     tbody tr:last-child td { border-bottom: none; }
     td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
     td.hi { color: var(--accent); font-weight: 700; }
@@ -1127,31 +1057,18 @@
       border-radius: 12px;
       padding: 14px 16px;
     }
-    .bar-card h4 {
-      font-size: 0.9rem;
-      margin-bottom: 10px;
-    }
+    .bar-card h4 { font-size: 0.9rem; margin-bottom: 10px; }
     .bar-row {
       display: grid;
-      grid-template-columns: 96px minmax(0, 1fr) 54px;
+      grid-template-columns: 98px minmax(0, 1fr) 54px;
       align-items: center;
       gap: 8px;
       margin-bottom: 7px;
       font-size: 0.78rem;
     }
     .bar-row span { color: var(--muted); font-family: var(--font-mono); }
-    .bar-track {
-      height: 10px;
-      border-radius: 999px;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      overflow: hidden;
-    }
-    .bar-fill {
-      height: 100%;
-      border-radius: 999px;
-      background: var(--accent);
-    }
+    .bar-track { height: 10px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; background: var(--accent); }
     .bar-fill.muted { background: #8aa39f; }
     .bar-fill.amber { background: var(--amber); }
 
@@ -1167,18 +1084,15 @@
       padding: 14px 16px;
     }
     .check-card h4 {
-      font-size: 0.93rem;
+      font-size: 0.94rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 6px;
     }
-    .check-card p {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
+    .check-card p { font-size: 0.86rem; color: var(--muted); }
 
-    /* ---- Footer (cuda_intro.html style) ---- */
+    /* ---- Footer ---- */
     footer {
       max-width: 1180px;
       margin: 40px auto 0;
@@ -1193,7 +1107,7 @@
 
     /* ---- Responsive ---- */
     @media (max-width: 980px) {
-      .hero-stats, .metric-strip, .neuron-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .story-strip, .metric-strip, .neuron-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .compare-grid, .mut-layout, .fuzz-grid, .bar-viz { grid-template-columns: 1fr; }
       .arch-strip, .loop-diagram { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
@@ -1202,9 +1116,7 @@
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
+        top: 70px; left: 0; width: 100%;
         background-color: var(--paper);
         border-bottom: 1px solid var(--line);
         box-shadow: 0 8px 24px var(--shadow);
@@ -1212,12 +1124,12 @@
       .navbar ul.active { display: flex; }
       .navbar ul li { width: 100%; margin: 0; text-align: center; }
       .navbar ul li a { display: block; padding: 14px; border-bottom: 1px solid var(--line); }
-      .navbar ul li #theme-toggle { width: 100%; padding: 14px; }
+      .navbar ul li #theme-toggle { width: 100%; height: auto; padding: 14px; }
       .menu-toggle { display: block; }
     }
     @media (max-width: 680px) {
-      .dual-engine, .canvas-stage, .eq-grid, .checklist-grid { grid-template-columns: 1fr; }
-      .hero-stats, .metric-strip, .neuron-grid { grid-template-columns: 1fr; }
+      .story-strip, .dual-engine, .canvas-stage, .eq-grid, .checklist-grid { grid-template-columns: 1fr; }
+      .metric-strip, .neuron-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1253,49 +1165,47 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-card">
-        <div class="eyebrow">November 24, 2026 · UTokyo Trustworthy AI · Interactive Lab</div>
+        <div class="eyebrow">November 24, 2026 · UTokyo Trustworthy AI · 通俗交互演示</div>
         <h1>
-          AI Testing 交互实验室
-          <span class="sub">DeepGauge 神经元覆盖率 × DeepHunter 覆盖率引导模糊测试</span>
+          怎么给 AI 模型“找茬”？
+          <span class="sub">用“体温计 + 驾校教练”的比喻，动手玩懂 DeepGauge 与 DeepHunter</span>
         </h1>
         <p class="hero-lead">
-          当软件逻辑不再写成 <code>if / else</code>，而是藏在数千个神经网络权重与非线性激活里，传统“代码覆盖率”和随机模糊测试都会失灵。
-          这个页面围绕东京大学《AI ソフトウェアの信頼性保証特論》Assignment 1 与两篇经典论文 <strong>DeepGauge（ASE '18）</strong>、<strong>DeepHunter（ISSTA '19）</strong>，让你亲手操作每一环：从神经元边界统计、语义保持的图像蜕变变异，到覆盖率引导的模糊测试闭环。
+          普通软件出了 Bug，程序员能顺着 <code>if / else</code> 查到哪一行代码写错了；可神经网络里没有 <code>if / else</code>，全是几千个神经元连在一起“凭刷题经验做判断”。
+          只看它测试集考了 95 分靠不住——万一上路遇到没见过的极端路况怎么办？本页用最直白的大白话和 4 个可动手实验，带你 5 分钟彻底搞懂这两篇顶会论文和东大 Assignment 1。
         </p>
-        <nav class="toc-pills" aria-label="本页目录">
-          <a href="#sec-diff">01 传统 vs AI</a>
-          <a href="#sec-nbc">02 NBC 神经元实验室</a>
-          <a href="#sec-mutation">03 蜕变变异沙盒</a>
-          <a href="#sec-fuzz">04 Fuzzing 闭环</a>
-          <a href="#sec-papers">05 论文实测与清单</a>
-          <a href="#sec-glossary">06 术语表</a>
-        </nav>
-        <div class="hero-actions">
-          <a class="btn primary" href="#sec-nbc">进入 NBC 神经元实验室 ↓</a>
-          <a class="btn" href="#sec-mutation">动手试玩蜕变变异沙盒 ↓</a>
-          <a class="btn" href="#sec-fuzz">运行 Algorithm 1 闭环 ↓</a>
-          <a class="btn" href="#sec-papers">两篇论文实测数据 ↓</a>
+
+        <div class="analogy">
+          <p><strong>把测 AI 想象成「给刚拿驾照的新手做路考压力测试」：</strong></p>
+          <p>① <strong>为什么不能只看平时模拟考分数？</strong> 因为平时题库全是“晴天大直路”，考 99 分也不代表暴雨夜里有人突然加塞不会撞车。</p>
+          <p>② <strong>DeepGauge = 给大脑装「体温计」</strong>：先量出每个神经元平时正常的波动区间（比如 36°C～37°C）。考试时如果某道题把神经元逼到“发高烧”或“失温”，说明终于测到平时没见过的极端情况了！</p>
+          <p>③ <strong>DeepHunter = 会顺藤摸瓜的「智能考官」</strong>：在原题上轻微换天气、稍微歪一下角度（保证人眼还认得出），发现哪道题能把神经元逼出新极限，就留着这道题继续一点点加码，直到把 AI 的软肋逼出来！</p>
         </div>
-        <div class="hero-stats">
-          <div class="stat-tile">
-            <strong>4,694</strong>
-            <span>LeNet-5 受测神经元</span>
-            <small>conv1 + conv2 + fc1 + fc2 + logits</small>
+
+        <nav class="toc-pills" aria-label="本页目录">
+          <a href="#sec-diff">01 死板清单 vs 靠题感的AI</a>
+          <a href="#sec-nbc">02 神经元体温计（NBC）</a>
+          <a href="#sec-mutation">03 换马甲造新题（变异沙盒）</a>
+          <a href="#sec-fuzz">04 顺藤摸瓜找 Bug（闭环）</a>
+          <a href="#sec-papers">05 论文战绩 &amp; 作业清单</a>
+          <a href="#sec-glossary">06 大白话术语表</a>
+        </nav>
+
+        <div class="story-strip">
+          <div class="story-card">
+            <span class="step-pill">STEP 1 · 痛点</span>
+            <h3>传统“代码覆盖率”失灵了</h3>
+            <p>AI 推理时每张图都会把同一段代码完整跑完（代码覆盖率永远 100%），而且给它一张乱码噪点图也不会崩溃。</p>
           </div>
-          <div class="stat-tile">
-            <strong>5 项</strong>
-            <span>DeepGauge 多粒度准则</span>
-            <small>KMNC · NBC · SNAC · TKNC · TKNP</small>
+          <div class="story-card">
+            <span class="step-pill">STEP 2 · 尺子（DeepGauge）</span>
+            <h3>改看“神经元逼出极限没”</h3>
+            <p>用训练集摸清每个神经元的正常区间，再用测试集看有多少神经元冲破上限或跌破下限（这就是 <strong>NBC</strong>）。</p>
           </div>
-          <div class="stat-tile">
-            <strong>~98%</strong>
-            <span>DeepHunter 变异有效率</span>
-            <small>单次仿射上限 + L₀ / L∞ 双约束</small>
-          </div>
-          <div class="stat-tile">
-            <strong>15×–77×</strong>
-            <span>NBC / SNAC 引导增幅</span>
-            <small>ResNet / VGG / MobileNet 实测</small>
+          <div class="story-card">
+            <span class="step-pill">STEP 3 · 引擎（DeepHunter）</span>
+            <h3>合法改图 + 越逼越深</h3>
+            <p>限制改动幅度不把图改废，把能推高覆盖率的新图放回题库继续叠加小改动，像剥洋葱一样挖出隐藏 Bug。</p>
           </div>
         </div>
       </div>
@@ -1305,34 +1215,41 @@
     <section class="lab-section" id="sec-diff">
       <div class="sec-head">
         <div>
-          <span class="sec-tag">01 / Traditional Software vs. AI Model</span>
-          <h2>为什么传统“代码覆盖率”测不住神经网络？</h2>
+          <span class="sec-tag">01 / 传统软件 vs AI 模型（作业 Part 1 · 4 分）</span>
+          <h2>死板清单 vs 靠“题感”的考生：差别在哪？</h2>
           <p class="sec-desc">
-            切换不同 28×28 FashionMNIST 样本、拖动亮度或在画布上涂抹，对比作业第 1 节里的阈值规则函数 <code>recognize_item</code> 与 <code>Lenet5</code> 模型：前者靠显式分支做决定，后者每次推理都会走完 100% 代码行，却靠内部神经元激活模式区分语义——且面对无意义噪点也不会崩溃。
+            假设我们要分辨图片是<strong>短靴（Ankle boot）</strong>还是<strong>T 恤（T-shirt）</strong>。传统做法是人写死一条规则“像素总和大于 50,000 就是短靴”，而 AI 模型（LeNet-5）是看过几万张图后自己总结出形状特征。
           </p>
         </div>
-        <span class="badge teal">对应作业 Part 1（4 pts）</span>
+        <span class="badge teal">先动手点点看</span>
+      </div>
+
+      <div class="try-bar">
+        <b>👉 试试这样玩：</b>
+        <span>① 点 <strong>「加亮 T-shirt」</strong>，看左边死板规则怎么翻车；</span>
+        <span>② 点 <strong>「随机噪点」</strong>，看右边 AI 明明是一团乱码却照样“一本正经胡说八道”；</span>
+        <span>③ 拖动亮度滑块或在黑框里直接涂抹。</span>
       </div>
 
       <div class="compare-grid">
         <div class="input-box">
           <div class="mut-group-title">
-            <span>选择或绘制 28×28 灰度图</span>
-            <span class="badge" id="diff-gt-badge">真值: Ankle boot</span>
+            <span>选一张图（或直接手画）</span>
+            <span class="badge" id="diff-gt-badge">人眼看是: 短靴</span>
           </div>
           <div class="preset-row">
-            <button type="button" class="btn small active" data-diff-preset="boot">Ankle boot</button>
-            <button type="button" class="btn small" data-diff-preset="tshirt">T-shirt/top</button>
-            <button type="button" class="btn small" data-diff-preset="brightShirt">加亮 T-shirt</button>
+            <button type="button" class="btn small active" data-diff-preset="boot">短靴 (Boot)</button>
+            <button type="button" class="btn small" data-diff-preset="tshirt">普通 T 恤</button>
+            <button type="button" class="btn small" data-diff-preset="brightShirt">加亮 T 恤</button>
             <button type="button" class="btn small" data-diff-preset="noise">随机噪点</button>
           </div>
           <div class="canvas-frame">
             <canvas id="diff-canvas" class="pixel-canvas" width="28" height="28" style="width:168px;height:168px;" aria-label="28乘28灰度输入图像"></canvas>
-            <span style="font-size:0.75rem;color:var(--muted);">提示：鼠标按住画布可直接涂抹像素</span>
+            <span style="font-size:0.76rem;color:var(--muted);">按住鼠标左键可在图上涂白</span>
           </div>
           <div class="slider-block">
             <label for="diff-bright">
-              <span>整体亮度偏移</span>
+              <span>调亮 / 调暗图片</span>
               <output id="diff-bright-val">0</output>
             </label>
             <input id="diff-bright" type="range" min="-80" max="80" value="0" step="2" />
@@ -1342,19 +1259,19 @@
         <div class="dual-engine">
           <div class="engine-card">
             <div class="engine-head">
-              <h3>传统规则软件</h3>
-              <span class="badge" id="trad-branch-badge">Branch: True</span>
+              <h3>📋 传统软件（人写的硬规则）</h3>
+              <span class="badge" id="trad-branch-badge">走了 if 分支</span>
             </div>
             <div class="code-mini" aria-label="传统规则代码执行高亮">
               <span class="code-line">def recognize_item(image):</span>
-              <span class="code-line" id="code-cond">  if np.sum(image) &gt; 50000:</span>
-              <span class="code-line" id="code-true">    return 'Ankle boot'</span>
+              <span class="code-line" id="code-cond">  if 像素总和 &gt; 50000:</span>
+              <span class="code-line" id="code-true">    return '短靴 (Ankle boot)'</span>
               <span class="code-line">  else:</span>
-              <span class="code-line" id="code-false">    return 'T-shirt'</span>
+              <span class="code-line" id="code-false">    return 'T 恤 (T-shirt)'</span>
             </div>
             <div>
               <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--muted);margin-bottom:5px;">
-                <span>当前像素总和 Σ pixel</span>
+                <span>整张图的亮度总和（红线是 50,000 分界线）</span>
                 <span style="font-family:var(--font-mono);color:var(--ink);font-weight:700;" id="trad-sum-readout">0 / 50,000</span>
               </div>
               <div class="meter-bar">
@@ -1362,32 +1279,27 @@
                 <div class="meter-mark" style="left:45.45%;" title="阈值 50,000"></div>
               </div>
             </div>
-            <div class="verdict-box" id="trad-verdict">
-              预测结果：<strong>Ankle boot</strong>
-            </div>
+            <div class="verdict-box" id="trad-verdict">判断中...</div>
           </div>
 
           <div class="engine-card">
             <div class="engine-head">
-              <h3>深度学习模型（LeNet-5）</h3>
-              <span class="badge teal" id="ai-cov-badge">代码覆盖率: 100%</span>
+              <h3>🧠 AI 模型（LeNet-5 神经网络）</h3>
+              <span class="badge teal" id="ai-cov-badge">代码覆盖率永远 100%</span>
             </div>
-            <svg id="ai-net-svg" class="svg-net" viewBox="0 0 320 146" aria-label="神经网络激活模式示意图"></svg>
-            <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--muted);">
-              <span>特征匹配度 / 激活状态</span>
-              <span style="font-family:var(--font-mono);font-weight:600;" id="ai-pattern-note">正常主功能区</span>
+            <svg id="ai-net-svg" class="svg-net" viewBox="0 0 320 144" aria-label="神经网络激活模式示意图"></svg>
+            <div style="display:flex;justify-content:space-between;font-size:0.79rem;color:var(--muted);">
+              <span>大脑内部神经元状态</span>
+              <span style="font-weight:700;" id="ai-pattern-note">正常范围内</span>
             </div>
-            <div class="verdict-box" id="ai-verdict">
-              预测结果：<strong>Ankle boot (96%)</strong>
-            </div>
+            <div class="verdict-box" id="ai-verdict">判断中...</div>
           </div>
         </div>
       </div>
 
-      <div class="callout blue">
-        <span class="callout-title">💬 核心对比结论（可直接用于作业 1.1 &amp; 1.2）</span>
-        <strong>传统软件</strong>逻辑由人显式写死在控制流分支中，Bug 定位到具体代码行，用语句/分支覆盖即可衡量测试充分度，但在高维图像任务上极易失效（例如稍微调亮 T-shirt 像素总和就突破 50,000 误判成靴子）。
-        <strong>AI 模型</strong>逻辑由训练数据隐式编码在大量神经元权重与非线性激活函数中：任何输入都会跑完同一张计算图（代码覆盖恒为 100%），且即使喂入<strong>无意义随机噪点（Invalid input）</strong>也会强行给出分类标签而非崩溃——因此需要<strong>神经元覆盖率</strong>与<strong>语义保持的变异测试</strong>。
+      <div class="tip">
+        <strong>传统软件看“走了哪条 if 分支”</strong>（逻辑透明，但规则一碰图像就脆得像纸）；
+        <strong>AI 模型看“哪些神经元亮得多强”</strong>（每次推理代码都全跑一遍，传统代码覆盖率形同虚设；更麻烦的是遇到<strong>无意义噪点不会报错</strong>，必须靠后面讲的方法专门设计测试）。
       </div>
     </section>
 
@@ -1395,146 +1307,180 @@
     <section class="lab-section" id="sec-nbc">
       <div class="sec-head">
         <div>
-          <span class="sec-tag">02 / DeepGauge · Neuron Boundary Coverage</span>
-          <h2>神经元边界覆盖率（NBC）交互实验室</h2>
+          <span class="sec-tag">02 / DeepGauge · 神经元边界覆盖率 NBC（作业 Part 2.1 · 7 分）</span>
+          <h2>给每个神经元装「体温计」：怎么量 AI 测够了没有？</h2>
           <p class="sec-desc">
-            先在训练集上 Profile 出每个神经元的正常区间 <code>[low_n, high_n]</code>（主功能区），再观察测试集有多少次把激活值推到区间外：低于下界计入 <code>LowerCornerNeuron</code>，高于上界计入 <code>UpperCornerNeuron</code>。
+            既然代码覆盖率没用了，DeepGauge 想了个很聪明的办法：把神经网络里的每个神经元当成体检指标——先用<strong>训练集</strong>量出它平时的“正常体温区间” <code>[最低, 最高]</code>，测试时专门数有多少个神经元被新考题逼出了区间之外！
           </p>
         </div>
-        <span class="badge teal">对应作业 Part 2.1（7 pts）</span>
+        <span class="badge teal">核心概念：NBC</span>
       </div>
 
-      <div class="arch-strip" aria-label="作业 LeNet-5 各层神经元数">
-        <div class="layer-chip"><div class="lname">conv1</div><div class="lshape">6 × 24 × 24</div><div class="lcnt">3,456</div></div>
-        <div class="layer-chip"><div class="lname">conv2</div><div class="lshape">16 × 8 × 8</div><div class="lcnt">1,024</div></div>
-        <div class="layer-chip"><div class="lname">fc1</div><div class="lshape">120</div><div class="lcnt">120</div></div>
-        <div class="layer-chip"><div class="lname">fc2</div><div class="lshape">84</div><div class="lcnt">84</div></div>
-        <div class="layer-chip"><div class="lname">logits</div><div class="lshape">10（总计 4,694）</div><div class="lcnt">10</div></div>
+      <div class="plain-talk">
+        <p><strong>只记两个词，彻底懂 NBC：</strong></p>
+        <p>• <strong>正常区（Major Function Region）</strong>：神经元在训练集里出现过的 <code>[最低值, 最高值]</code>，好比人的正常体温 36°C～37°C。平时普通测试题基本全落在这里面。</p>
+        <p>• <strong>极限角落区（Corner-Case Region）</strong>：比历史最低还低（🟣 <strong>失温 / LowerCorner</strong>），或比历史最高还高（🟠 <strong>发烧 / UpperCorner</strong>）。Bug 最喜欢藏在这些平时没练过的极端状态里！</p>
+        <p>• <strong>NBC 公式翻译成白话</strong>：每个神经元有“下限、上限”2 个极限端，<code>N</code> 个神经元总共 <code>2 × N</code> 个极限端；测试集一共踩响了其中百分之几，就是 <strong>NBC 边界覆盖率</strong>！</p>
+      </div>
+
+      <div class="try-bar">
+        <b>👉 试试这样玩：</b>
+        <span>① 先连点两次 <strong>「批量做 10 道普通考题」</strong>——你会发现主功能区（KMNC）涨得很快，但 <strong>NBC 几乎不动</strong>；</span>
+        <span>② 再点几次 <strong>「注入 1 道怪题/对抗扰动」</strong>——紫色下限和橙色上限立刻大片点亮！</span>
+        <span>③ 点右上角切换 <strong>「Post-ReLU」</strong>，看看为什么负值被清零后下限几乎踩不到。</span>
       </div>
 
       <div class="lab-toolbar">
         <div class="toolbar-group">
-          <button type="button" class="btn small primary" id="nbc-add-normal">正常测试样本 +1</button>
-          <button type="button" class="btn small" id="nbc-add-batch">批量正常测试 +10</button>
-          <button type="button" class="btn small" id="nbc-add-mut" style="border-color:var(--amber);color:var(--amber);">注入变异/对抗样本 +1</button>
-          <button type="button" class="btn small" id="nbc-reset">重置测试集</button>
+          <button type="button" class="btn small primary" id="nbc-add-normal">做 1 道普通考题</button>
+          <button type="button" class="btn small" id="nbc-add-batch">批量做 10 道普通题</button>
+          <button type="button" class="btn small" id="nbc-add-mut" style="border-color:var(--amber);color:var(--amber);">注入 1 道怪题 / 变异图</button>
+          <button type="button" class="btn small" id="nbc-reset">清空重测</button>
         </div>
         <div class="toolbar-group">
-          <span style="font-size:0.78rem;color:var(--muted);">边界宽容度：</span>
-          <button type="button" class="btn small" data-sigma="0" aria-pressed="true">l, u</button>
-          <button type="button" class="btn small" data-sigma="0.5" aria-pressed="false">±0.5σ</button>
-          <button type="button" class="btn small" data-sigma="1" aria-pressed="false">±1.0σ</button>
-          <button type="button" class="btn small" id="nbc-relu-toggle" aria-pressed="false" title="切换 ReLU 前/后采样位置">采样：Pre-ReLU（作业默认）</button>
+          <span style="font-size:0.78rem;color:var(--muted);">发烧/失温门槛：</span>
+          <button type="button" class="btn small" data-sigma="0" aria-pressed="true">严格 [l, u]</button>
+          <button type="button" class="btn small" data-sigma="0.5" aria-pressed="false">放宽 ±0.5σ</button>
+          <button type="button" class="btn small" data-sigma="1" aria-pressed="false">更宽 ±1σ</button>
+          <button type="button" class="btn small" id="nbc-relu-toggle" aria-pressed="false">当前：ReLU 之前（作业默认）</button>
         </div>
       </div>
 
       <div class="metric-strip">
         <div class="metric-box">
-          <span>NBC 边界覆盖率</span>
+          <span>NBC 边界覆盖率（双端极限）</span>
           <strong id="nbc-val">0.0%</strong>
-          <small id="nbc-formula">(0 + 0) / (2 × 24)</small>
+          <small id="nbc-formula">踩响 (0上 + 0下) / 共 48 个极限端</small>
         </div>
         <div class="metric-box amber">
-          <span>SNAC 强激活覆盖率</span>
+          <span>SNAC 强激活（只看发烧上限）</span>
           <strong id="snac-val">0.0%</strong>
-          <small id="snac-formula">Upper: 0 / 24</small>
+          <small id="snac-formula">冲破上限：0 / 24 个神经元</small>
         </div>
         <div class="metric-box violet">
-          <span>LowerCorner 下界覆盖</span>
+          <span>LowerCorner（跌破失温下限）</span>
           <strong id="lower-val">0 / 24</strong>
-          <small id="lower-note">φ(x, n) &lt; low_n</small>
+          <small id="lower-note">当前能测到负值下限</small>
         </div>
         <div class="metric-box blue">
-          <span>KMNC 主功能区（k=5）</span>
+          <span>KMNC（正常区 5 档踩点率）</span>
           <strong id="kmnc-val">0.0%</strong>
-          <small id="kmnc-formula">0 / 120 sections · 0 样本</small>
+          <small id="kmnc-formula">0 / 120 格 · 已测 0 张图</small>
         </div>
+      </div>
+
+      <div class="legend-bar" aria-label="图例说明">
+        <span class="legend-item"><i class="swatch violet"></i>紫色 <b>下</b>：曾经跌破历史最低（LowerCorner）</span>
+        <span class="legend-item"><i class="swatch wash"></i>青色区间：训练集正常范围 <code>[low, high]</code></span>
+        <span class="legend-item"><i class="swatch amber"></i>橙色 <b>上</b>：曾经冲破历史最高（UpperCorner）</span>
+        <span class="legend-item">● 圆点：最新一张图让这个神经元算出的值</span>
       </div>
 
       <div class="neuron-grid" id="neuron-grid" aria-label="24 个采样神经元的边界状态"></div>
 
       <div class="inspector-bar" id="nbc-inspector">
-        <span>点击上方任意神经元卡片查看详细 Profile 区间与当前激活值。</span>
-        <code id="nbc-inspector-code">等待注入测试样本...</code>
+        <span>点上面任意一个小卡片，就能查看这颗神经元的详细体检单。</span>
+        <code id="nbc-inspector-code">等待测试...</code>
       </div>
 
-      <div class="callout amber">
-        <span class="callout-title">💡 观察实验现象（DeepGauge 论文关键洞察）</span>
-        试试先点几次<strong>「批量正常测试 +10」</strong>：你会看到 <strong>KMNC</strong> 迅速涨高，而 <strong>NBC</strong> 增长缓慢（原始测试集集中在主功能区）；再点几次<strong>「注入变异/对抗样本」</strong>，角落区立刻被大量点亮！
-        如果把右上角切换成 <strong>Post-ReLU</strong>，所有负激活都被截断在 <code>0</code>，<code>LowerCorner</code> 瞬间几乎无法覆盖——这正是 DeepGauge 发现 SNAC 通常高于 NBC 的原因，也是作业 <code>Lenet5.feature_list</code> 特意在 ReLU 之前截取特征图的原因。
-      </div>
+      <details class="deep-dive">
+        <summary>展开看作业细节：为什么作业校验要求正好 4,694 个神经元？公式怎么写？</summary>
+        <div class="dd-body">
+          <p>作业的 LeNet-5 里，卷积层输出的 3D 特征图 <code>C × H × W</code> 的<strong>每一个小格</strong>都算 1 个神经元，5 层加起来正好 <strong>4,694</strong> 个（<code>check_cov_list</code> 校验的就是这个数）：</p>
+          <div class="arch-strip">
+            <div class="layer-chip"><div class="lname">conv1</div><div class="lshape">6 × 24 × 24</div><div class="lcnt">3,456</div></div>
+            <div class="layer-chip"><div class="lname">conv2</div><div class="lshape">16 × 8 × 8</div><div class="lcnt">1,024</div></div>
+            <div class="layer-chip"><div class="lname">fc1</div><div class="lshape">120</div><div class="lcnt">120</div></div>
+            <div class="layer-chip"><div class="lname">fc2</div><div class="lshape">84</div><div class="lcnt">84</div></div>
+            <div class="layer-chip"><div class="lname">logits</div><div class="lshape">10（总 4,694）</div><div class="lcnt">10</div></div>
+          </div>
+          <p style="margin-top:10px;">写代码分两步：先在 <code>profile_DNN</code> 里遍历训练集记住每颗神经元的 <code>[min, max]</code>；再在 <code>compute_NBCov</code> 里遍历测试集，遇到 <code>&lt; min</code> 记下界为 1，遇到 <code>&gt; max</code> 记上界为 1，最后算 <code>(所有 1 的总数) / (2 × 4694)</code>。</p>
+        </div>
+      </details>
     </section>
 
     <!-- SECTION 03: DEEPHUNTER METAMORPHIC MUTATION SANDBOX -->
     <section class="lab-section" id="sec-mutation">
       <div class="sec-head">
         <div>
-          <span class="sec-tag">03 / DeepHunter · Algorithm 2 · Metamorphic Mutation</span>
-          <h2>蜕变变异沙盒（完整复刻 <code>all_utils.py</code> 8 种算子）</h2>
+          <span class="sec-tag">03 / DeepHunter · Algorithm 2 · 蜕变变异（作业 Part 2.2 · 6 分）</span>
+          <h2>怎么自动造新考题，又不把图片“改糊了”？</h2>
           <p class="sec-desc">
-            亲自体验作业 2.2 的 <code>mutate_one()</code> 约束逻辑：仿射/Class B 变换全程最多做 1 次（触发后自动锁定并更新参考图 <code>ref_img</code>）；像素级 Class A 变换可多次叠加，但累计 <code>L₀</code> 与 <code>L∞</code> 必须满足论文 Equation 1 &amp; 2，才能保证语义不崩坏。
+            现实里带标签的测试图太贵太少，DeepHunter 的办法是在原图上做<strong>“换马甲”式小改动（蜕变变异）</strong>：轻微旋转、调亮或加几点雪花。只要人眼还一眼认得出它是短靴，而 AI 改口猜成别的，就不用重新人工标注，当场抓到 Bug！
           </p>
         </div>
-        <span class="badge teal">对应作业 Part 2.2（6 pts）</span>
+        <span class="badge teal">8 种算子全部可玩</span>
+      </div>
+
+      <div class="analogy">
+        <p><strong>为了防止连续改图把短靴改成“一团马赛克”，DeepHunter 定了两条极好懂的铁律：</strong></p>
+        <p>① <strong>「大动作」最多只能做 1 次</strong>（旋转、缩放、拉斜等 Class B）：转一次还像短靴，连转带拉三次就认不出来了！所以做完一次立刻上锁（<code>has_Affine = 1</code>），后面只准微调像素。</p>
+        <p>② <strong>「小微调」遵守点/面二选一规则</strong>（Class A）：要么只动<strong>极少数几个像素</strong>（默认不到 15 个点，就像照片沾了几粒灰，灰多黑都无所谓）；如果大面积改动，那每个点<strong>最多只能轻轻变一点</strong>（默认幅度 &lt; 51），不许把图改糊！</p>
+      </div>
+
+      <div class="try-bar">
+        <b>👉 试试这样玩：</b>
+        <span>① 点一个 <strong>「大动作（Class B）」</strong>比如「旋转」——你会看到右边所有大动作按钮立刻变灰上锁，而且 <code>ref_img 参考图</code> 跟着同步转了过去；</span>
+        <span>② 再连点 <strong>「让算法自动试一次 mutate_one()」</strong>，看底部轨迹条怎么一点点叠加微调，以及违规时怎么自动打回重试！</span>
       </div>
 
       <div class="mut-layout">
         <div class="mut-controls">
           <div>
             <div class="mut-group-title">
-              <span>1. 选择初始种子 s₀</span>
-              <span class="badge" id="mut-affine-badge">has_Affine = 0</span>
+              <span>1. 先选一张原图（种子）</span>
+              <span class="badge teal" id="mut-affine-badge">大动作：还没用 (0/1)</span>
             </div>
             <div class="preset-row">
-              <button type="button" class="btn small active" data-mut-seed="boot">Ankle boot</button>
-              <button type="button" class="btn small" data-mut-seed="tshirt">T-shirt</button>
-              <button type="button" class="btn small" data-mut-seed="trouser">Trouser</button>
-              <button type="button" class="btn small" data-mut-seed="bag">Bag</button>
+              <button type="button" class="btn small active" data-mut-seed="boot">短靴</button>
+              <button type="button" class="btn small" data-mut-seed="tshirt">T 恤</button>
+              <button type="button" class="btn small" data-mut-seed="trouser">长裤</button>
+              <button type="button" class="btn small" data-mut-seed="bag">手提包</button>
             </div>
           </div>
 
           <div>
-            <div class="mut-group-title"><span>2. 一键执行 Algorithm 2</span></div>
+            <div class="mut-group-title"><span>2. 一键体验 Algorithm 2</span></div>
             <div style="display:flex;gap:8px;">
-              <button type="button" class="btn primary" id="mut-run-auto" style="flex:1;">执行 mutate_one()</button>
-              <button type="button" class="btn" id="mut-reset">重置种子</button>
+              <button type="button" class="btn primary" id="mut-run-auto" style="flex:1;">自动变异一次 mutate_one()</button>
+              <button type="button" class="btn" id="mut-reset">重置</button>
             </div>
           </div>
 
           <div>
             <div class="mut-group-title">
-              <span>3. 手动尝试 Class A（像素级）</span>
-              <span class="badge green">可重复使用</span>
+              <span>3. 小微调 · Class A（像素级）</span>
+              <span class="badge green">可反复叠用</span>
             </div>
             <div class="mut-btn-grid">
-              <button type="button" class="btn small" data-mut-op="pixel_change">pixel_change</button>
-              <button type="button" class="btn small" data-mut-op="noise">image_noise</button>
+              <button type="button" class="btn small" data-mut-op="pixel_change">随机改几点<small>pixel_change</small></button>
+              <button type="button" class="btn small" data-mut-op="noise">撒雪花噪点<small>image_noise</small></button>
             </div>
           </div>
 
           <div>
             <div class="mut-group-title">
-              <span>4. 手动尝试 Class B（作业分组）</span>
-              <span class="badge amber" id="classb-lock-badge">剩余 1 次</span>
+              <span>4. 大动作 · Class B（作业分组）</span>
+              <span class="badge amber" id="classb-lock-badge">还能用 1 次</span>
             </div>
             <div class="mut-btn-grid">
-              <button type="button" class="btn small" data-mut-op="scale">image_scale</button>
-              <button type="button" class="btn small" data-mut-op="shear">image_shear</button>
-              <button type="button" class="btn small" data-mut-op="rotation">image_rotation</button>
-              <button type="button" class="btn small" data-mut-op="contrast">image_contrast</button>
-              <button type="button" class="btn small" data-mut-op="brightness">image_brightness</button>
-              <button type="button" class="btn small" data-mut-op="blur">image_blur</button>
+              <button type="button" class="btn small" data-mut-op="scale">缩放大小<small>image_scale</small></button>
+              <button type="button" class="btn small" data-mut-op="shear">倾斜拉歪<small>image_shear</small></button>
+              <button type="button" class="btn small" data-mut-op="rotation">旋转角度<small>image_rotation</small></button>
+              <button type="button" class="btn small" data-mut-op="contrast">调对比度<small>image_contrast</small></button>
+              <button type="button" class="btn small" data-mut-op="brightness">调明暗度<small>image_brightness</small></button>
+              <button type="button" class="btn small" data-mut-op="blur">画面模糊<small>image_blur</small></button>
             </div>
           </div>
 
           <div>
-            <div class="mut-group-title"><span>5. 阈值参数（Equation 1）</span></div>
+            <div class="mut-group-title"><span>5. 调松/调严安检门槛</span></div>
             <div class="slider-block">
-              <label for="mut-alpha"><span>α（L₀ 比例上限）</span><output id="mut-alpha-val">0.02 (15 px)</output></label>
+              <label for="mut-alpha"><span>允许大改的像素比例 α</span><output id="mut-alpha-val">0.02 (最多 15 格)</output></label>
               <input id="mut-alpha" type="range" min="0.01" max="0.15" step="0.01" value="0.02" />
             </div>
             <div class="slider-block">
-              <label for="mut-beta"><span>β（L∞ 幅度上限）</span><output id="mut-beta-val">0.20 (51)</output></label>
+              <label for="mut-beta"><span>大面积微调的最大幅度 β</span><output id="mut-beta-val">0.20 (幅度 &lt; 51)</output></label>
               <input id="mut-beta" type="range" min="0.05" max="0.60" step="0.05" value="0.20" />
             </div>
           </div>
@@ -1543,105 +1489,121 @@
         <div>
           <div class="canvas-stage">
             <div class="stage-card">
-              <div class="sc-title">s₀ 初始原图</div>
+              <div class="sc-title">① 最初原图 s₀</div>
               <canvas id="c-orig" width="28" height="28"></canvas>
-              <div class="sc-sub">原始语义锚点</div>
+              <div class="sc-sub">原本长什么样</div>
             </div>
             <div class="stage-card">
-              <div class="sc-title">ref_img (s'₀)</div>
+              <div class="sc-title">② 对比标尺 ref_img</div>
               <canvas id="c-ref" width="28" height="28"></canvas>
-              <div class="sc-sub" id="ref-sub">尚未发生仿射</div>
+              <div class="sc-sub" id="ref-sub">目前和原图一样</div>
             </div>
             <div class="stage-card">
-              <div class="sc-title">img_new (当前 s')</div>
+              <div class="sc-title">③ 改完后的图 s'</div>
               <canvas id="c-cur" width="28" height="28"></canvas>
-              <div class="sc-sub" id="cur-sub">变异深度 d = 0</div>
+              <div class="sc-sub" id="cur-sub">还没改过 (第 0 步)</div>
             </div>
             <div class="stage-card">
-              <div class="sc-title">|s' − ref_img| 差值</div>
+              <div class="sc-title">④ 哪几个像素变了</div>
               <canvas id="c-diff" width="28" height="28"></canvas>
-              <div class="sc-sub">高亮变化像素</div>
+              <div class="sc-sub">亮色 = 改动位置</div>
             </div>
           </div>
 
           <div class="eq-panel">
             <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-              <strong style="font-size:0.9rem;">Equation 1 &amp; 2 实时有效性校验</strong>
-              <span class="badge green" id="mut-verdict-badge">就绪：点击左侧按钮开始变异</span>
+              <strong style="font-size:0.9rem;">🔍 安检员实时判定（有没有把图改废？）</strong>
+              <span class="badge green" id="mut-verdict-badge">等待操作</span>
+            </div>
+            <div class="eq-plain" id="mut-plain-explain">
+              点左侧任意按钮试试看：我会用大白话告诉你这次改动为什么“放行”或“被拦下”。
             </div>
             <div class="eq-grid">
               <div class="eq-cell">
-                <span>累计 L₀ = l0_ref + L₀(ref, s')</span>
-                <strong id="mut-l0-val">0 <small style="font-weight:400;color:var(--muted);">/ 15</small></strong>
+                <span>一共改了多少格像素（L₀）</span>
+                <strong id="mut-l0-val">0 <small style="font-weight:400;color:var(--muted);">/ 15 格</small></strong>
               </div>
               <div class="eq-cell">
-                <span>累计 L∞ = linf_ref + L∞(ref, s')</span>
+                <span>单格最大变化幅度（L∞）</span>
                 <strong id="mut-linf-val">0 <small style="font-weight:400;color:var(--muted);">/ 51</small></strong>
               </div>
               <div class="eq-cell">
-                <span>仿射前保留预算 (l0_ref, linf_ref)</span>
+                <span>大动作前已花额度 (l0_ref, linf_ref)</span>
                 <strong id="mut-ref-budget">(0, 0)</strong>
               </div>
             </div>
           </div>
 
           <div class="trace-log" id="mut-trace" aria-live="polite">
-            [Ready] 等待调用 mutate_one(ref_img, img, has_Affine=0, l0_ref=0, linf_ref=0)...
+            [就绪] 等待调用 mutate_one(...) — 每次最多自动试 50 次，找到第 1 个合法变异就立刻停手返回。
           </div>
 
           <div style="margin-top:12px;">
             <div class="mut-group-title" style="margin-bottom:2px;">
-              <span>连续变异轨迹（Sequential Mutation Chain）</span>
-              <span style="font-family:var(--font-mono);font-size:0.74rem;" id="trail-count">1 帧</span>
+              <span>🎞️ 变身记录（看图怎么一步步演变）</span>
+              <span style="font-family:var(--font-mono);font-size:0.74rem;color:var(--muted);" id="trail-count">1 张</span>
             </div>
             <div class="trail-strip" id="mut-trail"></div>
           </div>
         </div>
       </div>
+
+      <details class="deep-dive">
+        <summary>展开看一个巧妙设计：为什么做完“旋转/缩放”要更换参考图 ref_img？</summary>
+        <div class="dd-body">
+          想象把一张靴子图旋转了 15°——人眼看还是靴子，但每个像素的位置都挪窝了！如果你直接拿旋转后的图去和最原始的图逐像素相减，几乎整张图的像素都不重合，会误以为“改得面目全非”。
+          所以 DeepHunter 非常聪明：一旦做了仿射变换，就先把<strong>变换前已经花掉的改动量</strong>记进 <code>l0_ref / linf_ref</code>，同时把参考标尺 <code>ref_img</code> 也同步旋转过去。之后再撒噪点时，只拿新图和旋转后的标尺相减，再把前后两段加起来，既公平又准确！
+        </div>
+      </details>
     </section>
 
     <!-- SECTION 04: ALGORITHM 1 COVERAGE-GUIDED FUZZING -->
     <section class="lab-section" id="sec-fuzz">
       <div class="sec-head">
         <div>
-          <span class="sec-tag">04 / DeepHunter · Algorithm 1 · Coverage-Guided Fuzzing</span>
-          <h2>覆盖率引导模糊测试闭环（Guided vs. Random）</h2>
+          <span class="sec-tag">04 / DeepHunter · Algorithm 1 · 覆盖率引导闭环（作业 2.2 简答 &amp; Part 3）</span>
+          <h2>怎么从“只改 1 次”变成“顺藤摸瓜挖深坑”？</h2>
           <p class="sec-desc">
-            为什么 <strong>Algorithm 2 每次只做 1 次变异</strong>，DeepHunter 却能演化出多步连续变异？运行下方模拟器看清队列 <code>Q</code> 的回流机制：只有带来新覆盖率的变异样本 <code>s'</code> 才会被追加回 <code>Q</code>，在下一轮再次被抽中继续变异！
+            单次调用 Algorithm 2 只会给图片加<strong>1 次</strong>小改动，很难一次就骗过 AI。那 DeepHunter 怎么实现“连续多步变异”？秘密全在外层 <strong>Algorithm 1 的题库回流循环</strong>里！
           </p>
         </div>
-        <span class="badge teal">对应作业 2.2 简答 &amp; Part 3（5 pts）</span>
+        <span class="badge teal">覆盖率引导 vs 瞎蒙</span>
       </div>
 
       <div class="loop-diagram" id="loop-diagram">
-        <div class="loop-node" data-step="0"><strong>1. SelectNext(Q)</strong><span>从种子队列 Q 抽取一个种子 s（优先低频/多样性）</span></div>
-        <div class="loop-node" data-step="1"><strong>2. Algorithm 2</strong><span>对 s 执行 1 次有效蜕变变异，产出候选集 T</span></div>
-        <div class="loop-node" data-step="2"><strong>3. Run(DNN, T)</strong><span>批量喂给神经网络，记录预测结果与 NBC 增量</span></div>
-        <div class="loop-node" data-step="3"><strong>4. Oracle 分流</strong><span>预测出错 → 存入缺陷池 F（不放回队列）</span></div>
-        <div class="loop-node" data-step="4"><strong>5. CoverageGain</strong><span>未出错但覆盖率上升 → 追加回 Q，促成连续变异！</span></div>
+        <div class="loop-node" data-step="0"><strong>① 从题库挑题</strong><span>挑一道最近很少练过的旧题 s（保证多样性）</span></div>
+        <div class="loop-node" data-step="1"><strong>② 只加 1 次改动</strong><span>调 Algorithm 2，对 s 做 1 次合法小变异变成 s'</span></div>
+        <div class="loop-node" data-step="2"><strong>③ 考 AI 测体温</strong><span>让神经网络预测 s'，顺便看有没有逼出新极限</span></div>
+        <div class="loop-node" data-step="3"><strong>④ 考砸→记错题本</strong><span>AI 猜错了！直接收进缺陷集 F（不再放回题库）</span></div>
+        <div class="loop-node" data-step="4"><strong>⑤ 有潜力→放回题库</strong><span>没猜错，但<strong>覆盖率涨了</strong>！把 s' 塞回队列 Q，下次继续加码！</span></div>
+      </div>
+
+      <div class="try-bar">
+        <b>👉 试试这样玩：</b>
+        <span>点 <strong>「单步看流程」</strong> 观察上方 5 步怎么亮灯、右边框里怎样冒出 <code>连改 1 次 / 2 次 / 3 次</code> 的新种子；再点 <strong>「快进 20 轮」</strong>，看青色曲线（有反馈引导）如何把橙色虚线（瞎随机改图）远远甩在身后！</span>
       </div>
 
       <div class="lab-toolbar">
         <div class="toolbar-group">
-          <button type="button" class="btn small primary" id="fuzz-step">单步推演 (+1 轮)</button>
-          <button type="button" class="btn small" id="fuzz-auto">自动运行</button>
+          <button type="button" class="btn small primary" id="fuzz-step">单步看流程 (+1 轮)</button>
+          <button type="button" class="btn small" id="fuzz-auto">自动连续跑</button>
           <button type="button" class="btn small" id="fuzz-fast">快进 +20 轮</button>
-          <button type="button" class="btn small" id="fuzz-reset">重置对比</button>
+          <button type="button" class="btn small" id="fuzz-reset">重新开始</button>
         </div>
         <div class="toolbar-group">
-          <span class="badge teal" id="fuzz-round-badge">Round 0</span>
-          <span class="badge amber" id="fuzz-guided-badge">Guided NBC: 8.6% · Bugs: 0</span>
-          <span class="badge" id="fuzz-random-badge">Random NBC: 8.6% · Bugs: 0</span>
+          <span class="badge teal" id="fuzz-round-badge">第 0 / 60 轮</span>
+          <span class="badge amber" id="fuzz-guided-badge">有引导 NBC: 8.6% · 抓到 0 个 Bug</span>
+          <span class="badge" id="fuzz-random-badge">纯随机 NBC: 8.6% · 抓到 0 个 Bug</span>
         </div>
       </div>
 
       <div class="fuzz-grid">
         <div class="chart-box">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-            <strong style="font-size:0.88rem;">NBC 覆盖率爬升曲线（Guided vs. Random）</strong>
-            <div style="display:flex;gap:14px;font-size:0.76rem;color:var(--muted);">
-              <span><b style="color:var(--accent);">━━</b> DeepHunter 覆盖率引导</span>
-              <span><b style="color:var(--amber);">╌╌</b> 纯随机变异（无反馈）</span>
+            <strong style="font-size:0.89rem;">📈 NBC 覆盖率对比：顺藤摸瓜 vs 纯瞎蒙</strong>
+            <div style="display:flex;gap:14px;font-size:0.78rem;color:var(--muted);">
+              <span><b style="color:var(--accent);">━━</b> DeepHunter（看体温表加码）</span>
+              <span><b style="color:var(--amber);">╌╌</b> 纯随机改图（不管反馈）</span>
             </div>
           </div>
           <svg id="fuzz-chart" viewBox="0 0 560 225" aria-label="覆盖率引导与随机变异对比曲线"></svg>
@@ -1649,23 +1611,23 @@
 
         <div class="queue-box">
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <strong style="font-size:0.88rem;">种子队列 Q &amp; 变异深度演化</strong>
-            <span class="badge teal" id="q-size-badge">|Q| = 6</span>
+            <strong style="font-size:0.89rem;">🗂️ 题库队列 Q（越深表示叠加越多次）</strong>
+            <span class="badge teal" id="q-size-badge">共 6 题</span>
           </div>
-          <p style="font-size:0.78rem;color:var(--muted);margin-top:4px;">
-            <code>d=0</code> 初始种子 → <code>d=1/2/3+</code> 经覆盖率筛选回流后叠加的连续变异种子。
+          <p style="font-size:0.79rem;color:var(--muted);margin-top:4px;">
+            灰色 = 原始题 <code>d=0</code>；彩色 = 带来新覆盖率后被留下来“继续加码”的进阶题（<code>d=1, 2, 3+</code>）。
           </p>
           <div class="queue-chips" id="queue-chips"></div>
-          <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:0.76rem;color:var(--muted);" id="fuzz-last-event">
-            点击「单步推演」或「自动运行」观察种子筛选与连续变异。
+          <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:0.81rem;color:var(--ink);" id="fuzz-last-event">
+            初始 6 道原题已放入题库。
           </div>
         </div>
       </div>
 
-      <div class="callout">
-        <span class="callout-title">✅ 作业 2.2 简答题一针见血总结</span>
-        当 Algorithm 2 的 <code>Success</code> 为 <code>True</code> 时，内层循环立刻 <code>break</code>，因此返回集合 <code>T</code> 中每张图片相对于输入种子 <code>s</code> 都只被施加了 <strong>1 次（one-time）</strong>变异。
-        而<strong>连续变异（Sequential Mutation）</strong>是在外层 <strong>Algorithm 1</strong> 中完成的：当某张变异图 <code>s'</code> 没有出错但带来了新的覆盖率增益（<code>isCoverageGain</code>）时，它会被 <code>Q.append(s')</code> 放回种子队列，后续再次被选中并送入 Algorithm 2 时就在已有变异基础上叠加新一轮变异。
+      <div class="tip">
+        <strong>作业 2.2 简答题直接拿满分：</strong>
+        ① 当 Algorithm 2 的 <code>Success</code> 为 <code>True</code> 时，里面立刻 <code>break</code> 了，所以返回给外层的每张图都只被改了 <strong>1 次</strong>；
+        ② <strong>连续多次变异</strong>是靠外层 <strong>Algorithm 1</strong> 实现的——只要新图 <code>s'</code> 让覆盖率上涨，就把它塞回队列 <code>Q</code>，以后再抽中它进 Algorithm 2 时，就在它身上叠加第 2 次、第 3 次改动！
       </div>
     </section>
 
@@ -1673,124 +1635,124 @@
     <section class="lab-section" id="sec-papers">
       <div class="sec-head">
         <div>
-          <span class="sec-tag">05 / Paper Results &amp; Assignment Roadmap</span>
-          <h2>两篇论文实测全景 &amp; 作业交付清单</h2>
+          <span class="sec-tag">05 / 论文真实战绩 &amp; 作业核对清单</span>
+          <h2>这套方法真的管用吗？看两篇论文的实测成绩单</h2>
           <p class="sec-desc">
-            汇总 DeepGauge（ASE 2018）与 DeepHunter（ISSTA 2019）原文中的核心量化结果，并附上本次 Assignment 1 的分值与打包检查表。
+            不用啃几十页英文原文，这里把 DeepGauge（ASE 2018）和 DeepHunter（ISSTA 2019）最核心的实验数字翻译成直观对比，外加本次作业的交付核对表。
           </p>
         </div>
-        <span class="badge">ASE '18 &amp; ISSTA '19</span>
+        <span class="badge">真实论文数据</span>
       </div>
 
       <div class="tab-bar" role="tablist">
-        <button type="button" class="btn small active" data-tab="tab-dg" role="tab" aria-selected="true">DeepGauge 实测（vs DNC）</button>
-        <button type="button" class="btn small" data-tab="tab-dh" role="tab" aria-selected="false">DeepHunter 实测（覆盖率 &amp; 量化）</button>
-        <button type="button" class="btn small" data-tab="tab-asg" role="tab" aria-selected="false">Assignment 1 清单</button>
+        <button type="button" class="btn small active" data-tab="tab-dg" role="tab" aria-selected="true">① DeepGauge：为什么比老指标准？</button>
+        <button type="button" class="btn small" data-tab="tab-dh" role="tab" aria-selected="false">② DeepHunter：抓 Bug &amp; 抓量化隐患</button>
+        <button type="button" class="btn small" data-tab="tab-asg" role="tab" aria-selected="false">③ 东大 Assignment 1 交作业清单</button>
       </div>
 
       <div class="tab-pane active" id="tab-dg">
+        <div class="plain-talk">
+          <strong>看懂下面两张图只需一句话：</strong>老指标（DeepXplore DNC）对普通图和对抗攻击图都显示 <code>99.99%</code>，根本分不出好坏；而 DeepGauge 的 <strong>NBC</strong> 在加入攻击图后立刻从 4.1% 飙升到 11.5%（翻了近 3 倍），真正捕捉到了模型内部的异常波动！
+        </div>
         <div class="bar-viz">
           <div class="bar-card">
-            <h4>MNIST · LeNet-5 角落区 NBC 覆盖率（LB=l, UB=u）</h4>
-            <div class="bar-row"><span>原始测试集</span><div class="bar-track"><div class="bar-fill muted" style="width:43%;"></div></div><span style="text-align:right;">8.6%</span></div>
-            <div class="bar-row"><span>+ CW</span><div class="bar-track"><div class="bar-fill" style="width:45.5%;"></div></div><span style="text-align:right;">9.1%</span></div>
-            <div class="bar-row"><span>+ FGSM</span><div class="bar-track"><div class="bar-fill" style="width:52.5%;"></div></div><span style="text-align:right;">10.5%</span></div>
-            <div class="bar-row"><span>+ BIM</span><div class="bar-track"><div class="bar-fill" style="width:58%;"></div></div><span style="text-align:right;">11.6%</span></div>
-            <div class="bar-row"><span>+ JSMA</span><div class="bar-track"><div class="bar-fill amber" style="width:67%;"></div></div><span style="text-align:right;">13.4%</span></div>
+            <h4>MNIST · LeNet-5 角落区 NBC 覆盖率</h4>
+            <div class="bar-row"><span>普通测试集</span><div class="bar-track"><div class="bar-fill muted" style="width:43%;"></div></div><span style="text-align:right;">8.6%</span></div>
+            <div class="bar-row"><span>+ CW 攻击</span><div class="bar-track"><div class="bar-fill" style="width:45.5%;"></div></div><span style="text-align:right;">9.1%</span></div>
+            <div class="bar-row"><span>+ FGSM 攻击</span><div class="bar-track"><div class="bar-fill" style="width:52.5%;"></div></div><span style="text-align:right;">10.5%</span></div>
+            <div class="bar-row"><span>+ BIM 攻击</span><div class="bar-track"><div class="bar-fill" style="width:58%;"></div></div><span style="text-align:right;">11.6%</span></div>
+            <div class="bar-row"><span>+ JSMA 攻击</span><div class="bar-track"><div class="bar-fill amber" style="width:67%;"></div></div><span style="text-align:right;">13.4%</span></div>
           </div>
           <div class="bar-card">
-            <h4>ImageNet · ResNet-50 角落区 NBC（对比 DeepXplore DNC）</h4>
-            <div class="bar-row"><span>NBC 原始</span><div class="bar-track"><div class="bar-fill muted" style="width:27%;"></div></div><span style="text-align:right;">4.1%</span></div>
+            <h4>ImageNet · ResNet-50（新指标 NBC vs 老指标 DNC）</h4>
+            <div class="bar-row"><span>NBC 普通图</span><div class="bar-track"><div class="bar-fill muted" style="width:27%;"></div></div><span style="text-align:right;">4.1%</span></div>
             <div class="bar-row"><span>NBC +FGSM</span><div class="bar-track"><div class="bar-fill" style="width:46%;"></div></div><span style="text-align:right;">6.9%</span></div>
             <div class="bar-row"><span>NBC +BIM</span><div class="bar-track"><div class="bar-fill amber" style="width:76.6%;"></div></div><span style="text-align:right;">11.5%</span></div>
-            <div class="bar-row"><span>DNC 原始</span><div class="bar-track"><div class="bar-fill muted" style="width:99.9%;"></div></div><span style="text-align:right;">99.99%</span></div>
-            <div class="bar-row"><span>DNC +BIM</span><div class="bar-track"><div class="bar-fill muted" style="width:99.9%;"></div></div><span style="text-align:right;">99.99%</span></div>
+            <div class="bar-row"><span>老指标 普通图</span><div class="bar-track"><div class="bar-fill muted" style="width:99.9%;"></div></div><span style="text-align:right;">99.99%</span></div>
+            <div class="bar-row"><span>老指标 +BIM</span><div class="bar-track"><div class="bar-fill muted" style="width:99.9%;"></div></div><span style="text-align:right;">99.99%</span></div>
           </div>
         </div>
-
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>数据集 / 模型</th><th>测试准则</th><th>原始测试集</th><th>+FGSM</th><th>+BIM</th><th>+JSMA / +CW</th><th>观察要点</th></tr>
+              <tr><th>模型（数据集）</th><th>测什么</th><th>普通测试集</th><th>+FGSM</th><th>+BIM</th><th>+JSMA / CW</th><th>大白话结论</th></tr>
             </thead>
             <tbody>
-              <tr><td>MNIST / LeNet-5</td><td>KMNC (k=10k)</td><td class="num">37.2%</td><td class="num">46.0%</td><td class="num">47.6%</td><td class="num hi">48.8% (JSMA)</td><td>主功能区细粒度分段显著上升</td></tr>
-              <tr><td>MNIST / LeNet-5</td><td>NBC (l, u)</td><td class="num">8.6%</td><td class="num">10.5%</td><td class="num">11.6%</td><td class="num hi">13.4% (JSMA)</td><td>原始集角落覆盖极低，对抗样本推高边界</td></tr>
-              <tr><td>MNIST / LeNet-5</td><td>SNAC (u)</td><td class="num">14.9%</td><td class="num">16.4%</td><td class="num">20.2%</td><td class="num hi">23.5% (JSMA)</td><td>ReLU 截断负半轴，上界比下界更易突破</td></tr>
-              <tr><td>ImageNet / VGG-19</td><td>NBC (l, u)</td><td class="num">2.8%</td><td class="num hi">8.7%</td><td class="num">7.4%</td><td class="num">2.9% (CW)</td><td>CW 扰动极微弱，触发内部波动较小</td></tr>
-              <tr><td>ImageNet / ResNet-50</td><td>NBC (l, u)</td><td class="num">4.1%</td><td class="num">6.9%</td><td class="num hi">11.5%</td><td class="num">4.7% (CW)</td><td>BIM 让 NBC 提升 280%，DNC 却无变化</td></tr>
+              <tr><td>LeNet-5 (MNIST)</td><td>KMNC (正常区)</td><td class="num">37.2%</td><td class="num">46.0%</td><td class="num">47.6%</td><td class="num hi">48.8% (JSMA)</td><td>正常区间踩得更细更满</td></tr>
+              <tr><td>LeNet-5 (MNIST)</td><td>NBC (双端角落)</td><td class="num">8.6%</td><td class="num">10.5%</td><td class="num">11.6%</td><td class="num hi">13.4% (JSMA)</td><td>普通图几乎不碰角落，怪图能推高</td></tr>
+              <tr><td>LeNet-5 (MNIST)</td><td>SNAC (发烧上限)</td><td class="num">14.9%</td><td class="num">16.4%</td><td class="num">20.2%</td><td class="num hi">23.5% (JSMA)</td><td>ReLU 截断负值，上限比下限容易触发</td></tr>
+              <tr><td>ResNet-50 (ImageNet)</td><td>NBC (双端角落)</td><td class="num">4.1%</td><td class="num">6.9%</td><td class="num hi">11.5%</td><td class="num">4.7% (CW)</td><td>BIM 让 NBC 涨了 280%，老指标却装死</td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
       <div class="tab-pane" id="tab-dh">
+        <div class="plain-talk">
+          <strong>手机/车机部署模型常把权重从 32 位压缩成 16 位（量化）省电省内存。</strong> 平时原测试集压根测不出压缩后哪儿变笨了，但 DeepHunter 靠 NBC 逼出来的角落图，一口气在 ResNet-50 上抓出了 <strong>37,810 个隐藏的压缩翻车案例</strong>！
+        </div>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>模型（数据集）</th><th>NBC 初始 → 引导后</th><th>KMNC 初始 → 引导后</th><th>NBC 抓出误分类数</th><th>100% FP16 量化缺陷（NBC）</th></tr>
+              <tr><th>模型（数据集）</th><th>NBC 覆盖率翻了多少倍</th><th>KMNC 正常区提升</th><th>抓出的误分类数</th><th>压缩到 16 位后抓出的隐蔽 Bug</th></tr>
             </thead>
             <tbody>
-              <tr><td>LeNet-5（MNIST）</td><td class="num hi">0.3% → 11.3% (37.7×)</td><td class="num">20.6% → 78.4%</td><td class="num">3.1k</td><td class="num hi">100 个</td></tr>
-              <tr><td>ResNet-20（CIFAR-10）</td><td class="num hi">0.1% → 8.1% (81.0×)</td><td class="num">36.0% → 75.1%</td><td class="num">7.8k</td><td class="num">68 个</td></tr>
-              <tr><td>VGG-16（CIFAR-10）</td><td class="num hi">0.04% → 3.1% (77.5×)</td><td class="num">41.1% → 84.1%</td><td class="num">8.1k</td><td class="num">38 个</td></tr>
-              <tr><td>MobileNet（ImageNet）</td><td class="num hi">0.7% → 10.3% (14.7×)</td><td class="num">26.9% → 73.4%</td><td class="num">11.6k</td><td class="num">751 个</td></tr>
-              <tr><td>ResNet-50（ImageNet）</td><td class="num hi">0.1% → 3.2% (32.0×)</td><td class="num">23.9% → 51.6%</td><td class="num">8.8k</td><td class="num hi">37,810 个</td></tr>
+              <tr><td>LeNet-5（MNIST）</td><td class="num hi">0.3% → 11.3%（37.7×）</td><td class="num">20.6% → 78.4%</td><td class="num">3,100+</td><td class="num hi">100 个</td></tr>
+              <tr><td>ResNet-20（CIFAR-10）</td><td class="num hi">0.1% → 8.1%（81.0×）</td><td class="num">36.0% → 75.1%</td><td class="num">7,800+</td><td class="num">68 个</td></tr>
+              <tr><td>VGG-16（CIFAR-10）</td><td class="num hi">0.04% → 3.1%（77.5×）</td><td class="num">41.1% → 84.1%</td><td class="num">8,100+</td><td class="num">38 个</td></tr>
+              <tr><td>MobileNet（ImageNet）</td><td class="num hi">0.7% → 10.3%（14.7×）</td><td class="num">26.9% → 73.4%</td><td class="num">11,600+</td><td class="num">751 个</td></tr>
+              <tr><td>ResNet-50（ImageNet）</td><td class="num hi">0.1% → 3.2%（32.0×）</td><td class="num">23.9% → 51.6%</td><td class="num">8,800+</td><td class="num hi">37,810 个</td></tr>
             </tbody>
           </table>
-        </div>
-        <div class="callout">
-          <span class="callout-title">📌 为什么量化部署特别需要 NBC / SNAC？</span>
-          在 DeepHunter 的 RQ4 实验中，原始种子在 32-bit 降到 16-bit 量化前后<strong>完全检测不出差异</strong>；但经由 NBC / SNAC 覆盖率引导生成的角落区用例，对数值精度截断极为敏感，在 ResNet-50 上抓出了超过 3.7 万个隐藏的量化行为偏差。
         </div>
       </div>
 
       <div class="tab-pane" id="tab-asg">
         <div class="checklist-grid">
           <div class="check-card">
-            <h4><span>Part 1 · 传统软件 vs AI 模型</span><span class="badge teal">4 pts</span></h4>
-            <p>总结传统显式规则软件与数据驱动 AI 模型的差异（控制流/权重、可解释性、代码覆盖率失效、无效输入处理、修复方式），写入 <code>report.pdf</code>。</p>
+            <h4><span>Part 1 · 传统软件 vs AI 对比</span><span class="badge teal">4 分</span></h4>
+            <p>用自己的话写进 <code>report.pdf</code>：传统软件是显式规则+代码覆盖；AI 是数据学出的权重+神经元激活模式+遇噪点不崩溃。</p>
           </div>
           <div class="check-card">
-            <h4><span>Part 2.1 · Profile &amp; NBC</span><span class="badge teal">7 pts</span></h4>
-            <p>删掉 <code>NotImplementedError</code>，补全 <code>profile_DNN</code>（通过 4,694 神经元校验）与 <code>compute_NBCov</code>，保留全部输出并截图 TODO 代码。</p>
+            <h4><span>Part 2.1 · 写 Profile &amp; NBC</span><span class="badge teal">7 分</span></h4>
+            <p>删掉函数开头的 <code>NotImplementedError</code>，补全 <code>profile_DNN</code>（过 4,694 校验）与 <code>compute_NBCov</code>，记得保留 cell 输出并把 TODO 代码截图放进报告。</p>
           </div>
           <div class="check-card">
-            <h4><span>Part 2.2 · Mutation 问答与代码</span><span class="badge teal">6 pts</span></h4>
-            <p>回答 Algorithm 2 变异次数与连续变异机制；补全 <code>mutate_one</code>（Eq.1/2 约束与返回字段），并在报告中附上 <strong>3 张变异后的图片</strong>。</p>
+            <h4><span>Part 2.2 · 变异简答 &amp; mutate_one</span><span class="badge teal">6 分</span></h4>
+            <p>答清“Algorithm 2 只改 1 次，连续变异靠 Algorithm 1 队列回流”；补全 <code>mutate_one</code>，并把 <strong>3 张变异后的图片</strong> 贴进报告。</p>
           </div>
           <div class="check-card">
-            <h4><span>Part 3 · 实验与最终打包</span><span class="badge amber">3 pts · Dec 8</span></h4>
-            <p>运行变异测试实验并分析 NBC 变化；打包为 <code>[First name]_[Student ID]_asg1.zip</code>，内含 <code>AI_testing.ipynb</code>（带输出）与 <code>report.pdf</code>，发送至 <code>homework.submission.se@gmail.com</code>。</p>
+            <h4><span>Part 3 · 实验 &amp; 打包提交</span><span class="badge amber">3 分 · 12月8日截止</span></h4>
+            <p>自己设计变异实验并看 NBC 涨了多少；把 <code>AI_testing.ipynb</code>（带全部运行输出）和 <code>report.pdf</code> 打包成 <code>[First name]_[Student ID]_asg1.zip</code>，发至 <code>homework.submission.se@gmail.com</code>。</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 06: GLOSSARY (cuda_intro.html style) -->
+    <!-- SECTION 06: GLOSSARY -->
     <section class="lab-section" id="sec-glossary">
       <div class="sec-head">
         <div>
           <span class="sec-tag">06 / Quick Glossary</span>
-          <h2>📚 核心术语表</h2>
-          <p class="sec-desc">一句话速查 DeepGauge、DeepHunter 与本次 Assignment 1 涉及的关键概念。</p>
+          <h2>📚 大白话术语表（忘了随时回来看）</h2>
+          <p class="sec-desc">把论文里听起来很唬人的英文缩写，全部翻译成一句人话。</p>
         </div>
-        <span class="badge">Quick Reference</span>
+        <span class="badge">10 秒速查</span>
       </div>
       <div class="table-wrap" style="margin-top:0;">
         <table>
-          <thead><tr><th>术语</th><th>一句话解释</th></tr></thead>
+          <thead><tr><th>英文/术语</th><th>人话翻译</th></tr></thead>
           <tbody>
-            <tr><td><strong>Profiling（画像统计）</strong></td><td>用训练集跑一遍模型，记录每个神经元的最小/最大输出边界 <code>[low_n, high_n]</code>（对应 <code>profile_DNN</code>）</td></tr>
-            <tr><td><strong>Major Function Region</strong></td><td>主功能区，即神经元激活值落在 <code>[low_n, high_n]</code> 内部的常规行为区间</td></tr>
-            <tr><td><strong>Corner-Case Region</strong></td><td>角落区，即激活值突破 <code>(-∞, low_n)</code> 或 <code>(high_n, +∞)</code> 的训练未见极端区间</td></tr>
-            <tr><td><strong>KMNC</strong></td><td>把每个神经元的主功能区均分成 k 段，衡量测试集踩中多少段的细粒度覆盖率</td></tr>
-            <tr><td><strong>NBC（作业 2.1）</strong></td><td>神经元边界覆盖率：<code>(|UpperCorner| + |LowerCorner|) / (2 × |N|)</code>，专盯上下界角落区</td></tr>
-            <tr><td><strong>SNAC</strong></td><td>强激活覆盖率：仅统计突破上界 <code>&gt; high_n</code> 的比例 <code>|UpperCorner| / |N|</code></td></tr>
-            <tr><td><strong>TKNC / TKNP</strong></td><td>层级覆盖率：统计哪些神经元曾进入每层 Top-k 最活跃集合，及跨层 Top-k 组合模式数</td></tr>
-            <tr><td><strong>Metamorphic Mutation</strong></td><td>蜕变变异：对图像施加变换后仍保持人眼语义不变（<code>O(s') = O(s)</code>），无需重新标注即可判 Bug</td></tr>
-            <tr><td><strong>L₀ / L∞ 双阈值约束</strong></td><td>改动像素个数 <code>L₀ &lt; α·size</code> 时幅度不限，否则单像素最大改动 <code>L∞ &lt; β·255</code>（Equation 1）</td></tr>
-            <tr><td><strong>CGF（覆盖率引导模糊测试）</strong></td><td>仅把带来覆盖率提升的变异体追加回种子队列 <code>Q</code> 继续变异，高效逼近角落区与缺陷</td></tr>
+            <tr><td><strong>Profiling（画像统计）</strong></td><td>先拿训练集跑一遍，给全脑 4,694 颗神经元量出各自的“正常体温区间” <code>[最低, 最高]</code></td></tr>
+            <tr><td><strong>Major Function Region</strong></td><td>正常体温区：神经元平时在训练集里见惯了的数值范围</td></tr>
+            <tr><td><strong>Corner-Case Region</strong></td><td>极端发烧/失温区：超出历史最高或低于历史最低，最容易藏 Bug</td></tr>
+            <tr><td><strong>KMNC</strong></td><td>把正常体温切成 k 格，看测试集一共踩过多少格（测“平时常见情况”全不全）</td></tr>
+            <tr><td><strong>NBC（作业 2.1）</strong></td><td>数一数测试集把多少颗神经元的“上限”和“下限”逼出来过，除以 <code>2 × 神经元总数</code></td></tr>
+            <tr><td><strong>SNAC</strong></td><td>NBC 的一半：只数“冲破上限（发烧）”的神经元比例</td></tr>
+            <tr><td><strong>TKNC / TKNP</strong></td><td>每层选最亢奋的前 k 颗“骨干神经元”，看有多少颗当过骨干、出现过几种骨干组合</td></tr>
+            <tr><td><strong>Metamorphic Mutation</strong></td><td>“换马甲不换本质”的改图：人眼看还是同一件衣服，AI 一猜错直接抓现行</td></tr>
+            <tr><td><strong>L₀ / L∞ 双阈值</strong></td><td><code>L₀</code> = 一共改了几个像素点；<code>L∞</code> = 改得最狠的那个点变了多少。少点可狠改，多点只能轻改</td></tr>
+            <tr><td><strong>CGF（覆盖率引导模糊测试）</strong></td><td>自动出题机：哪道变异题把体温计逼出新纪录，就留着它下次继续加码，比瞎蒙快得多</td></tr>
           </tbody>
         </table>
       </div>
@@ -1799,7 +1761,7 @@
 
   <footer>
     <p>© 2026 11_sum · <a href="index.html#projects">返回 Projects &amp; Study ↗</a></p>
-    <p>基于东京大学《Trustworthiness Assurance for Data-Driven AI Software Systems》Assignment 1，结合 <a href="https://arxiv.org/abs/1803.07519" target="_blank" rel="noopener">DeepGauge (ASE '18)</a> 与 <a href="https://arxiv.org/abs/1809.01266" target="_blank" rel="noopener">DeepHunter (ISSTA '19)</a> 整理与交互实现</p>
+    <p>基于东京大学《AI ソフトウェアの信頼性保証特論》Assignment 1，结合 <a href="https://arxiv.org/abs/1803.07519" target="_blank" rel="noopener">DeepGauge (ASE '18)</a> 与 <a href="https://arxiv.org/abs/1809.01266" target="_blank" rel="noopener">DeepHunter (ISSTA '19)</a> 用通俗比喻与交互实验改写</p>
   </footer>
 
   <script>
@@ -1866,17 +1828,14 @@
       };
 
       if (type === 'boot') {
-        // Ankle boot: tall shaft + foot + sole (pixel sum ~61,000)
         fillRect(12, 4, 22, 16, 228);
         fillRect(5, 14, 23, 22, 236);
         fillRect(4, 18, 24, 24, 245);
-        // Smooth ankle curve
         for (let y = 11; y <= 15; y++) {
           for (let x = 8; x <= 12; x++) {
             if (x + y >= 21) set(x, y, 215);
           }
         }
-        // Subtle texture inside boot
         for (let y = 7; y <= 21; y++) {
           for (let x = 7; x <= 21; x++) {
             if (a[y * 28 + x] > 180 && ((x + y) % 5 === 0)) a[y * 28 + x] -= 22;
@@ -1884,19 +1843,15 @@
         }
       } else if (type === 'tshirt' || type === 'brightShirt') {
         const base = type === 'brightShirt' ? 245 : 168;
-        // Sleeves
         fillRect(4, 5, 9, 13, base * 0.92);
         fillRect(18, 5, 23, 13, base * 0.92);
-        // Torso
         fillRect(8, 5, 19, 24, base);
-        // Neck cutout
         for (let y = 4; y <= 8; y++) {
           for (let x = 11; x <= 16; x++) {
             if ((x - 13.5) ** 2 + (y - 4.5) ** 2 < 9.5) a[y * 28 + x] = 0;
           }
         }
         if (type === 'brightShirt') {
-          // Slightly wider bright sweater/shirt so pixel sum crosses 50,000
           fillRect(7, 6, 20, 25, 244);
           for (let y = 4; y <= 7; y++) {
             for (let x = 12; x <= 15; x++) a[y * 28 + x] = 0;
@@ -1909,15 +1864,11 @@
         for (let y = 12; y <= 25; y++) a[y * 28 + 13] *= 0.25;
       } else if (type === 'bag') {
         fillRect(5, 10, 22, 24, 218);
-        // Handle arch
-        for (let x = 9; x <= 18; x++) {
-          set(x, 5, 210); set(x, 6, 190);
-        }
+        for (let x = 9; x <= 18; x++) { set(x, 5, 210); set(x, 6, 190); }
         for (let y = 6; y <= 10; y++) {
           set(9, y, 210); set(10, y, 180);
           set(17, y, 180); set(18, y, 210);
         }
-        // Flap line
         for (let x = 6; x <= 21; x++) a[14 * 28 + x] *= 0.55;
       } else if (type === 'noise') {
         let s = 1337;
@@ -1934,7 +1885,6 @@
       const imgData = ctx.createImageData(28, 28);
       for (let i = 0; i < 784; i++) {
         const v = Math.max(0, Math.min(255, Math.round(arr[i])));
-        // Slight bone tint like matplotlib cmap='bone'
         imgData.data[i * 4 + 0] = Math.min(255, Math.round(v * 0.94));
         imgData.data[i * 4 + 1] = Math.min(255, Math.round(v * 0.99));
         imgData.data[i * 4 + 2] = Math.min(255, Math.round(v * 1.04));
@@ -1975,10 +1925,10 @@
     let diffCurrent = new Float32Array(diffBase);
 
     const PRESET_META = {
-      boot: { gt: 'Ankle boot', isNoise: false },
-      tshirt: { gt: 'T-shirt/top', isNoise: false },
-      brightShirt: { gt: 'T-shirt/top', isNoise: false },
-      noise: { gt: 'Invalid（无语义噪点）', isNoise: true }
+      boot: { gt: '短靴', isNoise: false },
+      tshirt: { gt: 'T 恤', isNoise: false },
+      brightShirt: { gt: 'T 恤', isNoise: false },
+      noise: { gt: '乱码噪点（啥也不是）', isNoise: true }
     };
 
     const refBoot = makeSprite('boot');
@@ -2008,35 +1958,32 @@
       renderGrayCanvas(diffCanvas, diffCurrent);
 
       const meta = PRESET_META[diffPreset];
-      document.getElementById('diff-gt-badge').textContent = '真值: ' + meta.gt;
+      document.getElementById('diff-gt-badge').textContent = '人眼看是: ' + meta.gt;
 
-      // Traditional branch
       const isBootTrad = sum > 50000;
-      const tradPred = isBootTrad ? 'Ankle boot' : 'T-shirt';
+      const tradPred = isBootTrad ? '短靴' : 'T 恤';
       document.getElementById('trad-sum-readout').textContent = `${Math.round(sum).toLocaleString()} / 50,000`;
       const pct = Math.min(100, (sum / 110000) * 100);
       const bar = document.getElementById('trad-sum-bar');
       bar.style.width = pct + '%';
       bar.style.background = isBootTrad ? 'var(--accent)' : 'var(--blue)';
-      document.getElementById('trad-branch-badge').textContent = isBootTrad ? 'Branch: True (>50k)' : 'Branch: False (≤50k)';
+      document.getElementById('trad-branch-badge').textContent = isBootTrad ? '走了 if 分支 (>5万)' : '走了 else 分支 (≤5万)';
       document.getElementById('code-cond').className = 'code-line hit';
       document.getElementById('code-true').className = 'code-line' + (isBootTrad ? ' hit' : '');
       document.getElementById('code-false').className = 'code-line' + (!isBootTrad ? ' hit' : '');
 
-      const tradCorrect = !meta.isNoise && ((tradPred === 'Ankle boot' && meta.gt === 'Ankle boot') || (tradPred === 'T-shirt' && meta.gt === 'T-shirt/top'));
+      const tradCorrect = !meta.isNoise && (tradPred === meta.gt);
       const tradVerdict = document.getElementById('trad-verdict');
       if (meta.isNoise) {
-        tradVerdict.innerHTML = `预测结果：<strong style="color:var(--red);">${tradPred}</strong> · <span style="color:var(--red);">无效输入却照常落入分支</span>`;
+        tradVerdict.innerHTML = `猜成：<strong style="color:var(--red);">${tradPred}</strong><br><span style="color:var(--muted);">明明是一团雪花，只因总亮度超 5 万就硬判成短靴。</span>`;
       } else if (tradCorrect) {
-        tradVerdict.innerHTML = `预测结果：<strong style="color:var(--green);">${tradPred} ✓</strong> · 刚好符合阈值假设`;
+        tradVerdict.innerHTML = `猜成：<strong style="color:var(--green);">${tradPred} ✓ 蒙对了</strong><br><span style="color:var(--muted);">只是因为这张图刚好落在 5 万的正确那一侧。</span>`;
       } else {
-        tradVerdict.innerHTML = `预测结果：<strong style="color:var(--red);">${tradPred} ✗</strong> · <span style="color:var(--red);">亮度/面积变化击穿 50,000 硬阈值！</span>`;
+        tradVerdict.innerHTML = `猜成：<strong style="color:var(--red);">${tradPred} ✗ 翻车了！</strong><br><span style="color:var(--muted);">这件 T 恤只是亮了一点，总亮度超过 5 万就立刻被错认成短靴。</span>`;
       }
 
-      // Simulated LeNet-5 feature activations
       const simBoot = cosineSim(diffCurrent, refBoot);
       const simShirt = cosineSim(diffCurrent, refShirt);
-      // High frequency measure (noise detection)
       let hf = 0;
       for (let y = 0; y < 27; y++) {
         for (let x = 0; x < 27; x++) {
@@ -2045,33 +1992,33 @@
       }
       const hfNorm = hf / (27 * 27 * 85);
 
-      let aiPred = simBoot >= simShirt ? 'Ankle boot' : 'T-shirt/top';
+      let aiPred = simBoot >= simShirt ? '短靴' : 'T 恤';
       let conf = Math.min(99, Math.max(54, Math.round(52 + Math.abs(simBoot - simShirt) * 180)));
-      let mode = 'normal'; // normal | bug | invalid
+      let mode = 'normal';
       if (meta.isNoise || hfNorm > 0.72) {
         mode = 'invalid';
-        aiPred = 'Bag (伪高置信)';
+        aiPred = '手提包（乱猜却很自信）';
         conf = 89;
       } else if (Math.abs(shift) >= 62 && diffPreset === 'tshirt') {
         mode = 'bug';
-        aiPred = 'Ankle boot';
+        aiPred = '短靴';
         conf = 64;
       }
 
       const aiNote = document.getElementById('ai-pattern-note');
       const aiVerdict = document.getElementById('ai-verdict');
       if (mode === 'invalid') {
-        aiNote.textContent = '异常激活（Invalid input）';
+        aiNote.textContent = '收到废图，照样胡乱亮灯';
         aiNote.style.color = 'var(--red)';
-        aiVerdict.innerHTML = `预测结果：<strong style="color:var(--red);">${aiPred} (${conf}%)</strong> · 不会崩溃，必须靠蜕变约束过滤废图`;
+        aiVerdict.innerHTML = `猜成：<strong style="color:var(--red);">${aiPred} (${conf}%)</strong><br><span style="color:var(--muted);">AI 遇到乱码不会报错崩溃，所以后面造测试图必须保证“人眼还认得出”。</span>`;
       } else if (mode === 'bug') {
-        aiNote.textContent = '角落区偏移（Bug triggered）';
+        aiNote.textContent = '极端亮度把神经元逼偏了！';
         aiNote.style.color = 'var(--amber)';
-        aiVerdict.innerHTML = `预测结果：<strong style="color:var(--amber);">${aiPred} (${conf}%) ✗</strong> · 极端亮度触发误分类缺陷`;
+        aiVerdict.innerHTML = `猜成：<strong style="color:var(--amber);">${aiPred} (${conf}%) ✗ 翻车！</strong><br><span style="color:var(--muted);">遇到平时没练过的极端明暗，AI 也会在角落里犯错。</span>`;
       } else {
-        aiNote.textContent = '主功能区稳定激活';
+        aiNote.textContent = '看形状特征，稳定识别';
         aiNote.style.color = 'var(--accent)';
-        aiVerdict.innerHTML = `预测结果：<strong style="color:var(--green);">${aiPred} (${conf}%) ✓</strong> · 空间卷积特征对亮度变化更鲁棒`;
+        aiVerdict.innerHTML = `猜成：<strong style="color:var(--green);">${aiPred} (${conf}%) ✓ 识别准确</strong><br><span style="color:var(--muted);">靠卷积提炼轮廓，换件亮一点的 T 恤也不会糊涂。</span>`;
       }
 
       drawMiniNet(mode, simBoot, simShirt, hfNorm);
@@ -2080,14 +2027,13 @@
     function drawMiniNet(mode, sBoot, sShirt, hfNorm) {
       const svg = document.getElementById('ai-net-svg');
       const layers = [
-        { x: 42, ys: [28, 60, 92, 120] },
+        { x: 42, ys: [28, 59, 90, 118] },
         { x: 124, ys: [22, 52, 82, 112] },
-        { x: 206, ys: [34, 73, 112] },
-        { x: 282, ys: [48, 98], labels: ['Boot', 'Shirt'] }
+        { x: 206, ys: [34, 72, 110] },
+        { x: 280, ys: [46, 96], labels: ['短靴', 'T恤'] }
       ];
       const activeColor = mode === 'invalid' ? 'var(--red)' : (mode === 'bug' ? 'var(--amber)' : 'var(--accent)');
       let html = '';
-      // Draw all edges (always executed => 100% code coverage!)
       for (let l = 0; l < layers.length - 1; l++) {
         for (let i = 0; i < layers[l].ys.length; i++) {
           for (let j = 0; j < layers[l + 1].ys.length; j++) {
@@ -2096,7 +2042,6 @@
           }
         }
       }
-      // Draw nodes
       layers.forEach((L, li) => {
         L.ys.forEach((y, ni) => {
           let on = false;
@@ -2108,7 +2053,7 @@
           }
           html += `<circle cx="${L.x}" cy="${y}" r="${li === 3 ? 11 : 8.5}" fill="${on ? activeColor : 'var(--slot)'}" stroke="${on ? activeColor : 'var(--line)'}" stroke-width="1.6"/>`;
           if (L.labels) {
-            html += `<text x="${L.x}" y="${y + 23}" text-anchor="middle" font-size="10" font-family="var(--font-mono)" fill="var(--muted)">${L.labels[ni]}</text>`;
+            html += `<text x="${L.x}" y="${y + 23}" text-anchor="middle" font-size="11" fill="var(--muted)">${L.labels[ni]}</text>`;
           }
         });
       });
@@ -2127,7 +2072,6 @@
     });
     diffBrightSlider.addEventListener('input', updateDiffView);
 
-    // Paint directly on 28x28 canvas
     let painting = false;
     function paintAt(e) {
       const rect = diffCanvas.getBoundingClientRect();
@@ -2146,7 +2090,6 @@
     diffCanvas.addEventListener('pointerdown', e => { painting = true; paintAt(e); });
     window.addEventListener('pointerup', () => { painting = false; });
     diffCanvas.addEventListener('pointermove', e => { if (painting) paintAt(e); });
-
     updateDiffView();
 
     /* ============================================================
@@ -2175,15 +2118,9 @@
             id: idx++,
             layer: L.name,
             nid: Math.floor(rnd() * (L.name === 'conv1' ? 3456 : L.name === 'conv2' ? 1024 : L.name === 'fc1' ? 120 : L.name === 'fc2' ? 84 : 10)),
-            mean,
-            sigma,
-            rawLow: low,
-            rawHigh: high,
-            lastVal: null,
-            samples: [],
-            lowerHit: false,
-            upperHit: false,
-            sections: new Set()
+            mean, sigma, rawLow: low, rawHigh: high,
+            lastVal: null, samples: [],
+            lowerHit: false, upperHit: false, sections: new Set()
           });
         }
       }
@@ -2275,8 +2212,8 @@
             <div class="n-top">
               <span class="n-id">${n.layer} #${n.nid}</span>
               <span class="n-flags">
-                <span class="n-flag ${n.lowerHit ? 'on-l' : ''}" title="LowerCornerNeuron">L</span>
-                <span class="n-flag ${n.upperHit ? 'on-u' : ''}" title="UpperCornerNeuron">U</span>
+                <span class="n-flag ${n.lowerHit ? 'on-l' : ''}" title="跌破历史下限 (LowerCorner)">下</span>
+                <span class="n-flag ${n.upperHit ? 'on-u' : ''}" title="冲破历史上限 (UpperCorner)">上</span>
               </span>
             </div>
             <div class="n-track">
@@ -2284,9 +2221,9 @@
               ${dotHtml}
             </div>
             <div class="n-range">
-              <span>${low.toFixed(1)}</span>
-              <span>${n.lastVal === null ? '—' : (nbcPostRelu ? Math.max(0, n.lastVal) : n.lastVal).toFixed(2)}</span>
-              <span>${high.toFixed(1)}</span>
+              <span>低 ${low.toFixed(1)}</span>
+              <span>现 ${n.lastVal === null ? '—' : (nbcPostRelu ? Math.max(0, n.lastVal) : n.lastVal).toFixed(1)}</span>
+              <span>高 ${high.toFixed(1)}</span>
             </div>
           </div>`;
       }).join('');
@@ -2303,21 +2240,22 @@
       const kmnc = (secCnt / (totalN * 5)) * 100;
 
       document.getElementById('nbc-val').textContent = nbc.toFixed(1) + '%';
-      document.getElementById('nbc-formula').textContent = `(${upperCnt} + ${lowerCnt}) / (2 × ${totalN})`;
+      document.getElementById('nbc-formula').textContent = `踩响 (${upperCnt}上 + ${lowerCnt}下) / 共 ${2 * totalN} 个极限端`;
       document.getElementById('snac-val').textContent = snac.toFixed(1) + '%';
-      document.getElementById('snac-formula').textContent = `Upper: ${upperCnt} / ${totalN}`;
+      document.getElementById('snac-formula').textContent = `冲破上限：${upperCnt} / ${totalN} 个神经元`;
       document.getElementById('lower-val').textContent = `${lowerCnt} / ${totalN}`;
-      document.getElementById('lower-note').textContent = nbcPostRelu ? 'Post-ReLU：下界贴近 0，难以突破' : 'Pre-ReLU：可触发负半轴下界';
+      document.getElementById('lower-note').textContent = nbcPostRelu ? 'Post-ReLU：负数全变 0，下限几乎踩不到' : 'Pre-ReLU：负半轴保留，能测到失温下限';
       document.getElementById('kmnc-val').textContent = kmnc.toFixed(1) + '%';
-      document.getElementById('kmnc-formula').textContent = `${secCnt} / ${totalN * 5} sections · ${nbcSampleCount} 样本`;
+      document.getElementById('kmnc-formula').textContent = `${secCnt} / ${totalN * 5} 格 · 已测 ${nbcSampleCount} 张图`;
 
       const sel = nbcNeurons[selectedNeuronIdx];
       const b = getNeuronBounds(sel);
-      const dispVal = sel.lastVal === null ? '尚未测试' : (nbcPostRelu ? Math.max(0, sel.lastVal) : sel.lastVal).toFixed(2);
+      const dispVal = sel.lastVal === null ? '还没测' : (nbcPostRelu ? Math.max(0, sel.lastVal) : sel.lastVal).toFixed(2);
+      const statusTxt = (sel.lowerHit && sel.upperHit) ? '上下极限全踩过 ✓' : (sel.upperHit ? '冲破过上限（发烧）' : (sel.lowerHit ? '跌破过下限（失温）' : '一直在正常体温区内'));
       document.getElementById('nbc-inspector').querySelector('span').innerHTML =
-        `当前选中 <strong>(${sel.layer}, #${sel.nid})</strong> · 主功能区覆盖 <strong>${sel.sections.size}/5</strong> 段 · 角落状态：${sel.lowerHit ? 'Lower✓ ' : ''}${sel.upperHit ? 'Upper✓' : (!sel.lowerHit ? '尚未突破边界' : '')}`;
+        `当前体检：<strong>${sel.layer} 第 #${sel.nid} 号神经元</strong> · 正常区踩过 <strong>${sel.sections.size}/5</strong> 档 · 状态：<strong>${statusTxt}</strong>`;
       document.getElementById('nbc-inspector-code').textContent =
-        `[low_n=${b.low.toFixed(2)}, high_n=${b.high.toFixed(2)}] | φ(x, n)=${dispVal}`;
+        `正常区 [${b.low.toFixed(2)}, ${b.high.toFixed(2)}] ｜ 最新输出 = ${dispVal}`;
     }
 
     document.getElementById('nbc-add-normal').addEventListener('click', () => injectNbcSample(false));
@@ -2341,16 +2279,14 @@
     reluBtn.addEventListener('click', () => {
       nbcPostRelu = !nbcPostRelu;
       reluBtn.setAttribute('aria-pressed', String(nbcPostRelu));
-      reluBtn.textContent = nbcPostRelu ? '采样：Post-ReLU（截断负值）' : '采样：Pre-ReLU（作业默认）';
+      reluBtn.textContent = nbcPostRelu ? '当前：Post-ReLU（负值清零）' : '当前：ReLU 之前（作业默认）';
       recomputeNbcCoverage();
       renderNbcGrid();
     });
-    // Pre-seed 3 normal samples so page looks alive on load
     for (let i = 0; i < 3; i++) injectNbcSample(false);
 
     /* ============================================================
        3. Section 03: DeepHunter Metamorphic Mutation Sandbox
-       Faithfully mirrors all_utils.py (classA=[6,7], classB=[0..5])
        ============================================================ */
     function bilinearSample(arr, fx, fy) {
       const x0 = Math.floor(fx), y0 = Math.floor(fy);
@@ -2366,19 +2302,16 @@
 
     const MUTATORS = {
       pixel_change: {
-        cls: 'A',
+        cls: 'A', zh: '随机改几点',
         params: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         apply(img, p) {
           const out = new Float32Array(img);
-          for (let i = 0; i < p; i++) {
-            const idx = Math.floor(Math.random() * 784);
-            out[idx] = Math.floor(Math.random() * 256);
-          }
+          for (let i = 0; i < p; i++) out[Math.floor(Math.random() * 784)] = Math.floor(Math.random() * 256);
           return out;
         }
       },
       noise: {
-        cls: 'A',
+        cls: 'A', zh: '撒雪花噪点',
         params: [1, 2, 3],
         apply(img, p) {
           const out = new Float32Array(img);
@@ -2402,37 +2335,34 @@
         }
       },
       scale: {
-        cls: 'B',
+        cls: 'B', zh: '缩放',
         params: [0.7, 0.8, 0.9, 1.0, 1.1],
         apply(img, s) {
           const out = new Float32Array(784);
           const cx = 13.5, cy = 13.5;
           for (let y = 0; y < 28; y++) {
             for (let x = 0; x < 28; x++) {
-              const sx = (x - cx) / s + cx;
-              const sy = (y - cy) / s + cy;
-              out[y * 28 + x] = Math.max(0, Math.min(255, bilinearSample(img, sx, sy)));
+              out[y * 28 + x] = Math.max(0, Math.min(255, bilinearSample(img, (x - cx) / s + cx, (y - cy) / s + cy)));
             }
           }
           return out;
         }
       },
       shear: {
-        cls: 'B',
+        cls: 'B', zh: '拉斜',
         params: [-0.4, -0.3, -0.2, -0.1, 0.1, 0.2, 0.3, 0.4],
         apply(img, sh) {
           const out = new Float32Array(784);
           for (let y = 0; y < 28; y++) {
             for (let x = 0; x < 28; x++) {
-              const sx = x + sh * (y - 13.5);
-              out[y * 28 + x] = Math.max(0, Math.min(255, bilinearSample(img, sx, y)));
+              out[y * 28 + x] = Math.max(0, Math.min(255, bilinearSample(img, x + sh * (y - 13.5), y)));
             }
           }
           return out;
         }
       },
       rotation: {
-        cls: 'B',
+        cls: 'B', zh: '旋转',
         params: [-30, -20, -15, -10, 10, 15, 20, 30],
         apply(img, deg) {
           const out = new Float32Array(784);
@@ -2442,16 +2372,14 @@
           for (let y = 0; y < 28; y++) {
             for (let x = 0; x < 28; x++) {
               const dx = x - cx, dy = y - cy;
-              const sx = dx * cos - dy * sin + cx;
-              const sy = dx * sin + dy * cos + cy;
-              out[y * 28 + x] = Math.max(0, Math.min(255, bilinearSample(img, sx, sy)));
+              out[y * 28 + x] = Math.max(0, Math.min(255, bilinearSample(img, dx * cos - dy * sin + cx, dx * sin + dy * cos + cy)));
             }
           }
           return out;
         }
       },
       contrast: {
-        cls: 'B',
+        cls: 'B', zh: '对比度',
         params: [0.6, 0.8, 0.9, 1.1, 1.2],
         apply(img, alpha) {
           const out = new Float32Array(784);
@@ -2460,7 +2388,7 @@
         }
       },
       brightness: {
-        cls: 'B',
+        cls: 'B', zh: '明暗',
         params: [-20, -15, -10, 10, 15, 20],
         apply(img, p) {
           const out = new Float32Array(784);
@@ -2472,7 +2400,7 @@
         }
       },
       blur: {
-        cls: 'B',
+        cls: 'B', zh: '模糊',
         params: [1, 2, 3],
         apply(img, p) {
           const out = new Float32Array(784);
@@ -2522,10 +2450,12 @@
       mutL0Ref = 0;
       mutLinfRef = 0;
       mutDepth = 0;
-      mutTrail = [{ img: new Float32Array(mutOrig), tag: 's₀ (初始)' }];
+      mutTrail = [{ img: new Float32Array(mutOrig), tag: '原图' }];
       document.getElementById('mut-trace').innerHTML =
-        `[Reset] seed=${seedName}, has_Affine=0, l0_ref=0, linf_ref=0`;
-      setMutVerdict('就绪：点击「执行 mutate_one()」或左侧算子', 'green');
+        `[就绪] 已重置原图：大动作未用 (has_Affine=0)，之前已用像素额度 (0, 0)。`;
+      document.getElementById('mut-plain-explain').textContent =
+        '点左侧任意按钮试试看：我会用大白话告诉你这次改动为什么“放行”或“被拦下”。';
+      setMutVerdict('等待操作', 'green');
       syncMutationUI(0, 0);
     }
 
@@ -2537,34 +2467,33 @@
 
     function syncMutationUI(curL0, curLinf) {
       const { alpha, beta, l0Th, linfTh } = getMutThresholds();
-      document.getElementById('mut-alpha-val').textContent = `${alpha.toFixed(2)} (${l0Th} px)`;
-      document.getElementById('mut-beta-val').textContent = `${beta.toFixed(2)} (${linfTh})`;
+      document.getElementById('mut-alpha-val').textContent = `${alpha.toFixed(2)} (最多 ${l0Th} 格)`;
+      document.getElementById('mut-beta-val').textContent = `${beta.toFixed(2)} (幅度 < ${linfTh})`;
       renderGrayCanvas(document.getElementById('c-orig'), mutOrig);
       renderGrayCanvas(document.getElementById('c-ref'), mutRef);
       renderGrayCanvas(document.getElementById('c-cur'), mutCur);
       renderDiffCanvas(document.getElementById('c-diff'), mutCur, mutRef);
 
       const affBadge = document.getElementById('mut-affine-badge');
-      affBadge.textContent = `has_Affine = ${mutHasAffine}`;
+      affBadge.textContent = mutHasAffine ? '大动作：已用完 (1/1)' : '大动作：还没用 (0/1)';
       affBadge.className = 'badge ' + (mutHasAffine ? 'amber' : 'teal');
 
       const lockBadge = document.getElementById('classb-lock-badge');
-      lockBadge.textContent = mutHasAffine ? '已锁定（上限 1 次）' : '剩余 1 次';
+      lockBadge.textContent = mutHasAffine ? '已上锁（上限 1 次）' : '还能用 1 次';
       lockBadge.className = 'badge ' + (mutHasAffine ? 'red' : 'amber');
       document.querySelectorAll('[data-mut-op]').forEach(btn => {
         const op = MUTATORS[btn.dataset.mutOp];
         btn.disabled = (op.cls === 'B' && mutHasAffine === 1);
       });
 
-      document.getElementById('ref-sub').textContent = mutHasAffine ? '已同步仿射参考图' : '尚未发生仿射';
-      document.getElementById('cur-sub').textContent = `变异深度 d = ${mutDepth}`;
-      document.getElementById('mut-l0-val').innerHTML = `${curL0} <small style="font-weight:400;color:var(--muted);">/ ${l0Th}</small>`;
+      document.getElementById('ref-sub').textContent = mutHasAffine ? '已同步大动作后的标尺' : '目前和原图一样';
+      document.getElementById('cur-sub').textContent = mutDepth === 0 ? '还没改过 (第 0 步)' : `已连续改了 ${mutDepth} 次`;
+      document.getElementById('mut-l0-val').innerHTML = `${curL0} <small style="font-weight:400;color:var(--muted);">/ ${l0Th} 格</small>`;
       document.getElementById('mut-linf-val').innerHTML = `${curLinf} <small style="font-weight:400;color:var(--muted);">/ ${linfTh}</small>`;
       document.getElementById('mut-ref-budget').textContent = `(${mutL0Ref}, ${mutLinfRef})`;
 
-      // Trail strip
       const strip = document.getElementById('mut-trail');
-      document.getElementById('trail-count').textContent = `${mutTrail.length} 帧`;
+      document.getElementById('trail-count').textContent = `${mutTrail.length} 张`;
       strip.innerHTML = '';
       mutTrail.forEach((item, idx) => {
         if (idx > 0) {
@@ -2594,7 +2523,6 @@
       const cand = op.apply(mutCur, param);
 
       if (op.cls === 'B') {
-        // Class B (Affine/global) allowed only when has_Affine === 0
         const pre = calcL0Linf(mutCur, mutRef);
         mutL0Ref = pre.l0;
         mutLinfRef = pre.linf;
@@ -2602,30 +2530,38 @@
         mutCur = cand;
         mutHasAffine = 1;
         mutDepth++;
-        mutTrail.push({ img: new Float32Array(mutCur), tag: `${opName}(${param})` });
-        logLines.push(`<span class="trace-ok">✓ [Class B] ${opName}(p=${param}) → 更新 ref_img, has_Affine=1, 保留前段 (${mutL0Ref}, ${mutLinfRef})</span>`);
-        setMutVerdict(`✅ Accepted · Class B ${opName}（仿射已锁定）`, 'amber');
+        mutTrail.push({ img: new Float32Array(mutCur), tag: `${op.zh}(${param})` });
+        logLines.push(`<span class="trace-ok">✓ [大动作 Class B] ${op.zh}(${opName}, p=${param}) → 同步更新参考标尺 ref_img，上锁 has_Affine=1</span>`);
+        setMutVerdict(`✅ 放行 · 已用完唯一 1 次大动作`, 'amber');
+        document.getElementById('mut-plain-explain').innerHTML =
+          `<strong>放行并上锁！</strong>刚才做了「${op.zh}（参数 ${param}）」，为了不把图越转越糊，所有大动作按钮已经自动锁死（<code>has_Affine=1</code>），接下来只能做右侧的小微调。`;
         syncMutationUI(mutL0Ref, mutLinfRef);
         return true;
       }
 
-      // Class A: check Equation 1 & 2
       const { l0: l0Cur, linf: linfCur } = calcL0Linf(cand, mutRef);
       const totalL0 = mutHasAffine ? (mutL0Ref + l0Cur) : l0Cur;
       const totalLinf = mutHasAffine ? (mutLinfRef + linfCur) : linfCur;
-      const valid = (totalL0 < l0Th && totalLinf <= 255) || (totalLinf < linfTh);
+      const passFew = totalL0 < l0Th && totalLinf <= 255;
+      const passMild = totalLinf < linfTh;
+      const valid = passFew || passMild;
 
       if (valid) {
         mutCur = cand;
         mutDepth++;
-        mutTrail.push({ img: new Float32Array(mutCur), tag: `${opName}(${param})` });
-        logLines.push(`<span class="trace-ok">✓ [Class A] ${opName}(p=${param}) | L₀=${totalL0} (${totalL0 < l0Th ? '<' : '≥'}${l0Th}), L∞=${totalLinf} → VALID (Success=True)</span>`);
-        setMutVerdict(`✅ 满足 Equation 1（${opName}, L₀=${totalL0}, L∞=${totalLinf}）`, 'green');
+        mutTrail.push({ img: new Float32Array(mutCur), tag: `${op.zh}(${param})` });
+        logLines.push(`<span class="trace-ok">✓ [小微调 Class A] ${op.zh}(p=${param}) | 改动 ${totalL0} 格, 最大幅度 ${totalLinf} → 合法放行</span>`);
+        setMutVerdict(`✅ 放行 · 人眼仍可辨认`, 'green');
+        document.getElementById('mut-plain-explain').innerHTML = passFew
+          ? `<strong>放行（靠“改的点数极少”过关）！</strong>总共只动了 <strong>${totalL0}</strong> 格像素（少于上限 ${l0Th} 格），就像照片沾了几粒灰，完全不影响认出原图！`
+          : `<strong>放行（靠“整体改得很轻”过关）！</strong>虽然动了 ${totalL0} 格像素，但最狠的一格也只变了 <strong>${totalLinf}</strong>（小于上限 ${linfTh}），画面依然清晰！`;
         syncMutationUI(totalL0, totalLinf);
         return true;
       } else {
-        logLines.push(`<span class="trace-rej">✗ [Class A] ${opName}(p=${param}) | L₀=${totalL0} ≥ ${l0Th} 且 L∞=${totalLinf} ≥ ${linfTh} → REJECTED</span>`);
-        setMutVerdict(`❌ 超出阈值被拒（L₀=${totalL0}, L∞=${totalLinf}）`, 'red');
+        logLines.push(`<span class="trace-rej">✗ [小微调 Class A] ${op.zh}(p=${param}) | 改动 ${totalL0} 格 (≥${l0Th}) 且幅度 ${totalLinf} (≥${linfTh}) → 改太狠了，打回！</span>`);
+        setMutVerdict(`❌ 被拦下 · 改太狠怕糊掉`, 'red');
+        document.getElementById('mut-plain-explain').innerHTML =
+          `<strong>安检拦截！</strong>刚才「${op.zh}」改动了 <strong>${totalL0}</strong> 格像素（超过 ${l0Th}），而且单格最狠变了 <strong>${totalLinf}</strong>（超过 ${linfTh}），怕改糊了所以自动丢弃，原图保持不变。`;
         syncMutationUI(totalL0, totalLinf);
         return false;
       }
@@ -2643,14 +2579,14 @@
         const param = params[Math.floor(Math.random() * params.length)];
         const ok = applySingleCandidate(opName, param, logs);
         if (ok) {
-          logs.push(`<span class="trace-ok">→ mutate_one() 在第 ${t} 次尝试成功返回（changed=True）</span>`);
+          logs.push(`<span class="trace-ok">→ Algorithm 2 在第 ${t} 次尝试就找到合法改动，立刻停手返回（只改了 1 次！）</span>`);
           accepted = true;
           break;
         }
       }
       if (!accepted) {
-        logs.push(`<span class="trace-rej">→ 达到 TRY_NUM=50 仍未找到满足约束的变异，返回原图（changed=False）</span>`);
-        setMutVerdict('❌ 50 次尝试均失败（changed=False）', 'red');
+        logs.push(`<span class="trace-rej">→ 连试 50 次都超标（当前已累计太接近上限），放弃本次变异返回原图。</span>`);
+        setMutVerdict('❌ 连试 50 次未通过（可点重置）', 'red');
       }
       document.getElementById('mut-trace').innerHTML = logs.join('<br>');
     });
@@ -2687,25 +2623,19 @@
     /* ============================================================
        4. Section 04: Algorithm 1 Coverage-Guided Fuzzing Loop
        ============================================================ */
-    let fuzzRound = 0;
-    let fuzzTimer = null;
-    let fuzzQueue = [];
-    let fuzzGuidedHist = [];
-    let fuzzRandomHist = [];
-    let fuzzGuidedBugs = 0;
-    let fuzzRandomBugs = 0;
-    let fuzzSeedCounter = 7;
+    let fuzzRound = 0, fuzzTimer = null, fuzzQueue = [], fuzzGuidedHist = [], fuzzRandomHist = [];
+    let fuzzGuidedBugs = 0, fuzzRandomBugs = 0, fuzzSeedCounter = 7;
 
     function resetFuzz() {
-      if (fuzzTimer) { clearInterval(fuzzTimer); fuzzTimer = null; document.getElementById('fuzz-auto').textContent = '自动运行'; }
+      if (fuzzTimer) { clearInterval(fuzzTimer); fuzzTimer = null; document.getElementById('fuzz-auto').textContent = '自动连续跑'; }
       fuzzRound = 0;
       fuzzQueue = [
-        { id: 's1', depth: 0, picked: 0 },
-        { id: 's2', depth: 0, picked: 0 },
-        { id: 's3', depth: 0, picked: 0 },
-        { id: 's4', depth: 0, picked: 0 },
-        { id: 's5', depth: 0, picked: 0 },
-        { id: 's6', depth: 0, picked: 0 }
+        { id: '题1', depth: 0, picked: 0 },
+        { id: '题2', depth: 0, picked: 0 },
+        { id: '题3', depth: 0, picked: 0 },
+        { id: '题4', depth: 0, picked: 0 },
+        { id: '题5', depth: 0, picked: 0 },
+        { id: '题6', depth: 0, picked: 0 }
       ];
       fuzzGuidedHist = [8.6];
       fuzzRandomHist = [8.6];
@@ -2713,18 +2643,17 @@
       fuzzRandomBugs = 0;
       fuzzSeedCounter = 7;
       document.querySelectorAll('.loop-node').forEach(n => n.classList.remove('lit'));
-      document.getElementById('fuzz-last-event').textContent = '初始测试集 6 个种子已装入队列 Q（初始 NBC = 8.6%）。';
+      document.getElementById('fuzz-last-event').textContent = '初始 6 道原题已装进题库（初始 NBC = 8.6%）。';
       renderFuzzState();
     }
 
     function stepFuzz(animate = true) {
       if (fuzzRound >= 60) {
-        if (fuzzTimer) { clearInterval(fuzzTimer); fuzzTimer = null; document.getElementById('fuzz-auto').textContent = '自动运行'; }
+        if (fuzzTimer) { clearInterval(fuzzTimer); fuzzTimer = null; document.getElementById('fuzz-auto').textContent = '自动连续跑'; }
         return;
       }
       fuzzRound++;
 
-      // Diversity-first selection (pick least-fuzzed seed)
       fuzzQueue.sort((a, b) => a.picked - b.picked || b.depth - a.depth);
       const chosen = fuzzQueue[0];
       chosen.picked++;
@@ -2732,32 +2661,28 @@
       const curG = fuzzGuidedHist[fuzzGuidedHist.length - 1];
       const curR = fuzzRandomHist[fuzzRandomHist.length - 1];
 
-      // Guided gain: benefits from deeper exploration in Q
       const gHeadroom = Math.max(0.05, (42 - curG) / 34);
       const isBugG = Math.random() < (0.18 + 0.08 * Math.min(3, chosen.depth));
       const isCovGainG = !isBugG && Math.random() < (0.48 + 0.32 * gHeadroom);
-      let nextG = curG;
-      let eventMsg = '';
-      let litStep = 2;
+      let nextG = curG, eventMsg = '', litStep = 2;
 
       if (isBugG) {
         fuzzGuidedBugs++;
         nextG = Math.min(44, +(curG + (0.25 + Math.random() * 0.45) * gHeadroom).toFixed(2));
-        eventMsg = `Round ${fuzzRound}: 选中 ${chosen.id}(d=${chosen.depth}) → 1 次变异触发误分类！收入缺陷池 F（不放回 Q）。`;
+        eventMsg = `第 ${fuzzRound} 轮：挑出「${chosen.id} (已改${chosen.depth}次)」加 1 次小改动 → 抓到 AI 猜错！直接收入错题本 F。`;
         litStep = 3;
       } else if (isCovGainG) {
         const gain = +(0.45 + Math.random() * 1.15) * gHeadroom;
         nextG = Math.min(44, +(curG + gain).toFixed(2));
-        const newSeed = { id: 's' + (fuzzSeedCounter++), depth: chosen.depth + 1, picked: 0 };
+        const newSeed = { id: '题' + (fuzzSeedCounter++), depth: chosen.depth + 1, picked: 0 };
         if (fuzzQueue.length < 28) fuzzQueue.push(newSeed);
-        eventMsg = `Round ${fuzzRound}: 选中 ${chosen.id}(d=${chosen.depth}) → 覆盖率 +${gain.toFixed(2)}%！新种子 ${newSeed.id}(d=${newSeed.depth}) 追加回 Q（形成连续变异）。`;
+        eventMsg = `第 ${fuzzRound} 轮：挑出「${chosen.id} (已改${chosen.depth}次)」→ 虽然没猜错，但体温计冲破新纪录 (+${gain.toFixed(2)}%)！把「${newSeed.id} (连改${newSeed.depth}次)」塞回题库下次继续加码！`;
         litStep = 4;
       } else {
-        eventMsg = `Round ${fuzzRound}: 选中 ${chosen.id}(d=${chosen.depth}) → 未产生新覆盖率，丢弃候选样本。`;
+        eventMsg = `第 ${fuzzRound} 轮：挑出「${chosen.id}」加 1 次改动 → AI 轻松答对且没破新纪录，扔掉不留。`;
         litStep = 2;
       }
 
-      // Random baseline (mutates only initial seeds, slower saturation)
       const rHeadroom = Math.max(0.03, (17.5 - curR) / 10);
       const gainR = Math.random() < 0.34 ? (0.18 + Math.random() * 0.45) * rHeadroom : 0;
       const nextR = Math.min(18.5, +(curR + gainR).toFixed(2));
@@ -2779,17 +2704,16 @@
     function renderFuzzState() {
       const curG = fuzzGuidedHist[fuzzGuidedHist.length - 1];
       const curR = fuzzRandomHist[fuzzRandomHist.length - 1];
-      document.getElementById('fuzz-round-badge').textContent = `Round ${fuzzRound} / 60`;
-      document.getElementById('fuzz-guided-badge').textContent = `Guided NBC: ${curG.toFixed(1)}% · Bugs: ${fuzzGuidedBugs}`;
-      document.getElementById('fuzz-random-badge').textContent = `Random NBC: ${curR.toFixed(1)}% · Bugs: ${fuzzRandomBugs}`;
-      document.getElementById('q-size-badge').textContent = `|Q| = ${fuzzQueue.length}`;
+      document.getElementById('fuzz-round-badge').textContent = `第 ${fuzzRound} / 60 轮`;
+      document.getElementById('fuzz-guided-badge').textContent = `有引导 NBC: ${curG.toFixed(1)}% · 抓到 ${fuzzGuidedBugs} 个 Bug`;
+      document.getElementById('fuzz-random-badge').textContent = `纯随机 NBC: ${curR.toFixed(1)}% · 抓到 ${fuzzRandomBugs} 个 Bug`;
+      document.getElementById('q-size-badge').textContent = `共 ${fuzzQueue.length} 题`;
 
       const chips = document.getElementById('queue-chips');
       chips.innerHTML = fuzzQueue.map(s => {
         const cls = s.depth >= 3 ? 'd3' : (s.depth === 2 ? 'd2' : (s.depth === 1 ? 'd1' : ''));
-        return `<span class="seed-chip ${cls}" title="被选中 ${s.picked} 次">${s.id} · d=${s.depth}</span>`;
+        return `<span class="seed-chip ${cls}" title="已抽取 ${s.picked} 次">${s.id} · d=${s.depth}</span>`;
       }).join('');
-
       drawFuzzChart();
     }
 
@@ -2809,13 +2733,10 @@
         out += `<text x="${padL - 7}" y="${y + 4}" text-anchor="end" font-size="10.5" font-family="var(--font-mono)" fill="var(--muted)">${tick}%</text>`;
       }
       for (let t = 0; t <= maxX; t += Math.ceil(maxX / 5)) {
-        const x = xOf(t);
-        out += `<text x="${x}" y="${H - 8}" text-anchor="middle" font-size="10.5" font-family="var(--font-mono)" fill="var(--muted)">R${t}</text>`;
+        out += `<text x="${xOf(t)}" y="${H - 8}" text-anchor="middle" font-size="10.5" font-family="var(--font-mono)" fill="var(--muted)">第${t}轮</text>`;
       }
-
       const toPoints = arr => arr.map((v, i) => `${xOf(i).toFixed(1)},${yOf(v).toFixed(1)}`).join(' ');
       if (fuzzGuidedHist.length > 1) {
-        // Area under guided
         const areaPts = `${xOf(0)},${yOf(0)} ${toPoints(fuzzGuidedHist)} ${xOf(fuzzGuidedHist.length - 1)},${yOf(0)}`;
         out += `<polygon points="${areaPts}" fill="var(--accent)" fill-opacity="0.12"/>`;
         out += `<polyline fill="none" stroke="var(--amber)" stroke-width="2" stroke-dasharray="6 4" points="${toPoints(fuzzRandomHist)}"/>`;
@@ -2833,17 +2754,14 @@
     document.getElementById('fuzz-auto').addEventListener('click', () => {
       const btn = document.getElementById('fuzz-auto');
       if (fuzzTimer) {
-        clearInterval(fuzzTimer);
-        fuzzTimer = null;
-        btn.textContent = '自动运行';
+        clearInterval(fuzzTimer); fuzzTimer = null; btn.textContent = '自动连续跑';
       } else {
         if (fuzzRound >= 60) resetFuzz();
         btn.textContent = '暂停';
-        fuzzTimer = setInterval(() => stepFuzz(true), 240);
+        fuzzTimer = setInterval(() => stepFuzz(true), 260);
       }
     });
     resetFuzz();
-    // Run 8 starter steps so curve is immediately meaningful
     for (let i = 0; i < 8; i++) stepFuzz(false);
 
     /* ============================================================

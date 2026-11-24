@@ -3,7 +3,7 @@
     "image": "images/ai-testing-lab-cover.svg",
     "title": "AI Testing 交互实验室",
     "category": "Interactive",
-    "description": "东京大学 Trustworthy AI 课程交互演示：对比传统规则与 LeNet-5 激活模式，动手玩 DeepGauge 神经元边界覆盖率（NBC）、DeepHunter 8 种蜕变变异与覆盖率引导模糊测试闭环。",
+    "description": "用「神经元体温计 + 驾校考官」的通俗比喻讲懂 AI 测试：动手体验传统硬规则 vs LeNet-5、DeepGauge 边界覆盖率（NBC）、DeepHunter 换马甲变异与覆盖率引导找 Bug 闭环。",
     "link": "ai-testing-lab.html",
     "card_label": "Open Lab →",
     "detail_label": "Open interactive lab →",
