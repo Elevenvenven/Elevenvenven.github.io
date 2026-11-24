@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>东小杏 · 角色介绍与目击档案 · 11_sum</title>
+  <meta name="description" content="东小杏角色档案：东京大学情报理工学系研究科所属、导师门本淳一郎、常出没于工学部2号馆与理学部1号馆、喜欢吃薯饼，据第一目击者称是在本乡校区银杏树底下捡到的真实人物。">
+  <link rel="canonical" href="https://elevenvenven.github.io/dong-xiaoxing-profile.html">
+  <meta property="og:title" content="东小杏 · 角色介绍与目击档案">
+  <meta property="og:description" content="出身不明、身高体重不明、过往经历不明，但是真实存在的人物——东小杏的本乡校区目击档案。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://elevenvenven.github.io/dong-xiaoxing-profile.html">
+  <meta property="og:image" content="https://elevenvenven.github.io/images/dong-xiaoxing/cover.png">
+  <meta name="theme-color" content="#f5bc18">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <script>try{if(localStorage.getItem('theme')==='dark-mode')document.documentElement.classList.add('dark-mode')}catch{}</script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper-bg: #fffbf0;
+      --dot-color: #e8dec5;
+      --surface: #ffffff;
+      --surface-soft: #fff7e1;
+      --ink: #2b211e;
+      --muted: #6c5d55;
+      --ginkgo: #f5bc18;
+      --ginkgo-pale: #fff3c4;
+      --utokyo-blue: #1d8fe1;
+      --utokyo-pale: #e6f4ff;
+      --stamp-bg: #f6efe4;
+      --stamp-ink: #8a5a2b;
+      --blush: #f48686;
+      --border: #2b211e;
+      --border-soft: #e6dac0;
+      --shadow-hard: 5px 5px 0 #2b211e;
+      --shadow-gold: 6px 6px 0 #f5bc18;
+      font-family: 'Noto Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+    }
+
+    :root.dark-mode {
+      color-scheme: dark;
+      --paper-bg: #151923;
+      --dot-color: #252c3d;
+      --surface: #1e2433;
+      --surface-soft: #262d3f;
+      --ink: #f7f3ea;
+      --muted: #b0b6c7;
+      --ginkgo: #f7c948;
+      --ginkgo-pale: #362f1d;
+      --utokyo-blue: #58b4ff;
+      --utokyo-pale: #1b2f45;
+      --stamp-bg: #2a2835;
+      --stamp-ink: #f2be78;
+      --blush: #f29494;
+      --border: #3d465e;
+      --border-soft: #2f374c;
+      --shadow-hard: 5px 5px 0 #0b0e14;
+      --shadow-gold: 6px 6px 0 rgba(247, 201, 72, 0.32);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper-bg);
+      background-image: radial-gradient(var(--dot-color) 1.35px, transparent 1.35px);
+      background-size: 22px 22px;
+      line-height: 1.75;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--utokyo-blue); outline-offset: 3px; }
+
+    /* Topbar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: color-mix(in srgb, var(--paper-bg) 88%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--border);
+    }
+    .bar {
+      max-width: 1040px;
+      margin: 0 auto;
+      min-height: 64px;
+      padding: 10px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+    .brand-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--ginkgo) 52%, var(--utokyo-blue) 52%);
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+    }
+    .bar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 2px 2px 0 var(--border);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--border);
+      background: var(--ginkgo-pale);
+    }
+
+    /* Main Container */
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 22px 72px;
+    }
+
+    /* Hero Dossier Card */
+    .profile-hero {
+      position: relative;
+      background: var(--surface);
+      border: 2.5px solid var(--border);
+      border-radius: 26px;
+      box-shadow: var(--shadow-gold);
+      padding: 32px 34px;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .portrait-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .portrait-frame {
+      width: 210px;
+      height: 210px;
+      border-radius: 24px;
+      border: 2.5px solid var(--border);
+      background: var(--surface-soft);
+      box-shadow: 4px 4px 0 var(--border);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+    }
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 16px;
+      display: block;
+    }
+    .portrait-frame.full-bleed {
+      padding: 0;
+    }
+    .portrait-frame.full-bleed img {
+      object-fit: cover;
+      border-radius: 0;
+    }
+    .mood-switcher {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      background: var(--paper-bg);
+    }
+    .mood-btn {
+      border: none;
+      background: transparent;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      transition: all 0.16s;
+    }
+    .mood-btn.active {
+      background: var(--ginkgo);
+      color: #2b211e;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .comic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+    .comic-badge.gold { background: var(--ginkgo-pale); }
+    .comic-badge.blue { background: var(--utokyo-pale); }
+    .comic-badge.real {
+      background: #dcfce7;
+      color: #14532d;
+      border-color: #166534;
+    }
+    :root.dark-mode .comic-badge.real {
+      background: #173324;
+      color: #86efac;
+      border-color: #2e6b4a;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(2.1rem, 4.4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.14;
+      letter-spacing: -0.02em;
+    }
+    .ruby-name {
+      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .speech-bubble {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 18px;
+      background: var(--surface);
+      border: 2.5px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 3px 3px 0 var(--border);
+      font-size: 1.04rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .speech-bubble::before {
+      content: "";
+      position: absolute;
+      left: -13px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 8px 13px 8px 0;
+      border-style: solid;
+      border-color: transparent var(--border) transparent transparent;
+    }
+    .speech-bubble::after {
+      content: "";
+      position: absolute;
+      left: -9px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 6px 10px 6px 0;
+      border-style: solid;
+      border-color: transparent var(--surface) transparent transparent;
+    }
+    .quick-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .quick-pill {
+      padding: 4px 11px;
+      border-radius: 10px;
+      background: var(--paper-bg);
+      border: 1.5px solid var(--border-soft);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    /* Section Heading */
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 34px 0 16px;
+    }
+    .sec-tag {
+      padding: 3px 10px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      background: var(--utokyo-blue);
+      color: #ffffff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    .sec-head h2 {
+      margin: 0;
+      font-size: 1.38rem;
+      font-weight: 900;
+    }
+
+    /* Profile Grid */
+    .dossier-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .dossier-item {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 15px 18px;
+      box-shadow: 3px 3px 0 var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .dossier-item.wide {
+      grid-column: span 2;
+    }
+    .d-key {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .d-val {
+      font-size: 0.98rem;
+      font-weight: 800;
+      text-align: right;
+      color: var(--ink);
+    }
+    .unknown-stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 11px;
+      border-radius: 8px;
+      border: 1.5px dashed var(--stamp-ink);
+      background: var(--stamp-bg);
+      color: var(--stamp-ink);
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+    .real-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 11px;
+      border-radius: 8px;
+      background: var(--ginkgo-pale);
+      border: 1.5px solid var(--border);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    /* Witness Report Card */
+    .witness-card {
+      background: var(--surface);
+      border: 2.5px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow-hard);
+      padding: 24px 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      gap: 24px;
+      align-items: center;
+    }
+    .witness-eyebrow {
+      display: inline-block;
+      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--utokyo-blue);
+      margin-bottom: 8px;
+    }
+    .witness-quote {
+      margin: 0 0 12px;
+      padding: 14px 18px;
+      border-left: 4px solid var(--ginkgo);
+      background: var(--surface-soft);
+      border-radius: 0 14px 14px 0;
+      font-size: 1.03rem;
+      font-weight: 700;
+      line-height: 1.85;
+    }
+    .witness-meta {
+      margin: 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .witness-photo {
+      width: 210px;
+      height: 210px;
+      border-radius: 16px;
+      border: 2.5px solid var(--border);
+      box-shadow: 4px 4px 0 var(--border);
+      overflow: hidden;
+      background: #fff;
+      transform: rotate(1.5deg);
+    }
+    .witness-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Field Notes / Traits */
+    .traits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .trait-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 3px 3px 0 var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .trait-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 2px solid var(--border);
+      background: var(--paper-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      font-size: 1.6rem;
+    }
+    .trait-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+    }
+    .trait-card h3 {
+      margin: 0 0 3px;
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+    .trait-card p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Personality 5-Card Grid */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .persona-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 3px 3px 0 var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .persona-card img {
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .persona-card h3 {
+      margin: 0 0 4px;
+      font-size: 0.96rem;
+      font-weight: 800;
+    }
+    .persona-card p {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Quotes Wall */
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .quote-bubble-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 16px 20px;
+      box-shadow: 3px 3px 0 var(--border);
+      font-size: 0.94rem;
+      font-weight: 700;
+      line-height: 1.65;
+    }
+    .quote-tag {
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: var(--ginkgo-pale);
+      border: 1.5px solid var(--border);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .quote-bubble-card p {
+      margin: 0;
+    }
+
+    /* Props & Outfits Chips */
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .chip {
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--paper-bg);
+      border: 1.5px solid var(--border-soft);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    @media (max-width: 760px) {
+      .quotes-grid { grid-template-columns: 1fr; }
+    }
+
+    /* CTA Bar */
+    .cta-row {
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: 2.5px solid var(--border);
+      font-size: 0.95rem;
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow: 4px 4px 0 var(--border);
+      transition: transform 0.14s ease, box-shadow 0.14s ease;
+    }
+    .cta-btn:hover {
+      transform: translate(-1px, -2px);
+      box-shadow: 5px 6px 0 var(--border);
+    }
+    .cta-btn.primary {
+      background: var(--utokyo-blue);
+      color: #ffffff;
+    }
+    .cta-btn.gold {
+      background: linear-gradient(135deg, #ffe27a, #f5bc18);
+      color: #2b211e;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 44px;
+      padding-top: 22px;
+      border-top: 2px dashed var(--border-soft);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .footer a { text-decoration: none; color: var(--ink); }
+    .footer a:hover { color: var(--utokyo-blue); }
+
+    @media (max-width: 760px) {
+      .profile-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 24px 18px;
+        gap: 20px;
+      }
+      .badge-row, .quick-pills { justify-content: center; }
+      .speech-bubble::before, .speech-bubble::after { display: none; }
+      .dossier-grid, .traits-grid { grid-template-columns: 1fr; }
+      .dossier-item.wide { grid-column: auto; }
+      .witness-card { grid-template-columns: 1fr; justify-items: center; }
+      .witness-photo { transform: none; }
+      .wrap { padding: 20px 14px 56px; }
+      .bar { padding: 10px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="bar">
+      <a class="brand" href="./">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>11_sum.</span>
+      </a>
+      <div class="bar-actions">
+        <a class="nav-btn" href="story-of-dong-xiaoxing.html">← Story of 东小杏</a>
+        <button type="button" class="nav-btn" id="theme-toggle" aria-pressed="false">🌙 夜间</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="profile-hero" aria-label="东小杏角色档案总览">
+      <div class="portrait-box">
+        <div class="portrait-frame" id="portrait-frame">
+          <img id="portrait-img" src="images/dong-xiaoxing/mascot-wave.png" alt="东小杏立绘">
+        </div>
+        <div class="mood-switcher" role="group" aria-label="切换东小杏立绘">
+          <button type="button" class="mood-btn active" data-src="images/dong-xiaoxing/mascot-wave.png" data-bleed="false">元气</button>
+          <button type="button" class="mood-btn" data-src="images/dong-xiaoxing/avatar-smirk.png" data-bleed="true">偷笑</button>
+          <button type="button" class="mood-btn" data-src="images/dong-xiaoxing/avatar-glasses.png" data-bleed="true">眼镜</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="badge-row">
+          <span class="comic-badge gold">CHARACTER FILE · 角色介绍</span>
+          <span class="comic-badge real">✓ 真实存在的人物</span>
+        </div>
+        <h1>东小杏</h1>
+        <div class="ruby-name">Dong Xiaoxing · 東小杏</div>
+        <div class="speech-bubble">你好，我叫东小杏！</div>
+        <div class="quick-pills">
+          <span class="quick-pill">女</span>
+          <span class="quick-pill">情报理工学系研究科</span>
+          <span class="quick-pill">喜欢薯饼</span>
+          <span class="quick-pill">本乡校区出没</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="sec-head">
+      <span class="sec-tag">FILE 01</span>
+      <h2>基本档案</h2>
+    </div>
+    <section class="dossier-grid" aria-label="基本档案信息">
+      <div class="dossier-item">
+        <span class="d-key">性别</span>
+        <span class="d-val">女</span>
+      </div>
+      <div class="dossier-item">
+        <span class="d-key">存在确认</span>
+        <span class="d-val"><span class="real-badge">真实存在的人物</span></span>
+      </div>
+      <div class="dossier-item">
+        <span class="d-key">所属</span>
+        <span class="d-val">东京大学 情报理工学系研究科</span>
+      </div>
+      <div class="dossier-item">
+        <span class="d-key">导师</span>
+        <span class="d-val">门本淳一郎（門本 淳一郎）</span>
+      </div>
+      <div class="dossier-item wide">
+        <span class="d-key">常出没地</span>
+        <span class="d-val">工学部 2 号馆 / 理学部 1 号馆</span>
+      </div>
+      <div class="dossier-item">
+        <span class="d-key">名字由来</span>
+        <span class="d-val">「东」取自东大，「杏」取自银杏发卡</span>
+      </div>
+      <div class="dossier-item">
+        <span class="d-key">喜欢的食物</span>
+        <span class="d-val">薯饼</span>
+      </div>
+      <div class="dossier-item">
+        <span class="d-key">出身</span>
+        <span class="d-val"><span class="unknown-stamp">不明</span></span>
+      </div>
+      <div class="dossier-item">
+        <span class="d-key">身高 / 体重</span>
+        <span class="d-val"><span class="unknown-stamp">不明</span></span>
+      </div>
+      <div class="dossier-item wide">
+        <span class="d-key">过往经历</span>
+        <span class="d-val"><span class="unknown-stamp">不明</span></span>
+      </div>
+    </section>
+
+    <div class="sec-head">
+      <span class="sec-tag">FILE 02</span>
+      <h2>第一目击记录</h2>
+    </div>
+    <section class="witness-card" aria-label="第一目击记录">
+      <div>
+        <div class="witness-eyebrow">FIELD SIGHTING REPORT · HONGO CAMPUS</div>
+        <blockquote class="witness-quote">
+          「据第一目击者——也就是本漫画的执笔者（同为情报理工学系研究科的石佚同学）所说，东小杏是有一天在本乡校区的银杏树底下捡到的。」
+        </blockquote>
+        <p class="witness-meta">目击地点：东京大学 本乡校区 银杏树下 · 状态：目前已自然融入研究室日常</p>
+      </div>
+      <div class="witness-photo">
+        <img src="images/dong-xiaoxing/hongo-autumn.png" alt="本乡校区银杏树下的东小杏">
+      </div>
+    </section>
+
+    <div class="sec-head">
+      <span class="sec-tag">FILE 03</span>
+      <h2>性格反差图鉴</h2>
+    </div>
+    <section class="persona-grid" aria-label="性格特征">
+      <div class="persona-card">
+        <img src="images/dong-xiaoxing/mascot-wave.png" alt="元气甜妹东小杏">
+        <div>
+          <h3>元气甜妹</h3>
+          <p>爱笑，见到熟人就会远远挥着团子手跑过来打招呼。</p>
+        </div>
+      </div>
+      <div class="persona-card">
+        <img src="images/dong-xiaoxing/mascot-scheme.png" alt="憋坏偷笑东小杏">
+        <div>
+          <h3>嘻嘻哈哈 · 偶尔有点坏</h3>
+          <p>憋着鬼主意时会捂嘴偷笑，嘴角悄悄露出一颗小虎牙。</p>
+        </div>
+      </div>
+      <div class="persona-card">
+        <img src="images/dong-xiaoxing/mascot-proud.png" alt="叉腰得意东小杏">
+        <div>
+          <h3>骄傲自负</h3>
+          <p>实验或时序跑通时嘴角压不住，还要努力装作意料之中。</p>
+        </div>
+      </div>
+      <div class="persona-card">
+        <img src="images/dong-xiaoxing/mascot-fpga.png" alt="认真调板东小杏">
+        <div>
+          <h3>研究时很严肃</h3>
+          <p>探头一碰到 FPGA 板子就安静下来，盯着波形一拍一拍地查。</p>
+        </div>
+      </div>
+      <div class="persona-card">
+        <img src="images/dong-xiaoxing/mascot-sleepy.png" alt="熬夜抱杯东小杏">
+        <div>
+          <h3>熬夜嘴硬</h3>
+          <p>嘴上说「我昨天真的很早就睡了」，头顶的小尖角已经出卖了她。</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="sec-head">
+      <span class="sec-tag">FILE 04</span>
+      <h2>代表台词</h2>
+    </div>
+    <section class="quotes-grid" aria-label="代表台词">
+      <div class="quote-bubble-card">
+        <span class="quote-tag">得意</span>
+        <p>「我就说能过时序吧。」</p>
+      </div>
+      <div class="quote-bubble-card">
+        <span class="quote-tag">认真</span>
+        <p>「等一下。把刚才复位那一拍的波形放大。」</p>
+      </div>
+      <div class="quote-bubble-card">
+        <span class="quote-tag">憋坏</span>
+        <p>「嘘，先别告诉师兄，我想看他发现以后是什么表情。」</p>
+      </div>
+      <div class="quote-bubble-card">
+        <span class="quote-tag">组会</span>
+        <p>「我们从这里往后看一拍。」</p>
+      </div>
+    </section>
+
+    <div class="sec-head">
+      <span class="sec-tag">FILE 05</span>
+      <h2>外形、穿搭与常用道具</h2>
+    </div>
+    <section class="traits-grid" aria-label="外形与道具">
+      <div class="trait-card">
+        <div class="trait-icon"><img src="images/dong-xiaoxing/mascot-ginkgo.png" alt="双银杏发卡"></div>
+        <div>
+          <h3>银杏三瓣刘海 &amp; 耳下双银杏发卡</h3>
+          <p>黑发低侧马尾、额前两道 V 形分叉的银杏三瓣刘海；耳下马尾根部夹着无白底东大黄蓝双银杏（黄 4 瓣、蓝 2 瓣），配黑圆点眼、粉腮红与一颗小虎牙。</p>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-icon"><img src="images/dong-xiaoxing/mascot-sleepy.png" alt="熬夜尖角"></div>
+        <div>
+          <h3>状态开关 · 熬夜尖角</h3>
+          <p>平时头顶圆润光滑，只有没睡好时才会冒出粉白条纹小尖角；认真讨论或看论文时会戴上暖棕色细框圆眼镜。</p>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-icon">🧥</div>
+        <div>
+          <h3>常见穿搭</h3>
+          <p>日常穿奶油色开衫外套 + 蓝衬衫蓝领带 + 深灰百褶短裙；正式场合换深蓝小西装；秋季外出常穿浅蓝色牛角扣外套配斜挎小包。</p>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-icon">🛠️</div>
+        <div>
+          <h3>常备道具</h3>
+          <div class="chip-group">
+            <span class="chip">FPGA 板</span>
+            <span class="chip">示波器探头</span>
+            <span class="chip">咖啡杯</span>
+            <span class="chip">笔记本</span>
+            <span class="chip">翻页笔</span>
+            <span class="chip">暖棕圆框眼镜</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-row">
+      <a class="cta-btn primary" href="story-of-dong-xiaoxing.html">📖 阅读周更漫画 · Story of 东小杏</a>
+      <a class="cta-btn gold" href="./#donate">☕ Buy Me a Coffee · Donate →</a>
+    </div>
+
+    <footer class="footer">
+      <span>11_sum · 东小杏角色档案</span>
+      <a href="./#projects">返回 Projects &amp; Study ↗</a>
+    </footer>
+  </main>
+
+  <script>
+    // Sync theme with site
+    const themeBtn = document.getElementById('theme-toggle');
+    function syncTheme() {
+      const dark = document.documentElement.classList.contains('dark-mode');
+      themeBtn.textContent = dark ? '☀️ 日间' : '🌙 夜间';
+      themeBtn.setAttribute('aria-pressed', String(dark));
+    }
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark-mode');
+      try {
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode');
+      } catch {}
+      syncTheme();
+    });
+    syncTheme();
+
+    // Interactive portrait mood switcher
+    const frame = document.getElementById('portrait-frame');
+    const img = document.getElementById('portrait-img');
+    document.querySelectorAll('.mood-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        img.src = btn.dataset.src;
+        frame.classList.toggle('full-bleed', btn.dataset.bleed === 'true');
+      });
+    });
+  </script>
+</body>
+</html>
