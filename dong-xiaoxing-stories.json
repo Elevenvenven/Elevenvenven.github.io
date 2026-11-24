@@ -1,0 +1,39 @@
+{
+  "series": {
+    "title": "Story of 东小杏",
+    "subtitle": "東小杏の日常四コマ · 东京大学本乡校区周更连载",
+    "schedule": "Weekly · 每周更新",
+    "quote": "「我叫东小杏，是石佚在东大的另一面。叫我小杏就好啦。」",
+    "avatar": "images/dong-xiaoxing/avatar.png",
+    "next_episode_hint": "EP.02 正在绘制构思中，下周见！"
+  },
+  "episodes": [
+    {
+      "id": "ep01",
+      "number": "EP.01",
+      "title": "東小杏の入学式",
+      "title_zh": "东小杏入学记",
+      "date": "2026-11-24",
+      "language": "日本語",
+      "summary": "安田讲堂秋季入学式全记录：在红砖讲堂前自拍、领到学生证、举着 Challengers for Changes 小旗子合影、听交响乐队现场演奏莫扎特、校长致辞与齐唱校歌、走上综合图书馆大红毯阶梯，还惊喜刷到了东大官号精选！",
+      "tags": ["入学式", "安田講堂", "本郷キャンパス", "3 Pages · 12 Panels"],
+      "pages": [
+        {
+          "src": "images/dong-xiaoxing/ep01/page-01.jpg",
+          "label": "Page 1 / 3 · ① 安田講堂へ！",
+          "caption": "安田讲堂前合影 → 亮出学生证 → 举旗大合照 → 仰望玻璃天窗穹顶"
+        },
+        {
+          "src": "images/dong-xiaoxing/ep01/page-02.jpg",
+          "label": "Page 2 / 3 · ② モーツァルトと校歌",
+          "caption": "交响乐队演奏莫扎特 → 校长致辞 → 全体起立齐唱校歌 → 散场台前纪念合影"
+        },
+        {
+          "src": "images/dong-xiaoxing/ep01/page-03.jpg",
+          "label": "Page 3 / 3 · ③ 本郷さんぽ",
+          "caption": "综合图书馆红毯大台阶 → 漫步本乡校园 → 惊现 @utokyo_pr 官号精选 → 研究生生活正式开跑"
+        }
+      ]
+    }
+  ]
+}

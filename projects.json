@@ -1,5 +1,21 @@
 [
   {
+    "image": "images/dong-xiaoxing/cover.png",
+    "title": "Story of 东小杏",
+    "category": "Comic",
+    "description": "东京大学本乡校区周更四格漫画连载：记录研究生「东小杏」的校园日常，从安田讲堂秋季入学式正式开跑！",
+    "link": "story-of-dong-xiaoxing.html",
+    "card_label": "Read Story →",
+    "tech_stack": [
+      "Weekly Comic",
+      "周更连载",
+      "东小杏",
+      "UTokyo",
+      "四格漫画",
+      "本乡校区"
+    ]
+  },
+  {
     "image": "images/ai-testing-lab-cover.svg",
     "title": "AI Testing 交互实验室",
     "category": "Interactive",
