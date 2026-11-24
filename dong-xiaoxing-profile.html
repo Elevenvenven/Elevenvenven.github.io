@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>东小杏 · 角色介绍与目击档案 · 11_sum</title>
-  <meta name="description" content="东小杏（東小杏 / Dong Xiaoxing）角色档案：东京大学情报理工学系研究科所属、导师门本淳一郎、常出没于工学部2号馆与理学部1号馆、喜欢吃薯饼，据第一目击者称是在本乡校区银杏树底下捡到的真实人物。">
+  <meta name="description" content="东小杏（東小杏 / Dong Xiaoxing）角色档案：东京大学情报理工学系研究科所属、导师门本淳一郎、常出没于工学部2号馆、理学部1号馆与中央食堂，喜欢薯饼与抹茶，在计算机科学领域十分天才，据第一目击者称是在本乡校区银杏树底下捡到的真实人物。">
   <link rel="canonical" href="https://elevenvenven.github.io/dong-xiaoxing-profile.html">
   <meta property="og:title" content="东小杏 · Character Profile / キャラ紹介">
   <meta property="og:description" content="你好，我叫东小杏！东京大学本乡校区真实存在的角色档案（中 / 日 / EN）。">
@@ -455,6 +455,16 @@
       font-weight: 700;
       line-height: 1.85;
     }
+    .witness-genius {
+      margin: 0 0 12px;
+      padding: 13px 18px;
+      border-left: 4px solid var(--utokyo-blue);
+      background: var(--utokyo-pale);
+      border-radius: 0 14px 14px 0;
+      font-size: 0.94rem;
+      font-weight: 700;
+      line-height: 1.8;
+    }
     .witness-meta {
       margin: 0;
       font-size: 0.85rem;
@@ -512,34 +522,6 @@
       line-height: 1.55;
     }
 
-    /* Quotes Wall */
-    .quotes-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-    .quote-bubble-card {
-      background: var(--surface);
-      border: 2px solid var(--border);
-      border-radius: 18px;
-      padding: 16px 20px;
-      box-shadow: 3px 3px 0 var(--border);
-      font-size: 0.94rem;
-      font-weight: 700;
-      line-height: 1.65;
-    }
-    .quote-tag {
-      display: inline-block;
-      margin-bottom: 6px;
-      padding: 2px 9px;
-      border-radius: 999px;
-      background: var(--ginkgo-pale);
-      border: 1.5px solid var(--border);
-      font-size: 0.72rem;
-      font-weight: 800;
-    }
-    .quote-bubble-card p { margin: 0; }
-
     /* Field Notes / Traits */
     .traits-grid {
       display: grid;
@@ -585,21 +567,6 @@
       font-size: 0.85rem;
       color: var(--muted);
       line-height: 1.55;
-    }
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 8px;
-    }
-    .chip {
-      padding: 3px 11px;
-      border-radius: 999px;
-      background: var(--paper-bg);
-      border: 1.5px solid var(--border-soft);
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--ink);
     }
 
     /* CTA Bar */
@@ -656,7 +623,7 @@
       }
       .badge-row, .quick-pills { justify-content: center; }
       .speech-bubble::before, .speech-bubble::after { display: none; }
-      .dossier-grid, .traits-grid, .quotes-grid { grid-template-columns: 1fr; }
+      .dossier-grid, .traits-grid { grid-template-columns: 1fr; }
       .dossier-item.wide { grid-column: auto; }
       .witness-card { grid-template-columns: 1fr; justify-items: center; }
       .witness-photo { transform: none; }
@@ -708,7 +675,7 @@
         <div class="quick-pills">
           <span class="quick-pill" data-i18n="pillGender">女</span>
           <span class="quick-pill" data-i18n="pillDept">情报理工学系研究科</span>
-          <span class="quick-pill" data-i18n="pillFood">喜欢薯饼</span>
+          <span class="quick-pill" data-i18n="pillFood">喜欢薯饼 &amp; 抹茶</span>
           <span class="quick-pill" data-i18n="pillPlace">本乡校区出没</span>
         </div>
       </div>
@@ -737,7 +704,7 @@
       </div>
       <div class="dossier-item wide">
         <span class="d-key" data-i18n="kHaunts">常出没地</span>
-        <span class="d-val" data-i18n="vHaunts">工学部 2 号馆 / 理学部 1 号馆</span>
+        <span class="d-val" data-i18n="vHaunts">工学部 2 号馆 / 理学部 1 号馆 / 中央食堂</span>
       </div>
       <div class="dossier-item">
         <span class="d-key" data-i18n="kNameOrigin">名字由来</span>
@@ -745,7 +712,7 @@
       </div>
       <div class="dossier-item">
         <span class="d-key" data-i18n="kFood">喜欢的食物</span>
-        <span class="d-val" data-i18n="vFood">薯饼</span>
+        <span class="d-val" data-i18n="vFood">薯饼 · 抹茶</span>
       </div>
       <div class="dossier-item">
         <span class="d-key" data-i18n="kOrigin">出身</span>
@@ -771,6 +738,9 @@
         <blockquote class="witness-quote" data-i18n="witnessQuote">
           「据第一目击者——也就是本漫画的执笔者（同为情报理工学系研究科的石佚同学）所说，东小杏是有一天在本乡校区的银杏树底下捡到的。」
         </blockquote>
+        <p class="witness-genius" data-i18n="witnessGenius">
+          补充记录：东小杏在计算机科学领域十分天才，仅用一天就通关了东京大学工学序列中难度最大的情报理工研究科的入试。
+        </p>
         <p class="witness-meta" data-i18n="witnessMeta">目击地点：东京大学 本乡校区 银杏树下 · 状态：目前已自然融入研究室日常</p>
       </div>
       <div class="witness-photo">
@@ -780,7 +750,7 @@
 
     <div class="sec-head">
       <span class="sec-tag">FILE 03</span>
-      <h2 data-i18n="sec3">性格反差图鉴</h2>
+      <h2 data-i18n="sec3">性格图鉴</h2>
     </div>
     <section class="persona-grid" aria-label="Personality">
       <div class="persona-card">
@@ -788,6 +758,13 @@
         <div>
           <h3 data-i18n="p1t">元气甜妹</h3>
           <p data-i18n="p1d">爱笑，见到熟人就会远远挥着团子手跑过来打招呼。</p>
+        </div>
+      </div>
+      <div class="persona-card">
+        <img src="images/dong-xiaoxing/mascot-snack.png" alt="">
+        <div>
+          <h3 data-i18n="p6t">慷慨大方</h3>
+          <p data-i18n="p6d">东小杏十分慷慨，经常会给研究室的同学买点心吃。</p>
         </div>
       </div>
       <div class="persona-card">
@@ -822,32 +799,9 @@
 
     <div class="sec-head">
       <span class="sec-tag">FILE 04</span>
-      <h2 data-i18n="sec4">代表台词</h2>
+      <h2 data-i18n="sec4">外形与穿搭偏好</h2>
     </div>
-    <section class="quotes-grid" aria-label="Signature Lines">
-      <div class="quote-bubble-card">
-        <span class="quote-tag" data-i18n="q1tag">得意</span>
-        <p data-i18n="q1text">「我就说能过时序吧。」</p>
-      </div>
-      <div class="quote-bubble-card">
-        <span class="quote-tag" data-i18n="q2tag">认真</span>
-        <p data-i18n="q2text">「等一下。把刚才复位那一拍的波形放大。」</p>
-      </div>
-      <div class="quote-bubble-card">
-        <span class="quote-tag" data-i18n="q3tag">憋坏</span>
-        <p data-i18n="q3text">「嘘，先别告诉师兄，我想看他发现以后是什么表情。」</p>
-      </div>
-      <div class="quote-bubble-card">
-        <span class="quote-tag" data-i18n="q4tag">组会</span>
-        <p data-i18n="q4text">「我们从这里往后看一拍。」</p>
-      </div>
-    </section>
-
-    <div class="sec-head">
-      <span class="sec-tag">FILE 05</span>
-      <h2 data-i18n="sec5">外形、穿搭与常用道具</h2>
-    </div>
-    <section class="traits-grid" aria-label="Appearance and Gear">
+    <section class="traits-grid" aria-label="Appearance and Style">
       <div class="trait-card">
         <div class="trait-icon"><img src="images/dong-xiaoxing/mascot-ginkgo.png" alt=""></div>
         <div>
@@ -870,17 +824,10 @@
         </div>
       </div>
       <div class="trait-card">
-        <div class="trait-icon">🛠️</div>
+        <div class="trait-icon">👗</div>
         <div>
-          <h3 data-i18n="t4t">常备道具</h3>
-          <div class="chip-group">
-            <span class="chip" data-i18n="prop1">FPGA 板</span>
-            <span class="chip" data-i18n="prop2">示波器探头</span>
-            <span class="chip" data-i18n="prop3">咖啡杯</span>
-            <span class="chip" data-i18n="prop4">笔记本</span>
-            <span class="chip" data-i18n="prop5">翻页笔</span>
-            <span class="chip" data-i18n="prop6">暖棕圆框眼镜</span>
-          </div>
+          <h3 data-i18n="t4t">钟爱各式裙装</h3>
+          <p data-i18n="t4d">东小杏喜欢穿各种各样的裙子，无论是经典的深灰百褶短裙，还是随季节与心情换上的不同款式裙装，总能穿出轻快元气的日常感。</p>
         </div>
       </div>
     </section>
@@ -913,7 +860,7 @@
         greeting: '你好，我叫东小杏！',
         pillGender: '女',
         pillDept: '情报理工学系研究科',
-        pillFood: '喜欢薯饼',
+        pillFood: '喜欢薯饼 & 抹茶',
         pillPlace: '本乡校区出没',
         sec1: '基本档案',
         kGender: '性别',
@@ -925,11 +872,11 @@
         kAdvisor: '导师',
         vAdvisor: '门本淳一郎（門本 淳一郎）',
         kHaunts: '常出没地',
-        vHaunts: '工学部 2 号馆 / 理学部 1 号馆',
+        vHaunts: '工学部 2 号馆 / 理学部 1 号馆 / 中央食堂',
         kNameOrigin: '名字由来',
         vNameOrigin: '「东」取自东大，「杏」取自银杏发卡',
         kFood: '喜欢的食物',
-        vFood: '薯饼',
+        vFood: '薯饼 · 抹茶',
         kOrigin: '出身',
         kPast: '过往经历',
         vUnknown: '不明',
@@ -937,10 +884,13 @@
         vMeasurements: '打听女孩子的这类信息是很不礼貌的！',
         sec2: '第一目击记录',
         witnessQuote: '「据第一目击者——也就是本漫画的执笔者（同为情报理工学系研究科的石佚同学）所说，东小杏是有一天在本乡校区的银杏树底下捡到的。」',
+        witnessGenius: '补充记录：东小杏在计算机科学领域十分天才，仅用一天就通关了东京大学工学序列中难度最大的情报理工研究科的入试。',
         witnessMeta: '目击地点：东京大学 本乡校区 银杏树下 · 状态：目前已自然融入研究室日常',
-        sec3: '性格反差图鉴',
+        sec3: '性格图鉴',
         p1t: '元气甜妹',
         p1d: '爱笑，见到熟人就会远远挥着团子手跑过来打招呼。',
+        p6t: '慷慨大方',
+        p6d: '东小杏十分慷慨，经常会给研究室的同学买点心吃。',
         p2t: '嘻嘻哈哈 · 偶尔有点坏',
         p2d: '憋着鬼主意时会捂嘴偷笑，嘴角悄悄露出一颗小虎牙。',
         p3t: '骄傲自负',
@@ -949,29 +899,15 @@
         p4d: '探头一碰到 FPGA 板子就安静下来，盯着波形一拍一拍地查。',
         p5t: '熬夜嘴硬',
         p5d: '嘴上说「我昨天真的很早就睡了」，头顶的小尖角已经出卖了她。',
-        sec4: '代表台词',
-        q1tag: '得意',
-        q1text: '「我就说能过时序吧。」',
-        q2tag: '认真',
-        q2text: '「等一下。把刚才复位那一拍的波形放大。」',
-        q3tag: '憋坏',
-        q3text: '「嘘，先别告诉师兄，我想看他发现以后是什么表情。」',
-        q4tag: '组会',
-        q4text: '「我们从这里往后看一拍。」',
-        sec5: '外形、穿搭与常用道具',
+        sec4: '外形与穿搭偏好',
         t1t: '银杏三瓣刘海 & 耳下双银杏发卡',
         t1d: '黑发低侧马尾、额前两道 V 形分叉的银杏三瓣刘海；耳下马尾根部夹着无白底东大黄蓝双银杏（黄 4 瓣、蓝 2 瓣），配黑圆点眼、粉腮红与一颗小虎牙。',
         t2t: '状态开关 · 熬夜尖角',
         t2d: '平时头顶圆润光滑，只有没睡好时才会冒出粉白条纹小尖角；认真讨论或看论文时会戴上暖棕色细框圆眼镜。',
         t3t: '常见穿搭',
         t3d: '日常穿奶油色开衫外套 + 蓝衬衫蓝领带 + 深灰百褶短裙；正式场合换深蓝小西装；秋季外出常穿浅蓝色牛角扣外套配斜挎小包。',
-        t4t: '常备道具',
-        prop1: 'FPGA 板',
-        prop2: '示波器探头',
-        prop3: '咖啡杯',
-        prop4: '笔记本',
-        prop5: '翻页笔',
-        prop6: '暖棕圆框眼镜',
+        t4t: '钟爱各式裙装',
+        t4d: '东小杏喜欢穿各种各样的裙子，无论是经典的深灰百褶短裙，还是随季节与心情换上的不同款式裙装，总能穿出轻快元气的日常感。',
         ctaComic: '📖 阅读周更漫画 · Story of 东小杏',
         footerLeft: '11_sum · 东小杏角色档案',
         footerRight: '返回 Projects & Study ↗'
@@ -991,7 +927,7 @@
         greeting: 'こんにちは、東小杏です！',
         pillGender: '女性',
         pillDept: '情報理工学系研究科',
-        pillFood: 'ハッシュポテト好き',
+        pillFood: 'ハッシュポテト＆抹茶好き',
         pillPlace: '本郷キャンパス出没',
         sec1: '基本プロフィール',
         kGender: '性別',
@@ -1003,11 +939,11 @@
         kAdvisor: '指導教員',
         vAdvisor: '門本 淳一郎',
         kHaunts: 'よく出没する場所',
-        vHaunts: '工学部2号館 / 理学部1号館',
+        vHaunts: '工学部2号館 / 理学部1号館 / 中央食堂',
         kNameOrigin: '名前の由来',
         vNameOrigin: '「東」は東大、「杏」はイチョウのヘアピンから',
         kFood: '好きな食べ物',
-        vFood: 'ハッシュドポテト',
+        vFood: 'ハッシュドポテト · 抹茶',
         kOrigin: '出身',
         kPast: '過去の経歴',
         vUnknown: '不明',
@@ -1015,10 +951,13 @@
         vMeasurements: '女の子のそういう情報を聞くのはとても失礼ですよ！',
         sec2: '第一目撃記録',
         witnessQuote: '「第一目撃者——すなわち本漫画の執筆者（同じ情報理工学系研究科の石佚さん）によると、ある日、本郷キャンパスのイチョウの木の下で拾われたとのこと。」',
+        witnessGenius: '補足記録：東小杏はコンピュータサイエンス分野で圧倒的な才能を持ち、東京大学の工学系の中でも最難関とされる情報理工学系研究科の入試を、わずか1日で突破した。',
         witnessMeta: '目撃場所：東京大学 本郷キャンパス イチョウ並木付近 · 現状：研究室の日常にすっかり馴染んでいる',
-        sec3: '性格ギャップ図鑑',
+        sec3: '性格図鑑',
         p1t: '元気な甘めガール',
         p1d: 'よく笑い、知り合いを見つけると丸い手を大きく振って駆け寄ってくる。',
+        p6t: '気前がよくて優しい',
+        p6d: '東小杏はとても気前がよく、よく研究室の仲間にお菓子を買ってきて差し入れしてくれる。',
         p2t: 'おちゃめでちょっぴり小悪魔',
         p2d: 'いたずらを企むときは口元を隠してニヤリ。小さな八重歯がちらりとのぞく。',
         p3t: '自信満々・ドヤ顔',
@@ -1027,29 +966,15 @@
         p4d: 'プローブが FPGA ボードに触れた瞬間スイッチが入り、波形を1クロックずつ睨みつける。',
         p5t: '徹夜バレバレ',
         p5d: '「昨日は本当に早く寝たよ？」と言い張るが、頭のてっぺんに生えた小さなツノがすべてを語っている。',
-        sec4: '代表的なセリフ',
-        q1tag: 'ドヤ顔',
-        q1text: '「ほら、タイミング通るって言ったでしょ。」',
-        q2tag: '真剣',
-        q2text: '「ちょっと待って。さっきのリセットの1クロック、波形を拡大して。」',
-        q3tag: 'いたずら',
-        q3text: '「しーっ、先輩にはまだ内緒。気づいたときの顔が見たいんだもん。」',
-        q4tag: 'ゼミ',
-        q4text: '「ここから1サイクル先を見てみよう。」',
-        sec5: '見た目・コーデ・愛用アイテム',
+        sec4: '見た目＆ファッション',
         t1t: '三つ葉イチョウ前髪 & 耳下イチョウヘアピン',
         t1d: '黒の低めサイドポニーに、V字スリット入りの三つ葉イチョウ前髪。耳下の結び目に白地なしの東大黄青イチョウ（黄4葉・青2葉）、黒ドット目と小さな八重歯が目印。',
         t2t: '状態スイッチ · 徹夜ツノ',
         t2d: '普段の頭頂部はまん丸だが、寝不足のときだけピンク縞の小さなツノが出現。論文読みや議論のときは暖色ブラウンの丸メガネをかけることも。',
         t3t: 'いつものコーデ',
         t3d: '普段はクリーム色のカーディガン＋水色シャツ＆青いネクタイ＋濃灰プリーツスカート。式典はネイビーブレザー、秋のお出かけは水色ダッフルコート＋ポシェット。',
-        t4t: '愛用アイテム',
-        prop1: 'FPGA ボード',
-        prop2: 'オシロプローブ',
-        prop3: 'マグカップ',
-        prop4: 'ノート',
-        prop5: 'レーザーポインター',
-        prop6: '茶縁丸メガネ',
+        t4t: 'いろんなスカートが大好き',
+        t4d: '東小杏はいろんなデザインのスカートを履くのが大好き。定番の濃灰プリーツスカートはもちろん、気分や季節に合わせてさまざまなスカートスタイルを楽しんでいる。',
         ctaComic: '📖 毎週連載を読む · Story of 東小杏',
         footerLeft: '11_sum · 東小杏 キャラクターファイル',
         footerRight: 'Projects & Study へ戻る ↗'
@@ -1069,7 +994,7 @@
         greeting: "Hi! I'm Dong Xiaoxing!",
         pillGender: 'Female',
         pillDept: 'Graduate School of IST',
-        pillFood: 'Hash Brown Lover',
+        pillFood: 'Hash Browns & Matcha',
         pillPlace: 'Hongo Campus',
         sec1: 'Basic Profile',
         kGender: 'Gender',
@@ -1081,11 +1006,11 @@
         kAdvisor: 'Advisor',
         vAdvisor: 'Prof. Junichiro Kadomoto',
         kHaunts: 'Frequent Sightings',
-        vHaunts: 'Engineering Bldg. 2 / Science Bldg. 1',
+        vHaunts: 'Engineering Bldg. 2 / Science Bldg. 1 / Central Cafeteria',
         kNameOrigin: 'Name Origin',
         vNameOrigin: '"Dong" for UTokyo, "Xiaoxing" for her ginkgo clip',
         kFood: 'Favorite Food',
-        vFood: 'Hash Browns',
+        vFood: 'Hash Browns & Matcha',
         kOrigin: 'Origin',
         kPast: 'Background',
         vUnknown: 'Unknown',
@@ -1093,10 +1018,13 @@
         vMeasurements: "It's very impolite to ask a girl about that!",
         sec2: 'First-Witness Report',
         witnessQuote: '"According to the first eyewitness — the comic\'s author (Yi Shi, a fellow graduate student in IST) — Dong Xiaoxing was simply found one day beneath a ginkgo tree on Hongo Campus."',
+        witnessGenius: 'Field Note: A genuine prodigy in computer science, Dong Xiaoxing cleared the entrance exam for the Graduate School of Information Science and Technology — widely regarded as the toughest among UTokyo\'s engineering graduate programs — in just a single day.',
         witnessMeta: 'Location: Beneath a ginkgo tree, Hongo Campus, UTokyo · Status: Seamlessly blended into lab life',
-        sec3: 'Personality Contrasts',
+        sec3: 'Personality',
         p1t: 'Bright & Cheerful',
         p1d: 'Always smiling — spots a familiar face from afar and runs over waving her tiny mitten hands.',
+        p6t: 'Super Generous',
+        p6d: 'Dong Xiaoxing is wonderfully generous and often buys snacks and treats for everyone in the lab.',
         p2t: 'Playfully Mischievous',
         p2d: 'Hides a cheeky smirk behind her hand whenever she has a sneaky idea, letting one tiny fang peek out.',
         p3t: 'Adorably Smug',
@@ -1105,29 +1033,15 @@
         p4d: 'The instant an oscilloscope probe touches an FPGA board, she goes quiet and inspects waveforms cycle by cycle.',
         p5t: 'In-Denial Night Owl',
         p5d: 'Insists "I went to bed super early last night," while the little striped horn on her head gives her away immediately.',
-        sec4: 'Signature Lines',
-        q1tag: 'Smug',
-        q1text: '"Told you it would meet timing."',
-        q2tag: 'Focused',
-        q2text: '"Hold on. Zoom in on the waveform right at that reset cycle."',
-        q3tag: 'Mischievous',
-        q3text: '"Shhh, don\'t tell senpai yet — I want to see his face when he notices."',
-        q4tag: 'Lab Meeting',
-        q4text: '"Let\'s look one clock cycle forward from here."',
-        sec5: 'Appearance, Outfits & Gear',
+        sec4: 'Appearance & Style',
         t1t: '3-Lobed Ginkgo Bangs & Double Ginkgo Clip',
         t1d: 'Charcoal-black low side ponytail with 3-lobed ginkgo bangs; clipped below the ear is a frameless yellow-and-blue UTokyo double ginkgo (4 yellow lobes, 2 blue lobes), paired with dot eyes, pink blush, and a tiny fang.',
         t2t: 'State Switch · Sleep-Deprivation Horn',
         t2d: 'Smooth rounded head normally — a tiny peach-and-cream striped horn sprouts ONLY when she stays up late. Occasionally wears warm-brown thin round glasses for serious study.',
         t3t: 'Wardrobe',
         t3d: 'Daily cream cardigan, sky-blue shirt, blue tie, and dark gray pleated skirt; switches to a navy blazer for formal events, or a light-blue duffle coat with a mini crossbody bag in autumn.',
-        t4t: 'Signature Gear',
-        prop1: 'FPGA Board',
-        prop2: 'Scope Probe',
-        prop3: 'Coffee Mug',
-        prop4: 'Notebook',
-        prop5: 'Slide Clicker',
-        prop6: 'Round Glasses',
+        t4t: 'Loves All Kinds of Skirts',
+        t4d: 'Dong Xiaoxing loves wearing all kinds of skirts — from her classic dark-gray pleated skirt to all sorts of playful styles for every mood and season.',
         ctaComic: '📖 Read Weekly Comic · Story of Dong Xiaoxing',
         footerLeft: '11_sum · Dong Xiaoxing Profile',
         footerRight: 'Back to Projects & Study ↗'
