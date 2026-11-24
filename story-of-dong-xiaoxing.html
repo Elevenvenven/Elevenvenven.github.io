@@ -3,606 +3,815 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Story of 东小杏 · 周更四格漫画连载 · 11_sum</title>
-  <meta name="description" content="Story of 东小杏：东京大学情报理工学系研究科研究生「东小杏」的本乡校园日常四格漫画，每周持续更新。">
+  <title>Story of 东小杏 · 周更四格漫画 · 11_sum</title>
+  <meta name="description" content="Story of 东小杏：东京大学本乡校区周更四格漫画连载。">
   <link rel="canonical" href="https://elevenvenven.github.io/story-of-dong-xiaoxing.html">
-  <meta property="og:title" content="Story of 东小杏 · 周更四格漫画连载">
-  <meta property="og:description" content="东京大学本乡校区日常四格漫画，每周更新。从安田讲堂秋季入学式开始，记录研究生生活的小故事。">
+  <meta property="og:title" content="Story of 东小杏 · 周更四格漫画">
+  <meta property="og:description" content="你好，我叫东小杏！东京大学本乡校区日常四格漫画，每周持续更新。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://elevenvenven.github.io/story-of-dong-xiaoxing.html">
   <meta property="og:image" content="https://elevenvenven.github.io/images/dong-xiaoxing/cover.png">
-  <meta name="theme-color" content="#087c75">
+  <meta name="theme-color" content="#f5bc18">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
   <script>try{if(localStorage.getItem('theme')==='dark-mode')document.documentElement.classList.add('dark-mode')}catch{}</script>
   <style>
     :root {
       color-scheme: light;
-      --bg: #f2f7f5;
-      --paper: #ffffff;
-      --ink: #102f2c;
-      --muted: #536b66;
-      --accent: #087c75;
-      --ginkgo: #e5a912;
-      --ginkgo-soft: #fff7df;
-      --utokyo-blue: #1589e6;
-      --line: #d8e5e1;
-      --wash: #e8f3ef;
-      --shadow: 0 12px 32px rgba(16, 47, 44, 0.07);
-      --radius: 16px;
-      font-family: 'Inter', 'Noto Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+      --paper-bg: #fffbf0;
+      --dot-color: #e8dec5;
+      --surface: #ffffff;
+      --surface-soft: #fff6dc;
+      --ink: #2b211e;
+      --muted: #6c5d55;
+      --ginkgo: #f5bc18;
+      --ginkgo-deep: #d69600;
+      --ginkgo-pale: #fff3c4;
+      --utokyo-blue: #1d8fe1;
+      --utokyo-pale: #e6f4ff;
+      --blush: #f48686;
+      --border: #2b211e;
+      --border-soft: #e6dac0;
+      --shadow-hard: 5px 5px 0 #2b211e;
+      --shadow-gold: 6px 6px 0 #f5bc18;
+      --shadow-soft: 0 12px 28px rgba(43, 33, 30, 0.08);
+      font-family: 'Noto Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
     }
+
     :root.dark-mode {
       color-scheme: dark;
-      --bg: #0d1c20;
-      --paper: #142a2e;
-      --ink: #f4fbf9;
-      --muted: #abc1bd;
-      --accent: #72d5c4;
+      --paper-bg: #151923;
+      --dot-color: #252c3d;
+      --surface: #1e2433;
+      --surface-soft: #272d3f;
+      --ink: #f7f3ea;
+      --muted: #b0b6c7;
       --ginkgo: #f7c948;
-      --ginkgo-soft: #2e2a1d;
+      --ginkgo-deep: #ffda6b;
+      --ginkgo-pale: #362f1d;
       --utokyo-blue: #58b4ff;
-      --line: #294449;
-      --wash: #1b3739;
-      --shadow: 0 14px 36px rgba(0, 8, 10, 0.36);
+      --utokyo-pale: #1b2f45;
+      --blush: #f29494;
+      --border: #3d465e;
+      --border-soft: #2f374c;
+      --shadow-hard: 5px 5px 0 #0b0e14;
+      --shadow-gold: 6px 6px 0 rgba(247, 201, 72, 0.32);
+      --shadow-soft: 0 14px 32px rgba(0, 0, 0, 0.36);
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 86px; }
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at 10% 6%, rgba(247, 201, 72, 0.14), transparent 28rem),
-        radial-gradient(circle at 90% 10%, rgba(21, 137, 230, 0.10), transparent 28rem),
-        var(--bg);
       color: var(--ink);
-      line-height: 1.75;
+      background-color: var(--paper-bg);
+      background-image: radial-gradient(var(--dot-color) 1.35px, transparent 1.35px);
+      background-size: 22px 22px;
+      line-height: 1.7;
+      overflow-x: hidden;
       transition: background-color 0.25s ease, color 0.25s ease;
     }
-    :root.dark-mode body {
-      background:
-        radial-gradient(circle at 10% 6%, rgba(247, 201, 72, 0.08), transparent 28rem),
-        radial-gradient(circle at 90% 10%, rgba(88, 180, 255, 0.10), transparent 28rem),
-        var(--bg);
-    }
-
-    a { color: var(--accent); text-underline-offset: 4px; }
+    a { color: inherit; }
     button { font: inherit; color: inherit; cursor: pointer; }
-    a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--utokyo-blue); outline-offset: 3px; }
 
     /* Topbar */
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: color-mix(in srgb, var(--bg) 86%, transparent);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--line);
+      z-index: 30;
+      background: color-mix(in srgb, var(--paper-bg) 88%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--border);
     }
     .bar {
-      max-width: 1120px;
+      max-width: 1080px;
       margin: 0 auto;
-      min-height: 68px;
-      padding: 10px 24px;
+      min-height: 64px;
+      padding: 10px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 14px;
     }
     .brand {
-      font-size: 1.2rem;
-      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
       text-decoration: none;
-      letter-spacing: -0.04em;
-      color: var(--accent);
+      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-dot {
+      display: inline-flex;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--ginkgo) 52%, var(--utokyo-blue) 52%);
+      border: 2px solid var(--border);
+      flex-shrink: 0;
     }
     .bar-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
     }
-    .back {
-      font-size: 0.9rem;
-      text-decoration: none;
-      color: var(--ink);
-      font-weight: 600;
-    }
-    .back:hover { color: var(--accent); }
-    .theme-btn {
-      border: 1px solid var(--line);
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
       border-radius: 999px;
-      background: var(--paper);
-      padding: 7px 14px;
-      font-size: 0.84rem;
-      font-weight: 600;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 2px 2px 0 var(--border);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.2s;
       white-space: nowrap;
-      transition: border-color 0.2s, transform 0.15s;
     }
-    .theme-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .nav-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--border);
+      background: var(--ginkgo-pale);
+    }
+    .nav-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--border);
+    }
     .reading-line {
-      height: 3px;
+      height: 3.5px;
       width: 0;
-      background: linear-gradient(90deg, var(--ginkgo), var(--utokyo-blue), var(--accent));
+      background: linear-gradient(90deg, var(--ginkgo), var(--utokyo-blue));
       position: absolute;
-      bottom: -1px;
+      bottom: -2px;
       left: 0;
     }
 
-    /* Main Container */
+    /* Main Wrap */
     .wrap {
-      max-width: 1040px;
+      max-width: 1020px;
       margin: 0 auto;
-      padding: 0 24px 72px;
+      padding: 32px 22px 72px;
     }
 
-    /* Hero */
-    .hero {
-      padding: 48px 0 32px;
+    /* Hero Comic Banner Card */
+    .hero-card {
+      position: relative;
+      background: var(--surface);
+      border: 2.5px solid var(--border);
+      border-radius: 26px;
+      box-shadow: var(--shadow-gold);
+      padding: 30px 34px;
       display: grid;
-      grid-template-columns: 140px minmax(0, 1fr);
+      grid-template-columns: 196px minmax(0, 1fr);
       gap: 28px;
       align-items: center;
+      overflow: hidden;
+      margin-bottom: 26px;
     }
-    .avatar-ring {
-      width: 140px;
-      height: 140px;
-      border-radius: 28px;
-      padding: 6px;
-      background: linear-gradient(135deg, var(--ginkgo), var(--utokyo-blue));
-      box-shadow: var(--shadow);
-      flex-shrink: 0;
+    .hero-deco {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.85;
     }
-    .avatar-ring img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 22px;
-      display: block;
-      background: #fff7df;
+    .hero-deco-tr { top: -8px; right: 16px; width: 112px; }
+    .hero-deco-bl { bottom: -14px; left: -12px; width: 88px; opacity: 0.55; }
+
+    .mascot-stage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    .eyebrow {
+    .mascot-stage img {
+      width: 184px;
+      height: 184px;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 14px rgba(43, 33, 30, 0.12));
+      animation: gentleBob 3.6s ease-in-out infinite;
+    }
+    .mascot-shadow {
+      width: 108px;
+      height: 14px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--ginkgo) 32%, transparent);
+      margin-top: -10px;
+    }
+    @keyframes gentleBob {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50% { transform: translateY(-7px) rotate(1.5deg); }
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .comic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .comic-badge.gold { background: var(--ginkgo-pale); color: var(--ink); }
+    .comic-badge.blue { background: var(--utokyo-pale); color: var(--ink); }
+
+    h1 {
+      margin: 0 0 14px;
+      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+    .title-accent {
+      position: relative;
+      display: inline-block;
+      z-index: 1;
+    }
+    .title-accent::after {
+      content: "";
+      position: absolute;
+      left: -4px;
+      right: -4px;
+      bottom: 3px;
+      height: 12px;
+      background: color-mix(in srgb, var(--ginkgo) 55%, transparent);
+      border-radius: 6px;
+      z-index: -1;
+    }
+
+    /* Actual Comic Speech Bubble */
+    .speech-bubble {
+      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: var(--ginkgo-soft);
-      border: 1px solid color-mix(in srgb, var(--ginkgo) 42%, transparent);
+      padding: 11px 20px;
+      background: var(--surface);
+      border: 2.5px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 3px 3px 0 var(--border);
+      font-size: 1.08rem;
+      font-weight: 800;
       color: var(--ink);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      margin-bottom: 12px;
     }
-    .eyebrow-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--ginkgo);
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--ginkgo) 26%, transparent);
+    .speech-bubble::before {
+      content: "";
+      position: absolute;
+      left: -13px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 9px 13px 9px 0;
+      border-style: solid;
+      border-color: transparent var(--border) transparent transparent;
     }
-    h1 {
-      margin: 14px 0 8px;
-      font-size: clamp(2rem, 4.4vw, 3.1rem);
-      line-height: 1.16;
-      letter-spacing: -0.03em;
+    .speech-bubble::after {
+      content: "";
+      position: absolute;
+      left: -9px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 7px 11px 7px 0;
+      border-style: solid;
+      border-color: transparent var(--surface) transparent transparent;
     }
-    .subtitle {
-      margin: 0 0 12px;
-      font-size: 1.04rem;
+    .hero-sub {
+      margin: 0;
+      font-size: 0.92rem;
       color: var(--muted);
       font-weight: 600;
     }
-    .quote {
-      margin: 0;
-      padding: 10px 16px;
-      border-left: 3px solid var(--ginkgo);
-      background: var(--paper);
-      border-radius: 0 10px 10px 0;
-      color: var(--muted);
-      font-size: 0.94rem;
-      display: inline-block;
-    }
 
-    /* Control Strip: Episode Picker + View Mode */
-    .control-strip {
+    /* Toolbar */
+    .toolbar {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
-      padding: 16px 20px;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 4px 4px 0 var(--border);
       margin-bottom: 30px;
     }
     .episode-tabs {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
     .ep-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
+      gap: 7px;
+      padding: 7px 14px;
       border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--bg);
-      color: var(--ink);
-      font-size: 0.88rem;
-      font-weight: 700;
+      border: 2px solid var(--border);
+      background: var(--paper-bg);
+      font-size: 0.86rem;
+      font-weight: 800;
       text-decoration: none;
-      transition: all 0.2s ease;
+      transition: transform 0.14s, background-color 0.2s;
     }
-    .ep-pill:hover, .ep-pill.active {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: #ffffff;
-    }
-    :root.dark-mode .ep-pill:hover,
-    :root.dark-mode .ep-pill.active {
-      color: #0b1c1f;
+    .ep-pill:hover { transform: translateY(-1px); background: var(--ginkgo-pale); }
+    .ep-pill.active {
+      background: var(--ginkgo);
+      color: #2b211e;
     }
     .ep-pill.upcoming {
       border-style: dashed;
+      border-color: var(--muted);
       background: transparent;
       color: var(--muted);
-      cursor: default;
       font-weight: 600;
+      cursor: default;
     }
-    .view-toggle {
+    .ep-pill.upcoming:hover { transform: none; background: transparent; }
+
+    .mode-group {
       display: inline-flex;
-      background: var(--bg);
-      border: 1px solid var(--line);
+      background: var(--paper-bg);
+      border: 2px solid var(--border);
       border-radius: 999px;
       padding: 3px;
       gap: 3px;
     }
-    .view-btn {
+    .mode-btn {
       border: none;
       background: transparent;
-      padding: 6px 12px;
+      padding: 6px 13px;
       border-radius: 999px;
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--muted);
-      transition: all 0.2s;
+      transition: all 0.18s;
     }
-    .view-btn.active {
-      background: var(--paper);
-      color: var(--ink);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    .mode-btn.active {
+      background: var(--utokyo-blue);
+      color: #ffffff;
     }
 
-    /* Episode Card */
+    /* Episode Section */
     .episode-block {
-      margin-bottom: 56px;
+      margin-bottom: 52px;
     }
     .episode-head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 18px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--line);
-    }
-    .ep-number {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-    .ep-title {
-      margin: 0;
-      font-size: clamp(1.5rem, 3vw, 2.05rem);
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-    }
-    .ep-title-sub {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--muted);
-      margin-left: 10px;
-    }
-    .ep-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .tag {
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--wash);
-      color: var(--accent);
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-    .ep-date {
-      font-size: 0.84rem;
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-    }
-    .ep-summary {
-      margin: 0 0 26px;
-      color: var(--muted);
-      font-size: 0.98rem;
-      max-width: 820px;
-    }
-
-    /* Comic Pages Stream (Vertical Reader & Grid Mode) */
-    .comic-pages {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-      align-items: center;
-    }
-    .comic-pages.grid-mode {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      align-items: start;
-      gap: 20px;
-    }
-    .page-card {
-      width: 100%;
-      max-width: 760px;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-    .comic-pages.grid-mode .page-card {
-      max-width: none;
-    }
-    .page-card:hover {
-      border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-    }
-    .page-img-btn {
-      display: block;
-      width: 100%;
-      padding: 0;
-      border: none;
-      background: #ffffff;
-      cursor: zoom-in;
-      overflow: hidden;
-    }
-    .page-img-btn img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.25s ease;
-    }
-    .page-card:hover .page-img-btn img {
-      transform: scale(1.008);
-    }
-    .page-foot {
-      padding: 14px 18px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      border-top: 1px solid var(--line);
-      background: var(--paper);
-    }
-    .page-label {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .page-caption {
-      font-size: 0.83rem;
-      color: var(--muted);
-    }
-
-    /* Next Episode Banner */
-    .next-card {
-      margin-top: 24px;
-      padding: 24px 26px;
-      border-radius: var(--radius);
-      border: 1.5px dashed var(--line);
-      background: color-mix(in srgb, var(--paper) 75%, transparent);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .next-card h3 {
-      margin: 0 0 4px;
-      font-size: 1.08rem;
-    }
-    .next-card p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    .next-badge {
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: var(--ginkgo-soft);
-      color: var(--ink);
-      font-size: 0.82rem;
-      font-weight: 700;
-      border: 1px solid color-mix(in srgb, var(--ginkgo) 40%, transparent);
-    }
-
-    /* Footer */
-    .footer {
-      margin-top: 48px;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      color: var(--muted);
-      font-size: 0.85rem;
+      margin-bottom: 22px;
     }
-    .footer a { text-decoration: none; font-weight: 600; }
+    .ep-title-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .ep-num-chip {
+      padding: 4px 12px;
+      border-radius: 10px;
+      background: var(--utokyo-blue);
+      color: #ffffff;
+      border: 2px solid var(--border);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    .ep-title {
+      margin: 0;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .ep-title-sub {
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .ep-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .ep-tag {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1.5px solid var(--border-soft);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .ep-date {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Comic Pages Container: Scroll / Book / Grid */
+    .comic-pages {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      align-items: center;
+    }
+    .comic-pages.mode-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+    .page-frame {
+      position: relative;
+      width: 100%;
+      max-width: 740px;
+      background: #ffffff;
+      border: 2.5px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-hard);
+      overflow: hidden;
+      margin: 0;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .comic-pages.mode-grid .page-frame {
+      max-width: none;
+    }
+    .page-frame:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 var(--border);
+    }
+    .page-img-btn {
+      display: block;
+      width: 100%;
+      border: none;
+      padding: 0;
+      background: #ffffff;
+      cursor: zoom-in;
+    }
+    .page-img-btn img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .page-badge {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(43, 33, 30, 0.78);
+      color: #fffbf0;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .page-frame:hover .page-badge { opacity: 1; }
+
+    /* Book Flip Controls */
+    .book-controls {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .book-controls.visible { display: flex; }
+    .book-btn {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      font-size: 0.88rem;
+      font-weight: 800;
+      box-shadow: 3px 3px 0 var(--border);
+      transition: transform 0.14s, background-color 0.2s;
+    }
+    .book-btn:hover:not(:disabled) {
+      background: var(--ginkgo-pale);
+      transform: translate(-1px, -1px);
+    }
+    .book-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .book-indicator {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 0.96rem;
+      min-width: 72px;
+      text-align: center;
+    }
+
+    /* Episode Cheer Bar */
+    .cheer-bar {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+    }
+    .cheer-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 24px;
+      border-radius: 999px;
+      border: 2.5px solid var(--border);
+      background: var(--ginkgo-pale);
+      color: var(--ink);
+      font-size: 0.94rem;
+      font-weight: 800;
+      box-shadow: 4px 4px 0 var(--border);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.2s;
+    }
+    .cheer-btn:hover {
+      transform: translate(-1px, -2px);
+      box-shadow: 5px 6px 0 var(--border);
+      background: var(--ginkgo);
+      color: #2b211e;
+    }
+    .cheer-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    .cheer-count {
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      color: var(--ink);
+    }
+
+    /* Floating leaf particle */
+    .leaf-pop {
+      position: fixed;
+      pointer-events: none;
+      z-index: 200;
+      width: 24px;
+      height: 24px;
+      transition: transform 0.95s cubic-bezier(0.2, 0.8, 0.3, 1), opacity 0.95s ease;
+    }
+
+    /* Next Episode Banner */
+    .next-banner {
+      margin-top: 32px;
+      padding: 20px 26px;
+      border-radius: 22px;
+      border: 2.5px dashed var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .next-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .next-left img {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .next-left h3 {
+      margin: 0 0 3px;
+      font-size: 1.06rem;
+      font-weight: 800;
+    }
+    .next-left p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .next-pill {
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      background: var(--utokyo-pale);
+      font-size: 0.84rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 44px;
+      padding-top: 22px;
+      border-top: 2px dashed var(--border-soft);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .footer a {
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .footer a:hover { color: var(--utokyo-blue); }
 
     /* Lightbox */
     .lightbox {
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: rgba(8, 16, 19, 0.9);
+      background: rgba(16, 18, 26, 0.92);
       backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 20px;
     }
     .lightbox.open { display: flex; }
     .lb-inner {
-      position: relative;
-      max-width: min(94vw, 960px);
+      max-width: min(94vw, 920px);
       max-height: 92vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .lb-inner img {
       max-width: 100%;
-      max-height: calc(92vh - 70px);
-      border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+      max-height: calc(92vh - 58px);
+      border-radius: 14px;
+      border: 2.5px solid #ffffff;
+      background: #ffffff;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
     }
     .lb-caption {
-      color: #eef6f4;
-      font-size: 0.92rem;
-      text-align: center;
+      color: #f7f3ea;
+      font-size: 0.88rem;
+      font-weight: 700;
     }
-    .lb-close, .lb-nav {
+    .lb-btn {
       position: fixed;
-      border: 1px solid rgba(255,255,255,0.22);
-      background: rgba(15, 28, 32, 0.78);
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      background: rgba(30, 36, 51, 0.82);
       color: #ffffff;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s, transform 0.15s;
+      transition: background-color 0.2s, transform 0.14s;
     }
-    .lb-close:hover, .lb-nav:hover { background: rgba(8, 124, 117, 0.9); }
-    .lb-close {
-      top: 18px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      font-size: 1.5rem;
-    }
-    .lb-nav {
-      top: 50%;
-      transform: translateY(-50%);
-      width: 46px;
-      height: 46px;
-      font-size: 1.3rem;
-    }
+    .lb-btn:hover { background: var(--ginkgo); color: #2b211e; border-color: #2b211e; }
+    .lb-close { top: 18px; right: 20px; width: 44px; height: 44px; font-size: 1.5rem; }
+    .lb-prev, .lb-next { top: 50%; transform: translateY(-50%); width: 46px; height: 46px; font-size: 1.25rem; }
     .lb-prev { left: 18px; }
     .lb-next { right: 18px; }
 
-    @media (max-width: 720px) {
-      .hero {
+    @media (max-width: 820px) {
+      .comic-pages.mode-grid {
         grid-template-columns: 1fr;
-        gap: 18px;
-        padding-top: 30px;
       }
-      .avatar-ring {
-        width: 104px;
-        height: 104px;
-        border-radius: 22px;
+    }
+    @media (max-width: 680px) {
+      .wrap { padding: 20px 14px 56px; }
+      .bar { padding: 10px 14px; }
+      .hero-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 24px 18px;
+        gap: 16px;
       }
-      .avatar-ring img { border-radius: 17px; }
-      .bar { padding: 10px 16px; }
-      .wrap { padding: 0 16px 56px; }
-      .control-strip { padding: 14px; }
-      .lb-nav { top: auto; bottom: 18px; transform: none; }
+      .mascot-stage img { width: 138px; height: 138px; }
+      .badge-row { justify-content: center; }
+      .speech-bubble::before, .speech-bubble::after { display: none; }
+      .toolbar { padding: 12px; }
+      .lb-prev, .lb-next { top: auto; bottom: 18px; transform: none; }
       .lb-prev { left: 24px; }
       .lb-next { right: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .mascot-stage img { animation: none; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="bar">
-      <a class="brand" href="./">11_sum.</a>
+      <a class="brand" href="./">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>11_sum.</span>
+      </a>
       <div class="bar-actions">
-        <a class="back" href="./#projects">← Projects &amp; Study</a>
-        <button type="button" class="theme-btn" id="theme-toggle" aria-pressed="false">切换深色</button>
+        <a class="nav-btn" href="./#projects">← Projects &amp; Study</a>
+        <button type="button" class="nav-btn" id="theme-toggle" aria-pressed="false">🌙 夜间</button>
       </div>
     </div>
     <div class="reading-line" id="reading-line" aria-hidden="true"></div>
   </header>
 
   <main class="wrap">
-    <section class="hero" aria-label="Series Introduction">
-      <div class="avatar-ring">
-        <img id="series-avatar" src="images/dong-xiaoxing/avatar.png" alt="东小杏头像">
+    <section class="hero-card" aria-label="Story of 东小杏">
+      <!-- Subtle ginkgo leaf SVG accents -->
+      <svg class="hero-deco hero-deco-tr" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <path d="M62 96C62 96 60 72 60 66C38 66 20 50 22 26C33 30 43 34 48 44C47 30 53 20 62 14C71 20 77 30 76 44C81 34 91 30 102 26C104 50 86 66 64 66C64 72 65 96 65 96" fill="#FFE68A" stroke="#E5A912" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg class="hero-deco hero-deco-bl" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <path d="M58 92C58 92 59 71 59 66C41 66 26 53 28 33C38 36 46 40 50 48C50 37 55 29 62 24C69 29 74 37 74 48C78 40 86 36 96 33C98 53 83 66 65 66C65 71 64 92 64 92" fill="#D4EDFF" stroke="#1D8FE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      <div class="mascot-stage">
+        <img src="images/dong-xiaoxing/mascot-wave.png" alt="挥手打招呼的东小杏">
+        <div class="mascot-shadow" aria-hidden="true"></div>
       </div>
-      <div>
-        <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span id="series-schedule">WEEKLY · 每周更新</span></div>
-        <h1 id="series-title">Story of 东小杏</h1>
-        <p class="subtitle" id="series-subtitle">東小杏の日常四コマ · 东京大学本乡校区周更连载</p>
-        <p class="quote" id="series-quote">「你好，我叫东小杏！」</p>
+
+      <div class="hero-copy">
+        <div class="badge-row">
+          <span class="comic-badge gold" id="series-schedule">Weekly · 每周更新</span>
+          <span class="comic-badge blue">UTokyo · 本郷キャンパス</span>
+        </div>
+        <h1><span class="title-accent" id="series-title">Story of 东小杏</span></h1>
+        <div class="speech-bubble" id="series-quote">你好，我叫东小杏！</div>
+        <p class="hero-sub" id="series-subtitle">東小杏の日常四コマ · 东京大学本乡校区周更连载</p>
       </div>
     </section>
 
-    <section class="control-strip" aria-label="Episode navigation and view mode">
+    <section class="toolbar" aria-label="章节与阅读模式">
       <div class="episode-tabs" id="episode-tabs"></div>
-      <div class="view-toggle" role="group" aria-label="阅读模式切换">
-        <button type="button" class="view-btn active" data-view="scroll">大图连读</button>
-        <button type="button" class="view-btn" data-view="grid">并排一览</button>
+      <div class="mode-group" role="group" aria-label="阅读模式切换">
+        <button type="button" class="mode-btn active" data-mode="scroll">竖向连读</button>
+        <button type="button" class="mode-btn" data-mode="book">单页翻书</button>
+        <button type="button" class="mode-btn" data-mode="grid">三页并排</button>
       </div>
     </section>
 
     <div id="episodes-container" aria-live="polite"></div>
 
-    <section class="next-card" aria-label="Weekly update notice">
-      <div>
-        <h3>下周继续更新 · Next Episode Coming Soon</h3>
-        <p id="next-hint">EP.02 正在绘制构思中，下周见！</p>
+    <section class="next-banner" aria-label="下周预告">
+      <div class="next-left">
+        <img src="images/dong-xiaoxing/mascot-ginkgo.png" alt="捧着银杏叶的东小杏">
+        <div>
+          <h3>下周继续更新 · Next Episode</h3>
+          <p id="next-hint">EP.02 正在绘制构思中，下周见！</p>
+        </div>
       </div>
-      <span class="next-badge">🍂 Weekly Comic</span>
+      <span class="next-pill">Weekly 4-Koma</span>
     </section>
 
     <footer class="footer">
-      <span>11_sum · Story of 东小杏（周更四格连载）</span>
+      <span>11_sum · Story of 东小杏</span>
       <a href="./#projects">返回 Projects &amp; Study ↗</a>
     </footer>
   </main>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="漫画大图预览">
-    <button type="button" class="lb-close" id="lb-close" aria-label="关闭预览">&times;</button>
-    <button type="button" class="lb-nav lb-prev" id="lb-prev" aria-label="上一页">&#10094;</button>
+    <button type="button" class="lb-btn lb-close" id="lb-close" aria-label="关闭">&times;</button>
+    <button type="button" class="lb-btn lb-prev" id="lb-prev" aria-label="上一页">&#10094;</button>
     <div class="lb-inner">
       <img id="lb-img" src="" alt="">
       <div class="lb-caption" id="lb-caption"></div>
     </div>
-    <button type="button" class="lb-nav lb-next" id="lb-next" aria-label="下一页">&#10095;</button>
+    <button type="button" class="lb-btn lb-next" id="lb-next" aria-label="下一页">&#10095;</button>
   </div>
 
   <script>
-    // Theme toggle synced with main site localStorage key ('theme' = 'dark-mode' | 'light-mode')
+    // Sync theme with homepage ('theme' = 'dark-mode' | 'light-mode')
     const themeBtn = document.getElementById('theme-toggle');
     function syncTheme() {
       const dark = document.documentElement.classList.contains('dark-mode');
-      themeBtn.textContent = dark ? '切换浅色' : '切换深色';
+      themeBtn.textContent = dark ? '☀️ 日间' : '🌙 夜间';
       themeBtn.setAttribute('aria-pressed', String(dark));
     }
     themeBtn.addEventListener('click', () => {
@@ -622,16 +831,16 @@
       readingLine.style.width = pct + '%';
     }, { passive: true });
 
-    // Lightbox state
+    // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
     const lbCaption = document.getElementById('lb-caption');
     let flatPages = [];
-    let currentIdx = 0;
+    let lbIndex = 0;
 
     function openLightbox(idx) {
-      currentIdx = (idx + flatPages.length) % flatPages.length;
-      const item = flatPages[currentIdx];
+      lbIndex = (idx + flatPages.length) % flatPages.length;
+      const item = flatPages[lbIndex];
       lbImg.src = item.src;
       lbImg.alt = item.label;
       lbCaption.textContent = `${item.epNumber} ${item.epTitle} · ${item.label}`;
@@ -643,36 +852,66 @@
       document.body.style.overflow = '';
     }
     document.getElementById('lb-close').addEventListener('click', closeLightbox);
-    document.getElementById('lb-prev').addEventListener('click', () => openLightbox(currentIdx - 1));
-    document.getElementById('lb-next').addEventListener('click', () => openLightbox(currentIdx + 1));
+    document.getElementById('lb-prev').addEventListener('click', () => openLightbox(lbIndex - 1));
+    document.getElementById('lb-next').addEventListener('click', () => openLightbox(lbIndex + 1));
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', (e) => {
       if (!lightbox.classList.contains('open')) return;
       if (e.key === 'Escape') closeLightbox();
-      else if (e.key === 'ArrowLeft') openLightbox(currentIdx - 1);
-      else if (e.key === 'ArrowRight') openLightbox(currentIdx + 1);
+      else if (e.key === 'ArrowLeft') openLightbox(lbIndex - 1);
+      else if (e.key === 'ArrowRight') openLightbox(lbIndex + 1);
     });
 
-    // View mode toggle
-    let currentView = 'scroll';
-    document.querySelectorAll('.view-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        currentView = btn.dataset.view;
-        document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b === btn));
-        document.querySelectorAll('.comic-pages').forEach(el => el.classList.toggle('grid-mode', currentView === 'grid'));
-      });
+    // Floating SVG ginkgo confetti burst on cheer click
+    function burstGinkgo(originEl) {
+      const rect = originEl.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const colors = ['#F5BC18', '#FFD644', '#1D8FE1', '#F48686'];
+      for (let i = 0; i < 10; i++) {
+        const el = document.createElement('div');
+        el.className = 'leaf-pop';
+        const c = colors[i % colors.length];
+        el.innerHTML = `<svg viewBox="0 0 32 32" width="24" height="24"><path d="M16 28V19C9 19 4 14 5 7C9 8 12 10 13 13C13 9 15 6 16 4C17 6 19 9 19 13C20 10 23 8 27 7C28 14 23 19 16 19" fill="${c}" stroke="#2B211E" stroke-width="2" stroke-linejoin="round"/></svg>`;
+        el.style.left = (cx - 12) + 'px';
+        el.style.top = (cy - 12) + 'px';
+        el.style.opacity = '1';
+        document.body.appendChild(el);
+        const angle = (Math.PI * 2 * i) / 10 + (Math.random() - 0.5) * 0.4;
+        const dist = 55 + Math.random() * 65;
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist - 35;
+        const rot = (Math.random() - 0.5) * 220;
+        requestAnimationFrame(() => {
+          el.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(0.85)`;
+          el.style.opacity = '0';
+        });
+        setTimeout(() => el.remove(), 1000);
+      }
+    }
+
+    // View modes: 'scroll' | 'book' | 'grid'
+    let currentMode = 'scroll';
+    const episodeRenderers = [];
+
+    function applyViewMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+      episodeRenderers.forEach(fn => fn());
+    }
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyViewMode(btn.dataset.mode));
     });
 
-    // Load weekly episodes from JSON
-    fetch('dong-xiaoxing-stories.json?v=20261124-ep01-v3')
+    // Load weekly episodes JSON
+    fetch('dong-xiaoxing-stories.json?v=20261124-ep01-v4')
       .then(r => r.json())
       .then(data => {
         if (data.series) {
           document.getElementById('series-title').textContent = data.series.title;
           document.getElementById('series-subtitle').textContent = data.series.subtitle;
           document.getElementById('series-schedule').textContent = data.series.schedule;
-          document.getElementById('series-quote').textContent = data.series.quote;
-          if (data.series.avatar) document.getElementById('series-avatar').src = data.series.avatar;
+          document.getElementById('series-quote').textContent = data.series.quote.replace(/^[「『]|[」』]$/g, '');
           if (data.series.next_episode_hint) document.getElementById('next-hint').textContent = data.series.next_episode_hint;
         }
 
@@ -695,48 +934,96 @@
           section.className = 'episode-block';
           section.id = ep.id;
 
-          const tagsHtml = (ep.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
-          const summaryHtml = ep.summary ? `<p class="ep-summary">${ep.summary}</p>` : '';
+          const tagsHtml = (ep.tags || []).map(t => `<span class="ep-tag">${t}</span>`).join('');
           section.innerHTML = `
             <div class="episode-head">
-              <div>
-                <span class="ep-number">${ep.number} · ${ep.language || 'Comic'}</span>
-                <h2 class="ep-title">${ep.title}${ep.title_zh ? `<span class="ep-title-sub">${ep.title_zh}</span>` : ''}</h2>
+              <div class="ep-title-wrap">
+                <span class="ep-num-chip">${ep.number}</span>
+                <h2 class="ep-title">${ep.title}</h2>
+                ${ep.title_zh ? `<span class="ep-title-sub">${ep.title_zh}</span>` : ''}
               </div>
               <div class="ep-meta">
                 ${tagsHtml}
                 <time class="ep-date" datetime="${ep.date}">${ep.date}</time>
               </div>
             </div>
-            ${summaryHtml}
-            <div class="comic-pages ${currentView === 'grid' ? 'grid-mode' : ''}"></div>
+            <div class="comic-pages"></div>
+            <div class="book-controls">
+              <button type="button" class="book-btn book-prev">◀ 上一页</button>
+              <span class="book-indicator">1 / ${(ep.pages || []).length}</span>
+              <button type="button" class="book-btn book-next">下一页 ▶</button>
+            </div>
+            <div class="cheer-bar">
+              <button type="button" class="cheer-btn">
+                <span>给这一话撒银杏叶</span>
+                <span class="cheer-count">0</span>
+              </button>
+            </div>
           `;
 
           const pagesWrap = section.querySelector('.comic-pages');
-          (ep.pages || []).forEach(pg => {
+          const bookControls = section.querySelector('.book-controls');
+          const prevBtn = section.querySelector('.book-prev');
+          const nextBtn = section.querySelector('.book-next');
+          const indicator = section.querySelector('.book-indicator');
+          const cheerBtn = section.querySelector('.cheer-btn');
+          const cheerCountEl = section.querySelector('.cheer-count');
+
+          const cheerKey = `dx_cheer_${ep.id}`;
+          let cheerCount = 0;
+          try { cheerCount = parseInt(localStorage.getItem(cheerKey) || '0', 10) || 0; } catch {}
+          cheerCountEl.textContent = String(cheerCount);
+          cheerBtn.addEventListener('click', () => {
+            cheerCount += 1;
+            cheerCountEl.textContent = String(cheerCount);
+            try { localStorage.setItem(cheerKey, String(cheerCount)); } catch {}
+            burstGinkgo(cheerBtn);
+          });
+
+          const pageEls = [];
+          let bookPage = 0;
+
+          (ep.pages || []).forEach((pg, pIdx) => {
             const globalIdx = flatPages.length;
             flatPages.push({ ...pg, epNumber: ep.number, epTitle: ep.title });
 
             const fig = document.createElement('figure');
-            fig.className = 'page-card';
-            fig.style.margin = '0';
-            const footHtml = pg.caption
-              ? `<figcaption class="page-foot"><span class="page-label">${pg.label}</span><span class="page-caption">${pg.caption}</span></figcaption>`
-              : '';
+            fig.className = 'page-frame';
             fig.innerHTML = `
               <button type="button" class="page-img-btn" aria-label="点击放大查看 ${pg.label}">
                 <img src="${pg.src}" alt="${ep.title} - ${pg.label}" loading="lazy">
               </button>
-              ${footHtml}
+              <span class="page-badge">${String(pIdx + 1).padStart(2, '0')} / ${String(ep.pages.length).padStart(2, '0')}</span>
             `;
             fig.querySelector('.page-img-btn').addEventListener('click', () => openLightbox(globalIdx));
             pagesWrap.appendChild(fig);
+            pageEls.push(fig);
           });
 
+          function updateEpLayout() {
+            pagesWrap.classList.toggle('mode-grid', currentMode === 'grid');
+            const isBook = currentMode === 'book';
+            bookControls.classList.toggle('visible', isBook && pageEls.length > 1);
+            pageEls.forEach((el, idx) => {
+              el.style.display = (!isBook || idx === bookPage) ? '' : 'none';
+            });
+            indicator.textContent = `${bookPage + 1} / ${pageEls.length}`;
+            prevBtn.disabled = bookPage === 0;
+            nextBtn.disabled = bookPage === pageEls.length - 1;
+          }
+
+          prevBtn.addEventListener('click', () => {
+            if (bookPage > 0) { bookPage -= 1; updateEpLayout(); }
+          });
+          nextBtn.addEventListener('click', () => {
+            if (bookPage < pageEls.length - 1) { bookPage += 1; updateEpLayout(); }
+          });
+
+          episodeRenderers.push(updateEpLayout);
+          updateEpLayout();
           container.appendChild(section);
         });
 
-        // Add subtle next-episode pill
         const nextNum = 'EP.' + String(data.episodes.length + 1).padStart(2, '0');
         const up = document.createElement('span');
         up.className = 'ep-pill upcoming';
@@ -745,7 +1032,7 @@
       })
       .catch(err => {
         document.getElementById('episodes-container').innerHTML =
-          '<p style="color:var(--muted)">连载数据加载失败，请刷新重试。</p>';
+          '<p style="color:var(--muted);text-align:center">连载加载失败，请刷新重试。</p>';
         console.error(err);
       });
   </script>
