@@ -664,7 +664,7 @@
     });
 
     // Load weekly episodes from JSON
-    fetch('dong-xiaoxing-stories.json?v=20261124-ep01')
+    fetch('dong-xiaoxing-stories.json?v=20261124-ep01-v2')
       .then(r => r.json())
       .then(data => {
         if (data.series) {
@@ -696,6 +696,7 @@
           section.id = ep.id;
 
           const tagsHtml = (ep.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+          const summaryHtml = ep.summary ? `<p class="ep-summary">${ep.summary}</p>` : '';
           section.innerHTML = `
             <div class="episode-head">
               <div>
@@ -707,7 +708,7 @@
                 <time class="ep-date" datetime="${ep.date}">${ep.date}</time>
               </div>
             </div>
-            <p class="ep-summary">${ep.summary || ''}</p>
+            ${summaryHtml}
             <div class="comic-pages ${currentView === 'grid' ? 'grid-mode' : ''}"></div>
           `;
 
@@ -719,14 +720,14 @@
             const fig = document.createElement('figure');
             fig.className = 'page-card';
             fig.style.margin = '0';
+            const footHtml = pg.caption
+              ? `<figcaption class="page-foot"><span class="page-label">${pg.label}</span><span class="page-caption">${pg.caption}</span></figcaption>`
+              : '';
             fig.innerHTML = `
               <button type="button" class="page-img-btn" aria-label="点击放大查看 ${pg.label}">
                 <img src="${pg.src}" alt="${ep.title} - ${pg.label}" loading="lazy">
               </button>
-              <figcaption class="page-foot">
-                <span class="page-label">${pg.label}</span>
-                <span class="page-caption">${pg.caption || ''}</span>
-              </figcaption>
+              ${footHtml}
             `;
             fig.querySelector('.page-img-btn').addEventListener('click', () => openLightbox(globalIdx));
             pagesWrap.appendChild(fig);
