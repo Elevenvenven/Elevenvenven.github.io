@@ -597,9 +597,40 @@
     .cta-btn.primary { background: var(--utokyo-blue); color: #ffffff; }
     .cta-btn.gold { background: linear-gradient(135deg, #ffe27a, #f5bc18); color: #2b211e; }
 
+    /* Original Creation Notice */
+    .copyright-card {
+      margin-top: 34px;
+      padding: 18px 22px;
+      border-radius: 18px;
+      border: 2px dashed var(--border-soft);
+      background: var(--surface);
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+    .copyright-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0 0 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .copyright-body {
+      margin: 0 0 8px;
+    }
+    .copyright-meta {
+      margin: 0;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      opacity: 0.92;
+    }
+
     /* Footer */
     .footer {
-      margin-top: 44px;
+      margin-top: 28px;
       padding-top: 22px;
       border-top: 2px dashed var(--border-soft);
       display: flex;
@@ -837,8 +868,21 @@
       <a class="cta-btn gold" href="./#donate">☕ Buy Me a Coffee · Donate →</a>
     </div>
 
+    <section class="copyright-card" aria-label="Original Creation Notice">
+      <div class="copyright-title">
+        <span aria-hidden="true">©</span>
+        <span data-i18n="copyrightTitle">原创声明 · Original Creation Notice</span>
+      </div>
+      <p class="copyright-body" data-i18n="copyrightBody">
+        「东小杏（東小杏 / Dong Xiaoxing）」的角色构思、人设档案、外形设定、四格漫画与相关表情包均由 石佚（Yi Shi / 11_sum，GitHub: @Elevenvenven）本人原创并保留所有权利。未经作者许可，禁止用于商业用途、擅自二次分发或冒名使用；个人非商业分享请注明原作者与出处。
+      </p>
+      <p class="copyright-meta" data-i18n="copyrightMeta">
+        © 2026 石佚 (Yi Shi / 11_sum) · All Rights Reserved · 非任何学校官方形象，仅代表作者个人原创作品
+      </p>
+    </section>
+
     <footer class="footer">
-      <span data-i18n="footerLeft">11_sum · 东小杏角色档案</span>
+      <span data-i18n="footerLeft">© 2026 石佚 (11_sum) · 东小杏角色档案</span>
       <a href="./#projects" data-i18n="footerRight">返回 Projects &amp; Study ↗</a>
     </footer>
   </main>
@@ -909,7 +953,10 @@
         t4t: '钟爱各式裙装',
         t4d: '东小杏喜欢穿各种各样的裙子，无论是经典的深灰百褶短裙，还是随季节与心情换上的不同款式裙装，总能穿出轻快元气的日常感。',
         ctaComic: '📖 阅读周更漫画 · Story of 东小杏',
-        footerLeft: '11_sum · 东小杏角色档案',
+        copyrightTitle: '原创声明 · Original Creation Notice',
+        copyrightBody: '「东小杏（東小杏 / Dong Xiaoxing）」的角色构思、人设档案、外形设定、四格漫画与相关表情包均由 石佚（Yi Shi / 11_sum，GitHub: @Elevenvenven）本人原创并保留所有权利。未经作者许可，禁止用于商业用途、擅自二次分发或冒名使用；个人非商业分享请注明原作者与出处。',
+        copyrightMeta: '© 2026 石佚 (Yi Shi / 11_sum) · All Rights Reserved · 非任何学校官方形象，仅代表作者个人原创作品',
+        footerLeft: '© 2026 石佚 (11_sum) · 东小杏角色档案',
         footerRight: '返回 Projects & Study ↗'
       },
       ja: {
@@ -976,7 +1023,10 @@
         t4t: 'いろんなスカートが大好き',
         t4d: '東小杏はいろんなデザインのスカートを履くのが大好き。定番の濃灰プリーツスカートはもちろん、気分や季節に合わせてさまざまなスカートスタイルを楽しんでいる。',
         ctaComic: '📖 毎週連載を読む · Story of 東小杏',
-        footerLeft: '11_sum · 東小杏 キャラクターファイル',
+        copyrightTitle: 'オリジナル創作・著作権表記 · Original Creation Notice',
+        copyrightBody: 'キャラクター「東小杏（东小杏 / Dong Xiaoxing）」の企画・プロフィール・ビジュアル設定・四コマ漫画・スタンプ等は、すべて 石佚（Yi Shi / 11_sum、GitHub: @Elevenvenven）本人によるオリジナル創作です（All Rights Reserved）。無断での商用利用・再配布・なりすまし利用は禁止いたします。非商用での紹介・共有の際は作者名と出典を明記してください。',
+        copyrightMeta: '© 2026 石佚 (Yi Shi / 11_sum) · All Rights Reserved · 大学公式キャラクターではなく、作者個人のオリジナル創作です',
+        footerLeft: '© 2026 石佚 (11_sum) · 東小杏 キャラクターファイル',
         footerRight: 'Projects & Study へ戻る ↗'
       },
       en: {
@@ -1043,7 +1093,10 @@
         t4t: 'Loves All Kinds of Skirts',
         t4d: 'Dong Xiaoxing loves wearing all kinds of skirts — from her classic dark-gray pleated skirt to all sorts of playful styles for every mood and season.',
         ctaComic: '📖 Read Weekly Comic · Story of Dong Xiaoxing',
-        footerLeft: '11_sum · Dong Xiaoxing Profile',
+        copyrightTitle: 'Original Creation & Copyright Notice',
+        copyrightBody: 'The character "Dong Xiaoxing (东小杏 / 東小杏)" — including her concept, character profile, visual design specifications, 4-koma comics, and stickers — is an original creation by Yi Shi (11_sum / @Elevenvenven). All rights reserved. Commercial use, unauthorized redistribution, or impersonation is prohibited without explicit permission; please credit the creator for non-commercial sharing.',
+        copyrightMeta: '© 2026 Yi Shi (11_sum / @Elevenvenven) · All Rights Reserved · Independent personal creation, not an official university mascot',
+        footerLeft: '© 2026 Yi Shi (11_sum) · Dong Xiaoxing Profile',
         footerRight: 'Back to Projects & Study ↗'
       }
     };
