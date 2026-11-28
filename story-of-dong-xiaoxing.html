@@ -986,10 +986,20 @@
         const k = el.dataset.i18n;
         if (d[k] !== undefined) el.textContent = d[k];
       });
+      document.querySelectorAll('.ep-title').forEach(el => {
+        const nextTitle = el.dataset[lang] || el.dataset.default || '';
+        if (nextTitle) el.textContent = nextTitle;
+      });
+      document.querySelectorAll('.ep-pill[data-num]').forEach(el => {
+        const t = el.dataset[lang] || el.dataset.default || '';
+        el.textContent = `${el.dataset.num} · ${t}`;
+      });
       document.querySelectorAll('.ep-title-sub').forEach(el => {
-        const txt = lang === 'en' ? (el.dataset.en || '') : (lang === 'zh' ? (el.dataset.zh || '') : '');
-        el.textContent = txt;
-        el.style.display = txt ? '' : 'none';
+        const mainTitle = el.dataset['main_' + lang] || el.dataset.default || '';
+        const txt = lang === 'en' ? (el.dataset.en || '') : (lang === 'zh' ? (el.dataset.zh || '') : (el.dataset.ja || ''));
+        const show = txt && txt !== mainTitle;
+        el.textContent = show ? txt : '';
+        el.style.display = show ? '' : 'none';
       });
       document.querySelectorAll('.cheer-label').forEach(el => { el.textContent = d.cheer; });
       document.querySelectorAll('.book-prev').forEach(el => { el.textContent = d.prevPage; });
@@ -1085,7 +1095,7 @@
     });
 
     // Load weekly episodes JSON
-    fetch('dong-xiaoxing-stories.json?v=20261125-ep01-v5')
+    fetch('dong-xiaoxing-stories.json?v=20261128-ep00')
       .then(r => r.json())
       .then(data => {
         if (data.series) {
@@ -1101,6 +1111,11 @@
           const pill = document.createElement('a');
           pill.className = 'ep-pill' + (epIdx === 0 ? ' active' : '');
           pill.href = '#' + ep.id;
+          pill.dataset.num = ep.number;
+          pill.dataset.default = ep.title;
+          if (ep.title_zh) pill.dataset.zh = ep.title_zh;
+          if (ep.title_ja) pill.dataset.ja = ep.title_ja;
+          if (ep.title_en) pill.dataset.en = ep.title_en;
           pill.textContent = `${ep.number} · ${ep.title}`;
           pill.addEventListener('click', () => {
             document.querySelectorAll('.ep-pill:not(.upcoming)').forEach(p => p.classList.remove('active'));
@@ -1113,12 +1128,15 @@
           section.id = ep.id;
 
           const tagsHtml = (ep.tags || []).map(t => `<span class="ep-tag">${t}</span>`).join('');
+          const titleZh = ep.title_zh || ep.title;
+          const titleJa = ep.title_ja || ep.title;
+          const titleEn = ep.title_en || ep.title;
           section.innerHTML = `
             <div class="episode-head">
               <div class="ep-title-wrap">
                 <span class="ep-num-chip">${ep.number}</span>
-                <h2 class="ep-title">${ep.title}</h2>
-                ${(ep.title_zh || ep.title_en) ? `<span class="ep-title-sub" data-zh="${ep.title_zh || ''}" data-en="${ep.title_en || ''}">${ep.title_zh || ''}</span>` : ''}
+                <h2 class="ep-title" data-default="${ep.title}" data-zh="${titleZh}" data-ja="${titleJa}" data-en="${titleEn}">${ep.title}</h2>
+                ${(ep.title_zh || ep.title_en || ep.title_ja) ? `<span class="ep-title-sub" data-zh="${ep.title_zh || ''}" data-ja="${ep.title_ja || ''}" data-en="${ep.title_en || ''}" data-default="${ep.title}" data-main_zh="${titleZh}" data-main_ja="${titleJa}" data-main_en="${titleEn}">${ep.title_zh || ''}</span>` : ''}
               </div>
               <div class="ep-meta">
                 ${tagsHtml}
@@ -1202,7 +1220,8 @@
           container.appendChild(section);
         });
 
-        const nextNum = 'EP.' + String(data.episodes.length + 1).padStart(2, '0');
+        const numberedCount = data.episodes.filter(e => e.number !== 'EP.00').length;
+        const nextNum = 'EP.' + String(numberedCount + 1).padStart(2, '0');
         const up = document.createElement('span');
         up.className = 'ep-pill upcoming';
         up.innerHTML = `${nextNum} · <span class="upcoming-label">下周预告</span>`;

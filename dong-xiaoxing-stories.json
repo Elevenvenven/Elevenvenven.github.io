@@ -9,10 +9,36 @@
   },
   "episodes": [
     {
+      "id": "ep00",
+      "number": "EP.00",
+      "title": "东小杏起源篇",
+      "title_zh": "东小杏起源篇",
+      "title_ja": "東小杏・誕生編",
+      "title_en": "Origin: Beneath the Glowing Ginkgo",
+      "date": "2026-11-28",
+      "language": "中文",
+      "tags": ["起源篇", "银杏发卡", "本郷キャンパス", "3 Pages · 12 Panels"],
+      "pages": [
+        {
+          "src": "images/dong-xiaoxing/ep00/page-01.jpg",
+          "label": "Page 1 / 3"
+        },
+        {
+          "src": "images/dong-xiaoxing/ep00/page-02.jpg",
+          "label": "Page 2 / 3"
+        },
+        {
+          "src": "images/dong-xiaoxing/ep00/page-03.jpg",
+          "label": "Page 3 / 3"
+        }
+      ]
+    },
+    {
       "id": "ep01",
       "number": "EP.01",
       "title": "東小杏の入学式",
       "title_zh": "东小杏入学记",
+      "title_ja": "東小杏の入学式",
       "title_en": "Dong Xiaoxing's Matriculation Ceremony",
       "date": "2026-11-24",
       "language": "日本語",
